@@ -7,7 +7,9 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
 
@@ -35,5 +37,53 @@ public class BlockBackPack extends BlockContainer {
     {
         //TODO: Get TileEntity, get the type of backpack, and drop that...
         return Items.ITEM_BACKPACKBASIC.getItem();
+    }
+    
+    @Override
+    public int getRenderType()
+    {
+    	return TileEntityBackPack.ModelID;
+    }
+    
+    @Override
+    public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_)
+    {
+    	return true;
+    }
+    
+    @Override
+    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
+    {
+    	return false;
+    }
+    
+    @Override
+    public boolean isNormalCube()
+    {
+    	return false;
+    }
+    
+    @Override
+    public boolean isOpaqueCube()
+    {
+    	return false;
+    }
+    
+    @Override
+    public boolean isBlockNormalCube()
+    {
+    	return false;
+    }
+    
+    @Override
+    public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
+    {
+    	return false;
+    }
+    
+    @Override
+    public boolean getCanBlockGrass()
+    {
+    	return false;
     }
 }
