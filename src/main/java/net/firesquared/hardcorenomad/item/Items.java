@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.item;
 
+import net.firesquared.hardcorenomad.creativetab.CreativeTab;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -8,6 +9,10 @@ import net.minecraft.util.StatCollector;
 public enum Items {
     // TODO: Add Items
     // Example ITEM_NAME("item.name", new ItemClass())
+    ITEM_BACKPACKBASIC("item.backpackbasic", new ItemBackPackBasic(0)),
+    ITEM_BACKPACKIMPROVED("item.backpackimproved", new ItemBackPackImproved(0)),
+    ITEM_BACKPACKADVANCED("item.backpackadvanced", new ItemBackPackAdvanced(0)),
+    ITEM_BACKPACKARMORED("item.backpackarmored", new ItemBackPackArmored(0)),
 
     ;
 
@@ -18,7 +23,7 @@ public enum Items {
         this.internalName = internalName;
         this.item = item;
         item.setUnlocalizedName(Reference.MOD_ID + internalName);
-        //item.setCreativeTab() //TODO: Create a Creative Tab for me to use here...
+        item.setCreativeTab(CreativeTab.HardCoreNomadTab);
     }
 
     public String getInternalName() {
