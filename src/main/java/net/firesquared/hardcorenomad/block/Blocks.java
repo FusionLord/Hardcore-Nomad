@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.block;
 
+import net.firesquared.hardcorenomad.creativetab.CreativeTab;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,6 +13,7 @@ public enum Blocks {
     // Format: BLOCK_NAME("Block.Name", new BlockClass(), CreativeTab.TabName)
     // Format: BLOCK_NAME("Block.Name", new BlockClass(), ItemBlock.Class)
     // Format: BLOCK_NAME("Block.Name", new BlockClass(), ItemBlock.Class, CreativeTab.TabName)
+    BLOCK_BACKPACK("block.backpack", new BlockBackPack(), CreativeTab.HardCoreNomadTab),
 
     ;
 
