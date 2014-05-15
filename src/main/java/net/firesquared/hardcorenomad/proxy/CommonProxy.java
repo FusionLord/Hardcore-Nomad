@@ -5,6 +5,7 @@ import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
+import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.world.WorldEvents;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -20,7 +21,7 @@ public abstract class CommonProxy implements IProxy {
 
     // Register TileEntities
     public void registerTileEntities() {
-        
+        GameRegistry.registerTileEntity(TileEntityBackPack.class, "tile.backpack");
     }
 
     // Register Items
