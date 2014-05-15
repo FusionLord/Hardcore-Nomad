@@ -2,7 +2,7 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-            name = "HardcoreNomad"
+            name = "hardcorenomad"
             url = "http://files.minecraftforge.net/maven"
         }
         maven {
