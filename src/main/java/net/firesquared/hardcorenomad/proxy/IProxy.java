@@ -15,4 +15,8 @@ public interface IProxy {
 
 	// Register PlayerEvents
 	public abstract void registerPlayerEvents();
+
+	// Register Packets
+	public abstract void initPacketHandler();
+	public abstract void postInitPacketHandler();
 }

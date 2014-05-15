@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
 public class ItemHealingHerb extends ItemFood {
@@ -24,13 +25,13 @@ public class ItemHealingHerb extends ItemFood {
 	{
 		NBTTagCompound nbtTagCompound = entityPlayer.getEntityData();
 
-		Long healTime = nbtTagCompound.getLong("healTime");
-
-		LogHelper.debug("====> " + healTime);
-
-		if(!entityPlayer.isPotionActive(Potion.invisibility))
-		{
+		if (nbtTagCompound.getInteger("healTime") <= 0) {
 			entityPlayer.setItemInUse(itemStack, getMaxItemUseDuration(itemStack));
+		} else {
+			if (!world.isRemote)
+			{
+				entityPlayer.addChatComponentMessage(new ChatComponentText("You can heal again in " + (nbtTagCompound.getInteger("healTime") / 20 + 1) + " second(s)"));
+			}
 		}
 
 		return itemStack;
@@ -40,15 +41,15 @@ public class ItemHealingHerb extends ItemFood {
 	@Override
 	protected void onFoodEaten(ItemStack itemStack, World world, EntityPlayer entityPlayer)
 	{
-		//if(!world.isRemote)
-		//{
+		if(!world.isRemote)
+		{
 			entityPlayer.setHealth(entityPlayer.getHealth() + 4 < entityPlayer.getMaxHealth() ? entityPlayer.getHealth() + 4 : entityPlayer.getMaxHealth());
 
 			NBTTagCompound nbtTagCompound = entityPlayer.getEntityData();
-			nbtTagCompound.setLong("healTime", 6000);
+			nbtTagCompound.setInteger("healTime", 6000);
 
 			entityPlayer.writeEntityToNBT(nbtTagCompound);
-		//}
+		}
 
 		super.onFoodEaten(itemStack, world, entityPlayer);
 	}
@@ -56,7 +57,7 @@ public class ItemHealingHerb extends ItemFood {
     @Override
     public int getMaxItemUseDuration(ItemStack itemStack)
     {
-        return 10;
+        return 20;
     }
 
 

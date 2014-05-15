@@ -44,11 +44,13 @@ public class HardcoreNomad {
 
         proxy.registerWorldEvents();
 		proxy.registerPlayerEvents();
+
+		proxy.initPacketHandler();
     }
 
     // PostInit Events
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-
+		proxy.postInitPacketHandler();
     }
 }
