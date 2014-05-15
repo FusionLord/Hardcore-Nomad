@@ -7,7 +7,7 @@ public abstract class ItemBackPack extends ItemArmor
 
 	public ItemBackPack(int renderID) 
 	{
-		super(ArmorMaterial.CLOTH, renderID, 3);
+		super(ArmorMaterial.CLOTH, renderID, 1);
 	}
 
 }
