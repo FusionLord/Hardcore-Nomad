@@ -5,6 +5,7 @@ import net.firesquared.hardcorenomad.client.render.RenderBackPack;
 import net.firesquared.hardcorenomad.client.render.RenderBackPackTile;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,6 +14,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy 
 {
+	
 	@Override
 	public void registerItems() 
 	{
@@ -20,4 +22,6 @@ public class ClientProxy extends CommonProxy
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBackPack.class, new RenderBackPackTile());
 		super.registerItems();
 	}
+	
+	
 }
