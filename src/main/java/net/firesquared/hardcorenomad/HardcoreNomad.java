@@ -43,6 +43,7 @@ public class HardcoreNomad {
         proxy.registerTileEntities();
 
         proxy.registerWorldEvents();
+		proxy.registerPlayerEvents();
     }
 
     // PostInit Events

@@ -12,4 +12,7 @@ public interface IProxy {
 
     // Register WorldEvents
     public abstract void registerWorldEvents();
+
+	// Register PlayerEvents
+	public abstract void registerPlayerEvents();
 }
