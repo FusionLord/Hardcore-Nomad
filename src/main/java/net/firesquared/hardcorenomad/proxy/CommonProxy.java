@@ -46,4 +46,15 @@ public abstract class CommonProxy implements IProxy {
 		LogHelper.debug("Registering Player Events");
 		MinecraftForge.EVENT_BUS.register(new PlayerEvents());
 	}
+
+	// Register Packet Handler
+	public void initPacketHandler()
+	{
+		Reference.PACKET_HANDLER.initialise();
+	}
+
+	public void postInitPacketHandler()
+	{
+		Reference.PACKET_HANDLER.postInitialise();
+	}
 }
