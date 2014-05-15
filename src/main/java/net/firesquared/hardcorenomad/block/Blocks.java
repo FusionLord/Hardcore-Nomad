@@ -4,6 +4,7 @@ import net.firesquared.hardcorenomad.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.StatCollector;
 
 public enum Blocks {
     // TODO: Add Blocks Here
@@ -37,5 +38,25 @@ public enum Blocks {
         this.itemBlockClass = itemBlockClass;
         this.creativeTabs = creativeTabs;
         block.setBlockName(Reference.MOD_ID + internalName);
+    }
+
+    public String getInternalName() {
+        return internalName;
+    }
+
+    public String getStatName() {
+        return StatCollector.translateToLocal(block.getUnlocalizedName().replace("tile.", "block."));
+    }
+
+    public Block getBlock() {
+        return block;
+    }
+
+    public Class<? extends ItemBlock> getItemBlockClass() {
+        return itemBlockClass;
+    }
+
+    public CreativeTabs getCreativeTabs() {
+        return creativeTabs;
     }
 }
