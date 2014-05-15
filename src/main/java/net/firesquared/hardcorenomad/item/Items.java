@@ -16,7 +16,7 @@ public enum Items {
     //ITEM_FIREBOW("item.firebow", new ItemFireBow(0.0F, null, null)),
     ITEM_FIREBUNDLE("item.firebundle", new ItemFireBundle()),
     ITEM_HEALINGFIRSTAID("item.healingfirstaid", new ItemHealingFirstAid()),
-    ITEM_HEALINGHERB("item.healingherb", new ItemHealingHerb()),
+    ITEM_HEALINGHERB("item.healingherb", new ItemHealingHerb(2, 1.0F, false)),
     ITEM_HEALINGMAGICALAID("item.healingmagicalaid", new ItemHealingMagicalAid()),
     ;
 
