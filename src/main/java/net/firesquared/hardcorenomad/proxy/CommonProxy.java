@@ -4,6 +4,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.Items;
+import net.firesquared.hardcorenomad.lib.Reference;
+import net.minecraft.item.Item;
 
 public abstract class CommonProxy implements IProxy {
     // Register Blocks
@@ -23,7 +25,9 @@ public abstract class CommonProxy implements IProxy {
     public void registerItems() {
         for (Items item : Items.values()) {
             LogHelper.debug("Registering Item: " + item.getInternalName());
-            GameRegistry.registerItem(item.getItem(), item.getInternalName());
+            Item itemObject = item.getItem();
+            itemObject.setTextureName(Reference.MOD_ID + ":" + itemObject.getUnlocalizedName());
+            GameRegistry.registerItem(itemObject, item.getInternalName());
         }
     }
 }
