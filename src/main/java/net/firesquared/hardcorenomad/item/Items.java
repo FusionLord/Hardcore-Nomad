@@ -13,7 +13,7 @@ public enum Items {
     ITEM_BACKPACKIMPROVED("item.backpackimproved", new ItemBackPackImproved(0)),
     ITEM_BACKPACKADVANCED("item.backpackadvanced", new ItemBackPackAdvanced(0)),
     ITEM_BACKPACKARMORED("item.backpackarmored", new ItemBackPackArmored(0)),
-    ITEM_FIREBOW("item.firebow", new ItemFireBow(0.0F, null, null)),
+    //ITEM_FIREBOW("item.firebow", new ItemFireBow(0.0F, null, null)),
     ITEM_FIREBUNDLE("item.firebundle", new ItemFireBundle()),
     ITEM_HEALINGFIRSTAID("item.healingfirstaid", new ItemHealingFirstAid()),
     ITEM_HEALINGHERB("item.healingherb", new ItemHealingHerb()),
