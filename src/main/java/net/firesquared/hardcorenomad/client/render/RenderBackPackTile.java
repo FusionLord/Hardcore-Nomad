@@ -18,8 +18,8 @@ public class RenderBackPackTile extends TileEntitySpecialRenderer
 		GL11.glPushMatrix();
 		//FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(""));
 		GL11.glTranslated(x, y, z);
-		//GL11.glTranslatef(0, -1.75f, .25f);
-		//GL11.glScalef(.35f, .35f, .35f);
+		GL11.glTranslatef(0.5f, -1.5f, 0.5f);
+		GL11.glScalef(.35f, .35f, .35f);
 		Model.renderAll();
 		GL11.glPopMatrix();
 	}
