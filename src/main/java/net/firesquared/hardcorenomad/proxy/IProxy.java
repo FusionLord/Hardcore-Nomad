@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.proxy;
+package net.firesquared.HardcoreNomad.proxy;
 
 public interface IProxy {
     // Register Blocks

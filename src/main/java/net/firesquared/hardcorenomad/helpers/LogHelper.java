@@ -1,7 +1,7 @@
-package net.firesquared.hardcorenomad.helpers;
+package net.firesquared.HardcoreNomad.helpers;
 
-import net.firesquared.hardcorenomad.HardcoreNomad;
-import net.firesquared.hardcorenomad.lib.Reference;
+import net.firesquared.HardcoreNomad.HardcoreNomad;
+import net.firesquared.HardcoreNomad.lib.Reference;
 import org.apache.logging.log4j.Level;
 
 public class LogHelper {

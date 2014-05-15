@@ -1,12 +1,12 @@
-package net.firesquared.hardcorenomad;
+package net.firesquared.HardcoreNomad;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import net.firesquared.hardcorenomad.lib.Reference;
-import net.firesquared.hardcorenomad.proxy.IProxy;
+import net.firesquared.HardcoreNomad.lib.Reference;
+import net.firesquared.HardcoreNomad.proxy.IProxy;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME)
 public class HardcoreNomad {

@@ -1,6 +1,6 @@
-package net.firesquared.hardcorenomad.item;
+package net.firesquared.HardcoreNomad.item;
 
-import net.firesquared.hardcorenomad.lib.Reference;
+import net.firesquared.HardcoreNomad.lib.Reference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;

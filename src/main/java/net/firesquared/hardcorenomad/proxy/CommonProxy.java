@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.proxy;
+package net.firesquared.HardcoreNomad.proxy;
 
 public abstract class CommonProxy implements IProxy {
     // Register Blocks

@@ -1,6 +1,6 @@
-package net.firesquared.hardcorenomad.block;
+package net.firesquared.HardcoreNomad.block;
 
-import net.firesquared.hardcorenomad.lib.Reference;
+import net.firesquared.HardcoreNomad.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
