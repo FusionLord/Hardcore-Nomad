@@ -1,0 +1,18 @@
+package net.firesquared.hardcorenomad.world;
+
+import com.google.common.eventbus.Subscribe;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.firesquared.hardcorenomad.helpers.LogHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.World;
+import net.minecraftforge.event.world.WorldEvent;
+
+public class WorldEvents {
+    @SubscribeEvent
+    public void worldLoadEvent(WorldEvent.Load event) {
+        LogHelper.debug("World is loading...");
+
+        World world = event.world;
+        world.getWorldInfo().getGameRulesInstance().setOrCreateGameRule("naturalRegeneration", "false");
+    }
+}

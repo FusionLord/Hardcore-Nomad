@@ -5,7 +5,9 @@ import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
+import net.firesquared.hardcorenomad.world.WorldEvents;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
 
 public abstract class CommonProxy implements IProxy {
     // Register Blocks
@@ -29,5 +31,11 @@ public abstract class CommonProxy implements IProxy {
             itemObject.setTextureName(Reference.MOD_ID + ":" + itemObject.getUnlocalizedName());
             GameRegistry.registerItem(itemObject, item.getInternalName());
         }
+    }
+
+    // Register World Events
+    public void registerWorldEvents() {
+        LogHelper.debug("Registering World Event");
+        MinecraftForge.EVENT_BUS.register(new WorldEvents());
     }
 }

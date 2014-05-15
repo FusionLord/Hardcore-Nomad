@@ -1,9 +1,15 @@
 package net.firesquared.hardcorenomad.proxy;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.firesquared.hardcorenomad.helpers.LogHelper;
+import net.firesquared.hardcorenomad.world.WorldEvents;
+import net.minecraftforge.common.MinecraftForge;
 
-@SideOnly(Side.SERVER)
 public class ServerProxy extends CommonProxy {
     // TODO: Server stuff only here
+
+    // Register the World Events
+    //@Override
+    //public void registerWorldEvents() {
+
+    //}
 }

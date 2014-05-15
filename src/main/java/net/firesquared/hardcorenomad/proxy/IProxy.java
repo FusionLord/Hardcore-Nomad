@@ -9,4 +9,7 @@ public interface IProxy {
 
     // Register Items
     public abstract void registerItems();
+
+    // Register WorldEvents
+    public abstract void registerWorldEvents();
 }
