@@ -11,7 +11,7 @@ public enum Blocks {
     // Format: BLOCK_NAME("Block.Name", new BlockClass(), CreativeTab.TabName)
     // Format: BLOCK_NAME("Block.Name", new BlockClass(), ItemBlock.Class)
     // Format: BLOCK_NAME("Block.Name", new BlockClass(), ItemBlock.Class, CreativeTab.TabName)
-    
+
     ;
 
     private final String internalName;
