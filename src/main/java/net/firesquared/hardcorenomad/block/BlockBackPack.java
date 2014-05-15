@@ -1,10 +1,12 @@
 package net.firesquared.hardcorenomad.block;
 
+import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
@@ -43,6 +45,14 @@ public class BlockBackPack extends BlockContainer {
     public int getRenderType()
     {
     	return TileEntityBackPack.ModelID;
+    }
+    
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6,
+    		float par7, float par8, float par9)
+    {
+    	player.openGui(HardcoreNomad.instance, 0, world, x, y, z);
+    	return true;
     }
     
     @Override
