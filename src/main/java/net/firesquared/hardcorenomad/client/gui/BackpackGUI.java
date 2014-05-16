@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class BackpackGUI extends GuiContainer
 {
-	private static final ResourceLocation background = new ResourceLocation("hardcorenomad:assets/gui/backpack.png");
+	private static final ResourceLocation background = new ResourceLocation("hardcorenomad:gui/backpack.png");
 	
 	public BackpackGUI(Container par1Container)
 	{
