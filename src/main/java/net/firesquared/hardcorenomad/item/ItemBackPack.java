@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.item;
 
+import sun.security.jgss.spnego.NegTokenTarg;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.block.Blocks;
@@ -21,6 +22,34 @@ import net.minecraft.world.World;
 public abstract class ItemBackPack extends ItemArmor
 {
 	private Block blockBackPack;
+	
+	protected static void invInitialize(ItemStack bag)
+	{
+		NBTTagCompound invListTag = new NBTTagCompound();
+		bag.stackTagCompound.setTag("Inventory", invListTag);
+	}
+	
+	public static ItemStack invGet(ItemStack bag, int index)
+	{
+		NBTTagCompound invListTag = bag.stackTagCompound.getCompoundTag("Inventory");
+		return ItemStack.loadItemStackFromNBT(invListTag.getCompoundTag(String.valueOf(index)));
+	}
+	
+	public static ItemStack invSet(ItemStack bag, int index, ItemStack is)
+	{
+		NBTTagCompound invListTag = bag.stackTagCompound.getCompoundTag("Inventory");
+		ItemStack is2 = ItemStack.loadItemStackFromNBT(invListTag.getCompoundTag(String.valueOf(index)));
+		is.writeToNBT(invListTag.getCompoundTag(String.valueOf(index)));
+		return is2;
+	}
+	
+	public static ItemStack invRemove(ItemStack bag, int index)
+	{
+		NBTTagCompound invListTag = bag.stackTagCompound.getCompoundTag("Inventory");
+		ItemStack is2 = ItemStack.loadItemStackFromNBT(invListTag.getCompoundTag(String.valueOf(index)));
+		invListTag.removeTag(String.valueOf(index));
+		return is2;
+	}
 
 	public ItemBackPack(int renderID)
 	{
@@ -133,6 +162,7 @@ public abstract class ItemBackPack extends ItemArmor
 	}
 
 	protected abstract int getWeightCap();
+	protected abstract int invSize();
 
 	@Override
 	@SideOnly(Side.CLIENT)

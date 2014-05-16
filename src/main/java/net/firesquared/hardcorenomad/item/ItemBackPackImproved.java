@@ -21,4 +21,11 @@ public class ItemBackPackImproved extends ItemBackPack
 		// TODO Auto-generated method stub
 		return 10;
 	}
+
+	@Override
+	protected int invSize()
+	{
+		// TODO Auto-generated method stub
+		return 12;
+	}
 }
