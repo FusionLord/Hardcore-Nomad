@@ -82,7 +82,6 @@ public abstract class CommonProxy implements IProxy
 	{
 		for(Items item : Items.values())
 		{
-			LogHelper.debug("Registering Item: " + item.getInternalName());
 			ItemStack LootItem = new ItemStack(item.getItem());
 			int Max = item.getDungeonChestMax();
 			int Min = item.getDungeonChestMin();
@@ -90,6 +89,7 @@ public abstract class CommonProxy implements IProxy
 
 			if (Min != 0 && Max != 0)
 			{
+				LogHelper.debug("Registering DungeonLoot: " + item.getInternalName());
 				ChestGenHooks.addItem("dungeonChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
 				ChestGenHooks.addItem("bonusChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
 				ChestGenHooks.addItem("villageBlacksmith", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
