@@ -24,7 +24,7 @@ public class BackpackGUI extends GuiContainer
 		int centY = (height - ySize) / 2;
 		
 		mc.getTextureManager().bindTexture(background);
-		drawTexturedModalRect(centY, centY, 0, 0, 256, ySize);
+		drawTexturedModalRect(centX, centY, 0, 0, 256, ySize);
 	}
 	
 	@Override
