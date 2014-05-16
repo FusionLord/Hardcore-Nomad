@@ -55,7 +55,7 @@ processResources
     }
 }
 
-task deobfJar(type: jar) {
+task deobfJar(type: Jar) {
     from sourceSets.main.output
     appendix = 'deobf'
 }
