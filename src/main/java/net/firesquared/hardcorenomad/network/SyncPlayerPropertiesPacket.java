@@ -13,14 +13,15 @@ public class SyncPlayerPropertiesPacket extends AbstractPacket
 {
 	private NBTTagCompound nbtTagCompound;
 
-	public SyncPlayerPropertiesPacket() {
+	public SyncPlayerPropertiesPacket()
+	{
 
 	}
 
-	public SyncPlayerPropertiesPacket(EntityPlayer player) {
+	public SyncPlayerPropertiesPacket(EntityPlayer player)
+	{
 		nbtTagCompound = player.getEntityData();
 	}
-
 
 	@Override public void encodeInto(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf)
 	{

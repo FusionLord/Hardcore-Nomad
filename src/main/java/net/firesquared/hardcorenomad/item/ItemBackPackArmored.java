@@ -5,7 +5,7 @@ import net.firesquared.hardcorenomad.helpers.BackPackTypes;
 public class ItemBackPackArmored extends ItemBackPack
 {
 
-	public ItemBackPackArmored(int renderID) 
+	public ItemBackPackArmored(int renderID)
 	{
 		super(renderID);
 	}

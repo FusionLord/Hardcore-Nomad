@@ -14,12 +14,13 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 public class PlayerEvents
 {
 	@SubscribeEvent
-	public void onPlayerUpdate(LivingEvent.LivingUpdateEvent event) {
+	public void onPlayerUpdate(LivingEvent.LivingUpdateEvent event)
+	{
 
-		if (event.entity != null)
+		if(event.entity != null)
 		{
 			NBTTagCompound nbtTagCompound = event.entity.getEntityData();
-			if (nbtTagCompound != null)
+			if(nbtTagCompound != null)
 			{
 				if(nbtTagCompound.hasKey("healTime"))
 				{
@@ -37,10 +38,11 @@ public class PlayerEvents
 	}
 
 	@SubscribeEvent
-	public void onPlayerConnects(EntityJoinWorldEvent event) {
-		if (event.entity instanceof EntityPlayer)
+	public void onPlayerConnects(EntityJoinWorldEvent event)
+	{
+		if(event.entity instanceof EntityPlayer)
 		{
-			if (!event.world.isRemote)
+			if(!event.world.isRemote)
 			{
 				Reference.PACKET_HANDLER.sendTo(new SyncPlayerPropertiesPacket((EntityPlayer) event.entity), (EntityPlayerMP) event.entity);
 			}

@@ -12,6 +12,7 @@ import net.minecraftforge.client.model.IModelCustom;
 public class RenderBackPackTile extends TileEntitySpecialRenderer
 {
 	IModelCustom Model = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/Backpack.obj"));
+
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float var8)
 	{
@@ -23,5 +24,5 @@ public class RenderBackPackTile extends TileEntitySpecialRenderer
 		Model.renderAll();
 		GL11.glPopMatrix();
 	}
-	
+
 }

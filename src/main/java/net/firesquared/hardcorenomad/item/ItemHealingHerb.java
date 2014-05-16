@@ -13,24 +13,29 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
-public class ItemHealingHerb extends ItemFood {
+public class ItemHealingHerb extends ItemFood
+{
 
-    public ItemHealingHerb(int healAmount, float saturation, boolean isWolfFavoriteFood)
-    {
-        super(healAmount, saturation, isWolfFavoriteFood);
-    }
+	public ItemHealingHerb(int healAmount, float saturation, boolean isWolfFavoriteFood)
+	{
+		super(healAmount, saturation, isWolfFavoriteFood);
+	}
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer)
 	{
 		NBTTagCompound nbtTagCompound = entityPlayer.getEntityData();
 
-		if (nbtTagCompound.getInteger("healTime") <= 0) {
+		if(nbtTagCompound.getInteger("healTime") <= 0)
+		{
 			entityPlayer.setItemInUse(itemStack, getMaxItemUseDuration(itemStack));
-		} else {
-			if (!world.isRemote)
+		}
+		else
+		{
+			if(!world.isRemote)
 			{
-				entityPlayer.addChatComponentMessage(new ChatComponentText("You can heal again in " + (nbtTagCompound.getInteger("healTime") / 20 + 1) + " second(s)"));
+				entityPlayer.addChatComponentMessage(
+						new ChatComponentText("You can heal again in " + (nbtTagCompound.getInteger("healTime") / 20 + 1) + " second(s)"));
 			}
 		}
 
@@ -54,11 +59,10 @@ public class ItemHealingHerb extends ItemFood {
 		super.onFoodEaten(itemStack, world, entityPlayer);
 	}
 
-    @Override
-    public int getMaxItemUseDuration(ItemStack itemStack)
-    {
-        return 20;
-    }
-
+	@Override
+	public int getMaxItemUseDuration(ItemStack itemStack)
+	{
+		return 20;
+	}
 
 }

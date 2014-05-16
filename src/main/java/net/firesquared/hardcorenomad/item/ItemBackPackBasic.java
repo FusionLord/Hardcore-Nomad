@@ -8,14 +8,14 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 
-public class ItemBackPackBasic extends ItemBackPack 
+public class ItemBackPackBasic extends ItemBackPack
 {
 
-	public ItemBackPackBasic(int renderID) 
+	public ItemBackPackBasic(int renderID)
 	{
 		super(renderID);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot)
@@ -23,7 +23,8 @@ public class ItemBackPackBasic extends ItemBackPack
 		return new RenderBackPackArmor();
 	}
 
-	public BackPackTypes getBackPackType() {
+	public BackPackTypes getBackPackType()
+	{
 		return BackPackTypes.BACKPACK_BASIC;
 	}
 

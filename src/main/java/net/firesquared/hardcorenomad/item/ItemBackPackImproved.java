@@ -10,7 +10,8 @@ public class ItemBackPackImproved extends ItemBackPack
 		super(renderID);
 	}
 
-	public BackPackTypes getBackPackType() {
+	public BackPackTypes getBackPackType()
+	{
 		return BackPackTypes.BACKPACK_IMPROVED;
 	}
 

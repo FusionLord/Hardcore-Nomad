@@ -1,8 +1,6 @@
 
 
-
 package net.firesquared.hardcorenomad.client.render;
-
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLSync;
@@ -21,21 +19,20 @@ public class RenderBackPack implements IItemRenderer
 {
 	IModelCustom Model = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/Backpack.obj"));
 	//ResourceLocation texture = new ResourceLocation("");// put the texture for
-														// the backpack here
-	
-	
+	// the backpack here
+
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type)
 	{
 		return true;
 	}
-	
+
 	@Override
 	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper)
 	{
 		return type == ItemRenderType.ENTITY || type == ItemRenderType.INVENTORY;
 	}
-	
+
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{

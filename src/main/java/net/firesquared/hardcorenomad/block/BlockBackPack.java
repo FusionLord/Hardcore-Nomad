@@ -22,24 +22,28 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.Random;
 
-public class BlockBackPack extends BlockContainer {
-    //TODO: Figure out block icons for the backpack or if we are going to do something else
+public class BlockBackPack extends BlockContainer
+{
+	//TODO: Figure out block icons for the backpack or if we are going to do something else
 
-	public static <T> T getTileEntity(IBlockAccess access, int x, int y, int z, Class<T> clazz) {
+	public static <T> T getTileEntity(IBlockAccess access, int x, int y, int z, Class<T> clazz)
+	{
 		TileEntity te = access.getTileEntity(x, y, z);
 		return !clazz.isInstance(te) ? null : (T) te;
 	}
 
-    public BlockBackPack() {
-        super(Material.cloth);
-        setHardness(1.0F);
-        setResistance(10.0F);
-        setStepSound(soundTypeCloth);
-        //setTileEntity(TileEntityBackPack.class);
-        setBlockTextureName(Reference.MOD_ID + ":" + getUnlocalizedName());
-    }
+	public BlockBackPack()
+	{
+		super(Material.cloth);
+		setHardness(1.0F);
+		setResistance(10.0F);
+		setStepSound(soundTypeCloth);
+		//setTileEntity(TileEntityBackPack.class);
+		setBlockTextureName(Reference.MOD_ID + ":" + getUnlocalizedName());
+	}
 
-	@Override public void breakBlock(World world, int x, int y, int z, Block block, int p_149749_6_)
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block block, int p_149749_6_)
 	{
 		TileEntityBackPack tileEntityBackPack = getTileEntity(world, x, y, z, TileEntityBackPack.class);
 
@@ -47,7 +51,8 @@ public class BlockBackPack extends BlockContainer {
 		tileEntityBackPack.writeToNBT(nbtTagCompound);
 
 		ItemStack itemStack = null;
-		switch (BackPackTypes.values()[nbtTagCompound.getInteger("backPackType")]) {
+		switch(BackPackTypes.values()[nbtTagCompound.getInteger("backPackType")])
+		{
 			case BACKPACK_BASIC:
 				itemStack = new ItemStack(Items.ITEM_BACKPACKBASIC.getItem(), 1);
 				break;
@@ -75,72 +80,73 @@ public class BlockBackPack extends BlockContainer {
 	}
 
 	@Override
-    public TileEntity createNewTileEntity(World var1, int var2) {
-        TileEntityBackPack tileEntityBackPack = new TileEntityBackPack();
-        tileEntityBackPack.setBlockMeta(var2);
-        return tileEntityBackPack;
-    }
+	public TileEntity createNewTileEntity(World var1, int var2)
+	{
+		TileEntityBackPack tileEntityBackPack = new TileEntityBackPack();
+		tileEntityBackPack.setBlockMeta(var2);
+		return tileEntityBackPack;
+	}
 
-    @Override
-    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-    {
+	@Override
+	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
+	{
 		return null;
 		// Don't return anything, because item is dropped when it is broken.
-    }
-    
-    @Override
-    public int getRenderType()
-    {
-    	return TileEntityBackPack.ModelID;
-    }
-    
-    @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6,
-    		float par7, float par8, float par9)
-    {
-    	player.openGui(HardcoreNomad.instance, 0, world, x, y, z);
-    	return true;
-    }
-    
-    @Override
-    public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_)
-    {
-    	return true;
-    }
-    
-    @Override
-    public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
-    {
-    	return false;
-    }
-    
-    @Override
-    public boolean isNormalCube()
-    {
-    	return false;
-    }
-    
-    @Override
-    public boolean isOpaqueCube()
-    {
-    	return false;
-    }
-    
-    @Override
-    public boolean isBlockNormalCube()
-    {
-    	return false;
-    }
-    
-    @Override
-    public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
-    {
-    	return false;
-    }
-    
-    @Override
-    public boolean getCanBlockGrass()
-    {
-    	return false;
-    }
+	}
+
+	@Override
+	public int getRenderType()
+	{
+		return TileEntityBackPack.ModelID;
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6,
+			float par7, float par8, float par9)
+	{
+		player.openGui(HardcoreNomad.instance, 0, world, x, y, z);
+		return true;
+	}
+
+	@Override
+	public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_)
+	{
+		return true;
+	}
+
+	@Override
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
+	{
+		return false;
+	}
+
+	@Override
+	public boolean isNormalCube()
+	{
+		return false;
+	}
+
+	@Override
+	public boolean isOpaqueCube()
+	{
+		return false;
+	}
+
+	@Override
+	public boolean isBlockNormalCube()
+	{
+		return false;
+	}
+
+	@Override
+	public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
+	{
+		return false;
+	}
+
+	@Override
+	public boolean getCanBlockGrass()
+	{
+		return false;
+	}
 }
