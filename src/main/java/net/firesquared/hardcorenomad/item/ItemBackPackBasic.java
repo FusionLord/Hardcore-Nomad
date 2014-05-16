@@ -16,13 +16,6 @@ public class ItemBackPackBasic extends ItemBackPack
 		super(renderID);
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot)
-	{
-		return new RenderBackPackArmor();
-	}
-
 	public BackPackTypes getBackPackType()
 	{
 		return BackPackTypes.BACKPACK_BASIC;

@@ -1,10 +1,15 @@
 package net.firesquared.hardcorenomad.item;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.block.Blocks;
+import net.firesquared.hardcorenomad.client.render.RenderBackPackArmor;
 import net.firesquared.hardcorenomad.helpers.BackPackTypes;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.Block;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -129,4 +134,10 @@ public abstract class ItemBackPack extends ItemArmor
 
 	protected abstract int getWeightCap();
 
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot)
+	{
+		return new RenderBackPackArmor();
+	}
 }
