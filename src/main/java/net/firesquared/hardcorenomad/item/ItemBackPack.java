@@ -14,6 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import sun.rmi.runtime.Log;
 
 public abstract class ItemBackPack extends ItemArmor
 {
@@ -101,6 +102,7 @@ public abstract class ItemBackPack extends ItemArmor
 
 
 						tileEntityBackPack.readFromNBT(nbtTagCompound);
+						LogHelper.debug("==> " + nbtTagCompound.getInteger("backPackType"));
 					}
 
                     world.playSoundEffect((double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), blockBackPack.stepSound.func_150496_b(), (blockBackPack.stepSound.getVolume() + 1.0F) / 2.0F, this.blockBackPack.stepSound.getPitch() * 0.8F);
