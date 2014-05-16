@@ -112,5 +112,7 @@ public abstract class ItemBackPack extends ItemArmor
         }
 
     }
+    
+    protected abstract int getWeightCap();
 
 }
