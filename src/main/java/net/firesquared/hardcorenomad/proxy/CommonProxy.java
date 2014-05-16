@@ -6,6 +6,7 @@ import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.dispenser.DispenserBehaviorPebble;
 import net.firesquared.hardcorenomad.entity.EntityPebble;
+import net.firesquared.hardcorenomad.entity.EntitySlingShotPebble;
 import net.firesquared.hardcorenomad.events.BlockBreakEvent;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.Items;
@@ -51,6 +52,7 @@ public abstract class CommonProxy implements IProxy
 	public void registerEntities() {
 		EntityRegistry.registerModEntity(EntityPebble.class, "entity.pebble", 0, HardcoreNomad.instance, 64, 1, true);
 		BlockDispenser.dispenseBehaviorRegistry.putObject(Items.ITEM_MISC_PEBBLE.getItem(), new DispenserBehaviorPebble());
+		EntityRegistry.registerModEntity(EntitySlingShotPebble.class, "entity.slingshotpebble", 0, HardcoreNomad.instance, 64, 1, true);
 	}
 
 	// Register Items

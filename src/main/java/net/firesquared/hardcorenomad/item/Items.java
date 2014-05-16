@@ -10,6 +10,7 @@ import net.firesquared.hardcorenomad.item.healing.ItemHealingFirstAid;
 import net.firesquared.hardcorenomad.item.healing.ItemHealingHerb;
 import net.firesquared.hardcorenomad.item.healing.ItemHealingMagicalAid;
 import net.firesquared.hardcorenomad.item.misc.ItemPebble;
+import net.firesquared.hardcorenomad.item.misc.ItemSlingShot;
 import net.firesquared.hardcorenomad.item.upgrades.*;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.minecraft.creativetab.CreativeTabs;
@@ -32,6 +33,7 @@ public enum Items
 	ITEM_HEALINGMAGICALAID("healing.magicalaid", new ItemHealingMagicalAid(), CreativeTab.HardCoreNomadTab),
 
 	ITEM_MISC_PEBBLE("misc.pebble", new ItemPebble(), CreativeTab.HardCoreNomadTab, 1, 16, 5),
+	ITEM_MISC_SLINGSHOT("misc.slingshot", new ItemSlingShot(), CreativeTab.HardCoreNomadTab),
 	//Upgrade Items
 	//Bedroll Upgrades
 	ITEM_UPGRADE_BEDROLL_TIER1("upgrade.bedroll.tier1", new itemUpgradeBedRollTier1(), CreativeTab.HardCoreNomadUpgradesTab, 1, 1, 3),
