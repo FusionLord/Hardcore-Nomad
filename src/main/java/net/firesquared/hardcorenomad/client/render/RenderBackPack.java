@@ -2,18 +2,12 @@
 
 package net.firesquared.hardcorenomad.client.render;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GLSync;
-
-import cpw.mods.fml.client.FMLClientHandler;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+import org.lwjgl.opengl.GL11;
 
 public class RenderBackPack implements IItemRenderer
 {

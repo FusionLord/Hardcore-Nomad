@@ -1,13 +1,11 @@
 package net.firesquared.hardcorenomad.client.render;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+import org.lwjgl.opengl.GL11;
 
 public class RenderBackPackTile extends TileEntitySpecialRenderer
 {

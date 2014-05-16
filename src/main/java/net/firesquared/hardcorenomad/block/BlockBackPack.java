@@ -2,15 +2,12 @@ package net.firesquared.hardcorenomad.block;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.BackPackTypes;
-import net.firesquared.hardcorenomad.helpers.LogHelper;
-import net.firesquared.hardcorenomad.item.ItemBackPackAdvanced;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

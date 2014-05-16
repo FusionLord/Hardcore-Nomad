@@ -1,8 +1,8 @@
 package net.firesquared.hardcorenomad.item;
 
-import java.util.Set;
-
 import net.minecraft.item.ItemTool;
+
+import java.util.Set;
 
 public class ItemFireBow extends ItemTool
 {

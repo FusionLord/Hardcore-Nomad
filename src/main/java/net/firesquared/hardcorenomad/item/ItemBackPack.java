@@ -1,9 +1,7 @@
 package net.firesquared.hardcorenomad.item;
 
-import net.firesquared.hardcorenomad.block.BlockBackPack;
 import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.helpers.BackPackTypes;
-import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -14,7 +12,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import sun.rmi.runtime.Log;
 
 public abstract class ItemBackPack extends ItemArmor
 {

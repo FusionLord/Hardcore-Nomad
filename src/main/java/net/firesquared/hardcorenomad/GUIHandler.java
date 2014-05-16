@@ -1,12 +1,12 @@
 package net.firesquared.hardcorenomad;
 
+import cpw.mods.fml.common.network.IGuiHandler;
 import net.firesquared.hardcorenomad.client.gui.BackpackGUI;
 import net.firesquared.hardcorenomad.container.BackpackContainer;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GUIHandler implements IGuiHandler
 {
