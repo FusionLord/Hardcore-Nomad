@@ -20,15 +20,15 @@ public enum Items
 {
 	// TODO: Add Items
 	// Example ITEM_NAME("item.name", new ItemClass())
-	ITEM_BACKPACKBASIC("backpackbasic", new ItemBackPackBasic(0), CreativeTab.HardCoreNomadTab),
-	ITEM_BACKPACKIMPROVED("backpackimproved", new ItemBackPackImproved(0), CreativeTab.HardCoreNomadTab),
-	ITEM_BACKPACKADVANCED("backpackadvanced", new ItemBackPackAdvanced(0), CreativeTab.HardCoreNomadTab),
-	ITEM_BACKPACKARMORED("backpackarmored", new ItemBackPackArmored(0), CreativeTab.HardCoreNomadTab),
+	ITEM_BACKPACKBASIC("backpack.basic", new ItemBackPackBasic(0), CreativeTab.HardCoreNomadTab),
+	ITEM_BACKPACKIMPROVED("backpack.improved", new ItemBackPackImproved(0), CreativeTab.HardCoreNomadTab),
+	ITEM_BACKPACKADVANCED("backpack.advanced", new ItemBackPackAdvanced(0), CreativeTab.HardCoreNomadTab),
+	ITEM_BACKPACKARMORED("backpack.armored", new ItemBackPackArmored(0), CreativeTab.HardCoreNomadTab),
 	//ITEM_FIREBOW("item.firebow", new ItemFireBow(0.0F, null, null)),
-	ITEM_FIREBUNDLE("firebundle", new ItemFireBundle(), CreativeTab.HardCoreNomadTab),
-	ITEM_HEALINGFIRSTAID("healingfirstaid", new ItemHealingFirstAid(), CreativeTab.HardCoreNomadTab),
-	ITEM_HEALINGHERB("healingherb", new ItemHealingHerb(2, 1.0F, false), CreativeTab.HardCoreNomadTab),
-	ITEM_HEALINGMAGICALAID("healingmagicalaid", new ItemHealingMagicalAid(), CreativeTab.HardCoreNomadTab),
+	ITEM_FIREBUNDLE("campfire.bundle", new ItemFireBundle(), CreativeTab.HardCoreNomadTab),
+	ITEM_HEALINGFIRSTAID("healing.firstaid", new ItemHealingFirstAid(), CreativeTab.HardCoreNomadTab),
+	ITEM_HEALINGHERB("healing.herb", new ItemHealingHerb(2, 1.0F, false), CreativeTab.HardCoreNomadTab),
+	ITEM_HEALINGMAGICALAID("healing.magicalaid", new ItemHealingMagicalAid(), CreativeTab.HardCoreNomadTab),
 
 	//Upgrade Items
 	ITEM_UPGRADE_BEDROLL_TIER1("upgrade.bedroll.tier1", new itemUpgradeTier1BedRoll(), CreativeTab.HardCoreNomadUpgradesTab),
