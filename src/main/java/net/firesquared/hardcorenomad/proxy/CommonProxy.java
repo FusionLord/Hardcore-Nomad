@@ -9,7 +9,10 @@ import net.firesquared.hardcorenomad.player.PlayerEvents;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.world.WorldEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+
+import java.io.File;
 
 public abstract class CommonProxy implements IProxy
 {
@@ -64,5 +67,10 @@ public abstract class CommonProxy implements IProxy
 	public void postInitPacketHandler()
 	{
 		Reference.PACKET_HANDLER.postInitialise();
+	}
+
+	// Register Recipes
+	public void registerRecipes() {
+		GameRegistry.addRecipe(new ItemStack(Items.ITEM_BACKPACKBASIC.getItem(), 1), "sls", "xcx", "wxw", 's', new ItemStack(net.minecraft.init.Items.string), 'l', new ItemStack(net.minecraft.init.Items.leather), 'x', new ItemStack(net.minecraft.init.Items.stick), 'c', new ItemStack(net.minecraft.init.Blocks.chest), 'w', net.minecraft.init.Blocks.wool);
 	}
 }

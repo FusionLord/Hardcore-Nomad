@@ -21,4 +21,7 @@ public interface IProxy
 	public abstract void initPacketHandler();
 
 	public abstract void postInitPacketHandler();
+
+	// Register Crafting Recipes
+	public abstract void registerRecipes();
 }

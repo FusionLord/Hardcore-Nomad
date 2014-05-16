@@ -45,6 +45,8 @@ public class HardcoreNomad
 		proxy.registerPlayerEvents();
 
 		proxy.initPacketHandler();
+
+		proxy.registerRecipes();
 	}
 
 	@Mod.EventHandler
