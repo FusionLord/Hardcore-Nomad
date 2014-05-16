@@ -14,7 +14,7 @@ public enum Blocks
 	// Format: BLOCK_NAME("Block.Name", new BlockClass(), CreativeTab.TabName)
 	// Format: BLOCK_NAME("Block.Name", new BlockClass(), ItemBlock.Class)
 	// Format: BLOCK_NAME("Block.Name", new BlockClass(), ItemBlock.Class, CreativeTab.TabName)
-	BLOCK_BACKPACK("block.backpack", new BlockBackPack(), CreativeTab.HardCoreNomadTab),;
+	BLOCK_BACKPACK("backpack", new BlockBackPack()),;
 
 	private final String internalName;
 	private Block block;
@@ -42,7 +42,7 @@ public enum Blocks
 		this.block = block;
 		this.itemBlockClass = itemBlockClass;
 		this.creativeTabs = creativeTabs;
-		block.setBlockName(Reference.MOD_ID + internalName);
+		block.setBlockName(Reference.MOD_ID + "." + internalName);
 	}
 
 	public String getInternalName()

@@ -21,4 +21,11 @@ public class CreativeTab
 			return "HardCore Nomad";
 		}
 	};
+
+	public static final CreativeTabs HardCoreNomadUpgradesTab = new CreativeTabs(Reference.MOD_ID)
+	{
+		@Override public Item getTabIconItem() { return Items.ITEM_UPGRADE_BEDROLL_TIER1.getItem(); }
+
+		@Override public String getTranslatedTabLabel() { return "HardCore Nomad Upgrades"; }
+	};
 }

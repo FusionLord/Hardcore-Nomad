@@ -1,5 +1,5 @@
 package net.firesquared.hardcorenomad.item.upgrades;
 
-public class itemUpgradeTier2BedRoll
+public class itemUpgradeTier2BedRoll extends itemUpgrade
 {
 }
