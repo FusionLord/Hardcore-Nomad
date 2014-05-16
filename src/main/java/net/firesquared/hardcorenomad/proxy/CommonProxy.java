@@ -4,6 +4,7 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.Blocks;
+import net.firesquared.hardcorenomad.dispenser.DispenserBehaviorPebble;
 import net.firesquared.hardcorenomad.entity.EntityPebble;
 import net.firesquared.hardcorenomad.events.BlockBreakEvent;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
@@ -14,7 +15,10 @@ import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.world.WorldEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.Minecraft;
+import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
+import net.minecraft.dispenser.BehaviorProjectileDispense;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSaddle;
 import net.minecraft.item.ItemStack;
@@ -46,6 +50,7 @@ public abstract class CommonProxy implements IProxy
 	// Register Entities
 	public void registerEntities() {
 		EntityRegistry.registerModEntity(EntityPebble.class, "entity.pebble", 0, HardcoreNomad.instance, 64, 1, true);
+		BlockDispenser.dispenseBehaviorRegistry.putObject(Items.ITEM_MISC_PEBBLE.getItem(), new DispenserBehaviorPebble());
 	}
 
 	// Register Items

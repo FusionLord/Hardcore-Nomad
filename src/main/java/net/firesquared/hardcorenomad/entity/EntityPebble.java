@@ -40,8 +40,8 @@ public class EntityPebble extends EntityThrowable
 
 			movingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), (float)damage);
 
-			if (movingObjectPosition.entityHit instanceof EntityLiving) {
-				EntityLiving entity = (EntityLiving)movingObjectPosition.entityHit;
+			if (movingObjectPosition.entityHit instanceof EntityLivingBase) {
+				EntityLivingBase entity = (EntityLivingBase)movingObjectPosition.entityHit;
 				entity.addPotionEffect((new PotionEffect(Potion.moveSlowdown.getId(), 50, 3)));
 			}
 
