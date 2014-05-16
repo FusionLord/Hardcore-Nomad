@@ -14,4 +14,11 @@ public class ItemBackPackArmored extends ItemBackPack
 	{
 		return BackPackTypes.BACKPACK_ARMORED;
 	}
+
+	@Override
+	protected int getWeightCap()
+	{
+		// TODO Auto-generated method stub
+		return 20;
+	}
 }

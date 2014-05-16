@@ -26,4 +26,11 @@ public class ItemBackPackBasic extends ItemBackPack
 	public BackPackTypes getBackPackType() {
 		return BackPackTypes.BACKPACK_BASIC;
 	}
+
+	@Override
+	protected int getWeightCap()
+	{
+		// TODO Auto-generated method stub
+		return 5;
+	}
 }
