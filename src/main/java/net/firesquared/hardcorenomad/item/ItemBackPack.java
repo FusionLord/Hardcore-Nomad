@@ -95,6 +95,10 @@ public abstract class ItemBackPack extends ItemArmor
 							tileEntityBackPack.writeToNBT(nbtTagCompound);
 						}
 
+						nbtTagCompound.setInteger("x", x);
+						nbtTagCompound.setInteger("y", y);
+						nbtTagCompound.setInteger("z", z);
+
 						nbtTagCompound.setInteger("backPackType", getBackPackType().ordinal());
 
 						tileEntityBackPack.readFromNBT(nbtTagCompound);

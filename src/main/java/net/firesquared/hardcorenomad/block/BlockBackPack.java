@@ -67,8 +67,6 @@ public class BlockBackPack extends BlockContainer {
 		nbtTagCompound.removeTag("y");
 		nbtTagCompound.removeTag("z");
 
-		nbtTagCompound.removeTag("id");
-
 		// Save NBT Data to itemStack
 		itemStack.setTagCompound(nbtTagCompound);
 
