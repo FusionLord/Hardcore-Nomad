@@ -24,4 +24,7 @@ public interface IProxy
 
 	// Register Crafting Recipes
 	public abstract void registerRecipes();
+
+	// Register Dungeon Loot
+	public abstract void registerDungeonLoot();
 }
