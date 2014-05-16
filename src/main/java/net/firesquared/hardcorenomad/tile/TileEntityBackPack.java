@@ -16,6 +16,8 @@ import net.minecraftforge.common.util.Constants;
 public class TileEntityBackPack extends TileEntity
 {
 	protected int blockMeta;
+	protected int backPackType;
+
 	public static final int ModelID = RenderingRegistry.getNextAvailableRenderId();
 	
 	public TileEntityBackPack()
@@ -43,14 +45,16 @@ public class TileEntityBackPack extends TileEntity
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		blockMeta = tag.getInteger("blockMeta");
+		//blockMeta = tag.getInteger("blockMeta");
+		backPackType = tag.getInteger("backPackType");
 	}
 	
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		tag.setInteger("blockMeta", blockMeta);
+		//tag.setInteger("blockMeta", blockMeta);
+		tag.setInteger("backPackType", backPackType);
 	}
 	
 	/**

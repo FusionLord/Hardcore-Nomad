@@ -1,15 +1,19 @@
 package net.firesquared.hardcorenomad.block;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
+import net.firesquared.hardcorenomad.helpers.BackPackTypes;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
+import net.firesquared.hardcorenomad.item.ItemBackPackAdvanced;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
@@ -42,7 +46,34 @@ public class BlockBackPack extends BlockContainer {
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();
 		tileEntityBackPack.writeToNBT(nbtTagCompound);
 
-		LogHelper.debug("==> " + nbtTagCompound.getInteger("backPackType"));
+		ItemStack itemStack = null;
+		switch (BackPackTypes.values()[nbtTagCompound.getInteger("backPackType")]) {
+			case BACKPACK_BASIC:
+				itemStack = new ItemStack(Items.ITEM_BACKPACKBASIC.getItem(), 1);
+				break;
+			case BACKPACK_IMPROVED:
+				itemStack = new ItemStack(Items.ITEM_BACKPACKIMPROVED.getItem(), 1);
+				break;
+			case BACKPACK_ARMORED:
+				itemStack = new ItemStack(Items.ITEM_BACKPACKARMORED.getItem(), 1);
+				break;
+			case BACKPACK_ADVANCED:
+				itemStack = new ItemStack(Items.ITEM_BACKPACKADVANCED.getItem(), 1);
+				break;
+		}
+
+		// Remove X,Y,Z or it will render there when placed...
+		nbtTagCompound.removeTag("x");
+		nbtTagCompound.removeTag("y");
+		nbtTagCompound.removeTag("z");
+
+		nbtTagCompound.removeTag("id");
+
+		// Save NBT Data to itemStack
+		itemStack.setTagCompound(nbtTagCompound);
+
+		// Drop item into world like magic :D
+		dropBlockAsItem(world, x, y, z, itemStack);
 	}
 
 	@Override
@@ -55,12 +86,8 @@ public class BlockBackPack extends BlockContainer {
     @Override
     public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
     {
-        //TODO: Get TileEntity, get the type of backpack, and drop that...
-
-
-
-
-        return Items.ITEM_BACKPACKBASIC.getItem();
+		return null;
+		// Don't return anything, because item is dropped when it is broken.
     }
     
     @Override
