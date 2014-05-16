@@ -17,6 +17,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class BlockBackPack extends BlockContainer
@@ -33,7 +34,7 @@ public class BlockBackPack extends BlockContainer
 	{
 		super(Material.cloth);
 		setHardness(1.0F);
-		setResistance(10.0F);
+		setResistance(100.0F);
 		setStepSound(soundTypeCloth);
 		//setTileEntity(TileEntityBackPack.class);
 		setBlockTextureName(Reference.MOD_ID + ":" + getUnlocalizedName());
