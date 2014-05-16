@@ -80,37 +80,23 @@ public abstract class CommonProxy implements IProxy
 	// Register Dungeon Loot
 	public void registerDungeonLoot()
 	{
-		// Add Basic Backpack
-		ChestGenHooks.addItem("dungeonChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_BACKPACKBASIC.getItem()), 1, 1, 10));
-		ChestGenHooks.addItem("bonusChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_BACKPACKBASIC.getItem()), 1, 1, 10));
-		ChestGenHooks.addItem("villageBlacksmith", new WeightedRandomChestContent(new ItemStack(Items.ITEM_BACKPACKBASIC.getItem()), 1, 1, 10));
-		ChestGenHooks.addItem("pyramidJungleChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_BACKPACKBASIC.getItem()), 1, 1, 10));
-		ChestGenHooks.addItem("pyramidDesertyChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_BACKPACKBASIC.getItem()), 1, 1, 10));
-		ChestGenHooks.addItem("mineshaftCorridor", new WeightedRandomChestContent(new ItemStack(Items.ITEM_BACKPACKBASIC.getItem()), 1, 1, 10));
+		for(Items item : Items.values())
+		{
+			LogHelper.debug("Registering Item: " + item.getInternalName());
+			ItemStack LootItem = new ItemStack(item.getItem());
+			int Max = item.getDungeonChestMax();
+			int Min = item.getDungeonChestMin();
+			int Weight = item.getWeight();
 
-		// Add Improved Backpack
-		ChestGenHooks.addItem("dungeonChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_BACKPACKIMPROVED.getItem()), 1, 1, 1));
-		ChestGenHooks.addItem("bonusChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_BACKPACKIMPROVED.getItem()), 1, 1, 1));
-		ChestGenHooks.addItem("villageBlacksmith", new WeightedRandomChestContent(new ItemStack(Items.ITEM_BACKPACKIMPROVED.getItem()), 1, 1, 1));
-		ChestGenHooks.addItem("pyramidJungleChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_BACKPACKIMPROVED.getItem()), 1, 1, 1));
-		ChestGenHooks.addItem("pyramidDesertyChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_BACKPACKIMPROVED.getItem()), 1, 1, 1));
-		ChestGenHooks.addItem("mineshaftCorridor", new WeightedRandomChestContent(new ItemStack(Items.ITEM_BACKPACKIMPROVED.getItem()), 1, 1, 1));
-
-		// Add Healing Herb
-		ChestGenHooks.addItem("dungeonChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_HEALINGHERB.getItem()), 1, 5, 4));
-		ChestGenHooks.addItem("bonusChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_HEALINGHERB.getItem()), 1, 5, 4));
-		ChestGenHooks.addItem("villageBlacksmith", new WeightedRandomChestContent(new ItemStack(Items.ITEM_HEALINGHERB.getItem()), 1, 5, 4));
-		ChestGenHooks.addItem("pyramidJungleChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_HEALINGHERB.getItem()), 1, 5, 4));
-		ChestGenHooks.addItem("pyramidDesertyChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_HEALINGHERB.getItem()), 1, 5, 4));
-		ChestGenHooks.addItem("mineshaftCorridor", new WeightedRandomChestContent(new ItemStack(Items.ITEM_HEALINGHERB.getItem()), 1, 5, 4));
-
-		// Add Tier1 Bed Roll
-		ChestGenHooks.addItem("dungeonChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_UPGRADE_BEDROLL_TIER1.getItem()), 1, 1, 4));
-		ChestGenHooks.addItem("bonusChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_UPGRADE_BEDROLL_TIER1.getItem()), 1, 1, 4));
-		ChestGenHooks.addItem("villageBlacksmith", new WeightedRandomChestContent(new ItemStack(Items.ITEM_UPGRADE_BEDROLL_TIER1.getItem()), 1, 1, 4));
-		ChestGenHooks.addItem("pyramidJungleChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_UPGRADE_BEDROLL_TIER1.getItem()), 1, 1, 4));
-		ChestGenHooks.addItem("pyramidDesertyChest", new WeightedRandomChestContent(new ItemStack(Items.ITEM_UPGRADE_BEDROLL_TIER1.getItem()), 1, 1, 4));
-		ChestGenHooks.addItem("mineshaftCorridor", new WeightedRandomChestContent(new ItemStack(Items.ITEM_UPGRADE_BEDROLL_TIER1.getItem()), 1, 1, 4));
-
+			if (Min != 0 && Max != 0)
+			{
+				ChestGenHooks.addItem("dungeonChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
+				ChestGenHooks.addItem("bonusChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
+				ChestGenHooks.addItem("villageBlacksmith", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
+				ChestGenHooks.addItem("pyramidJungleChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
+				ChestGenHooks.addItem("pyramidDesertyChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
+				ChestGenHooks.addItem("mineshaftCorridor", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
+			}
+		}
 	}
 }
