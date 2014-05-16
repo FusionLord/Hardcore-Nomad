@@ -1,8 +1,8 @@
 package net.firesquared.hardcorenomad.creativetab;
 
+import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
 public class CreativeTab
@@ -12,7 +12,7 @@ public class CreativeTab
 		@Override
 		public Item getTabIconItem()
 		{
-			return Items.compass;
+			return Items.ITEM_BACKPACKADVANCED.getItem();
 		}
 
 		@Override
