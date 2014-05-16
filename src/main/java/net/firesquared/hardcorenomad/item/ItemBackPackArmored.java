@@ -1,5 +1,7 @@
 package net.firesquared.hardcorenomad.item;
 
+import net.firesquared.hardcorenomad.helpers.BackPackTypes;
+
 public class ItemBackPackArmored extends ItemBackPack
 {
 
@@ -8,4 +10,8 @@ public class ItemBackPackArmored extends ItemBackPack
 		super(renderID);
 	}
 
+	public BackPackTypes getBackPackType()
+	{
+		return BackPackTypes.BACKPACK_ARMORED;
+	}
 }
