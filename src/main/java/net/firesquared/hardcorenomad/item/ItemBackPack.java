@@ -2,6 +2,7 @@ package net.firesquared.hardcorenomad.item;
 
 import net.firesquared.hardcorenomad.block.BlockBackPack;
 import net.firesquared.hardcorenomad.block.Blocks;
+import net.firesquared.hardcorenomad.helpers.BackPackTypes;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.Block;
@@ -9,7 +10,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public abstract class ItemBackPack extends ItemArmor
@@ -22,6 +25,12 @@ public abstract class ItemBackPack extends ItemArmor
         blockBackPack = Blocks.BLOCK_BACKPACK.getBlock();
 	}
 
+	public BackPackTypes getBackPackType() { return null; }
+
+	public static <T> T getTileEntity(IBlockAccess access, int x, int y, int z, Class<T> clazz) {
+		TileEntity te = access.getTileEntity(x, y, z);
+		return !clazz.isInstance(te) ? null : (T) te;
+	}
 
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
@@ -76,7 +85,23 @@ public abstract class ItemBackPack extends ItemArmor
                         blockBackPack.onPostBlockPlaced(world, x, y, z, i1);
                     }
 
-                    // ToDo: transfer NBT data from item to block...
+					TileEntityBackPack tileEntityBackPack = getTileEntity(world, x, y, z, TileEntityBackPack.class);
+					if (tileEntityBackPack != null) {
+
+						NBTTagCompound nbtTagCompound = stack.getTagCompound();
+						if (nbtTagCompound == null) {
+							nbtTagCompound = new NBTTagCompound();
+							tileEntityBackPack.writeToNBT(nbtTagCompound);
+						}
+
+						if (!nbtTagCompound.hasKey("backPackType"))
+						{
+							nbtTagCompound.setInteger("backPackType", getBackPackType().ordinal());
+						}
+
+
+						tileEntityBackPack.readFromNBT(nbtTagCompound);
+					}
 
                     world.playSoundEffect((double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), blockBackPack.stepSound.func_150496_b(), (blockBackPack.stepSound.getVolume() + 1.0F) / 2.0F, this.blockBackPack.stepSound.getPitch() * 0.8F);
                     --stack.stackSize;

@@ -1,8 +1,6 @@
 package net.firesquared.hardcorenomad.helpers;
 
-/**
- * Created by tylerreed on 5/15/14.
- */
-public class BackPackTypes
+public enum BackPackTypes
 {
+	BACKPACK_BASIC, BACKPACK_IMPROVED, BACKPACK_ADVANCED, BACKPACK_ARMORED;
 }
