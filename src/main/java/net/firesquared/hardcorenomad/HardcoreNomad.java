@@ -40,6 +40,7 @@ public class HardcoreNomad
 		proxy.registerBlocks();
 		proxy.registerItems();
 		proxy.registerTileEntities();
+		proxy.registerEntities();
 
 		proxy.registerWorldEvents();
 		proxy.registerPlayerEvents();

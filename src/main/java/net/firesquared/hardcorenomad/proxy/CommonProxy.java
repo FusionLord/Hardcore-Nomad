@@ -1,7 +1,10 @@
 package net.firesquared.hardcorenomad.proxy;
 
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.Blocks;
+import net.firesquared.hardcorenomad.entity.EntityPebble;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
@@ -36,6 +39,11 @@ public abstract class CommonProxy implements IProxy
 	public void registerTileEntities()
 	{
 		GameRegistry.registerTileEntity(TileEntityBackPack.class, "tile.backpack");
+	}
+
+	// Register Entities
+	public void registerEntities() {
+		EntityRegistry.registerModEntity(EntityPebble.class, "entity.pebble", 0, HardcoreNomad.instance, 64, 1, true);
 	}
 
 	// Register Items

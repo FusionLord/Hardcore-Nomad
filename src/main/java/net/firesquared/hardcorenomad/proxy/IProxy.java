@@ -8,6 +8,9 @@ public interface IProxy
 	// Register TileEntities
 	public abstract void registerTileEntities();
 
+	// Register Entites
+	public abstract void registerEntities();
+
 	// Register Items
 	public abstract void registerItems();
 
