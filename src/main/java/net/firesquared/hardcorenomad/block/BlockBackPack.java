@@ -1,13 +1,16 @@
 package net.firesquared.hardcorenomad.block;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
+import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -18,6 +21,11 @@ import java.util.Random;
 public class BlockBackPack extends BlockContainer {
     //TODO: Figure out block icons for the backpack or if we are going to do something else
 
+	public static <T> T getTileEntity(IBlockAccess access, int x, int y, int z, Class<T> clazz) {
+		TileEntity te = access.getTileEntity(x, y, z);
+		return !clazz.isInstance(te) ? null : (T) te;
+	}
+
     public BlockBackPack() {
         super(Material.cloth);
         setHardness(1.0F);
@@ -27,7 +35,17 @@ public class BlockBackPack extends BlockContainer {
         setBlockTextureName(Reference.MOD_ID + ":" + getUnlocalizedName());
     }
 
-    @Override
+	@Override public void breakBlock(World world, int x, int y, int z, Block block, int p_149749_6_)
+	{
+		TileEntityBackPack tileEntityBackPack = getTileEntity(world, x, y, z, TileEntityBackPack.class);
+
+		NBTTagCompound nbtTagCompound = new NBTTagCompound();
+		tileEntityBackPack.writeToNBT(nbtTagCompound);
+
+		LogHelper.debug("==> " + nbtTagCompound.getInteger("backPackType"));
+	}
+
+	@Override
     public TileEntity createNewTileEntity(World var1, int var2) {
         TileEntityBackPack tileEntityBackPack = new TileEntityBackPack();
         tileEntityBackPack.setBlockMeta(var2);
@@ -38,6 +56,10 @@ public class BlockBackPack extends BlockContainer {
     public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
     {
         //TODO: Get TileEntity, get the type of backpack, and drop that...
+
+
+
+
         return Items.ITEM_BACKPACKBASIC.getItem();
     }
     
