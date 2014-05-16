@@ -36,8 +36,8 @@ public class BlockBackPack extends BlockContainer
 		setHardness(1.0F);
 		setResistance(100.0F);
 		setStepSound(soundTypeCloth);
-		//setTileEntity(TileEntityBackPack.class);
 		setBlockTextureName(Reference.MOD_ID + ":" + getUnlocalizedName());
+		setBlockBounds(0.1f, 0f, 0.3f, .9f, .9f, .7f);
 	}
 
 	@Override
@@ -147,4 +147,11 @@ public class BlockBackPack extends BlockContainer
 	{
 		return false;
 	}
+	
+	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess access, int x, int y, int z)
+	{
+		
+	}
+	
 }
