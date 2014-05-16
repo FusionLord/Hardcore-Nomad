@@ -11,6 +11,9 @@ public interface IProxy
 	// Register Entites
 	public abstract void registerEntities();
 
+	// Register Events
+	public abstract void registerEvents();
+
 	// Register Items
 	public abstract void registerItems();
 

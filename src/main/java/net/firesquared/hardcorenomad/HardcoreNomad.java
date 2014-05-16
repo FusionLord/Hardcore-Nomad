@@ -44,6 +44,7 @@ public class HardcoreNomad
 
 		proxy.registerWorldEvents();
 		proxy.registerPlayerEvents();
+		proxy.registerEvents();
 
 		proxy.initPacketHandler();
 

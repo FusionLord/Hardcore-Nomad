@@ -5,6 +5,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.entity.EntityPebble;
+import net.firesquared.hardcorenomad.events.BlockBreakEvent;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
@@ -13,6 +14,7 @@ import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.world.WorldEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSaddle;
 import net.minecraft.item.ItemStack;
@@ -72,6 +74,11 @@ public abstract class CommonProxy implements IProxy
 		MinecraftForge.EVENT_BUS.register(new PlayerEvents());
 	}
 
+	// Register Misc Events
+	public void registerEvents() {
+		MinecraftForge.EVENT_BUS.register(new BlockBreakEvent());
+	}
+
 	// Register Packet Handler
 	public void initPacketHandler()
 	{
@@ -113,6 +120,8 @@ public abstract class CommonProxy implements IProxy
 		GameRegistry.addRecipe(new ItemStack(Items.ITEM_FIREBUNDLE.getItem(), 1), " b ", "fwf", "scs", 'b', new ItemStack(net.minecraft.init.Items.bone), 'f', new ItemStack(net.minecraft.init.Blocks.fence), 'w', new ItemStack(net.minecraft.init.Items.water_bucket), 's', new ItemStack(net.minecraft.init.Blocks.stone), 'c', new ItemStack(net.minecraft.init.Items.cauldron));
 
 		//GameRegistry.addRecipe(new ItemStack(Items.ITEM_FIREBUNDLE.getItem(), 1), "   ", "geg", "   ", 'g', new ItemStack(net.minecraft.init.Items.gold_ingot), net.minecraft.init.Items.enchanted_book);
+
+		GameRegistry.addRecipe(new ItemStack(net.minecraft.init.Blocks.cobblestone, 1), "ppp", "ppp", "ppp", 'p', new ItemStack(Items.ITEM_MISC_PEBBLE.getItem()));
 	}
 
 	// Register Dungeon Loot
