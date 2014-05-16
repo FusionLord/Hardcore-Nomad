@@ -18,22 +18,42 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public abstract class ItemBackPack extends ItemArmor
 {
 	private Block blockBackPack;
-	
+
+	@Override
+	public void onCreated(ItemStack itemStack, World world, EntityPlayer entityPlayer)
+	{
+		itemStack.stackTagCompound = new NBTTagCompound();
+		itemStack.stackTagCompound.setString("owner", entityPlayer.getDisplayName());
+		itemStack.stackTagCompound.setInteger("backPackType", getBackPackType().ordinal());
+	}
+
+	@Override
+	public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean par4)
+	{
+		if(itemStack.stackTagCompound != null && itemStack.stackTagCompound.hasKey("owner"))
+		{
+			String owner = itemStack.stackTagCompound.getString("owner");
+			list.add("Owner: " + owner);
+		}
+	}
+
 	protected static void invInitialize(ItemStack bag)
 	{
 		NBTTagCompound invListTag = new NBTTagCompound();
 		bag.stackTagCompound.setTag("Inventory", invListTag);
 	}
-	
+
 	public static ItemStack invGet(ItemStack bag, int index)
 	{
 		NBTTagCompound invListTag = bag.stackTagCompound.getCompoundTag("Inventory");
 		return ItemStack.loadItemStackFromNBT(invListTag.getCompoundTag(String.valueOf(index)));
 	}
-	
+
 	public static ItemStack invSet(ItemStack bag, int index, ItemStack is)
 	{
 		NBTTagCompound invListTag = bag.stackTagCompound.getCompoundTag("Inventory");
@@ -41,7 +61,7 @@ public abstract class ItemBackPack extends ItemArmor
 		is.writeToNBT(invListTag.getCompoundTag(String.valueOf(index)));
 		return is2;
 	}
-	
+
 	public static ItemStack invRemove(ItemStack bag, int index)
 	{
 		NBTTagCompound invListTag = bag.stackTagCompound.getCompoundTag("Inventory");
@@ -110,6 +130,7 @@ public abstract class ItemBackPack extends ItemArmor
 			return false;
 		}
 		else
+		{
 			if(stack.stackSize == 0)
 			{
 				return false;
@@ -131,7 +152,6 @@ public abstract class ItemBackPack extends ItemArmor
 						TileEntityBackPack tileEntityBackPack = getTileEntity(world, x, y, z, TileEntityBackPack.class);
 						if(tileEntityBackPack != null)
 						{
-
 							NBTTagCompound nbtTagCompound = stack.getTagCompound();
 							if(nbtTagCompound == null)
 							{
@@ -145,6 +165,10 @@ public abstract class ItemBackPack extends ItemArmor
 
 							nbtTagCompound.setInteger("backPackType", getBackPackType().ordinal());
 
+							//if(!nbtTagCompound.hasKey("owner")) {
+							//	nbtTagCompound.setString("owner", player.getDisplayName());
+							//}
+
 							tileEntityBackPack.readFromNBT(nbtTagCompound);
 						}
 
@@ -157,10 +181,11 @@ public abstract class ItemBackPack extends ItemArmor
 
 				return true;
 			}
-
+		}
 	}
 
 	protected abstract int getWeightCap();
+
 	protected abstract int invSize();
 
 	@Override
