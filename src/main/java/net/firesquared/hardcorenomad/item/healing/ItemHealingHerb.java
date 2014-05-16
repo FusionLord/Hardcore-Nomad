@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.item;
+package net.firesquared.hardcorenomad.item.healing;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;

@@ -1,6 +1,5 @@
-package net.firesquared.hardcorenomad.item;
+package net.firesquared.hardcorenomad.item.backpacks;
 
-import sun.security.jgss.spnego.NegTokenTarg;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.block.Blocks;

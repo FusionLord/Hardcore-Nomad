@@ -1,12 +1,6 @@
-package net.firesquared.hardcorenomad.item;
+package net.firesquared.hardcorenomad.item.backpacks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.firesquared.hardcorenomad.client.render.RenderBackPackArmor;
 import net.firesquared.hardcorenomad.helpers.BackPackTypes;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 
 public class ItemBackPackBasic extends ItemBackPack
 {

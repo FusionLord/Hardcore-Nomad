@@ -1,6 +1,14 @@
 package net.firesquared.hardcorenomad.item;
 
 import net.firesquared.hardcorenomad.creativetab.CreativeTab;
+import net.firesquared.hardcorenomad.item.backpacks.ItemBackPackAdvanced;
+import net.firesquared.hardcorenomad.item.backpacks.ItemBackPackArmored;
+import net.firesquared.hardcorenomad.item.backpacks.ItemBackPackBasic;
+import net.firesquared.hardcorenomad.item.backpacks.ItemBackPackImproved;
+import net.firesquared.hardcorenomad.item.campfire.ItemFireBundle;
+import net.firesquared.hardcorenomad.item.healing.ItemHealingFirstAid;
+import net.firesquared.hardcorenomad.item.healing.ItemHealingHerb;
+import net.firesquared.hardcorenomad.item.healing.ItemHealingMagicalAid;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

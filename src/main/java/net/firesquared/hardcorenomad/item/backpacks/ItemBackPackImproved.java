@@ -1,31 +1,31 @@
-package net.firesquared.hardcorenomad.item;
+package net.firesquared.hardcorenomad.item.backpacks;
 
 import net.firesquared.hardcorenomad.helpers.BackPackTypes;
 
-public class ItemBackPackArmored extends ItemBackPack
+public class ItemBackPackImproved extends ItemBackPack
 {
 
-	public ItemBackPackArmored(int renderID)
+	public ItemBackPackImproved(int renderID)
 	{
 		super(renderID);
 	}
 
 	public BackPackTypes getBackPackType()
 	{
-		return BackPackTypes.BACKPACK_ARMORED;
+		return BackPackTypes.BACKPACK_IMPROVED;
 	}
 
 	@Override
 	protected int getWeightCap()
 	{
 		// TODO Auto-generated method stub
-		return 20;
+		return 10;
 	}
 
 	@Override
 	protected int invSize()
 	{
 		// TODO Auto-generated method stub
-		return 36;
+		return 12;
 	}
 }
