@@ -148,7 +148,5 @@ public class ItemSlingShot extends Item
 				world.spawnEntityInWorld(entitySlingShotPebble);
 			}
 		}
-
-
 	}
 }
