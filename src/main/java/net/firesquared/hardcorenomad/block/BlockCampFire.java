@@ -1,11 +1,16 @@
 package net.firesquared.hardcorenomad.block;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
+import net.firesquared.hardcorenomad.helpers.CampFireTypes;
+import net.firesquared.hardcorenomad.helpers.TileEntityHelper;
 import net.firesquared.hardcorenomad.lib.Reference;
+import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
@@ -40,5 +45,35 @@ public class BlockCampFire extends BlockContainer
 		//}
 
 		return true;
+	}
+
+	public CampFireTypes getCampFireType(World world, int x, int y, int z) {
+		TileEntityCampFire tileEntityCampFire = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityCampFire.class);
+		return tileEntityCampFire.getCampFireType();
+	}
+
+	public void DeployCampFire(World world, int x, int y, int z, int side, int hitX, int hitY, int hitZ, ItemStack stack, EntityPlayer player, CampFireTypes campFireType, TileEntityBackPack backPack) {
+		if (this.canPlaceBlockAt(world, x, y, z)) {
+			int i1 = this.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, 0);
+
+			if(world.setBlock(x, y, z, this, i1, 3))
+			{
+				if(world.getBlock(x, y, z) == this)
+				{
+					this.onBlockPlacedBy(world, x, y, z, player, stack);
+					this.onPostBlockPlaced(world, x, y, z, i1);
+
+					TileEntityCampFire tileEntityCampFire = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityCampFire.class);
+					tileEntityCampFire.setCampFireType(campFireType);
+					tileEntityCampFire.setTileEntityBackPack(backPack);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block block, int p_149749_6_)
+	{
+		// TODO: Either cancel the break, or not drop an item, put it back into the backpack.
 	}
 }

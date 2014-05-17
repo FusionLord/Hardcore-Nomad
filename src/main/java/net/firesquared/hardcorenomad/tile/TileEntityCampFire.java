@@ -3,6 +3,8 @@ package net.firesquared.hardcorenomad.tile;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.firesquared.hardcorenomad.helpers.CampFireTypes;
+import net.firesquared.hardcorenomad.helpers.TileEntityHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,10 +19,10 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public class TileEntityCampFire extends TileEntity implements ISidedInventory
 {
-	protected int campFireType;
 	private NBTTagCompound tagInv;
 	private static final int[] slotsTop = new int[] {0};
 	private static final int[] slotsBottom = new int[] {2, 1};
@@ -29,6 +31,8 @@ public class TileEntityCampFire extends TileEntity implements ISidedInventory
 	public int furnaceBurnTime;
 	public int currentItemBurnTime;
 	public int furnaceCookTime;
+	private CampFireTypes campFireType;
+	private TileEntityBackPack backPack;
 
 	public static final int ModelID = RenderingRegistry.getNextAvailableRenderId();
 
@@ -73,7 +77,12 @@ public class TileEntityCampFire extends TileEntity implements ISidedInventory
 		furnaceBurnTime = tag.getShort("BurnTime");
 		furnaceCookTime = tag.getShort("CookTime");
 		currentItemBurnTime = getItemBurnTime(this.furnaceItemStacks[1]);
-		campFireType = tag.getInteger("campFireType");
+		campFireType = CampFireTypes.values()[tag.getInteger("campFireType")];
+
+		int backPackX = tag.getInteger("backPackX");
+		int backPackY = tag.getInteger("backPackY");
+		int backPackZ = tag.getInteger("backPackZ");
+		backPack = TileEntityHelper.getTileEntity(this.getWorldObj(), backPackX, backPackY, backPackZ, TileEntityBackPack.class);
 	}
 
 	@Override
@@ -82,7 +91,12 @@ public class TileEntityCampFire extends TileEntity implements ISidedInventory
 		super.writeToNBT(tag);
 		tag.setShort("BurnTime", (short) furnaceBurnTime);
 		tag.setShort("CookTime", (short)furnaceCookTime);
-		tag.setInteger("campFireType", campFireType);
+		tag.setInteger("campFireType", campFireType.ordinal());
+		
+		tag.setInteger("backPackX", backPack.xCoord);
+		tag.setInteger("backPackY", backPack.yCoord);
+		tag.setInteger("backPackZ", backPack.zCoord);
+
 		NBTTagList nbtTagList = new NBTTagList();
 
 		for (int i = 0; i < this.furnaceItemStacks.length; ++i)
@@ -362,5 +376,21 @@ public class TileEntityCampFire extends TileEntity implements ISidedInventory
 	public boolean canExtractItem(int var1, ItemStack var2, int var3)
 	{
 		return var3 != 0 || var1 != 1 || var2.getItem() == Items.bucket;
+	}
+
+	public CampFireTypes getCampFireType() {
+		return campFireType;
+	}
+
+	public void setCampFireType(CampFireTypes campFireType) {
+		this.campFireType = campFireType;
+	}
+
+	public TileEntityBackPack getBackPack() {
+		return getBackPack();
+	}
+
+	public void setTileEntityBackPack(TileEntityBackPack tileEntityBackPack) {
+		this.backPack = tileEntityBackPack;
 	}
 }

@@ -38,6 +38,8 @@ public class BlockBackPack extends BlockContainer
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int p_149749_6_)
 	{
+		// TODO: Check to see if anything is deployed before breaking bag... if deployed cancel event...
+
 		TileEntityBackPack tileEntityBackPack = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityBackPack.class);
 
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();
