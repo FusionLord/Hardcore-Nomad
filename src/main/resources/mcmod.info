@@ -1,6 +1,6 @@
 [
 {
-  "modid": "HardcoreNomad",
+  "modid": "hardcorenomad",
   "name": "HardCore Nomad",
   "description": "Example placeholder mod.",
   "version": "${version}",
