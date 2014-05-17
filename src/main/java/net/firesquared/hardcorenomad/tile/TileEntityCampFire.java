@@ -10,6 +10,7 @@ import net.minecraft.block.BlockFurnace;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -21,7 +22,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class TileEntityCampFire extends TileEntity implements ISidedInventory
+public class TileEntityCampFire extends TileEntity implements IInventory
 {
 	private NBTTagCompound tagInv;
 	private static final int[] slotsTop = new int[] {0};
@@ -358,24 +359,6 @@ public class TileEntityCampFire extends TileEntity implements ISidedInventory
 	public boolean isItemValidForSlot(int var1, ItemStack var2)
 	{
 		return var1 == 2 ? false : (var1 == 1 ? isItemFuel(var2) : true);
-	}
-
-	@Override
-	public int[] getAccessibleSlotsFromSide(int var1)
-	{
-		return var1 == 0 ? slotsBottom : (var1 == 1 ? slotsTop : slotsSides);
-	}
-
-	@Override
-	public boolean canInsertItem(int var1, ItemStack var2, int var3)
-	{
-		return this.isItemValidForSlot(var1, var2);
-	}
-
-	@Override
-	public boolean canExtractItem(int var1, ItemStack var2, int var3)
-	{
-		return var3 != 0 || var1 != 1 || var2.getItem() == Items.bucket;
 	}
 
 	public CampFireTypes getCampFireType() {
