@@ -5,17 +5,22 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class RenderBackPackArmor extends ModelBiped
 {
-	IModelCustom Model = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/Backpack.obj"));
+	IModelCustom Model = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/backpack/Backpack.obj"));
 
+	ResourceLocation texture = new ResourceLocation("hardcorenomad:models/backpack/backpack.png");
+	
 	@Override
 	public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7)
 	{
 		GL11.glPushMatrix();
-		//FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
+		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
 		GL11.glTranslatef(0, -1.75f, .25f);
 		GL11.glScalef(.35f, .35f, .35f);
 		Model.renderAll();

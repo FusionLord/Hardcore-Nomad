@@ -7,13 +7,16 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.client.FMLClientHandler;
 
 public class RenderBackPack implements IItemRenderer
 {
-	IModelCustom Model = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/Backpack.obj"));
-	//ResourceLocation texture = new ResourceLocation("");// put the texture for
-	// the backpack here
+	IModelCustom Model = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/backpack/Backpack.obj"));
+
+	ResourceLocation texture = new ResourceLocation("hardcorenomad:models/backpack/backpack.png");
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type)
@@ -31,7 +34,7 @@ public class RenderBackPack implements IItemRenderer
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{
 		GL11.glPushMatrix();
-		//FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
+		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
 		GL11.glScalef(.5f, .5f, .5f);
 		GL11.glTranslatef(0, -5.5f, 0);
 		Model.renderAll();
