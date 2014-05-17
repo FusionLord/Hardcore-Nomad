@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 public class BackpackContainer extends Container
 {
 	public IInventory backPack;
+	public boolean isPlaced;
 
 	@Override
 	public boolean canInteractWith(EntityPlayer var1)
@@ -30,6 +31,7 @@ public class BackpackContainer extends Container
 		this.backPack = backPack;
 		bindBackpackSlots();
 		bindPlayerSlots(invPlayer);
+		isPlaced = true;
 	}
 
 	public BackpackContainer(InventoryPlayer invPlayer, ItemStack currentItem)
@@ -37,6 +39,7 @@ public class BackpackContainer extends Container
 		this.backPack = new BackPackInventory(currentItem.stackTagCompound);
 		bindBackpackSlots();
 		bindPlayerSlots(invPlayer);
+		isPlaced = false;
 	}
 
 	private void bindPlayerSlots(InventoryPlayer invPlayer)
