@@ -170,14 +170,14 @@ public class TileEntityCampFire extends TileEntity implements ISidedInventory
 	@Override
 	public String getInventoryName()
 	{
-		return "container.furnace";
+		return "container.campfire";
 	}
 
 	// ToDo: This too...
 	@Override
 	public boolean hasCustomInventoryName()
 	{
-		return false;
+		return true;
 	}
 
 	@Override
