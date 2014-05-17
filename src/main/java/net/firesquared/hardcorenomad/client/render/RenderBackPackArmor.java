@@ -21,8 +21,9 @@ public class RenderBackPackArmor extends ModelBiped
 	{
 		GL11.glPushMatrix();
 		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
-		GL11.glTranslatef(0, -1.75f, .25f);
+		GL11.glTranslatef(0, 2.40f, .25f);
 		GL11.glScalef(.35f, .35f, .35f);
+		GL11.glRotatef(180, 1.0f, 0.0f, 0.0f);
 		Model.renderAll();
 		GL11.glPopMatrix();
 	}
