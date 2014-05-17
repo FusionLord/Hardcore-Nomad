@@ -1,15 +1,17 @@
 package net.firesquared.hardcorenomad.container;
 
+import net.firesquared.hardcorenomad.item.backpacks.BackPackInventory;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class BackpackContainer extends Container
 {
-	public TileEntityBackPack backPack;
+	public IInventory backPack;
 
 	@Override
 	public boolean canInteractWith(EntityPlayer var1)
@@ -26,6 +28,13 @@ public class BackpackContainer extends Container
 	public BackpackContainer(InventoryPlayer invPlayer, TileEntityBackPack backPack)
 	{
 		this.backPack = backPack;
+		bindBackpackSlots();
+		bindPlayerSlots(invPlayer);
+	}
+
+	public BackpackContainer(InventoryPlayer invPlayer, ItemStack currentItem)
+	{
+		this.backPack = new BackPackInventory(currentItem.stackTagCompound);
 		bindBackpackSlots();
 		bindPlayerSlots(invPlayer);
 	}
