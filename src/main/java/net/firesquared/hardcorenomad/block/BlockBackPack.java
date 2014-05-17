@@ -2,6 +2,7 @@ package net.firesquared.hardcorenomad.block;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.BackPackTypes;
+import net.firesquared.hardcorenomad.helpers.TileEntityHelper;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
@@ -24,12 +25,6 @@ public class BlockBackPack extends BlockContainer
 {
 	//TODO: Figure out block icons for the backpack or if we are going to do something else
 
-	public static <T> T getTileEntity(IBlockAccess access, int x, int y, int z, Class<T> clazz)
-	{
-		TileEntity te = access.getTileEntity(x, y, z);
-		return !clazz.isInstance(te) ? null : (T) te;
-	}
-
 	public BlockBackPack()
 	{
 		super(Material.cloth);
@@ -43,7 +38,7 @@ public class BlockBackPack extends BlockContainer
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int p_149749_6_)
 	{
-		TileEntityBackPack tileEntityBackPack = getTileEntity(world, x, y, z, TileEntityBackPack.class);
+		TileEntityBackPack tileEntityBackPack = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityBackPack.class);
 
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();
 		tileEntityBackPack.writeToNBT(nbtTagCompound);

@@ -14,7 +14,9 @@ public enum Blocks
 	// Format: BLOCK_NAME("Block.Name", new BlockClass(), CreativeTab.TabName)
 	// Format: BLOCK_NAME("Block.Name", new BlockClass(), ItemBlock.Class)
 	// Format: BLOCK_NAME("Block.Name", new BlockClass(), ItemBlock.Class, CreativeTab.TabName)
-	BLOCK_BACKPACK("backpack", new BlockBackPack()),;
+	BLOCK_BACKPACK("backpack", new BlockBackPack()),
+	BLOCK_CAMPFIRE("campfire", new BlockCampFire()),
+	;
 
 	private final String internalName;
 	private Block block;

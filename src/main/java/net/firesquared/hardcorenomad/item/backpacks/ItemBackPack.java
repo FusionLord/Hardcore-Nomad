@@ -7,6 +7,7 @@ import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.client.render.RenderBackPackArmor;
 import net.firesquared.hardcorenomad.helpers.BackPackTypes;
+import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBiped;
@@ -62,6 +63,17 @@ public abstract class ItemBackPack extends ItemArmor
 	}
 
 	@Override
+	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+	{
+		if(par3EntityPlayer.isSneaking())
+		{
+			FMLNetworkHandler.openGui(par3EntityPlayer, HardcoreNomad.instance, 1, par2World, 0, 0, 0);
+			return par1ItemStack;
+		}
+		return super.onItemRightClick(par1ItemStack, par2World, par3EntityPlayer);
+	}
+
+	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
 		if(player.isSneaking())
@@ -69,7 +81,7 @@ public abstract class ItemBackPack extends ItemArmor
 			FMLNetworkHandler.openGui(player, HardcoreNomad.instance, 1, world, x, y, z);
 			return true;
 		}
-		
+
 		Block block = world.getBlock(x, y, z);
 
 		if(block == net.minecraft.init.Blocks.snow_layer && (world.getBlockMetadata(x, y, z) & 7) < 1)
