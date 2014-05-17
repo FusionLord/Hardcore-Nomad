@@ -48,7 +48,7 @@ public class BackpackContainer extends Container
 			for(int j = 0; j < 9; j++)
 				addSlotToContainer(new Slot(invPlayer, j + i * 9 + 9, j * 18 + 8, i * 18 + 18 * 4 + 3));
 		for(int i = 0; i < 9; i++)
-			addSlotToContainer(new Slot(invPlayer, i, i * 18 + 8, 18 * 7 + 3));
+			addSlotToContainer(new Slot(invPlayer, i, i * 18 + 8, 18 * 7 + 7));
 	}
 
 	private void bindBackpackSlots()

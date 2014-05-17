@@ -10,32 +10,38 @@ import org.lwjgl.opengl.GL11;
 
 public class BackpackGUI extends GuiContainer
 {
-	private static final ResourceLocation background = new ResourceLocation("hardcorenomad:gui/backpack.png");
+	private static final ResourceLocation background = new ResourceLocation("hardcorenomad:gui/GUIBackpack1.png");
 	boolean isPlaced;
-	static final int rowStart = 24;
+	static final int rowStart = 65, columnStart = 114, size = 18;
 	public GuiButton[] buttons = new GuiButton[]
 	{
-		new GuiButton(0, 8, 8, 18, 18, "All"),
-		new GuiButton(1, 8 + 1*18, rowStart, 18, 18, "1"),
-		new GuiButton(2, 8 + 2*18, rowStart, 18, 18, "2"),
-		new GuiButton(3, 8 + 3*18, rowStart, 18, 18, "3"),
-		new GuiButton(4, 8 + 4*18, rowStart, 18, 18, "4"),
-		new GuiButton(5, 8 + 5*18, rowStart, 18, 18, "5"),
-		new GuiButton(6, 8 + 6*18, rowStart, 18, 18, "6"),
-		new GuiButton(7, 8 + 7*18, rowStart, 18, 18, "7"),
-		new GuiButton(8, 8 + 8*18, rowStart, 18, 18, "8"),
-		new GuiButton(9, 8 + 9*18, rowStart, 18, 18, "9")
+		new GuiButton(0, columnStart + 18, 44, size, size, "All"),
+		new GuiButton(1, columnStart + 1*18, rowStart, size, size, "1"),
+		new GuiButton(2, columnStart + 2*18, rowStart, size, size, "2"),
+		new GuiButton(3, columnStart + 3*18, rowStart, size, size, "3"),
+		new GuiButton(4, columnStart + 4*18, rowStart, size, size, "4"),
+		new GuiButton(5, columnStart + 5*18, rowStart, size, size, "5"),
+		new GuiButton(6, columnStart + 6*18, rowStart, size, size, "6"),
+		new GuiButton(7, columnStart + 7*18, rowStart, size, size, "7"),
+		new GuiButton(8, columnStart + 8*18, rowStart, size, size, "8"),
+		new GuiButton(9, columnStart + 9*18, rowStart, size, size, "9")
 	};
 
 	public BackpackGUI(BackpackContainer par1Container)
 	{
 		super(par1Container);
 		isPlaced = par1Container.isPlaced;
+	}
+	
+	@Override
+	public void initGui()
+	{
 		for(GuiButton b : buttons)
 		{
 			b.enabled = true;
 			buttonList.add(b);
 		}
+		super.initGui();
 	}
 
 	@Override
@@ -50,12 +56,55 @@ public class BackpackGUI extends GuiContainer
 		
 		
 	}
+	
+	@Override
+	protected void actionPerformed(GuiButton butt)
+	{
+		switch(butt.id)
+		{
+			case 0:
+				
+				break;
+			case 1:
+				
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				
+				break;
+			case 4:
+				
+				break;
+			case 5:
+				
+				break;
+			case 6:
+				
+				break;
+			case 7:
+				
+				break;
+			case 8:
+				
+				break;
+			case 9:
+				
+				break;
+			
+			default:
+				break;
+		}
+		
+		super.actionPerformed(butt);
+	}
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
 	{
-		// TODO Auto-generated method stub
 		super.drawGuiContainerForegroundLayer(p_146979_1_, p_146979_2_);
 	}
 
+	
 }
