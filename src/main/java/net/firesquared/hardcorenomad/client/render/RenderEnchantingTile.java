@@ -26,12 +26,12 @@ public class RenderEnchantingTile extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float var8)
 	{
-		int level = 0;//get the level of the table form the TE
+		int level = 4;//get the level of the table form the TE
 		GL11.glPushMatrix();
 		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
 		GL11.glTranslated(x, y, z);
 		
-		GL11.glTranslatef(0.5f, 0.5f, 0.5f);
+		GL11.glTranslatef(0.5f, 0.65f, 0.5f);
 		GL11.glScalef(.25f, .25f, .25f);
 		
 		int i = Blocks.BLOCK_ENCHANTMENTTABLE.getBlock().getLightValue(te.getWorldObj(), (int)x, (int)y, (int)z);
