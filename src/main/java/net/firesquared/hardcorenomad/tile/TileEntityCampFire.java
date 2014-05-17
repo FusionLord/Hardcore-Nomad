@@ -22,7 +22,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class TileEntityCampFire extends TileEntity implements IInventory
+public class TileEntityCampFire extends TileEntityDeployableBase implements IInventory
 {
 	private NBTTagCompound tagInv;
 	private static final int[] slotsTop = new int[] {0};
@@ -33,7 +33,6 @@ public class TileEntityCampFire extends TileEntity implements IInventory
 	public int currentItemBurnTime;
 	public int furnaceCookTime;
 	private CampFireTypes campFireType;
-	private TileEntityBackPack backPack;
 
 	public static final int ModelID = RenderingRegistry.getNextAvailableRenderId();
 
@@ -79,11 +78,6 @@ public class TileEntityCampFire extends TileEntity implements IInventory
 		furnaceCookTime = tag.getShort("CookTime");
 		currentItemBurnTime = getItemBurnTime(this.furnaceItemStacks[1]);
 		campFireType = CampFireTypes.values()[tag.getInteger("campFireType")];
-
-		int backPackX = tag.getInteger("backPackX");
-		int backPackY = tag.getInteger("backPackY");
-		int backPackZ = tag.getInteger("backPackZ");
-		backPack = TileEntityHelper.getTileEntity(this.getWorldObj(), backPackX, backPackY, backPackZ, TileEntityBackPack.class);
 	}
 
 	@Override
@@ -93,10 +87,6 @@ public class TileEntityCampFire extends TileEntity implements IInventory
 		tag.setShort("BurnTime", (short) furnaceBurnTime);
 		tag.setShort("CookTime", (short)furnaceCookTime);
 		tag.setInteger("campFireType", campFireType.ordinal());
-		
-		tag.setInteger("backPackX", backPack.xCoord);
-		tag.setInteger("backPackY", backPack.yCoord);
-		tag.setInteger("backPackZ", backPack.zCoord);
 
 		NBTTagList nbtTagList = new NBTTagList();
 
@@ -367,13 +357,5 @@ public class TileEntityCampFire extends TileEntity implements IInventory
 
 	public void setCampFireType(CampFireTypes campFireType) {
 		this.campFireType = campFireType;
-	}
-
-	public TileEntityBackPack getBackPack() {
-		return getBackPack();
-	}
-
-	public void setTileEntityBackPack(TileEntityBackPack tileEntityBackPack) {
-		this.backPack = tileEntityBackPack;
 	}
 }

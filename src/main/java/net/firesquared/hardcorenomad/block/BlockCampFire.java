@@ -52,7 +52,8 @@ public class BlockCampFire extends BlockCampComponent
 		return tileEntityCampFire.getCampFireType();
 	}
 
-	public void DeployCampFire(World world, int x, int y, int z, int side, int hitX, int hitY, int hitZ, ItemStack stack, EntityPlayer player, CampFireTypes campFireType, TileEntityBackPack backPack) {
+	@Override
+	public void Deploy(World world, int x, int y, int z, int side, int hitX, int hitY, int hitZ, ItemStack stack, EntityPlayer player, int upgradeLevel, TileEntityBackPack backPack) {
 		if (this.canPlaceBlockAt(world, x, y, z)) {
 			int i1 = this.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, 0);
 
@@ -64,16 +65,10 @@ public class BlockCampFire extends BlockCampComponent
 					this.onPostBlockPlaced(world, x, y, z, i1);
 
 					TileEntityCampFire tileEntityCampFire = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityCampFire.class);
-					tileEntityCampFire.setCampFireType(campFireType);
+					tileEntityCampFire.setCampFireType(CampFireTypes.values()[upgradeLevel]);
 					tileEntityCampFire.setTileEntityBackPack(backPack);
 				}
 			}
 		}
-	}
-
-	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int p_149749_6_)
-	{
-		// TODO: Either cancel the break, or not drop an item, put it back into the backpack.
 	}
 }
