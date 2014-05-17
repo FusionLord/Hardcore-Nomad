@@ -241,9 +241,9 @@ public class TileEntityCampFire extends TileEntity implements ISidedInventory
 
 			if (this.isBurning() && this.canSmelt())
 			{
-				++this.furnaceCookTime;
+				this.furnaceCookTime += 1; // Increase Cook Rate...
 
-				if (this.furnaceCookTime == 200)
+				if (this.furnaceCookTime >= 200)
 				{
 					this.furnaceCookTime = 0;
 					this.smeltItem();
