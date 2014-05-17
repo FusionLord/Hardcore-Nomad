@@ -66,7 +66,7 @@ public class BlockCampFire extends BlockCampComponent
 
 					TileEntityCampFire tileEntityCampFire = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityCampFire.class);
 					tileEntityCampFire.setCampFireType(CampFireTypes.values()[upgradeLevel]);
-					tileEntityCampFire.setTileEntityBackPack(backPack);
+					//tileEntityCampFire.setTileEntityBackPack(backPack);
 				}
 			}
 		}

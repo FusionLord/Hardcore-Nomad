@@ -32,7 +32,7 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 	public int furnaceBurnTime;
 	public int currentItemBurnTime;
 	public int furnaceCookTime;
-	private CampFireTypes campFireType;
+	private CampFireTypes campFireType = CampFireTypes.TIER_1;
 
 	public static final int ModelID = RenderingRegistry.getNextAvailableRenderId();
 
@@ -246,7 +246,10 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 
 			if (this.isBurning() && this.canSmelt())
 			{
-				this.furnaceCookTime += 1; // Increase Cook Rate...
+				//this.furnaceCookTime += 15; // ToDo: Increase Cook Rate...
+				// Furnace Upgrades
+				int Upgrade = (campFireType.ordinal() + 1) * 5 - 4;
+				this.furnaceCookTime += Upgrade;
 
 				if (this.furnaceCookTime >= 200)
 				{

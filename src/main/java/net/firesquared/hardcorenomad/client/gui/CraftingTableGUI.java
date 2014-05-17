@@ -14,5 +14,4 @@ public class CraftingTableGUI extends GuiCrafting
 		super(entityPlayer.inventory, world, x, y, z);
 	}
 
-
 }
