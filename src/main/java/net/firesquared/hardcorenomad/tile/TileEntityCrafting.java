@@ -1,6 +1,8 @@
 package net.firesquared.hardcorenomad.tile;
 
-public class TileEntityCrafting extends TileEntityDeployableBase
+import net.minecraft.tileentity.TileEntity;
+
+public class TileEntityCrafting extends TileEntity
 {
 
 }

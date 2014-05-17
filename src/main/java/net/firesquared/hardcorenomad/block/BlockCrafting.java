@@ -6,6 +6,7 @@ import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
 import net.firesquared.hardcorenomad.tile.TileEntityCrafting;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,7 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockCrafting extends BlockCampComponent
+public class BlockCrafting extends Block
 {
 	@SideOnly(Side.CLIENT)
 	private IIcon field_150035_a;
@@ -52,15 +53,16 @@ public class BlockCrafting extends BlockCampComponent
 	{
 		if (!world.isRemote)
 		{
-			entityPlayer.displayGUIWorkbench(x, y, z);
+			((EntityPlayerMP)entityPlayer).displayGUIWorkbench(x, y, z);
+			//entityPlayer.displayGUIAnvil(x, y, z);
 		}
 		return true;
 	}
 
-	@Override
-	public TileEntity createNewTileEntity(World var1, int var2)
-	{
-		TileEntityCrafting tileEntityCrafting = new TileEntityCrafting();
-		return tileEntityCrafting;
-	}
+//	@Override
+//	public TileEntity createNewTileEntity(World var1, int var2)
+//	{
+//		TileEntityCrafting tileEntityCrafting = new TileEntityCrafting();
+//		return tileEntityCrafting;
+//	}
 }
