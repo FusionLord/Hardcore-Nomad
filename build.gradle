@@ -30,7 +30,7 @@ minecraft {
     assetDir = "eclipse/assets"
 }
 
-version = "1.7.2-"+version+".b"+(System.getenv("BUILD_ID") ?:0);
+version = "1.7.2-"+version+"-b"+(System.getenv("BUILD_ID") ?:0);
 
 processResources
 {
