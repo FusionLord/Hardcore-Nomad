@@ -16,7 +16,6 @@ public class BlockAnvil extends BlockCampComponent
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2)
 	{
-		// TODO: Make a tile entity for the crafting table :/
 		return null;
 	}
 }
