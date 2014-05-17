@@ -15,7 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
 
-public class BlockCampFire extends BlockContainer
+public class BlockCampFire extends BlockCampComponent
 {
 	public BlockCampFire()
 	{

@@ -16,7 +16,13 @@ public enum Blocks
 	// Format: BLOCK_NAME("Block.Name", new BlockClass(), ItemBlock.Class, CreativeTab.TabName)
 	BLOCK_BACKPACK("backpack", new BlockBackPack()),
 	BLOCK_CAMPFIRE("campfire", new BlockCampFire()),
+	BLOCK_BEDROLL("bedroll", new BlockBedRoll()),
+	BLOCK_CRAFTING("crafting", new BlockCrafting()),
+	BLOCK_STORAGE("storage", new BlockStorage()),
 	BLOCK_ENCHANTMENTTABLE("enchantmenttable", new BlockEnchantmentTable(), CreativeTab.HardCoreNomadTab),
+	BLOCK_ANVIL("anvil", new BlockAnvil()),
+	BLOCK_COBBLEGEN("cobblegen", new BlockCobbleGenerator()),
+	BLOCK_BREWING("brewingstand", new BlockBrewing())
 	;
 
 	private final String internalName;

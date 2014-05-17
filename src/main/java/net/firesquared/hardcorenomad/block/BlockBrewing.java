@@ -2,12 +2,13 @@ package net.firesquared.hardcorenomad.block;
 
 import net.minecraft.block.material.Material;
 
-public class BlockCobbleGenerator extends BlockCampComponent
+public class BlockBrewing extends BlockCampComponent
 {
 
-	public BlockCobbleGenerator()
+	public BlockBrewing()
 	{
 		super(Material.rock);
+		// TODO Auto-generated constructor stub
 	}
-
+	
 }
