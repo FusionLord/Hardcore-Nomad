@@ -41,11 +41,10 @@ public class GUIHandler implements IGuiHandler
 		switch(ID)
 		{
 			case 0:
-				return new BackpackGUI((Container) getServerGuiElement(ID, player, world, x, y, z));
 			case 1:
 				return new BackpackGUI((Container) getServerGuiElement(ID, player, world, x, y, z));
 			case 2:
-				return new CampFireGUI(player.inventory, TileEntityHelper.getTileEntity(world, x, y, z, TileEntityCampFire.class));
+				return new CampFireGUI((Container) getServerGuiElement(ID, player, world, x, y, z));
 			default:
 				return null;
 		}

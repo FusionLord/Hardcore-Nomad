@@ -15,7 +15,7 @@ import net.minecraft.tileentity.TileEntityFurnace;
 
 public class CampFireContainer extends Container
 {
-	private TileEntityCampFire tileEntityCampFire;
+	public TileEntityCampFire tileEntityCampFire;
 	private int lastCookTime;
 	private int lastBurnTime;
 	private int lastItemBurnTime;

@@ -36,7 +36,7 @@ public class BlockCampFire extends BlockContainer
 
 		//if (tileEntityCampFire != null)
 		//{
-			player.openGui(HardcoreNomad.instance, 3, world, x, y, z);
+			player.openGui(HardcoreNomad.instance, 2, world, x, y, z);
 		//}
 
 		return true;

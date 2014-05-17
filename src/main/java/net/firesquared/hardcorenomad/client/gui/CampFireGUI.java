@@ -14,11 +14,10 @@ public class CampFireGUI extends GuiContainer
 	private static final ResourceLocation background = new ResourceLocation("textures/gui/container/furnace.png");
 	private TileEntityCampFire tileEntityCampFire;
 
-	public CampFireGUI(InventoryPlayer inventoryPlayer, TileEntityCampFire tileEntityCampFire)
+	public CampFireGUI(Container serverGuiElement)
 	{
-		super(new CampFireContainer(inventoryPlayer, tileEntityCampFire));
-		this.tileEntityCampFire = tileEntityCampFire;
-		// TODO Auto-generated constructor stub
+		super(serverGuiElement);
+		this.tileEntityCampFire = ((CampFireContainer)serverGuiElement).tileEntityCampFire;
 	}
 
 	@Override
