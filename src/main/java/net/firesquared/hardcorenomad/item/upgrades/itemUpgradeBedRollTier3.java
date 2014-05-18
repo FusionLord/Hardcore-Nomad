@@ -1,6 +1,8 @@
 package net.firesquared.hardcorenomad.item.upgrades;
 
 import net.firesquared.hardcorenomad.block.BlockBedRoll;
+import net.firesquared.hardcorenomad.block.Blocks;
+import net.minecraft.block.BlockContainer;
 
 public class itemUpgradeBedRollTier3 extends itemUpgrade
 {
@@ -20,5 +22,10 @@ public class itemUpgradeBedRollTier3 extends itemUpgrade
 	public int getNewLevel()
 	{
 		return 3;
+	}
+	@Override
+	public BlockContainer getContainerSingleton()
+	{
+		return (BlockContainer) Blocks.BLOCK_BEDROLL.getBlock();
 	}
 }

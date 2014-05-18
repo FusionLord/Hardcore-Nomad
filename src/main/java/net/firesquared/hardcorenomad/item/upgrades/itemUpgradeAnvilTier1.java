@@ -1,6 +1,8 @@
 package net.firesquared.hardcorenomad.item.upgrades;
 
 import net.firesquared.hardcorenomad.block.BlockAnvil;
+import net.firesquared.hardcorenomad.block.Blocks;
+import net.minecraft.block.BlockContainer;
 
 public class itemUpgradeAnvilTier1 extends itemUpgrade
 {
@@ -21,6 +23,12 @@ public class itemUpgradeAnvilTier1 extends itemUpgrade
 	public int getNewLevel()
 	{
 		return 1;
+	}
+
+	@Override
+	public BlockContainer getContainerSingleton()
+	{
+		return (BlockContainer) Blocks.BLOCK_ANVIL.getBlock();
 	}
 
 }

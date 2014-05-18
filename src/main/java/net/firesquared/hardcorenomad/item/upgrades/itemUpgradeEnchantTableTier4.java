@@ -1,6 +1,8 @@
 package net.firesquared.hardcorenomad.item.upgrades;
 
 import net.firesquared.hardcorenomad.block.BlockEnchantmentTable;
+import net.firesquared.hardcorenomad.block.Blocks;
+import net.minecraft.block.BlockContainer;
 
 public class itemUpgradeEnchantTableTier4 extends itemUpgrade
 {
@@ -20,5 +22,11 @@ public class itemUpgradeEnchantTableTier4 extends itemUpgrade
 	public int getNewLevel()
 	{
 		return 4;
+	}
+	
+	@Override
+	public BlockContainer getContainerSingleton()
+	{
+		return (BlockContainer) Blocks.BLOCK_ENCHANTMENTTABLE.getBlock();
 	}
 }

@@ -7,6 +7,8 @@ public abstract class itemUpgrade extends Item
 {
 	public abstract Class getUpgradeTarget();
 	
+	public abstract BlockContainer getContainerSingleton();
+	
 	public abstract int getTargetLevel();
 	
 	public abstract int getNewLevel();

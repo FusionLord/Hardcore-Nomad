@@ -1,6 +1,8 @@
 package net.firesquared.hardcorenomad.item.upgrades;
 
 import net.firesquared.hardcorenomad.block.BlockCampFire;
+import net.firesquared.hardcorenomad.block.Blocks;
+import net.minecraft.block.BlockContainer;
 
 public class itemUpgradeCampFireTier3 extends itemUpgrade
 {
@@ -20,5 +22,11 @@ public class itemUpgradeCampFireTier3 extends itemUpgrade
 	public int getNewLevel()
 	{
 		return 3;
+	}
+	
+	@Override
+	public BlockContainer getContainerSingleton()
+	{
+		return (BlockContainer) Blocks.BLOCK_CAMPFIRE.getBlock();
 	}
 }

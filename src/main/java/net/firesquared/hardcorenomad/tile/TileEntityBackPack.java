@@ -198,6 +198,11 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 			{
 				ItemStack is = ItemStack.loadItemStackFromNBT(tag);
 				EnumSlotCoordinateOffsets offs = EnumSlotCoordinateOffsets.values()[iD];
+				
+				is.stackTagCompound.setInteger("x", xCoord + offs.x);
+				is.stackTagCompound.setInteger("y", yCoord + offs.y);
+				is.stackTagCompound.setInteger("z", zCoord + offs.z);
+				
 				worldObj.setBlock(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z, (BlockContainer)Block.getBlockFromItem(is.getItem()));
 				worldObj.getTileEntity(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z).readFromNBT(is.stackTagCompound);
 			}
@@ -242,6 +247,19 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 				}
 			}
 		}
+		
+		if(iu.getTargetLevel() == 1)
+			for(int i = 0; i < 9; i++)
+			{
+				tag = getUpgrade(i);
+				if(tag != null)
+				{
+					is = new ItemStack(iu.getContainerSingleton());
+					applyUpgrade(is, iu);
+					is.writeToNBT(tag);
+				}
+			}
+		
 		return false;		
 	}
 	
