@@ -1,6 +1,8 @@
 package net.firesquared.hardcorenomad.client.gui;
 
+import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.container.BackpackContainer;
+import net.firesquared.hardcorenomad.network.PacketHandler;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
@@ -63,7 +65,7 @@ public class BackpackGUI extends GuiContainer
 		switch(butt.id)
 		{
 			case 0:
-				
+				//HardcoreNomad.instance.p
 				break;
 			case 1:
 				
