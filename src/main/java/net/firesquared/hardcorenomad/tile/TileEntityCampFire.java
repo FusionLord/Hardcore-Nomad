@@ -83,7 +83,8 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
-		super.writeToNBT(tag);
+		if(this.backPack != null)
+			super.writeToNBT(tag);
 		tag.setShort("BurnTime", (short) furnaceBurnTime);
 		tag.setShort("CookTime", (short)furnaceCookTime);
 		tag.setInteger("campFireType", campFireType.ordinal());

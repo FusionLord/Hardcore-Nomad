@@ -26,16 +26,52 @@ public class RenderBedRollTile extends TileEntitySpecialRenderer
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float var8)
 	{
 		GL11.glPushMatrix();
-		//FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
-		GL11.glTranslated(x, y, z);
-
-		GL11.glTranslatef(0.5f, 0.65f, 0.5f);
-		GL11.glScalef(.25f, .25f, .25f);
-
+		GL11.glTranslated(x+.5, y, z+.5);
 		int i = Blocks.BLOCK_BEDROLL.getBlock().getLightValue(te.getWorldObj(), (int)x, (int)y, (int)z);
 		Tessellator.instance.setColorOpaque_F(i, i, i);
+		GL11.glScaled(.25, .25, .25);
+		
+		renderBed();
+		renderMat();
+		renderPillow();
 
-		//model.renderAll();
 		GL11.glPopMatrix();
+	}
+
+	private void renderBed()
+	{
+		FMLClientHandler.instance().getClient().renderEngine.bindTexture(textureBed);
+		
+		GL11.glTranslated(0, .3, 0);
+		//transform/scale/rotate
+
+		modelBed.renderAll();
+		
+		GL11.glTranslated(0, -.3, 0);
+	}
+	
+	private void renderMat()
+	{
+		FMLClientHandler.instance().getClient().renderEngine.bindTexture(textureMat);
+		
+		//transform/scale/rotate
+
+		modelMat.renderAll();
+	}
+	
+	private void renderPillow()
+	{
+		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texturePillow);
+		
+		GL11.glTranslated(3, .75, 0);
+		//transform/scale/rotate
+
+		modelPillow.renderAll();
+		
+		GL11.glTranslated(0, .25, 0);
+		
+		modelPillow.renderAll();
+		
+		GL11.glTranslated(-3, -1, 0);
 	}
 }

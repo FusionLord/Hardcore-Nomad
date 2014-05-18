@@ -30,7 +30,7 @@ public class RenderBackPackTile extends TileEntitySpecialRenderer
 	{
 		BackPackTypes backPackType = ((TileEntityBackPack)te).getBackpackType();
 
-		LogHelper.debug("Went to render, im told to render this... ==> " + backPackType);
+		//LogHelper.debug("Went to render, im told to render this... ==> " + backPackType);
 
 		GL11.glPushMatrix();
 		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture[backPackType.ordinal()]);

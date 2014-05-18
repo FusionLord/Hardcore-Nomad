@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityDeployableBase extends TileEntity
 {
-	private TileEntityBackPack backPack;
+	protected TileEntityBackPack backPack;
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
