@@ -12,15 +12,21 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderBedRollTile extends TileEntitySpecialRenderer
 {
-	public static final IModelCustom model = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/bed/bedroll.obj"));
+	public static final IModelCustom 
+			modelBed = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/bed/bedroll.obj")),
+			modelMat = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/bed/matting.obj")),
+			modelPillow = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/bed/pillow.obj"));
 
-	public static final ResourceLocation texture = new ResourceLocation("hardcorenomad:models/bed/bedroll.png");
+	public static final ResourceLocation 
+			textureBed = new ResourceLocation("hardcorenomad:models/bed/bedroll.png"),
+			textureMat = new ResourceLocation("hardcorenomad:models/bed/matting.png"),
+			texturePillow = new ResourceLocation("hardcorenomad:models/bed/pillow.png");
 
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float var8)
 	{
 		GL11.glPushMatrix();
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
+		//FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
 		GL11.glTranslated(x, y, z);
 
 		GL11.glTranslatef(0.5f, 0.65f, 0.5f);
@@ -29,7 +35,7 @@ public class RenderBedRollTile extends TileEntitySpecialRenderer
 		int i = Blocks.BLOCK_BEDROLL.getBlock().getLightValue(te.getWorldObj(), (int)x, (int)y, (int)z);
 		Tessellator.instance.setColorOpaque_F(i, i, i);
 
-		model.renderAll();
+		//model.renderAll();
 		GL11.glPopMatrix();
 	}
 }

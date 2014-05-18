@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 
-public class RenderInchantingItem implements IItemRenderer
+public class RenderEnchantingItem implements IItemRenderer
 {
 	
 	@Override

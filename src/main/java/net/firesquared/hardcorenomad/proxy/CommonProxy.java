@@ -13,6 +13,7 @@ import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.firesquared.hardcorenomad.player.PlayerEvents;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
+import net.firesquared.hardcorenomad.tile.TileEntityBedRoll;
 import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
 import net.firesquared.hardcorenomad.tile.TileEntityCrafting;
 import net.firesquared.hardcorenomad.tile.TileEntityEnchantmentTable;
@@ -52,6 +53,7 @@ public abstract class CommonProxy implements IProxy
 		GameRegistry.registerTileEntity(TileEntityCampFire.class, "tile.campfire");
 		GameRegistry.registerTileEntity(TileEntityEnchantmentTable.class, "tile.enchantmenttable");
 		GameRegistry.registerTileEntity(TileEntityCrafting.class, "tile.crafting");
+		GameRegistry.registerTileEntity(TileEntityBedRoll.class, "tile.bedroll");
 	}
 
 	// Register Entities
