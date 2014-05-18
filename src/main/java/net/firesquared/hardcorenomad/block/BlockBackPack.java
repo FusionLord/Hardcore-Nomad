@@ -46,6 +46,7 @@ public class BlockBackPack extends BlockContainer
 		tileEntityBackPack.writeToNBT(nbtTagCompound);
 
 		ItemStack itemStack = null;
+
 		switch(BackPackTypes.values()[nbtTagCompound.getInteger("backPackType")])
 		{
 			case BACKPACK_BASIC:
@@ -54,11 +55,11 @@ public class BlockBackPack extends BlockContainer
 			case BACKPACK_IMPROVED:
 				itemStack = new ItemStack(Items.ITEM_BACKPACKIMPROVED.getItem(), 1);
 				break;
-			case BACKPACK_ARMORED:
-				itemStack = new ItemStack(Items.ITEM_BACKPACKARMORED.getItem(), 1);
-				break;
 			case BACKPACK_ADVANCED:
 				itemStack = new ItemStack(Items.ITEM_BACKPACKADVANCED.getItem(), 1);
+				break;
+			case BACKPACK_ARMORED:
+				itemStack = new ItemStack(Items.ITEM_BACKPACKARMORED.getItem(), 1);
 				break;
 		}
 
