@@ -84,18 +84,4 @@ public class BlockCampFire extends BlockContainer implements IBlockCampComponent
 
 		return itemStack;
 	}
-
-	@Override
-	public void rebuildFromNBT(World world, int x, int y, int z, TileEntityBackPack parrent, NBTTagCompound myData)
-	{
-		world.setBlock(x, y, z, this);
-		TileEntity te = world.getTileEntity(x, y, z);
-		te.readFromNBT(myData);
-	}
-
-	@Override
-	public NBTTagCompound packIntoNBT()
-	{
-		return null;//pack yourself into a tag
-	}
 }
