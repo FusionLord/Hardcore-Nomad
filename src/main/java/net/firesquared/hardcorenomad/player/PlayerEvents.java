@@ -60,7 +60,7 @@ public class PlayerEvents
 					if (player.getDisplayName().equalsIgnoreCase("soaryn"))
 					{
 						player.addChatComponentMessage(
-								new ChatComponentText("Hello Soaryn... Do you want to play a little game?"));
+								new ChatComponentText("[Server] Hello Soaryn... Do you want to play a little game?"));
 					}
 				}
 
