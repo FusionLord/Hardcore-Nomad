@@ -14,7 +14,5 @@ import net.minecraft.world.World;
 
 public interface IBlockCampComponent
 {
-	public void rebuildFromNBT(World world, int x, int y, int z, TileEntityBackPack parrent, NBTTagCompound myData);
-	
-	public NBTTagCompound packIntoNBT();
+	public ItemStack packIntoItemStack(World world, int x, int y, int z);
 }
