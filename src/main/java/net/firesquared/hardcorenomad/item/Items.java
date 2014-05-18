@@ -51,11 +51,11 @@ public enum Items
 	ITEM_UPGRADE_CAMPFIRE_TIER4("upgrade.campfire.tier4", new itemUpgradeCampFireTier4(), CreativeTab.HardCoreNomadUpgradesTab),
 
 	//Enchantment Table Upgrades
-	ITEM_UPGRADE_ENCHANTTABLE_TIER1("upgrade.enchanttable.tier1", new itemUpgradeBedRollTier1(), CreativeTab.HardCoreNomadUpgradesTab, 1, 1, 3),
-	ITEM_UPGRADE_ENCHANTTABLE_TIER2("upgrade.enchanttable.tier2", new itemUpgradeBedRollTier2(), CreativeTab.HardCoreNomadUpgradesTab, 1, 1, 2),
-	ITEM_UPGRADE_ENCHANTTABLE_TIER3("upgrade.enchanttable.tier3", new itemUpgradeBedRollTier3(), CreativeTab.HardCoreNomadUpgradesTab, 1, 1, 1),
-	ITEM_UPGRADE_ENCHANTTABLE_TIER4("upgrade.enchanttable.tier4", new itemUpgradeBedRollTier4(), CreativeTab.HardCoreNomadUpgradesTab),
-	ITEM_UPGRADE_ENCHANTTABLE_TIER5("upgrade.enchanttable.tier5", new itemUpgradeBedRollTier5(), CreativeTab.HardCoreNomadUpgradesTab),
+	ITEM_UPGRADE_ENCHANTTABLE_TIER1("upgrade.enchanttable.tier1", new itemUpgradeEnchantTableTier1(), CreativeTab.HardCoreNomadUpgradesTab, 1, 1, 3),
+	ITEM_UPGRADE_ENCHANTTABLE_TIER2("upgrade.enchanttable.tier2", new itemUpgradeEnchantTableTier2(), CreativeTab.HardCoreNomadUpgradesTab, 1, 1, 2),
+	ITEM_UPGRADE_ENCHANTTABLE_TIER3("upgrade.enchanttable.tier3", new itemUpgradeEnchantTableTier3(), CreativeTab.HardCoreNomadUpgradesTab, 1, 1, 1),
+	ITEM_UPGRADE_ENCHANTTABLE_TIER4("upgrade.enchanttable.tier4", new itemUpgradeEnchantTableTier4(), CreativeTab.HardCoreNomadUpgradesTab),
+	ITEM_UPGRADE_ENCHANTTABLE_TIER5("upgrade.enchanttable.tier5", new itemUpgradeEnchantTableTier5(), CreativeTab.HardCoreNomadUpgradesTab),
 
 	ITEM_UPGRADE_COBBLEGENERATOR_TIER1("upgrade.cobblegenerator.tier1", new itemUpgradeCobbleGenTier1(), CreativeTab.HardCoreNomadUpgradesTab, 1, 1, 2),
 

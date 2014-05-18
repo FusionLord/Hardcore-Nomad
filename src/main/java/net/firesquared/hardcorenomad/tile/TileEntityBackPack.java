@@ -26,6 +26,12 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	protected BackPackInventory inventory;
 	private NBTTagCompound tagInv;
 	public ItemStack upgradeSlot;
+	
+	public void setTagInv(NBTTagCompound tag)
+	{
+		tagInv = tag;
+		inventory = new BackPackInventory(tagInv);
+	}
 
 	public static final int ModelID = RenderingRegistry.getNextAvailableRenderId();
 
@@ -37,10 +43,6 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	@Override
 	public Packet getDescriptionPacket()
 	{
-		tagInv = new NBTTagCompound();
-		writeToNBT(tagInv);
-		inventory = new BackPackInventory(tagInv);
-
 		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, tagInv);
 	}
 
@@ -48,16 +50,14 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	public void onDataPacket(NetworkManager networkManager, S35PacketUpdateTileEntity packetUpdateTileEntity)
 	{
 		worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
-		tagInv = packetUpdateTileEntity.func_148857_g();
-		readFromNBT(tagInv);
-		inventory = new BackPackInventory(tagInv);
+		setTagInv(packetUpdateTileEntity.func_148857_g());
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		
+		setTagInv(tag.getCompoundTag("tagInv"));
 		backPackType = tag.getInteger("backPackType");
 	}
 
@@ -65,7 +65,8 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		//tag.setInteger("blockMeta", blockMeta);
+		if(tagInv != null)
+			tag.setTag("tagInv", tagInv);
 		tag.setInteger("backPackType", backPackType);
 	}
 
@@ -230,6 +231,7 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	
 	public boolean doUpgrade()
 	{
+		upgradeSlot = getStackInSlot(-1);
 		if(upgradeSlot == null || !(upgradeSlot.getItem() instanceof itemUpgrade))
 			return false;
 		NBTTagCompound tag;
@@ -250,15 +252,18 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 			}
 		}
 		
-		if(iu.getTargetLevel() == 1)
+		if(iu.getTargetLevel() == 0)
 			for(int i = 0; i < 9; i++)
 			{
 				tag = getUpgrade(i);
-				if(tag != null)
+				if(tag == null)
 				{
 					is = new ItemStack(iu.getContainerSingleton());
-					applyUpgrade(is, iu);
+					is = applyUpgrade(is, iu);
+					tag = new NBTTagCompound();
 					is.writeToNBT(tag);
+					setUpgrade(i, tag);
+					return true;
 				}
 			}
 		
@@ -267,7 +272,9 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	
 	private ItemStack applyUpgrade(ItemStack is, itemUpgrade iu)
 	{
-		is.stackTagCompound.setInteger("upgradeLevel", iu.getTargetLevel());
+		if(is.stackTagCompound == null)
+			is.stackTagCompound = new NBTTagCompound();
+		is.stackTagCompound.setInteger("upgradeLevel", iu.getNewLevel());
 		return is;
 	}
 	

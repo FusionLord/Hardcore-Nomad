@@ -135,9 +135,7 @@ public abstract class ItemBackPack extends ItemArmor
 	private boolean doPlacement(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
 		if(stack.stackSize == 0)
-		{
 			return false;
-		}
 		else
 		{
 			if(world.canPlaceEntityOnSide(blockBackPack, x, y, z, false, side, (Entity) null, stack))
@@ -155,21 +153,13 @@ public abstract class ItemBackPack extends ItemArmor
 					TileEntityBackPack tileEntityBackPack = getTileEntity(world, x, y, z, TileEntityBackPack.class);
 					if(tileEntityBackPack != null)
 					{
-						NBTTagCompound nbtTagCompound = stack.getTagCompound();
-						if(nbtTagCompound == null)
-							throw new IllegalStateException("Expected critical NBT data on backpack item");
+						
+						if(stack.getTagCompound() == null)
+							stack.getItem().onCreated(stack, world, player);
+						
+						stack.stackTagCompound.setInteger("backPackType", getBackPackType().ordinal());
 
-						nbtTagCompound.setInteger("x", x);
-						nbtTagCompound.setInteger("y", y);
-						nbtTagCompound.setInteger("z", z);
-
-						nbtTagCompound.setInteger("backPackType", getBackPackType().ordinal());
-
-						//if(!nbtTagCompound.hasKey("owner")) {
-						//	nbtTagCompound.setString("owner", player.getDisplayName());
-						//}
-
-						tileEntityBackPack.readFromNBT(nbtTagCompound);
+						tileEntityBackPack.setTagInv(stack.stackTagCompound);
 					}
 
 					world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F),

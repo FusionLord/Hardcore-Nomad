@@ -78,7 +78,7 @@ public class BackpackContainer extends Container
 						addSlotToContainer(new Slot(backPack, i++, w * 18 + 192, h * 18 + 6));
 				break;
 		}
-		addSlotToContainer(new Slot(backPack, i + 9, 128, 4));
+		addSlotToContainer(new Slot(backPack, -1, 128, 4));
 	}
 
 }

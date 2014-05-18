@@ -18,11 +18,11 @@ public class BackPackInventory extends NBTBackedInventory
 	{
 		int div = backingTag.getInteger("divider");
 		if(slot < 0)
-			return false;
-		else if(slot >= getSizeInventory())
-			if(slot == getSizeInventory())
+			if(slot == -1)
 				return is.getItem() instanceof itemUpgrade;
 			else
+				return false;
+		else if(slot >= getSizeInventory())
 				return false;
 		else
 			if(slot<backingTag.getInteger("div"))

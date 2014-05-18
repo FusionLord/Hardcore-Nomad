@@ -63,13 +63,8 @@ public class BlockBackPack extends BlockContainer
 				break;
 		}
 
-		// Remove X,Y,Z or it will render there when placed...
-		nbtTagCompound.removeTag("x");
-		nbtTagCompound.removeTag("y");
-		nbtTagCompound.removeTag("z");
-
 		// Save NBT Data to itemStack
-		itemStack.setTagCompound(nbtTagCompound);
+		itemStack.setTagCompound(nbtTagCompound.getCompoundTag("tagInv"));
 
 		// Drop item into world like magic :D
 		dropBlockAsItem(world, x, y, z, itemStack);
