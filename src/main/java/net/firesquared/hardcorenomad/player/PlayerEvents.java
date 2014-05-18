@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 
@@ -55,7 +56,15 @@ public class PlayerEvents
 					itemStack.getItem().onCreated(itemStack, event.world, (EntityPlayer) event.entity);
 
 					player.inventory.addItemStackToInventory(itemStack);
+
+					if (player.getDisplayName().equalsIgnoreCase("soaryn"))
+					{
+						player.addChatComponentMessage(
+								new ChatComponentText("[Server] Hello Soaryn... Do you want to play a little game?"));
+					}
 				}
+
+
 			}
 		}
 	}
