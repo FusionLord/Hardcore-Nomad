@@ -47,7 +47,11 @@ public class BlockBackPack extends BlockContainer
 
 		ItemStack itemStack = null;
 
-		switch(BackPackTypes.values()[nbtTagCompound.getInteger("backPackType")])
+		int backPackType;
+		NBTTagCompound nbtInv = nbtTagCompound.getCompoundTag("tagInv");
+		backPackType = nbtInv.getInteger("backPackType");
+
+		switch(BackPackTypes.values()[backPackType])
 		{
 			case BACKPACK_BASIC:
 				itemStack = new ItemStack(Items.ITEM_BACKPACKBASIC.getItem(), 1);
@@ -62,6 +66,14 @@ public class BlockBackPack extends BlockContainer
 				itemStack = new ItemStack(Items.ITEM_BACKPACKARMORED.getItem(), 1);
 				break;
 		}
+
+//		// Remove X,Y,Z or it will render there when placed...
+//		nbtTagCompound.removeTag("x");
+//		nbtTagCompound.removeTag("y");
+//		nbtTagCompound.removeTag("z");
+//
+//		// Save NBT Data to itemStack
+//		itemStack.setTagCompound(nbtTagCompound);
 
 		// Save NBT Data to itemStack
 		itemStack.setTagCompound(nbtTagCompound.getCompoundTag("tagInv"));

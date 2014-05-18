@@ -27,26 +27,30 @@ public class RenderBackPackTile extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float var8)
 	{
-		int backPackType = 0;
-
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();
 		te.writeToNBT(nbtTagCompound);
 
-		switch(BackPackTypes.values()[nbtTagCompound.getInteger("backPackType")])
-		{
-			case BACKPACK_BASIC:
-				backPackType = 0;
-				break;
-			case BACKPACK_IMPROVED:
-				backPackType = 1;
-				break;
-			case BACKPACK_ADVANCED:
-				backPackType = 2;
-				break;
-			case BACKPACK_ARMORED:
-				backPackType = 3;
-				break;
-		}
+		int backPackType;
+		NBTTagCompound nbtInv = nbtTagCompound.getCompoundTag("tagInv");
+		backPackType = nbtInv.getInteger("backPackType");
+
+		LogHelper.debug("Went to render, im told to render this... ==> " + backPackType);
+
+//		switch(BackPackTypes.values()[backPackType])
+//		{
+//			case BACKPACK_BASIC:
+//				backPackType = 0;
+//				break;
+//			case BACKPACK_IMPROVED:
+//				backPackType = 1;
+//				break;
+//			case BACKPACK_ADVANCED:
+//				backPackType = 2;
+//				break;
+//			case BACKPACK_ARMORED:
+//				backPackType = 3;
+//				break;
+//		}
 
 		GL11.glPushMatrix();
 		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture[backPackType]);

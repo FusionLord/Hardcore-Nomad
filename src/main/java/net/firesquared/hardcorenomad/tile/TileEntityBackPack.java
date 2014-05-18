@@ -44,13 +44,24 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	@Override
 	public Packet getDescriptionPacket()
 	{
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, tagInv);
+		NBTTagCompound tag = new NBTTagCompound();
+		if (this.tagInv != null)
+		{
+			return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, tagInv);
+		}
+		else
+		{
+			this.writeToNBT(tag);
+			return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, tag);
+		}
 	}
 
 	@Override
 	public void onDataPacket(NetworkManager networkManager, S35PacketUpdateTileEntity packetUpdateTileEntity)
 	{
 		worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
+
+		readFromNBT(packetUpdateTileEntity.func_148857_g());
 		setTagInv(packetUpdateTileEntity.func_148857_g());
 	}
 
@@ -58,14 +69,11 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		// This is not being called???
-		// So that is why backpacks are not working correctly...
-		LogHelper.debug("[NBT] readFromNBT being called");
 		setTagInv(tag.getCompoundTag("tagInv"));
-		NBTTagCompound test = tag.getCompoundTag("tagInv");
-		backPackType = test.getInteger("backPackType");
-		tag.setInteger("backPackType", backPackType);
-		//backPackType = tag.getInteger("backPackType");
+		//NBTTagCompound test = tag.getCompoundTag("tagInv");
+		//backPackType = test.getInteger("backPackType");
+		//tag.setInteger("backPackType", backPackType);
+		backPackType = tag.getInteger("backPackType");
 		LogHelper.debug("[TE] NBT => " + backPackType);
 	}
 
