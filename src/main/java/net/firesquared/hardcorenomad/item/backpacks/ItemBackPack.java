@@ -159,9 +159,8 @@ public abstract class ItemBackPack extends ItemArmor
 						if(stack.getTagCompound() == null)
 							stack.getItem().onCreated(stack, world, player);
 
-						stack.stackTagCompound.setInteger("backPackType", getBackPackType().ordinal());
-
 						tileEntityBackPack.setTagInv(stack.stackTagCompound);
+						tileEntityBackPack.setBackpackType(getBackPackType());
 					}
 
 					world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F),

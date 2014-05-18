@@ -2,6 +2,7 @@ package net.firesquared.hardcorenomad.client.render;
 
 import net.firesquared.hardcorenomad.helpers.BackPackTypes;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
+import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -27,33 +28,12 @@ public class RenderBackPackTile extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float var8)
 	{
-		NBTTagCompound nbtTagCompound = new NBTTagCompound();
-		te.writeToNBT(nbtTagCompound);
-
-		int backPackType;
-		NBTTagCompound nbtInv = nbtTagCompound.getCompoundTag("tagInv");
-		backPackType = nbtInv.getInteger("backPackType");
+		BackPackTypes backPackType = ((TileEntityBackPack)te).getBackpackType();
 
 		LogHelper.debug("Went to render, im told to render this... ==> " + backPackType);
 
-//		switch(BackPackTypes.values()[backPackType])
-//		{
-//			case BACKPACK_BASIC:
-//				backPackType = 0;
-//				break;
-//			case BACKPACK_IMPROVED:
-//				backPackType = 1;
-//				break;
-//			case BACKPACK_ADVANCED:
-//				backPackType = 2;
-//				break;
-//			case BACKPACK_ARMORED:
-//				backPackType = 3;
-//				break;
-//		}
-
 		GL11.glPushMatrix();
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture[backPackType]);
+		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture[backPackType.ordinal()]);
 		GL11.glTranslated(x, y, z);
 		GL11.glTranslatef(0.5f, -1.44f, 0.5f);
 		GL11.glScalef(.35f, .35f, .35f);

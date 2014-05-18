@@ -6,6 +6,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.block.EnumSlotCoordinateOffsets;
 import net.firesquared.hardcorenomad.block.IBlockCampComponent;
+import net.firesquared.hardcorenomad.helpers.BackPackTypes;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.backpacks.BackPackInventory;
 import net.firesquared.hardcorenomad.item.upgrades.itemUpgrade;
@@ -27,18 +28,22 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	protected BackPackInventory inventory;
 	private NBTTagCompound tagInv;
 	public ItemStack upgradeSlot;
+	BackPackTypes type = BackPackTypes.BACKPACK_BASIC;
 	
 	public void setTagInv(NBTTagCompound tag)
 	{
 		tagInv = tag;
-
-		int backPackType;
-		NBTTagCompound nbtInv = tag.getCompoundTag("tagInv");
-		backPackType = nbtInv.getInteger("backPackType");
-
-		LogHelper.debug("[TE] NBT => " + backPackType);
-
 		inventory = new BackPackInventory(tagInv);
+	}
+	
+	public void setBackpackType(BackPackTypes type)
+	{
+		this.type = type;
+	}
+	
+	public BackPackTypes getBackpackType()
+	{
+		return type;
 	}
 
 	public static final int ModelID = RenderingRegistry.getNextAvailableRenderId();
@@ -49,33 +54,11 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	}
 
 	@Override
-	public Packet getDescriptionPacket()
-	{
-		NBTTagCompound tag = new NBTTagCompound();
-		if (this.tagInv != null)
-		{
-			return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, tagInv);
-		}
-		else
-		{
-			this.writeToNBT(tag);
-			return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, tag);
-		}
-	}
-
-	@Override
-	public void onDataPacket(NetworkManager networkManager, S35PacketUpdateTileEntity packetUpdateTileEntity)
-	{
-		worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
-
-		setTagInv(packetUpdateTileEntity.func_148857_g());
-		readFromNBT(packetUpdateTileEntity.func_148857_g());
-	}
-
-	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
+		type = BackPackTypes.values()[tag.getInteger("backPackType")];
+		setTagInv(tag.getCompoundTag("tagInv"));
 	}
 
 	@Override
@@ -84,7 +67,9 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 		super.writeToNBT(tag);
 		if(tagInv != null)
 			tag.setTag("tagInv", tagInv);
-		tag.setInteger("backPackType", backPackType);
+		else
+			LogHelper.debug("Backpack NBT tag is misssssssiiiiiiinnnnnnggggggg!!!!!!!!");
+		tag.setInteger("backPackType", type.ordinal());
 	}
 
 	/**
