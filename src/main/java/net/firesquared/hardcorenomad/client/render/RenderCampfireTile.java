@@ -25,8 +25,8 @@ public class RenderCampfireTile extends TileEntitySpecialRenderer
 		AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/campfire/rock1.obj")),
 		AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/campfire/rock2.obj")),
 		AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/campfire/rock3.obj")),
-		AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/campfire/rock4.obj")),
-};
+		AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/campfire/rock4.obj")),};
+	
 public static final ResourceLocation textureRock = new ResourceLocation("hardcorenomad:models/campfire/logrocks.png");
 
 	@Override
