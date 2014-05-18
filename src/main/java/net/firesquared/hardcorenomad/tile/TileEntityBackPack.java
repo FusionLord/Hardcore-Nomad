@@ -161,6 +161,8 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	
 	private NBTTagCompound getUpgrade(int i)
 	{
+		if(!tagInv.hasKey("ups"+i))
+			return null;
 		return tagInv.getCompoundTag("ups"+i);
 	}
 	
@@ -195,8 +197,9 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 			if(tag != null && !tag.getBoolean("deployed"))
 			{
 				ItemStack is = ItemStack.loadItemStackFromNBT(tag);
-				worldObj.setBlock(xCoord, yCoord, zCoord, (BlockContainer)Block.getBlockFromItem(is.getItem()));
-				worldObj.getTileEntity(xCoord, yCoord, zCoord).readFromNBT(is.stackTagCompound);
+				EnumSlotCoordinateOffsets offs = EnumSlotCoordinateOffsets.values()[iD];
+				worldObj.setBlock(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z, (BlockContainer)Block.getBlockFromItem(is.getItem()));
+				worldObj.getTileEntity(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z).readFromNBT(is.stackTagCompound);
 			}
 		}
 	}
