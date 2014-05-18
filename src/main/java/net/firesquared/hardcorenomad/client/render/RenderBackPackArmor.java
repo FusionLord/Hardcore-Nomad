@@ -1,6 +1,7 @@
 package net.firesquared.hardcorenomad.client.render;
 
 import net.firesquared.hardcorenomad.helpers.BackPackTypes;
+import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.Items;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
@@ -31,32 +32,29 @@ public class RenderBackPackArmor extends ModelBiped
 	{
 		int backPackType = 0;
 
-		NBTTagCompound nbtTagCompound = new NBTTagCompound();
+		ItemStack itemStack = null;
 
 		if (par1Entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer)par1Entity;
-			nbtTagCompound = player.inventory.armorInventory[2].getTagCompound();
+			itemStack = player.inventory.armorInventory[2];
 		}
 
-		switch(BackPackTypes.values()[nbtTagCompound.getInteger("backPackType")])
-		{
-			case BACKPACK_BASIC:
-				backPackType = 0;
-				break;
-			case BACKPACK_IMPROVED:
-				backPackType = 1;
-				break;
-			case BACKPACK_ADVANCED:
-				backPackType = 2;
-				break;
-			case BACKPACK_ARMORED:
-				backPackType = 3;
-				break;
-		}
+		if (itemStack == null)
+			return;
+
+		if (itemStack.getItem() == Items.ITEM_BACKPACKBASIC.getItem())
+			backPackType = 0;
+		if (itemStack.getItem() == Items.ITEM_BACKPACKIMPROVED.getItem())
+			backPackType = 1;
+		if (itemStack.getItem() == Items.ITEM_BACKPACKADVANCED.getItem())
+			backPackType = 2;
+		if (itemStack.getItem() == Items.ITEM_BACKPACKARMORED.getItem())
+			backPackType = 3;
+
 
 		GL11.glPushMatrix();
 		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture[backPackType]);
-		GL11.glTranslatef(0, 2.40f, .25f);
+		GL11.glTranslatef(0, 2.40f, .34f);
 		GL11.glScalef(.35f, .35f, .35f);
 		GL11.glRotatef(180, 1.0f, 0.0f, 0.0f);
 		model.renderAll();

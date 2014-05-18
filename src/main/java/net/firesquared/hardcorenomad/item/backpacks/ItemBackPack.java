@@ -21,6 +21,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 
 import java.util.List;
 
@@ -31,23 +32,24 @@ public abstract class ItemBackPack extends ItemArmor
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer entityPlayer)
 	{
+		LogHelper.debug("[Backpack] Created NBT: > " + getBackPackType());
 		NBTTagCompound tag;
 		int width = 0, height = 0;
-		switch(getBackPackType().ordinal())
+		switch(getBackPackType())
 		{
-			case 0:
+			case BACKPACK_BASIC:
 				width = 2;
 				height = 3;
 				break;
-			case 1:
+			case BACKPACK_IMPROVED:
 				width = 3;
 				height = 4;
 				break;
-			case 2:
+			case BACKPACK_ADVANCED:
 				width = 3;
 				height = 7;
 				break;
-			case 3:
+			case BACKPACK_ARMORED:
 				width = 4;
 				height = 8;
 				break;
@@ -61,7 +63,7 @@ public abstract class ItemBackPack extends ItemArmor
 		tag.setInteger("width", width);
 		tag.setInteger("height", height);
 		tag.setInteger("div", width*height);
-		
+
 		itemStack.stackTagCompound = tag;
 	}
 
@@ -156,7 +158,7 @@ public abstract class ItemBackPack extends ItemArmor
 						
 						if(stack.getTagCompound() == null)
 							stack.getItem().onCreated(stack, world, player);
-						
+
 						stack.stackTagCompound.setInteger("backPackType", getBackPackType().ordinal());
 
 						tileEntityBackPack.setTagInv(stack.stackTagCompound);

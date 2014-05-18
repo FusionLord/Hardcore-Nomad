@@ -6,6 +6,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.block.EnumSlotCoordinateOffsets;
 import net.firesquared.hardcorenomad.block.IBlockCampComponent;
+import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.backpacks.BackPackInventory;
 import net.firesquared.hardcorenomad.item.upgrades.itemUpgrade;
 import net.minecraft.block.Block;
@@ -57,8 +58,15 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
+		// This is not being called???
+		// So that is why backpacks are not working correctly...
+		LogHelper.debug("[NBT] readFromNBT being called");
 		setTagInv(tag.getCompoundTag("tagInv"));
-		backPackType = tag.getInteger("backPackType");
+		NBTTagCompound test = tag.getCompoundTag("tagInv");
+		backPackType = test.getInteger("backPackType");
+		tag.setInteger("backPackType", backPackType);
+		//backPackType = tag.getInteger("backPackType");
+		LogHelper.debug("[TE] NBT => " + backPackType);
 	}
 
 	@Override

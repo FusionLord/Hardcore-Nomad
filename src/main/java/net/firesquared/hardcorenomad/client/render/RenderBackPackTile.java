@@ -1,6 +1,7 @@
 package net.firesquared.hardcorenomad.client.render;
 
 import net.firesquared.hardcorenomad.helpers.BackPackTypes;
+import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
