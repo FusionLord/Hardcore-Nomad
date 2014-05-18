@@ -55,7 +55,26 @@ public class ButtonPacket extends AbstractPacket
 	{
 		TileEntity te = entityPlayer.worldObj.getTileEntity(x, y, z);
 		if(te != null)
-			((TileEntityBackPack)te).deploy(ID);
+		{
+			TileEntityBackPack tebp = (TileEntityBackPack)te;
+			if(ID >= 0 && ID < 9)
+				tebp.toggle(ID);
+			else
+			{
+				switch(ID)
+				{
+					case -1:
+						tebp.deploy(-1);
+					case -2:
+						tebp.recover(-1);
+					case -10:
+						tebp.doUpgrade();
+						return;
+					default:
+						return;
+				}
+			}
+		}
 	}
 	
 }

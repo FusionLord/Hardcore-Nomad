@@ -53,7 +53,32 @@ public class BackpackContainer extends Container
 
 	private void bindBackpackSlots()
 	{
-
+		int i = 0;
+		switch(backPack.getSizeInventory())
+		{
+			case 6+9:
+				for(int w = 0; w < 2; w++)
+					for(int h = 0; h < 3; h++)
+						addSlotToContainer(new Slot(backPack, i++, w * 18 + 192, h * 18 + 6));
+				break;
+			case 12+9:
+				for(int w = 0; w < 3; w++)
+					for(int h = 0; h < 4; h++)
+						addSlotToContainer(new Slot(backPack, i++, w * 18 + 192, h * 18 + 6));
+				break;
+			case 21+9:
+				for(int w = 0; w < 3; w++)
+					for(int h = 0; h < 7; h++)
+						addSlotToContainer(new Slot(backPack, i++, w * 18 + 192, h * 18 + 6));
+				break;
+			case 32+9:
+			default:
+				for(int w = 0; w < 4; w++)
+					for(int h = 0; h < 8; h++)
+						addSlotToContainer(new Slot(backPack, i++, w * 18 + 192, h * 18 + 6));
+				break;
+		}
+		addSlotToContainer(new Slot(backPack, i + 9, 128, 4));
 	}
 
 }

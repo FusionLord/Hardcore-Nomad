@@ -52,6 +52,7 @@ public class PlayerEvents
 
 					EntityPlayer player = (EntityPlayer)event.entity;
 					ItemStack itemStack = new ItemStack(Items.ITEM_BACKPACKBASIC.getItem(), 1);
+					itemStack.getItem().onCreated(itemStack, event.world, (EntityPlayer) event.entity);
 
 					player.inventory.addItemStackToInventory(itemStack);
 				}

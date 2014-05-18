@@ -48,7 +48,9 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	public void onDataPacket(NetworkManager networkManager, S35PacketUpdateTileEntity packetUpdateTileEntity)
 	{
 		worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
-		readFromNBT(packetUpdateTileEntity.func_148857_g());
+		tagInv = packetUpdateTileEntity.func_148857_g();
+		readFromNBT(tagInv);
+		inventory = new BackPackInventory(tagInv);
 	}
 
 	@Override

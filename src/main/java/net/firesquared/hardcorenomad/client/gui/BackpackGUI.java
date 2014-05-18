@@ -38,16 +38,18 @@ public class BackpackGUI extends GuiContainer
 		super.initGui();
 		buttons = new GuiButton[]
 		{
-			new GuiButton(0, this.guiLeft + columnStart, this.guiTop + 6, size, size, "All"),
-			new GuiButton(1, this.guiLeft + columnStart + 0*18, this.guiTop + rowStart, size, size, "1"),
-			new GuiButton(2, this.guiLeft + columnStart + 1*18, this.guiTop + rowStart, size, size, "2"),
-			new GuiButton(3, this.guiLeft + columnStart + 2*18, this.guiTop + rowStart, size, size, "3"),
-			new GuiButton(4, this.guiLeft + columnStart + 3*18, this.guiTop + rowStart, size, size, "4"),
-			new GuiButton(5, this.guiLeft + columnStart + 4*18, this.guiTop + rowStart, size, size, "5"),
-			new GuiButton(6, this.guiLeft + columnStart + 5*18, this.guiTop + rowStart, size, size, "6"),
-			new GuiButton(7, this.guiLeft + columnStart + 6*18, this.guiTop + rowStart, size, size, "7"),
-			new GuiButton(8, this.guiLeft + columnStart + 7*18, this.guiTop + rowStart, size, size, "8"),
-			new GuiButton(9, this.guiLeft + columnStart + 8*18, this.guiTop + rowStart, size, size, "9")
+			new GuiButton(-1, this.guiLeft + columnStart, this.guiTop + 6, size, size, "Dep"),
+			new GuiButton(-2, this.guiLeft + columnStart + 18, this.guiTop + 6, size, size, "Rec"),
+			new GuiButton(0, this.guiLeft + columnStart + 0*18, this.guiTop + rowStart, size, size, "1"),
+			new GuiButton(1, this.guiLeft + columnStart + 1*18, this.guiTop + rowStart, size, size, "2"),
+			new GuiButton(2, this.guiLeft + columnStart + 2*18, this.guiTop + rowStart, size, size, "3"),
+			new GuiButton(3, this.guiLeft + columnStart + 3*18, this.guiTop + rowStart, size, size, "4"),
+			new GuiButton(4, this.guiLeft + columnStart + 4*18, this.guiTop + rowStart, size, size, "5"),
+			new GuiButton(5, this.guiLeft + columnStart + 5*18, this.guiTop + rowStart, size, size, "6"),
+			new GuiButton(6, this.guiLeft + columnStart + 6*18, this.guiTop + rowStart, size, size, "7"),
+			new GuiButton(7, this.guiLeft + columnStart + 7*18, this.guiTop + rowStart, size, size, "8"),
+			new GuiButton(8, this.guiLeft + columnStart + 8*18, this.guiTop + rowStart, size, size, "9"),
+			new GuiButton(-10, this.guiLeft + 110, this.guiTop + 6, size, size, "U")
 		};
 		for(GuiButton b : buttons)
 		{

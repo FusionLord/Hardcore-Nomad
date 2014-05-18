@@ -84,8 +84,15 @@ public class NBTBackedInventory implements IInventory
 	{
 		NBTTagCompound inv = backingTag.getCompoundTag("inv");
 		NBTTagCompound temp = new NBTTagCompound();
-		is.writeToNBT(temp);
-		inv.setTag(String.valueOf(slot), temp);
+		if(is!=null)
+		{
+			is.writeToNBT(temp);
+			inv.setTag(String.valueOf(slot), temp);
+		}
+		else
+		{
+			inv.removeTag(String.valueOf(slot));
+		}
 	}
 	
 	@Override

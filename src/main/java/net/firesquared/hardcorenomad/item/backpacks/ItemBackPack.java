@@ -31,9 +31,38 @@ public abstract class ItemBackPack extends ItemArmor
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer entityPlayer)
 	{
-		itemStack.stackTagCompound = new NBTTagCompound();
-		itemStack.stackTagCompound.setString("owner", entityPlayer.getDisplayName());
-		itemStack.stackTagCompound.setInteger("backPackType", getBackPackType().ordinal());
+		NBTTagCompound tag;
+		int width = 0, height = 0;
+		switch(getBackPackType().ordinal())
+		{
+			case 0:
+				width = 2;
+				height = 3;
+				break;
+			case 1:
+				width = 3;
+				height = 4;
+				break;
+			case 2:
+				width = 3;
+				height = 7;
+				break;
+			case 3:
+				width = 4;
+				height = 8;
+				break;
+			default:
+				break;
+		}
+		tag = NBTBackedInventory.createNBTInventory(width*height+9, 64);
+		tag.setString("owner", entityPlayer.getDisplayName());
+		tag.setInteger("backPackType", getBackPackType().ordinal());
+
+		tag.setInteger("width", width);
+		tag.setInteger("height", height);
+		tag.setInteger("div", width*height);
+		
+		itemStack.stackTagCompound = tag;
 	}
 
 	@Override
@@ -128,10 +157,7 @@ public abstract class ItemBackPack extends ItemArmor
 					{
 						NBTTagCompound nbtTagCompound = stack.getTagCompound();
 						if(nbtTagCompound == null)
-						{
-							nbtTagCompound = new NBTTagCompound();
-							tileEntityBackPack.writeToNBT(nbtTagCompound);
-						}
+							throw new IllegalStateException("Expected critical NBT data on backpack item");
 
 						nbtTagCompound.setInteger("x", x);
 						nbtTagCompound.setInteger("y", y);

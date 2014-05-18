@@ -1,12 +1,13 @@
 package net.firesquared.hardcorenomad.item.backpacks;
 
+import net.firesquared.hardcorenomad.block.IBlockCampComponent;
 import net.firesquared.hardcorenomad.item.upgrades.itemUpgrade;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class BackPackInventory extends NBTBackedInventory
-{
-
+{	
 	public BackPackInventory(NBTTagCompound backingTag)
 	{
 		super(backingTag);
@@ -15,30 +16,19 @@ public class BackPackInventory extends NBTBackedInventory
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack is)
 	{
-		if(slot < 0 || slot >= getSizeInventory())
+		int div = backingTag.getInteger("divider");
+		if(slot < 0)
 			return false;
-		else if(slot == 0)
-			return is.getItem() instanceof itemUpgrade;
-		else if(slot == 1)
-			return false;//campfire
-		else if(slot == 2)
-			return false;//bed
-		else if(slot == 3)
-			return false;//crafting
-		else if(slot == 4)
-			return false;//storage
-		else if(slot == 5)
-			return false;//enchanting
-		else if(slot == 6)
-			return false;//anvil
-		else if(slot == 7)
-			return false;//cobblegen
-		else if(slot == 8)
-			return false;//brewing
-		else if(slot == 9)
-			return false;//fluids
+		else if(slot >= getSizeInventory())
+			if(slot == getSizeInventory())
+				return is.getItem() instanceof itemUpgrade;
+			else
+				return false;
 		else
-			return true;
+			if(slot<backingTag.getInteger("div"))
+				return true;
+			else
+				return Block.getBlockFromItem(is.getItem()) instanceof IBlockCampComponent;
 	}
 	
 }
