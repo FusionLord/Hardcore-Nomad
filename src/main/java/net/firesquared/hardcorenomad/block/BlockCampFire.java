@@ -3,6 +3,7 @@ package net.firesquared.hardcorenomad.block;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.CampFireTypes;
 import net.firesquared.hardcorenomad.helpers.TileEntityHelper;
+import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
@@ -53,23 +54,35 @@ public class BlockCampFire extends BlockContainer implements IBlockCampComponent
 		return tileEntityCampFire.getCampFireType();
 	}
 
-	public void Deploy(World world, int x, int y, int z, ItemStack stack, EntityPlayer player, int upgradeLevel, TileEntityBackPack backPack) {
-		if (this.canPlaceBlockAt(world, x, y, z)) {
-			//int i1 = this.onBlockPlaced(world, x, y, z, 0);
-
-			if(world.setBlock(x, y, z, this, i1, 3))
-			{
-				if(world.getBlock(x, y, z) == this)
-				{
-					this.onBlockPlacedBy(world, x, y, z, player, stack);
-					this.onPostBlockPlaced(world, x, y, z, i1);
-
-					TileEntityCampFire tileEntityCampFire = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityCampFire.class);
-					tileEntityCampFire.setCampFireType(CampFireTypes.values()[upgradeLevel]);
-					tileEntityCampFire.setTileEntityBackPack(backPack);
-				}
-			}
+	@Override
+	public ItemStack packIntoItemStack(World world, int x, int y, int z)
+	{
+		ItemStack itemStack;
+		switch (getCampFireType(world, x, y, z)) {
+			case TIER_1:
+				itemStack = new ItemStack(Items.ITEM_UPGRADE_CAMPFIRE_TIER1.getItem());
+				break;
+			case TIER_2:
+				itemStack = new ItemStack(Items.ITEM_UPGRADE_CAMPFIRE_TIER2.getItem());
+				break;
+			case TIER_3:
+				itemStack = new ItemStack(Items.ITEM_UPGRADE_CAMPFIRE_TIER3.getItem());
+				break;
+			case TIER_4:
+				itemStack = new ItemStack(Items.ITEM_UPGRADE_CAMPFIRE_TIER4.getItem());
+				break;
+			default:
+				itemStack = new ItemStack(Items.ITEM_UPGRADE_CAMPFIRE_TIER1.getItem());
+				break;
 		}
+
+		TileEntityCampFire tileEntityCampFire = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityCampFire.class);
+		NBTTagCompound nbtTagCompound = new NBTTagCompound();
+		tileEntityCampFire.writeToNBT(nbtTagCompound);
+
+		itemStack.setTagCompound(nbtTagCompound);
+
+		return itemStack;
 	}
 
 	@Override
