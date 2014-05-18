@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.CampFireTypes;
+import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.helpers.TileEntityHelper;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
@@ -69,6 +70,10 @@ public class BlockCampFire extends BlockContainer implements IBlockCampComponent
 
 		TileEntityCampFire tileEntityCampFire = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityCampFire.class);
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();
+		if (tileEntityCampFire == null) {
+			LogHelper.debug("===>>>> Tile Entity is null check your X Y Z <<<<======");
+			return null;
+		}
 		tileEntityCampFire.writeToNBT(nbtTagCompound);
 
 		itemStack.setTagCompound(nbtTagCompound);
