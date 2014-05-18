@@ -152,4 +152,15 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 		return inventory.isItemValidForSlot(var1, var2);
 	}
 
+	public void deploy(int iD)
+	{
+		if(iD == 0)
+			for(int i = 1; i < 10; i++)
+				deploy(i);
+		else
+		{
+			//deploy/pack the upgrade with the specified index
+		}
+	}
+
 }

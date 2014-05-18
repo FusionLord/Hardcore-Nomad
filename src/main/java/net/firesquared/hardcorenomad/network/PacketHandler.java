@@ -106,7 +106,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, Abstrac
 	{
 		// registerPacket(Packet.class);
 		registerPacket(SyncPlayerPropertiesPacket.class);
-
+		registerPacket(ButtonPacket.class);
 	}
 
 	public void postInitialise()
