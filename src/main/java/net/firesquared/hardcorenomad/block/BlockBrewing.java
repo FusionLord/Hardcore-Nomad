@@ -4,7 +4,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockBrewing extends BlockCampComponent
+public class BlockBrewing extends IBlockCampComponent
 {
 
 	public BlockBrewing()

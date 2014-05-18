@@ -4,7 +4,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockCobbleGenerator extends BlockCampComponent
+public class BlockCobbleGenerator extends IBlockCampComponent
 {
 
 	public BlockCobbleGenerator()

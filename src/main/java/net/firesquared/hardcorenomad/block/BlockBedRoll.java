@@ -4,7 +4,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockBedRoll extends BlockCampComponent
+public class BlockBedRoll extends IBlockCampComponent
 {
 
 	public BlockBedRoll()

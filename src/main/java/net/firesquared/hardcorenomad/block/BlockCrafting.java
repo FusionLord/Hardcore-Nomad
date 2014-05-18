@@ -3,21 +3,15 @@ package net.firesquared.hardcorenomad.block;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.HardcoreNomad;
-import net.firesquared.hardcorenomad.helpers.LogHelper;
-import net.firesquared.hardcorenomad.lib.Reference;
-import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
 import net.firesquared.hardcorenomad.tile.TileEntityCrafting;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockCrafting extends BlockCampComponent
+public class BlockCrafting extends IBlockCampComponent
 {
 	@SideOnly(Side.CLIENT)
 	private IIcon field_150035_a;

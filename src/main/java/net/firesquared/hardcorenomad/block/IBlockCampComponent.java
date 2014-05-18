@@ -11,13 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public abstract class BlockCampComponent extends BlockContainer
+public interface IBlockCampComponent
 {
-	
-	public BlockCampComponent(Material mat)
-	{
-		super(mat);
-	}
-
-	public void Deploy(World world, int x, int y, int z, int side, int hitX, int hitY, int hitZ, ItemStack stack, EntityPlayer player, int upgradeLevel, TileEntityBackPack backPack) {}
+	public void Deploy(World world, int x, int y, int z, ItemStack stack, EntityPlayer player, int upgradeLevel, TileEntityBackPack backPack);
 }

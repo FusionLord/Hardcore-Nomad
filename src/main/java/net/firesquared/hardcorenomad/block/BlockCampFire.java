@@ -15,7 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
 
-public class BlockCampFire extends BlockCampComponent
+public class BlockCampFire extends BlockContainer implements IBlockCampComponent
 {
 	public BlockCampFire()
 	{
@@ -52,10 +52,9 @@ public class BlockCampFire extends BlockCampComponent
 		return tileEntityCampFire.getCampFireType();
 	}
 
-	@Override
-	public void Deploy(World world, int x, int y, int z, int side, int hitX, int hitY, int hitZ, ItemStack stack, EntityPlayer player, int upgradeLevel, TileEntityBackPack backPack) {
+	public void Deploy(World world, int x, int y, int z, ItemStack stack, EntityPlayer player, int upgradeLevel, TileEntityBackPack backPack) {
 		if (this.canPlaceBlockAt(world, x, y, z)) {
-			int i1 = this.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, 0);
+			//int i1 = this.onBlockPlaced(world, x, y, z, 0);
 
 			if(world.setBlock(x, y, z, this, i1, 3))
 			{

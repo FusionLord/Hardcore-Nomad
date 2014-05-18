@@ -1,12 +1,10 @@
 package net.firesquared.hardcorenomad.block;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockAnvil extends BlockCampComponent
+public class BlockAnvil extends IBlockCampComponent
 {
 
 	public BlockAnvil()

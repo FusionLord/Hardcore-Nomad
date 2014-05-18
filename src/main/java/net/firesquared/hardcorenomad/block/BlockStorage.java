@@ -4,7 +4,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockStorage extends BlockCampComponent
+public class BlockStorage extends IBlockCampComponent
 {
 
 	public BlockStorage()
