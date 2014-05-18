@@ -26,6 +26,6 @@ public class BlockBrewing extends BlockContainer implements IBlockCampComponent
 	@Override
 	public ItemStack packIntoItemStack(World world, int x, int y, int z)
 	{
-		return new ItemStack(Items.ITEM_UPGRADE_BREWINGSTAND_TIER1.getItem());
+		return new ItemStack(Blocks.BLOCK_BREWING.getBlock());
 	}
 }

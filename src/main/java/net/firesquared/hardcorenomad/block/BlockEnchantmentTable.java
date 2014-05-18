@@ -72,6 +72,6 @@ public class BlockEnchantmentTable extends BlockContainer implements IBlockCampC
 
 	@Override public ItemStack packIntoItemStack(World world, int x, int y, int z)
 	{
-		return null;
+		return new ItemStack(Blocks.BLOCK_ANVIL.getBlock());
 	}
 }

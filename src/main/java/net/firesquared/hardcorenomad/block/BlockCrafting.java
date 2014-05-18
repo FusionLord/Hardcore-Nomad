@@ -65,6 +65,6 @@ public class BlockCrafting extends BlockContainer implements IBlockCampComponent
 
 	@Override public ItemStack packIntoItemStack(World world, int x, int y, int z)
 	{
-		return new ItemStack(Items.ITEM_UPGRADE_CRAFTINGTABLE_TIER1.getItem());
+		return new ItemStack(Blocks.BLOCK_CRAFTING.getBlock());
 	}
 }

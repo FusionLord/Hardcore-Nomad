@@ -58,23 +58,7 @@ public class BlockCampFire extends BlockContainer implements IBlockCampComponent
 	public ItemStack packIntoItemStack(World world, int x, int y, int z)
 	{
 		ItemStack itemStack;
-		switch (getCampFireType(world, x, y, z)) {
-			case TIER_1:
-				itemStack = new ItemStack(Items.ITEM_UPGRADE_CAMPFIRE_TIER1.getItem());
-				break;
-			case TIER_2:
-				itemStack = new ItemStack(Items.ITEM_UPGRADE_CAMPFIRE_TIER2.getItem());
-				break;
-			case TIER_3:
-				itemStack = new ItemStack(Items.ITEM_UPGRADE_CAMPFIRE_TIER3.getItem());
-				break;
-			case TIER_4:
-				itemStack = new ItemStack(Items.ITEM_UPGRADE_CAMPFIRE_TIER4.getItem());
-				break;
-			default:
-				itemStack = new ItemStack(Items.ITEM_UPGRADE_CAMPFIRE_TIER1.getItem());
-				break;
-		}
+		itemStack = new ItemStack(Blocks.BLOCK_CAMPFIRE.getBlock());
 
 		TileEntityCampFire tileEntityCampFire = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityCampFire.class);
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();

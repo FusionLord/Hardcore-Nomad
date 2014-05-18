@@ -25,6 +25,6 @@ public class BlockStorage extends BlockContainer implements IBlockCampComponent
 	@Override
 	public ItemStack packIntoItemStack(World world, int x, int y, int z)
 	{
-		return null;
+		return new ItemStack(Blocks.BLOCK_STORAGE.getBlock());
 	}
 }

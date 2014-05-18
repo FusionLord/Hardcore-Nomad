@@ -35,14 +35,7 @@ public class BlockCobbleGenerator extends BlockContainer implements IBlockCampCo
 	public ItemStack packIntoItemStack(World world, int x, int y, int z)
 	{
 		ItemStack itemStack;
-		switch (getCampFireType(world, x, y, z)) {
-			case TIER_1:
-				itemStack = new ItemStack(Items.ITEM_UPGRADE_COBBLEGENERATOR_TIER1.getItem());
-				break;
-			default:
-				itemStack = new ItemStack(Items.ITEM_UPGRADE_COBBLEGENERATOR_TIER1.getItem());
-				break;
-		}
+		itemStack = new ItemStack(Blocks.BLOCK_COBBLEGEN.getBlock());
 
 		TileEntityCobbleGenerator tileEntityCobbleGenerator = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityCobbleGenerator.class);
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();
