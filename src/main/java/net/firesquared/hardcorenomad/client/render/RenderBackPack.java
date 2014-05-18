@@ -58,6 +58,8 @@ public class RenderBackPack implements IItemRenderer
 		GL11.glTranslatef(0, -5.5f, 0);
 		GL11.glRotatef(180, 0.0f, 1.0f, 0.0f);
 
+		//GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glColor4f(1, 1, 1, 1);
 		//Tessellator.instance.setColorOpaque_F(1, 1, 1);
 		//Tessellator.instance.setBrightness(255);
 
