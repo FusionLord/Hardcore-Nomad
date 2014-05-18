@@ -1,11 +1,13 @@
 package net.firesquared.hardcorenomad.item.upgrades;
 
+import net.firesquared.hardcorenomad.block.BlockBrewing;
+
 public class itemUpgradeBrewingStandTier1 extends itemUpgrade
 {
 	@Override
-	public EnumUpgradeTypes getUpgradeTarget()
+	public Class getUpgradeTarget()
 	{
-		return EnumUpgradeTypes.BREWING;
+		return BlockBrewing.class;
 	}
 
 	@Override

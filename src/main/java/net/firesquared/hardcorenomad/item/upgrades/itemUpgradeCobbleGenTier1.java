@@ -1,11 +1,13 @@
 package net.firesquared.hardcorenomad.item.upgrades;
 
+import net.firesquared.hardcorenomad.block.BlockCobbleGenerator;
+
 public class itemUpgradeCobbleGenTier1 extends itemUpgrade
 {
 	@Override
-	public EnumUpgradeTypes getUpgradeTarget()
+	public Class getUpgradeTarget()
 	{
-		return EnumUpgradeTypes.COBBLEGEN;
+		return BlockCobbleGenerator.class;
 	}
 
 	@Override
