@@ -39,7 +39,7 @@ public static final ResourceLocation textureRock = new ResourceLocation("hardcor
 
 		GL11.glTranslatef(0.5f, 0f, 0.5f);
 		
-		GL11.glScalef(.5f, .5f, .5f);
+		GL11.glScalef(.4f, .4f, .4f);
 
 		int i = Blocks.BLOCK_CAMPFIRE.getBlock().getLightValue(te.getWorldObj(), (int)x, (int)y, (int)z);
 		Tessellator.instance.setColorOpaque_F(i, i, i);

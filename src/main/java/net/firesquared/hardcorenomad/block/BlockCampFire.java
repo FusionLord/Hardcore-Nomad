@@ -2,6 +2,8 @@ package net.firesquared.hardcorenomad.block;
 
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.CampFireTypes;
 import net.firesquared.hardcorenomad.helpers.TileEntityHelper;
@@ -30,6 +32,7 @@ public class BlockCampFire extends BlockContainer implements IBlockCampComponent
 		setResistance(100.0F);
 		setStepSound(soundTypeMetal);
 		setBlockTextureName(Reference.MOD_ID + ":" + getUnlocalizedName());
+		needsRandomTick = true;
 	}
 
 	@Override
@@ -116,12 +119,14 @@ public class BlockCampFire extends BlockContainer implements IBlockCampComponent
 	}
 	
 	@Override
-	public void updateTick(World w, int x, int y, int z, Random rand)
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(World w, int x, int y, int z, Random rand)
 	{
-		for(int j = 0; j < 6; j++)
-		{
-			w.spawnParticle("flame", x + w.rand.nextFloat() - .5f, y + .25f, z + w.rand.nextFloat() - .5f,
-					w.rand.nextFloat() - .5f,  w.rand.nextFloat() / 2, w.rand.nextFloat() - .5f);
-		}
+		if(w.isRemote)
+			for(int j = 0; j < 6; j++)
+			{
+				w.spawnParticle("flame", x + .5f + (w.rand.nextFloat() - .5f)/5, y + .25f, z + .5f + (w.rand.nextFloat() - .5f)/5,
+						(w.rand.nextFloat() - .5f)/15,  w.rand.nextFloat() / 10, (w.rand.nextFloat() - .5f)/15);
+			}
 	}
 }
