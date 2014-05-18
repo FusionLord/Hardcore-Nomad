@@ -15,6 +15,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -58,7 +59,10 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	{
 		super.readFromNBT(tag);
 		type = BackPackTypes.values()[tag.getInteger("backPackType")];
-		setTagInv(tag.getCompoundTag("tagInv"));
+		if(tag.hasKey("tagInv"))
+			setTagInv(tag.getCompoundTag("tagInv"));
+		else
+			LogHelper.debug("WHERE'S MY NBT DATA!?");
 	}
 
 	@Override
@@ -236,6 +240,8 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 			{
 				ItemStack is = ((IBlockCampComponent)b).packIntoItemStack(worldObj, xCoord + offs.x, yCoord + offs.y, zCoord + offs.z);
 				is.writeToNBT(tag);
+				worldObj.setBlockToAir(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z);
+				worldObj.removeTileEntity(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z);
 			}
 		}
 	}
