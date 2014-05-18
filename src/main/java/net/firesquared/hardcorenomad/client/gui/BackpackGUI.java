@@ -14,36 +14,38 @@ public class BackpackGUI extends GuiContainer
 {
 	private static final ResourceLocation background = new ResourceLocation("hardcorenomad:gui/GUIBackpack1.png");
 	boolean isPlaced;
-	static final int rowStart = 65, columnStart = 114, size = 18;
-	public GuiButton[] buttons = new GuiButton[]
-	{
-		new GuiButton(0, columnStart + 18, 44, size, size, "All"),
-		new GuiButton(1, columnStart + 1*18, rowStart, size, size, "1"),
-		new GuiButton(2, columnStart + 2*18, rowStart, size, size, "2"),
-		new GuiButton(3, columnStart + 3*18, rowStart, size, size, "3"),
-		new GuiButton(4, columnStart + 4*18, rowStart, size, size, "4"),
-		new GuiButton(5, columnStart + 5*18, rowStart, size, size, "5"),
-		new GuiButton(6, columnStart + 6*18, rowStart, size, size, "6"),
-		new GuiButton(7, columnStart + 7*18, rowStart, size, size, "7"),
-		new GuiButton(8, columnStart + 8*18, rowStart, size, size, "8"),
-		new GuiButton(9, columnStart + 9*18, rowStart, size, size, "9")
-	};
+	static final int rowStart = 28, columnStart = 7, size = 18;
+	public GuiButton[] buttons;
 
 	public BackpackGUI(BackpackContainer par1Container)
 	{
 		super(par1Container);
 		isPlaced = par1Container.isPlaced;
+		xSize = 250;
 	}
 	
 	@Override
 	public void initGui()
 	{
+		super.initGui();
+		buttons = new GuiButton[]
+		{
+			new GuiButton(0, this.guiLeft + columnStart, this.guiTop + 6, size, size, "All"),
+			new GuiButton(1, this.guiLeft + columnStart + 0*18, this.guiTop + rowStart, size, size, "1"),
+			new GuiButton(2, this.guiLeft + columnStart + 1*18, this.guiTop + rowStart, size, size, "2"),
+			new GuiButton(3, this.guiLeft + columnStart + 2*18, this.guiTop + rowStart, size, size, "3"),
+			new GuiButton(4, this.guiLeft + columnStart + 3*18, this.guiTop + rowStart, size, size, "4"),
+			new GuiButton(5, this.guiLeft + columnStart + 4*18, this.guiTop + rowStart, size, size, "5"),
+			new GuiButton(6, this.guiLeft + columnStart + 5*18, this.guiTop + rowStart, size, size, "6"),
+			new GuiButton(7, this.guiLeft + columnStart + 6*18, this.guiTop + rowStart, size, size, "7"),
+			new GuiButton(8, this.guiLeft + columnStart + 7*18, this.guiTop + rowStart, size, size, "8"),
+			new GuiButton(9, this.guiLeft + columnStart + 8*18, this.guiTop + rowStart, size, size, "9")
+		};
 		for(GuiButton b : buttons)
 		{
 			b.enabled = true;
 			buttonList.add(b);
 		}
-		super.initGui();
 	}
 
 	@Override
