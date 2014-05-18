@@ -1,12 +1,16 @@
 package net.firesquared.hardcorenomad.client.render;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import net.firesquared.hardcorenomad.block.Blocks;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 public class RenderRocksThrown extends Render
 {
@@ -22,18 +26,19 @@ public class RenderRocksThrown extends Render
 
 	}
 
-	@Override public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9)
+	@Override public void doRender(Entity par1, double par2, double par4, double par6, float par8, float par9)
 	{
 		GL11.glPushMatrix();
+		GL11.glTranslatef((float)par2, (float)par4, (float)par6);
+		GL11.glRotatef(par1.prevRotationYaw + (par1.rotationYaw - par1.prevRotationYaw) * par9 - 90.0F, 0.0F, 1.0F, 0.0F);
+		GL11.glRotatef(par1.prevRotationPitch + (par1.rotationPitch - par1.prevRotationPitch) * par9, 0.0F, 0.0F, 1.0F);
+		Tessellator tessellator = Tessellator.instance;
 		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
-		//GL11.glScalef(.44f, .44f, .44f);
-		//GL11.glTranslatef(0, -1, 0);
-		//GL11.glRotatef(180, 0.0f, 1.0f, 0.0f);
 
-		//GL11.glDisable(GL11.GL_LIGHTING);
-		//GL11.glColor4f(1, 1, 1, 1);
-		//Tessellator.instance.setColorOpaque_F(1, 1, 1);
-		//Tessellator.instance.setBrightness(255);
+		//GL11.glTranslatef(0.5f, 0.65f, 0.5f);
+		GL11.glScalef(.25f, .25f, .25f);
+
+		Tessellator.instance.setColorOpaque_F(1, 1, 1);
 
 		model[0].renderAll();
 		GL11.glPopMatrix();
