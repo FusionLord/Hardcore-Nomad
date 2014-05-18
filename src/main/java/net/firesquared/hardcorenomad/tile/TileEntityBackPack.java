@@ -31,6 +31,13 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	public void setTagInv(NBTTagCompound tag)
 	{
 		tagInv = tag;
+
+		int backPackType;
+		NBTTagCompound nbtInv = tag.getCompoundTag("tagInv");
+		backPackType = nbtInv.getInteger("backPackType");
+
+		LogHelper.debug("[TE] NBT => " + backPackType);
+
 		inventory = new BackPackInventory(tagInv);
 	}
 
@@ -61,20 +68,14 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 	{
 		worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
 
-		readFromNBT(packetUpdateTileEntity.func_148857_g());
 		setTagInv(packetUpdateTileEntity.func_148857_g());
+		readFromNBT(packetUpdateTileEntity.func_148857_g());
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		setTagInv(tag.getCompoundTag("tagInv"));
-		//NBTTagCompound test = tag.getCompoundTag("tagInv");
-		//backPackType = test.getInteger("backPackType");
-		//tag.setInteger("backPackType", backPackType);
-		backPackType = tag.getInteger("backPackType");
-		LogHelper.debug("[TE] NBT => " + backPackType);
 	}
 
 	@Override
