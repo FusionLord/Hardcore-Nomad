@@ -264,6 +264,7 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 				{
 					applyUpgrade(is, iu);
 					is.writeToNBT(tag);
+					setInventorySlotContents(-1, null);
 					return true;
 				}
 			}
@@ -280,6 +281,7 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 					tag = new NBTTagCompound();
 					is.writeToNBT(tag);
 					setUpgrade(i, tag);
+					setInventorySlotContents(-1, null);
 					return true;
 				}
 			}
