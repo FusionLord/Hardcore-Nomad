@@ -1,11 +1,13 @@
 package net.firesquared.hardcorenomad.item.upgrades;
 
+import net.firesquared.hardcorenomad.block.BlockCampFire;
+
 public class itemUpgradeCampFireTier1 extends itemUpgrade
 {
 	@Override
-	public EnumUpgradeTypes getUpgradeTarget()
+	public Class getUpgradeTarget()
 	{
-		return EnumUpgradeTypes.CAMPFIRE;
+		return BlockCampFire.class;
 	}
 
 	@Override

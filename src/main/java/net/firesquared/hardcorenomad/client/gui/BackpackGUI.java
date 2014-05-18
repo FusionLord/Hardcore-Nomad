@@ -2,13 +2,19 @@ package net.firesquared.hardcorenomad.client.gui;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.container.BackpackContainer;
+import net.firesquared.hardcorenomad.lib.Reference;
+import net.firesquared.hardcorenomad.network.ButtonPacket;
 import net.firesquared.hardcorenomad.network.PacketHandler;
+import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 
 public class BackpackGUI extends GuiContainer
 {
@@ -16,10 +22,12 @@ public class BackpackGUI extends GuiContainer
 	boolean isPlaced;
 	static final int rowStart = 28, columnStart = 7, size = 18;
 	public GuiButton[] buttons;
+	BackpackContainer container;
 
 	public BackpackGUI(BackpackContainer par1Container)
 	{
 		super(par1Container);
+		container = par1Container;
 		isPlaced = par1Container.isPlaced;
 		xSize = 250;
 	}
@@ -64,42 +72,8 @@ public class BackpackGUI extends GuiContainer
 	@Override
 	protected void actionPerformed(GuiButton butt)
 	{
-		switch(butt.id)
-		{
-			case 0:
-				//HardcoreNomad.instance.p
-				break;
-			case 1:
-				
-				break;
-			case 2:
-				
-				break;
-			case 3:
-				
-				break;
-			case 4:
-				
-				break;
-			case 5:
-				
-				break;
-			case 6:
-				
-				break;
-			case 7:
-				
-				break;
-			case 8:
-				
-				break;
-			case 9:
-				
-				break;
-			
-			default:
-				break;
-		}
+		TileEntityBackPack te = ((TileEntityBackPack)container.backPack);
+		Reference.PACKET_HANDLER.sendToServer(new ButtonPacket(te.xCoord, te.yCoord, te.zCoord, butt.id));
 		
 		super.actionPerformed(butt);
 	}

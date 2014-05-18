@@ -1,12 +1,14 @@
 package net.firesquared.hardcorenomad.item.upgrades;
 
+import net.firesquared.hardcorenomad.block.BlockAnvil;
+
 public class itemUpgradeAnvilTier1 extends itemUpgrade
 {
 
 	@Override
-	public EnumUpgradeTypes getUpgradeTarget()
+	public Class getUpgradeTarget()
 	{
-		return EnumUpgradeTypes.ANVIL;
+		return BlockAnvil.class;
 	}
 
 	@Override

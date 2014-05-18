@@ -1,11 +1,13 @@
 package net.firesquared.hardcorenomad.item.upgrades;
 
+import net.firesquared.hardcorenomad.block.BlockBedRoll;
+
 public class itemUpgradeBedRollTier4 extends itemUpgrade
 {
 	@Override
-	public EnumUpgradeTypes getUpgradeTarget()
+	public Class getUpgradeTarget()
 	{
-		return EnumUpgradeTypes.BEDROLL;
+		return BlockBedRoll.class;
 	}
 
 	@Override

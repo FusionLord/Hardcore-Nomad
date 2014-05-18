@@ -1,11 +1,13 @@
 package net.firesquared.hardcorenomad.item.upgrades;
 
+import net.firesquared.hardcorenomad.block.BlockEnchantmentTable;
+
 public class itemUpgradeEnchantTableTier5 extends itemUpgrade
 {
 	@Override
-	public EnumUpgradeTypes getUpgradeTarget()
+	public Class getUpgradeTarget()
 	{
-		return EnumUpgradeTypes.ENCHANTING;
+		return BlockEnchantmentTable.class;
 	}
 
 	@Override
