@@ -59,7 +59,7 @@ vn 0.335314 0.000000 0.942107
 vn 0.000000 1.000000 0.000000
 vn 0.000000 1.000000 0.000000
 s 1
-g polySurface53 polySurface50
+g polySurface53
 usemtl Rock_3:lambert4SG
 f 1/1/1 11/2/2 12/3/3 3/4/4
 s 2
