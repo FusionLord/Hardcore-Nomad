@@ -234,7 +234,7 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 			Block b = worldObj.getBlock(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z);
 			if(b instanceof IBlockCampComponent)
 			{
-				ItemStack is = ((IBlockCampComponent)b).packIntoItemStack(worldObj, xCoord, yCoord, zCoord);
+				ItemStack is = ((IBlockCampComponent)b).packIntoItemStack(worldObj, xCoord + offs.x, yCoord + offs.y, zCoord + offs.z);
 				is.writeToNBT(tag);
 			}
 		}
