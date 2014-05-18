@@ -201,6 +201,8 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 			NBTTagCompound tag = getUpgrade(iD);
 			if(tag != null && !tag.getBoolean("deployed"))
 			{
+				try
+				{
 				ItemStack is = ItemStack.loadItemStackFromNBT(tag);
 				EnumSlotCoordinateOffsets offs = EnumSlotCoordinateOffsets.values()[iD];
 				
@@ -210,6 +212,12 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 				
 				worldObj.setBlock(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z, (BlockContainer)Block.getBlockFromItem(is.getItem()));
 				worldObj.getTileEntity(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z).readFromNBT(is.stackTagCompound);
+			
+				}
+				catch(Exception e)
+				{
+					LogHelper.error("NBT issue on deploy");
+				}
 			}
 		}
 	}
@@ -226,7 +234,8 @@ public class TileEntityBackPack extends TileEntity implements IInventory
 			Block b = worldObj.getBlock(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z);
 			if(b instanceof IBlockCampComponent)
 			{
-				((IBlockCampComponent)b).packIntoItemStack(worldObj, xCoord, yCoord, zCoord).writeToNBT(tag);
+				ItemStack is = ((IBlockCampComponent)b).packIntoItemStack(worldObj, xCoord, yCoord, zCoord);
+				is.writeToNBT(tag);
 			}
 		}
 	}

@@ -30,7 +30,7 @@ public class HardcoreNomad
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-
+		System.out.println("Shrek is love, Shrek is life");
 	}
 
 	// Init Events

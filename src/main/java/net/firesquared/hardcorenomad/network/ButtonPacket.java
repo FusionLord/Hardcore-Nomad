@@ -65,8 +65,10 @@ public class ButtonPacket extends AbstractPacket
 				{
 					case -1:
 						tebp.deploy(-1);
+						return;
 					case -2:
 						tebp.recover(-1);
+						return;
 					case -10:
 						tebp.doUpgrade();
 						return;
