@@ -8,10 +8,13 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public interface IBlockCampComponent
 {
-	public void Deploy(World world, int x, int y, int z, ItemStack stack, EntityPlayer player, int upgradeLevel, TileEntityBackPack backPack);
+	public void rebuildFromNBT(World world, int x, int y, int z, TileEntityBackPack parrent, NBTTagCompound myData);
+	
+	public NBTTagCompound packIntoNBT();
 }
