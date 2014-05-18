@@ -34,7 +34,7 @@ public enum Items
 	ITEM_HEALINGMAGICALAID("healing.magicalaid", new ItemHealingMagicalAid(), CreativeTab.HardCoreNomadTab),
 	ITEM_FLINTSHEARS("tools.flintshears", new ItemShears().setMaxDamage(42).setTextureName("hardcorenomad:flintshears"), CreativeTabs.tabTools),
 
-	ITEM_MISC_PEBBLE("misc.pebble", new ItemPebble(), CreativeTab.HardCoreNomadTab, 1, 16, 5),
+	ITEM_MISC_PEBBLE("misc.pebble", new ItemPebble(), CreativeTab.HardCoreNomadTab, 20, 80, 9),
 	ITEM_MISC_SLINGSHOT("misc.slingshot", new ItemSlingShot(), CreativeTab.HardCoreNomadTab),
 	//Upgrade Items
 	//Bedroll Upgrades
@@ -56,6 +56,14 @@ public enum Items
 	ITEM_UPGRADE_ENCHANTTABLE_TIER3("upgrade.enchanttable.tier3", new itemUpgradeBedRollTier3(), CreativeTab.HardCoreNomadUpgradesTab, 1, 1, 1),
 	ITEM_UPGRADE_ENCHANTTABLE_TIER4("upgrade.enchanttable.tier4", new itemUpgradeBedRollTier4(), CreativeTab.HardCoreNomadUpgradesTab),
 	ITEM_UPGRADE_ENCHANTTABLE_TIER5("upgrade.enchanttable.tier5", new itemUpgradeBedRollTier5(), CreativeTab.HardCoreNomadUpgradesTab),
+
+	ITEM_UPGRADE_COBBLEGENERATOR_TIER1("upgrade.cobblegenerator.tier1", new itemUpgradeCobbleGenTier1(), CreativeTab.HardCoreNomadUpgradesTab, 1, 1, 2),
+
+	ITEM_UPGRADE_CRAFTINGTABLE_TIER1("upgrade.craftingtable.tier1", new itemUpgradeCraftingTableTier1(), CreativeTab.HardCoreNomadUpgradesTab, 1, 1, 5),
+
+	ITEM_UPGRADE_BREWINGSTAND_TIER1("upgrade.brewingstand.tier1", new itemUpgradeBrewingStandTier1(), CreativeTab.HardCoreNomadUpgradesTab),
+
+
 	;
 
 	private final String internalName;
