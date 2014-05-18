@@ -165,6 +165,26 @@ public abstract class CommonProxy implements IProxy
 		// ====== BLOCKS ======
 		// Cobblestone Recipe
 		GameRegistry.addRecipe(new ItemStack(net.minecraft.init.Blocks.cobblestone, 1), "ppp", "ppp", "ppp", 'p', new ItemStack(Items.ITEM_MISC_PEBBLE.getItem()));
+
+		// ====== BED ======
+		// Bed Level 1
+		GameRegistry.addRecipe(new ItemStack(Items.ITEM_UPGRADE_BEDROLL_TIER1.getItem(), 1), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', net.minecraft.init.Blocks.planks);
+
+		// Bed Level 2
+		GameRegistry.addRecipe(new ItemStack(Items.ITEM_UPGRADE_BEDROLL_TIER2.getItem(), 1), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', new ItemStack(net.minecraft.init.Blocks.hay_block));
+
+		// Bed Level 3
+		GameRegistry.addRecipe(new ItemStack(Items.ITEM_UPGRADE_BEDROLL_TIER3.getItem(), 1), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', new ItemStack(net.minecraft.init.Blocks.cobblestone));
+
+		// Bed Level 4
+		GameRegistry.addRecipe(new ItemStack(Items.ITEM_UPGRADE_BEDROLL_TIER4.getItem(), 1), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', new ItemStack(net.minecraft.init.Blocks.stone));
+
+		// Bed Level 5
+		GameRegistry.addRecipe(new ItemStack(Items.ITEM_UPGRADE_BEDROLL_TIER5.getItem(), 1), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', new ItemStack(net.minecraft.init.Items.iron_ingot));
+
+		// ====== CRAFTING TABLE ======
+		// Crafting Table Tier 1
+		GameRegistry.addRecipe(new ItemStack(Items.ITEM_UPGRADE_CRAFTINGTABLE_TIER1.getItem(), 1), " s ", "scs", " s ", 's', new ItemStack(net.minecraft.init.Items.stick), 'c', new ItemStack(net.minecraft.init.Blocks.crafting_table));
 	}
 
 	// Register Dungeon Loot
