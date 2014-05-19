@@ -29,6 +29,16 @@ public abstract class ItemBackPack extends ItemArmor
 {
 	private static Block blockBackPack;
 
+	public ItemBackPack(int renderID)
+	{
+		super(ArmorMaterial.CLOTH, renderID, 1);
+		setMaxDamage(0);
+		setNoRepair();
+		if(blockBackPack == null)
+			blockBackPack = Blocks.BLOCK_BACKPACK.getBlock();
+
+	}
+
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer entityPlayer)
 	{
@@ -67,6 +77,13 @@ public abstract class ItemBackPack extends ItemArmor
 		itemStack.stackTagCompound = tag;
 	}
 
+
+	@Override
+	public void setDamage(ItemStack stack, int damage)
+	{
+		//NOTE: DO NOT CALL SUPER!!!
+	}
+
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean par4)
 	{
@@ -75,14 +92,6 @@ public abstract class ItemBackPack extends ItemArmor
 			String owner = itemStack.stackTagCompound.getString("owner");
 			list.add("Owner: " + owner);
 		}
-	}
-
-	public ItemBackPack(int renderID)
-	{
-		super(ArmorMaterial.CLOTH, renderID, 1);
-		if(blockBackPack == null)
-			blockBackPack = Blocks.BLOCK_BACKPACK.getBlock();
-		
 	}
 
 	public abstract BackPackTypes getBackPackType();

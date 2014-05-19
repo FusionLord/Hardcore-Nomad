@@ -1,6 +1,7 @@
 package net.firesquared.hardcorenomad.item.backpacks;
 
 import net.firesquared.hardcorenomad.helpers.BackPackTypes;
+import net.minecraft.item.ItemStack;
 
 public class ItemBackPackArmored extends ItemBackPack
 {
@@ -18,14 +19,25 @@ public class ItemBackPackArmored extends ItemBackPack
 	@Override
 	protected int getWeightCap()
 	{
-		// TODO Auto-generated method stub
 		return 20;
 	}
 
 	@Override
 	protected int invSize()
 	{
-		// TODO Auto-generated method stub
 		return 36;
+	}
+
+	@Override
+	public void setDamage(ItemStack stack, int damage)
+	{
+		//NOTE: DO NOT CALL SUPER!!!
+		//TODO: damage item inside for gui indication of the damage on the backpack's armor
+	}
+
+	@Override
+	public int getMaxDamage(ItemStack stack)
+	{
+		return super.getMaxDamage(stack); // TODO: add fetch for armor in the bag
 	}
 }

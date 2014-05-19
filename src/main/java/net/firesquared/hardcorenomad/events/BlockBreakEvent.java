@@ -28,7 +28,12 @@ public class BlockBreakEvent
 
 	@SubscribeEvent
 	public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
-		int cap = (event.harvester.inventory.getCurrentItem().getItem() instanceof ItemPickaxe) ? 16 : 8;
+		ItemStack itemstack = event.harvester.inventory.getCurrentItem();
+		int cap = 0;
+		if (itemstack != null)
+		{
+			cap = (itemstack.getItem() instanceof ItemPickaxe) ? 16 : 8;
+		}
 
 		if (event.block == Blocks.cobblestone || event.block == Blocks.stone)
 		{
