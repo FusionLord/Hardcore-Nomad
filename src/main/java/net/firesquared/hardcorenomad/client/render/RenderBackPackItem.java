@@ -43,8 +43,8 @@ public class RenderBackPackItem implements IItemRenderer
 		if (item.getItem() == Items.ITEM_BACKPACKARMORED.getItem())
 			backPackType = 3;
 
-		model = ModelRegistry.getModel(Models.MODEL_BACKPACK);
-		texture = ModelRegistry.getTexture(Models.MODEL_BACKPACK, backPackType);
+		model = ModelRegistry.getModel(Models.BACKPACK);
+		texture = ModelRegistry.getTexture(Models.BACKPACK, backPackType);
 
 		GL11.glPushMatrix();
 		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);

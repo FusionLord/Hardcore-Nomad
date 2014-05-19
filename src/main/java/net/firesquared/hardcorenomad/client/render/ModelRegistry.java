@@ -7,21 +7,26 @@ import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
 enum Models {
-	//			(fileName, modelCount, textureCount)
-	MODEL_BACKPACK("backpack", 1, 4),
-	MODEL_BEDROLL("bedroll", 1, 1),
-	MODEL_CAMPFIRE("campfire", 1, 1),
-	MODEL_ENCHANTING_TABLE("enchanting_table", 5, 1),
-	MODEL_ROCKS("rock", 4, 1),
+	//The name of the enum variable is used for file path and name...
+	//fileName(modelCount, textureCount)
+	BACKPACK(1, 4),
+	BEDROLL(1, 1),
+	BEDROLL_PILLOW(1, 1),
+	BEDROLL_MATTING(1, 1),
+	CAMPFIRE(1, 1),
+	ENCHANTINGTABLE(5, 1),
+	ROCK(4, 1),
 	;
 
 	int modelCount;
 	int textureCount;
 	String fileName;
 
-	Models(String fileName, int modelCount, int textureCount)
+	Models(int modelCount, int textureCount)
 	{
-		this.fileName = fileName;
+		String[] path = this.name().toLowerCase().split("_");
+		this.fileName = String.format("%s:models/%s/%s",
+				Reference.MOD_ID, path[0], (path.length > 1 ? path[1] : path[0]));
 		this.modelCount = modelCount;
 		this.textureCount = textureCount;
 	}
@@ -42,11 +47,12 @@ public class ModelRegistry
 			textures[model.ordinal()] = new ResourceLocation[model.textureCount];
 			for (int i = 0; i < model.modelCount; i++)
 			{
-				models[model.ordinal()][i] = AdvancedModelLoader.loadModel(new ResourceLocation(Reference.MOD_ID + ":models/" + model.fileName + "/" + model.fileName + (model.modelCount > 1 ? i + 1 : "") + ".obj"));
+				LogHelper.debug(model.fileName + (model.modelCount > 1 ? i + 1 : "") + ".obj");
+				models[model.ordinal()][i] = AdvancedModelLoader.loadModel(new ResourceLocation(model.fileName + (model.modelCount > 1 ? i + 1 : "") + ".obj"));
 			}
 			for (int i = 0; i < model.textureCount; i++)
 			{
-				textures[model.ordinal()][i] = new ResourceLocation(Reference.MOD_ID + ":models/" + model.fileName + "/" + model.fileName + (model.textureCount > 1 ? i + 1 : "") + ".png");
+				textures[model.ordinal()][i] = new ResourceLocation(model.fileName + (model.textureCount > 1 ? i + 1 : "") + ".png");
 			}
 		}
 	}

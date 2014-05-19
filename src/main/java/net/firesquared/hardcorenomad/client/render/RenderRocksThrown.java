@@ -21,8 +21,8 @@ public class RenderRocksThrown extends Render
 	@Override
 	public void doRender(Entity entity, double x, double y, double z, float pitch, float yaw)
 	{
-		IModelCustom model = ModelRegistry.getModel(Models.MODEL_ROCKS, entity.worldObj.rand.nextInt(Models.MODEL_ROCKS.modelCount));
-		ResourceLocation texture = ModelRegistry.getTexture(Models.MODEL_ROCKS);
+		IModelCustom model = ModelRegistry.getModel(Models.ROCK, entity.worldObj.rand.nextInt(Models.ROCK.modelCount));
+		ResourceLocation texture = ModelRegistry.getTexture(Models.ROCK);
 
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)x, (float)y, (float)z);

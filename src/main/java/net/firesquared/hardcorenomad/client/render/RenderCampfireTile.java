@@ -6,8 +6,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
 import org.lwjgl.opengl.GL11;
@@ -18,8 +16,8 @@ public class RenderCampfireTile extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float var8)
 	{
-		IModelCustom model = ModelRegistry.getModel(Models.MODEL_CAMPFIRE);
-		ResourceLocation texture = ModelRegistry.getTexture(Models.MODEL_CAMPFIRE);
+		IModelCustom model = ModelRegistry.getModel(Models.CAMPFIRE);
+		ResourceLocation texture = ModelRegistry.getTexture(Models.CAMPFIRE);
 
 		GL11.glPushMatrix();
 		int i = Blocks.BLOCK_CAMPFIRE.getBlock().getLightValue(te.getWorldObj(), (int)x, (int)y, (int)z);

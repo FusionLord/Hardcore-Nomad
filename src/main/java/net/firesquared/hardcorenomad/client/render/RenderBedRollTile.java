@@ -1,26 +1,18 @@
 package net.firesquared.hardcorenomad.client.render;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import net.firesquared.hardcorenomad.block.Blocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 import org.lwjgl.opengl.GL11;
 
 public class RenderBedRollTile extends TileEntitySpecialRenderer
 {
-	public static final IModelCustom
-			modelBed = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/bedroll/bedroll.obj")),
-			modelMat = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/bedroll/matting.obj")),
-			modelPillow = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/bedroll/pillow.obj"));
+	IModelCustom model;
 
-	public static final ResourceLocation
-			textureBed = new ResourceLocation("hardcorenomad:models/bedroll/bedroll.png"),
-			textureMat = new ResourceLocation("hardcorenomad:models/bedroll/matting.png"),
-			texturePillow = new ResourceLocation("hardcorenomad:models/bedroll/pillow.png");
+	ResourceLocation texture;
 
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float var8)
@@ -32,46 +24,25 @@ public class RenderBedRollTile extends TileEntitySpecialRenderer
 		GL11.glScaled(.25, .25, .25);
 		
 		renderBed();
-		renderMat();
-		renderPillow();
 
 		GL11.glPopMatrix();
 	}
 
 	private void renderBed()
 	{
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(textureBed);
-		
+		model = ModelRegistry.getModel(Models.BEDROLL);
+		bindTexture(ModelRegistry.getTexture(Models.BEDROLL));
 		GL11.glTranslated(0, .3, 0);
-		//transform/scale/rotate
-
-		modelBed.renderAll();
-		
+		model.renderAll();
 		GL11.glTranslated(0, -.3, 0);
-	}
-	
-	private void renderMat()
-	{
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(textureMat);
-		
-		//transform/scale/rotate
-
-		modelMat.renderAll();
-	}
-	
-	private void renderPillow()
-	{
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texturePillow);
-		
+		model = ModelRegistry.getModel(Models.BEDROLL_MATTING);
+		bindTexture(ModelRegistry.getTexture(Models.BEDROLL_MATTING));
+		model.renderAll();
+		model = ModelRegistry.getModel(Models.BEDROLL_PILLOW);
+		bindTexture(ModelRegistry.getTexture(Models.BEDROLL_PILLOW));
 		GL11.glTranslated(3, .75, 0);
-		//transform/scale/rotate
-
-		modelPillow.renderAll();
-		
+		model.renderAll();
 		GL11.glTranslated(0, .25, 0);
-		
-		modelPillow.renderAll();
-		
-		GL11.glTranslated(-3, -1, 0);
+		model.renderAll();
 	}
 }

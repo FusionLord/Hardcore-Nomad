@@ -1,13 +1,14 @@
 package net.firesquared.hardcorenomad.client.render;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import net.firesquared.hardcorenomad.block.BlockBedRoll;
+import net.firesquared.hardcorenomad.block.BlockCampFire;
 import net.firesquared.hardcorenomad.block.BlockEnchantmentTable;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.upgrades.itemUpgrade;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
@@ -16,6 +17,12 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderUpgradeItem implements IItemRenderer
 {
+	IModelCustom model = null;
+	ResourceLocation texture = null;
+	FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+	float scale = 0, xOffset = 0, yOffest = 0, zOffset = 0;
+	boolean needsRotate;
+	int rotDegree;
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type)
@@ -32,11 +39,6 @@ public class RenderUpgradeItem implements IItemRenderer
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data)
 	{
-		IModelCustom model = null;
-		ResourceLocation texture = null;
-		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
-
-		float scale = 0, xOffset = 0, yOffest = 0, zOffset = 0, rotX = 0, rotY = 0, rotZ = 0;
 
 		itemUpgrade item = (itemUpgrade)itemStack.getItem();
 
@@ -44,13 +46,31 @@ public class RenderUpgradeItem implements IItemRenderer
 
 		if (item.getUpgradeTarget() == BlockEnchantmentTable.class)
 		{
-			//LogHelper.debug("calling");
-			model = ModelRegistry.getModel(Models.MODEL_ENCHANTING_TABLE, item.getTargetLevel());
-			texture = ModelRegistry.getTexture(Models.MODEL_ENCHANTING_TABLE);
+			model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, item.getTargetLevel());
+			texture = ModelRegistry.getTexture(Models.ENCHANTINGTABLE);
 
 			scale = .25f;
 			yOffest = .5f;
 		}
+
+		if (item.getUpgradeTarget() == BlockCampFire.class)
+		{
+			model = ModelRegistry.getModel(Models.CAMPFIRE);
+			texture = ModelRegistry.getTexture(Models.CAMPFIRE);
+
+			scale = .25f;
+		}
+
+		if (item.getUpgradeTarget() == BlockBedRoll.class)
+		{
+			model = ModelRegistry.getModel(Models.BEDROLL);
+			texture = ModelRegistry.getTexture(Models.BEDROLL);
+
+			scale = .20f;
+			needsRotate = true;
+			rotDegree = 180;
+		}
+
 		if(model == null)
 		{
 			LogHelper.fatal("How did you even? Cannot render model.");
@@ -59,22 +79,32 @@ public class RenderUpgradeItem implements IItemRenderer
 
 		GL11.glScalef(scale, scale, scale);
 		GL11.glTranslatef(xOffset, yOffest, zOffset);
-		//GL11.glRotatef(90, rotX, rotY, rotZ);
 
-		FMLClientHandler.instance().getClient().getTextureManager().bindTexture(texture);
+		if (needsRotate)
+		{
+			GL11.glRotatef(rotDegree, 0f, 1f, 0f);
+		}
+
+		bindTexture(texture);
 
 		model.renderAll();
 
-		//GL11.glRotatef(90, -rotX, -rotY, -rotZ);
-		GL11.glTranslatef(-xOffset, -yOffest, -zOffset);
-		GL11.glScalef(-scale, -scale, -scale);
+		if (item.getUpgradeTarget() == BlockBedRoll.class)
+		{
+			renderBedrollExtras();
+		}
+
+		GL11.glPopMatrix();
+		GL11.glPushMatrix();
 
 		if (type == ItemRenderType.INVENTORY)
 		{
+			GL11.glScalef(-.05f, -.05f, -.05f);
 			GL11.glRotatef(225, 0f, 1f, 0f);
 			GL11.glTranslatef(0f, 0f, 20f);
 			RenderHelper.disableStandardItemLighting();
 			font.drawString(Integer.toString(item.getTargetLevel() + 1), -12, -25, 0xFFFF00);
+			RenderHelper.enableStandardItemLighting();
 			RenderHelper.enableGUIStandardItemLighting();
 		}
 
@@ -82,5 +112,27 @@ public class RenderUpgradeItem implements IItemRenderer
 
 	}
 
+	private void bindTexture(ResourceLocation texture)
+	{
+
+		FMLClientHandler.instance().getClient().getTextureManager().bindTexture(texture);
+	}
+
+	private void renderBedrollExtras()
+	{
+		model = ModelRegistry.getModel(Models.BEDROLL_MATTING);
+		texture = ModelRegistry.getTexture(Models.BEDROLL_MATTING);
+		bindTexture(texture);
+		GL11.glTranslated(0, -.3, 0);
+		model.renderAll();
+
+		model = ModelRegistry.getModel(Models.BEDROLL_PILLOW);
+		texture = ModelRegistry.getTexture(Models.BEDROLL_PILLOW);
+		bindTexture(texture);
+		GL11.glTranslated(3, .75, 0);
+		model.renderAll();
+		GL11.glTranslated(0, .25, 0);
+		model.renderAll();
+	}
 
 }

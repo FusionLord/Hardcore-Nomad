@@ -18,8 +18,8 @@ public class RenderBackPackTile extends TileEntitySpecialRenderer
 	{
 		TileEntityDeployableBase tileEntity = (TileEntityDeployableBase)te;
 
-		IModelCustom model = ModelRegistry.getModel(Models.MODEL_BACKPACK);
-		ResourceLocation texture = ModelRegistry.getTexture(Models.MODEL_BACKPACK, tileEntity.getTierLevel());
+		IModelCustom model = ModelRegistry.getModel(Models.BACKPACK);
+		ResourceLocation texture = ModelRegistry.getTexture(Models.BACKPACK, tileEntity.getTierLevel());
 
 		//LogHelper.debug("Went to render, im told to render this... ==> " + backPackType);
 

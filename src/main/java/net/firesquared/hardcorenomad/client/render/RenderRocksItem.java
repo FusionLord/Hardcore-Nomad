@@ -25,8 +25,8 @@ public class RenderRocksItem implements IItemRenderer
 	@Override
 	public void renderItem(IItemRenderer.ItemRenderType type, ItemStack item, Object... data)
 	{
-		IModelCustom model = ModelRegistry.getModel(Models.MODEL_ROCKS);
-		ResourceLocation texture = ModelRegistry.getTexture(Models.MODEL_ROCKS);
+		IModelCustom model = ModelRegistry.getModel(Models.ROCK);
+		ResourceLocation texture = ModelRegistry.getTexture(Models.ROCK);
 
 		GL11.glPushMatrix();
 		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);

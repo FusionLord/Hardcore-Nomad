@@ -29,15 +29,26 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_MISC_PEBBLE.getItem(), new RenderRocksItem());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_ENCHANTMENTTABLE.getBlock()), new RenderEnchantingItem());
 
-		//upgrades
-		RenderUpgradeItem renderUpgradeItem = new RenderUpgradeItem();
-		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER1.getItem(), renderUpgradeItem);
-		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER2.getItem(), renderUpgradeItem);
-		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER3.getItem(), renderUpgradeItem);
-		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER4.getItem(), renderUpgradeItem);
-		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER5.getItem(), renderUpgradeItem);
-		
-		
+		// ##UPGRADES##
+		//RenderUpgradeItem renderUpgradeItem = new RenderUpgradeItem();
+		// Enchanting Table
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER1.getItem(), new RenderUpgradeItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER2.getItem(), new RenderUpgradeItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER3.getItem(), new RenderUpgradeItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER4.getItem(), new RenderUpgradeItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER5.getItem(), new RenderUpgradeItem());
+		// Campfire
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_CAMPFIRE_TIER1.getItem(), new RenderUpgradeItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_CAMPFIRE_TIER2.getItem(), new RenderUpgradeItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_CAMPFIRE_TIER3.getItem(), new RenderUpgradeItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_CAMPFIRE_TIER4.getItem(), new RenderUpgradeItem());
+		// Bedroll
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_BEDROLL_TIER1.getItem(), new RenderUpgradeItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_BEDROLL_TIER2.getItem(), new RenderUpgradeItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_BEDROLL_TIER3.getItem(), new RenderUpgradeItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_BEDROLL_TIER4.getItem(), new RenderUpgradeItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_BEDROLL_TIER5.getItem(), new RenderUpgradeItem());
+
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBackPack.class, new RenderBackPackTile());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnchantmentTable.class, new RenderEnchantingTile());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCampFire.class, new RenderCampfireTile());

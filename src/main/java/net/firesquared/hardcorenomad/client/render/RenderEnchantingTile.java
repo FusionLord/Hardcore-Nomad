@@ -18,8 +18,8 @@ public class RenderEnchantingTile extends TileEntitySpecialRenderer
 	{
 		TileEntityDeployableBase tileEntity = (TileEntityDeployableBase)te;
 
-		IModelCustom model = ModelRegistry.getModel(Models.MODEL_ENCHANTING_TABLE, tileEntity.getTierLevel());
-		ResourceLocation texture = ModelRegistry.getTexture(Models.MODEL_ENCHANTING_TABLE);
+		IModelCustom model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, tileEntity.getTierLevel());
+		ResourceLocation texture = ModelRegistry.getTexture(Models.ENCHANTINGTABLE);
 
 		GL11.glPushMatrix();
 		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
