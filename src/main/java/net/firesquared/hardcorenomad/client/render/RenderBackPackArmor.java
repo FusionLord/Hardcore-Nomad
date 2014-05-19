@@ -16,14 +16,14 @@ public class RenderBackPackArmor extends ModelBiped
 	ResourceLocation texture = null;
 
 	@Override
-	public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7)
+	public void render(Entity entity, float x, float y, float z, float yaw, float pitch, float roll)
 	{
 		int backPackType = 0;
 
 		ItemStack itemStack = null;
 
-		if (par1Entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer)par1Entity;
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer)entity;
 			itemStack = player.inventory.armorInventory[2];
 		}
 
@@ -39,6 +39,7 @@ public class RenderBackPackArmor extends ModelBiped
 		if (itemStack.getItem() == Items.ITEM_BACKPACKARMORED.getItem())
 			backPackType = 3;
 
+		model = ModelRegistry.getModel(Models.BACKPACK);
 		texture = ModelRegistry.getTexture(Models.BACKPACK, backPackType);
 		ModelRegistry.bindTexture(texture);
 
