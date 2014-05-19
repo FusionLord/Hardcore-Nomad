@@ -43,6 +43,10 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_CAMPFIRE_TIER2.getItem(), new RenderUpgradeItem());
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_CAMPFIRE_TIER3.getItem(), new RenderUpgradeItem());
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_CAMPFIRE_TIER4.getItem(), new RenderUpgradeItem());
+		
+		//Because WAILA shows you itemblock, not block
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_CAMPFIRE.getBlock()), new RenderCampfireItem());
+		
 		// Bedroll
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_BEDROLL_TIER1.getItem(), new RenderUpgradeItem());
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_BEDROLL_TIER2.getItem(), new RenderUpgradeItem());

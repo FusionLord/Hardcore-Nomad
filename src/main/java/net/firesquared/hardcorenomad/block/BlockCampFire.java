@@ -1,28 +1,26 @@
 package net.firesquared.hardcorenomad.block;
 
+import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.CampFireTypes;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.helpers.TileEntityHelper;
-import net.firesquared.hardcorenomad.item.Items;
-import net.firesquared.hardcorenomad.lib.Reference;
-import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockCampFire extends BlockContainer implements IBlockCampComponent
 {
@@ -34,6 +32,8 @@ public class BlockCampFire extends BlockContainer implements IBlockCampComponent
 		setStepSound(soundTypeMetal);
 		setLightLevel(.8f);
 		needsRandomTick = true;
+		float pixel = 1.0f / 16;
+		setBlockBounds(0.0f - 8*pixel, pixel/16, 0.0f - 8*pixel, 1.0f + 8*pixel, 1.0f, 1.0f + 8*pixel);
 	}
 
 	@Override
@@ -127,14 +127,43 @@ public class BlockCampFire extends BlockContainer implements IBlockCampComponent
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World w, int x, int y, int z, Random rand)
 	{
-		if(w.isRemote)
-		{
-			for(int j = 0; j < 6; j++)
-			{
-				w.spawnParticle("flame", x + .5f + (w.rand.nextFloat() - .5f) / 5, y + .25f,
-						z + .5f + (w.rand.nextFloat() - .5f) / 5,
-						(w.rand.nextFloat() - .5f) / 15, w.rand.nextFloat() / 10, (w.rand.nextFloat() - .5f) / 15);
+		TileEntityCampFire t = null;
+		if(w != null && w.getTileEntity(x, y, z) != null) {
+			t = (TileEntityCampFire) w.getTileEntity(x, y, z);
+		}
+		
+		if(t.isBurning()) {
+			if(w.isRemote) {
+				for(int j = 0; j < 6; j++)
+				{
+					w.spawnParticle("flame", x + .5f + (w.rand.nextFloat() - .5f)/5, y + .25f, z + .5f + (w.rand.nextFloat() - .5f)/5,
+							(w.rand.nextFloat() - .5f)/15,  w.rand.nextFloat() / 10, (w.rand.nextFloat() - .5f)/15);
+					w.spawnParticle("smoke", x + .5f + (w.rand.nextFloat() - .5f)/5, y + .25f, z + .5f + (w.rand.nextFloat() - .5f)/5,
+							(w.rand.nextFloat() - .5f)/15,  w.rand.nextFloat() / 10, (w.rand.nextFloat() - .5f)/15);
+				}
 			}
 		}
 	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public void addCollisionBoxesToList(World w, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity e)
+    {
+		AxisAlignedBB axisAlignedBB1 = this.getCollisionBoundingBoxFromPool(w, x, y, z);
+
+        if (axisAlignedBB1 != null && axisAlignedBB.intersectsWith(axisAlignedBB1))
+        {
+        	list.add(axisAlignedBB1);
+        }
+		
+        TileEntityCampFire t = null;
+		if(w != null && w.getTileEntity(x, y, z) != null) {
+			t = (TileEntityCampFire) w.getTileEntity(x, y, z);
+		}
+		
+		if(t.isBurning()) {
+			//Sets e on fire for 5 seconds
+			e.setFire(5);
+		}
+    }
 }

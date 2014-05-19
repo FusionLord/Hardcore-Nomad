@@ -1,7 +1,7 @@
 package net.firesquared.hardcorenomad.proxy;
 
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
+import java.util.Iterator;
+import java.util.List;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.Blocks;
@@ -19,7 +19,6 @@ import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
 import net.firesquared.hardcorenomad.tile.TileEntityCrafting;
 import net.firesquared.hardcorenomad.tile.TileEntityEnchantmentTable;
 import net.firesquared.hardcorenomad.world.WorldEvents;
-
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -28,9 +27,8 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
-
-import java.util.List;
-import java.util.Iterator;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public abstract class CommonProxy implements IProxy
 {
@@ -47,11 +45,11 @@ public abstract class CommonProxy implements IProxy
 	// Register TileEntities
 	public void registerTileEntities()
 	{
-		GameRegistry.registerTileEntity(TileEntityBackPack.class, "tile.backpack");
-		GameRegistry.registerTileEntity(TileEntityCampFire.class, "tile.campfire");
-		GameRegistry.registerTileEntity(TileEntityEnchantmentTable.class, "tile.enchantmenttable");
-		GameRegistry.registerTileEntity(TileEntityCrafting.class, "tile.crafting");
-		GameRegistry.registerTileEntity(TileEntityBedRoll.class, "tile.bedroll");
+		GameRegistry.registerTileEntity(TileEntityBackPack.class, "tile." + Reference.MOD_ID + ".backpack");
+		GameRegistry.registerTileEntity(TileEntityCampFire.class, "tile." + Reference.MOD_ID + ".campfire");
+		GameRegistry.registerTileEntity(TileEntityEnchantmentTable.class, "tile." + Reference.MOD_ID + ".enchantmenttable");
+		GameRegistry.registerTileEntity(TileEntityCrafting.class, "tile." + Reference.MOD_ID + ".crafting");
+		GameRegistry.registerTileEntity(TileEntityBedRoll.class, "tile." + Reference.MOD_ID + ".bedroll");
 	}
 
 	// Register Entities
@@ -107,7 +105,7 @@ public abstract class CommonProxy implements IProxy
 	public void registerRecipes() {
 
 		removeWoodenTools();
-
+		
 		// BackPacks
 		GameRegistry.addRecipe(new ItemStack(Items.ITEM_BACKPACKBASIC.getItem(), 1), "sls", "xcx", "wxw", 's', new ItemStack(net.minecraft.init.Items.string), 'l', new ItemStack(net.minecraft.init.Items.leather), 'x', new ItemStack(net.minecraft.init.Items.stick), 'c', new ItemStack(net.minecraft.init.Blocks.chest), 'w', net.minecraft.init.Blocks.wool);
 
@@ -207,7 +205,7 @@ public abstract class CommonProxy implements IProxy
 			}
 		};
 	}
-
+	
 	// Register Dungeon Loot
 	public void registerDungeonLoot()
 	{
