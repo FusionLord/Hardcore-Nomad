@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.client.render;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.minecraft.util.ResourceLocation;
@@ -16,6 +17,7 @@ enum Models {
 	CAMPFIRE(1, 1),
 	ENCHANTINGTABLE(5, 1),
 	ROCK(4, 1),
+	SLINGSHOT(1, 1),
 	;
 
 	int modelCount;
@@ -36,6 +38,13 @@ public class ModelRegistry
 {
 	public static IModelCustom[][] models;
 	public static ResourceLocation[][] textures;
+
+	public static void reinitialise()
+	{
+		models = null;
+		textures = null;
+		initialise();
+	}
 
 	public static void initialise()
 	{
@@ -77,4 +86,8 @@ public class ModelRegistry
 		return textures[model.ordinal()][number];
 	}
 
+	public static void bindTexture(ResourceLocation texture)
+	{
+		FMLClientHandler.instance().getClient().getTextureManager().bindTexture(texture);
+	}
 }

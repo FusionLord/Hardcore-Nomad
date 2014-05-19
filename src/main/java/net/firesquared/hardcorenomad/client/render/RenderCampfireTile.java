@@ -12,26 +12,24 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderCampfireTile extends TileEntitySpecialRenderer
 {
+	IModelCustom model = null;
+	ResourceLocation texture = null;
 
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float var8)
 	{
-		IModelCustom model = ModelRegistry.getModel(Models.CAMPFIRE);
-		ResourceLocation texture = ModelRegistry.getTexture(Models.CAMPFIRE);
+		model = ModelRegistry.getModel(Models.CAMPFIRE);
+		texture = ModelRegistry.getTexture(Models.CAMPFIRE);
+		bindTexture(texture);
 
-		GL11.glPushMatrix();
 		int i = Blocks.BLOCK_CAMPFIRE.getBlock().getLightValue(te.getWorldObj(), (int)x, (int)y, (int)z);
 		Tessellator.instance.setColorOpaque_F(i, i, i);
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
-		
+
+		GL11.glPushMatrix();
 		GL11.glTranslated(x, y, z);
-
 		GL11.glTranslatef(0.5f, 0f, 0.5f);
-		
 		GL11.glScalef(.4f, .4f, .4f);
-
 		model.renderAll();
-		
 		GL11.glPopMatrix();
 	}
 }

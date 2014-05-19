@@ -39,10 +39,7 @@ public class RenderUpgradeItem implements IItemRenderer
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data)
 	{
-
 		itemUpgrade item = (itemUpgrade)itemStack.getItem();
-
-		GL11.glPushMatrix();
 
 		if (item.getUpgradeTarget() == BlockEnchantmentTable.class)
 		{
@@ -77,6 +74,10 @@ public class RenderUpgradeItem implements IItemRenderer
 			return;
 		}
 
+		ModelRegistry.bindTexture(texture);
+
+		GL11.glPushMatrix();
+
 		GL11.glScalef(scale, scale, scale);
 		GL11.glTranslatef(xOffset, yOffest, zOffset);
 
@@ -84,8 +85,6 @@ public class RenderUpgradeItem implements IItemRenderer
 		{
 			GL11.glRotatef(rotDegree, 0f, 1f, 0f);
 		}
-
-		bindTexture(texture);
 
 		model.renderAll();
 
@@ -112,23 +111,17 @@ public class RenderUpgradeItem implements IItemRenderer
 
 	}
 
-	private void bindTexture(ResourceLocation texture)
-	{
-
-		FMLClientHandler.instance().getClient().getTextureManager().bindTexture(texture);
-	}
-
 	private void renderBedrollExtras()
 	{
 		model = ModelRegistry.getModel(Models.BEDROLL_MATTING);
 		texture = ModelRegistry.getTexture(Models.BEDROLL_MATTING);
-		bindTexture(texture);
+		ModelRegistry.bindTexture(texture);
 		GL11.glTranslated(0, -.3, 0);
 		model.renderAll();
 
 		model = ModelRegistry.getModel(Models.BEDROLL_PILLOW);
 		texture = ModelRegistry.getTexture(Models.BEDROLL_PILLOW);
-		bindTexture(texture);
+		ModelRegistry.bindTexture(texture);
 		GL11.glTranslated(3, .75, 0);
 		model.renderAll();
 		GL11.glTranslated(0, .25, 0);

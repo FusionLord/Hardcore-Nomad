@@ -5,14 +5,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModelCustom;
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
 public class RenderEnchantingItem implements IItemRenderer
 {
-	IModelCustom model;
-	ResourceLocation texture;
+	IModelCustom model = null;
+	ResourceLocation texture = null;
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type)
@@ -31,13 +30,11 @@ public class RenderEnchantingItem implements IItemRenderer
 	{
 		model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, ItemNomadBase.getTierLevel(item));
 		texture = ModelRegistry.getTexture(Models.ENCHANTINGTABLE);
+		ModelRegistry.bindTexture(texture);
 
 		GL11.glPushMatrix();
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
-		
 		GL11.glScalef(.25f, .25f, .25f);
 		GL11.glTranslatef(0, .75f, 0);
-
 		model.renderAll();
 		GL11.glPopMatrix();
 	}

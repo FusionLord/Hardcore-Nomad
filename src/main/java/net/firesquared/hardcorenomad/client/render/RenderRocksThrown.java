@@ -15,25 +15,26 @@ import org.lwjgl.opengl.GL12;
 
 public class RenderRocksThrown extends Render
 {
+	IModelCustom model = null;
+	ResourceLocation texture = null;
+
 	public RenderRocksThrown()
 	{}
 
 	@Override
 	public void doRender(Entity entity, double x, double y, double z, float pitch, float yaw)
 	{
-		IModelCustom model = ModelRegistry.getModel(Models.ROCK, entity.worldObj.rand.nextInt(Models.ROCK.modelCount));
-		ResourceLocation texture = ModelRegistry.getTexture(Models.ROCK);
+		model = ModelRegistry.getModel(Models.ROCK, entity.worldObj.rand.nextInt(Models.ROCK.modelCount));
+		texture = ModelRegistry.getTexture(Models.ROCK);
+		bindTexture(texture);
+
+		Tessellator.instance.setColorOpaque_F(1, 1, 1);
 
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)x, (float)y, (float)z);
 		GL11.glRotatef(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * yaw - 90.0F, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * yaw, 0.0F, 0.0F, 1.0F);
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
-
 		GL11.glScalef(.25f, .25f, .25f);
-
-		Tessellator.instance.setColorOpaque_F(1, 1, 1);
-
 		model.renderAll();
 		GL11.glPopMatrix();
 	}

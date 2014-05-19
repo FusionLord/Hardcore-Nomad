@@ -10,9 +10,8 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderBedRollTile extends TileEntitySpecialRenderer
 {
-	IModelCustom model;
-
-	ResourceLocation texture;
+	IModelCustom model = null;
+	ResourceLocation texture = null;
 
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float var8)

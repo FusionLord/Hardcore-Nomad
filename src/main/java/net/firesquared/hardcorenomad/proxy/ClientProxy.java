@@ -22,15 +22,16 @@ public class ClientProxy extends CommonProxy
 	{
 		ModelRegistry.initialise();
 
+		// ##Items##
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_BACKPACKBASIC.getItem(), new RenderBackPackItem());
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_BACKPACKIMPROVED.getItem(), new RenderBackPackItem());
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_BACKPACKADVANCED.getItem(), new RenderBackPackItem());
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_BACKPACKARMORED.getItem(), new RenderBackPackItem());
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_MISC_PEBBLE.getItem(), new RenderRocksItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_MISC_SLINGSHOT.getItem(), new RenderSlingshotItem());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_ENCHANTMENTTABLE.getBlock()), new RenderEnchantingItem());
 
 		// ##UPGRADES##
-		//RenderUpgradeItem renderUpgradeItem = new RenderUpgradeItem();
 		// Enchanting Table
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER1.getItem(), new RenderUpgradeItem());
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER2.getItem(), new RenderUpgradeItem());
@@ -49,15 +50,17 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_BEDROLL_TIER4.getItem(), new RenderUpgradeItem());
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_BEDROLL_TIER5.getItem(), new RenderUpgradeItem());
 
+		// ##TileEntities##
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBackPack.class, new RenderBackPackTile());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnchantmentTable.class, new RenderEnchantingTile());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCampFire.class, new RenderCampfireTile());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBedRoll.class, new RenderBedRollTile());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBackPack.class, new RenderBackPackTile());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnchantmentTable.class, new RenderEnchantingTile());
-		
+
+		// ##Entities##
 		RenderingRegistry.registerEntityRenderingHandler(EntityPebble.class, new RenderRocksThrown());
-		
+
 		super.registerItems();
 	}
 

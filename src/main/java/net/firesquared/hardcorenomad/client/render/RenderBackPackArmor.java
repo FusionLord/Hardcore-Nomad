@@ -1,31 +1,19 @@
 package net.firesquared.hardcorenomad.client.render;
 
-import net.firesquared.hardcorenomad.helpers.BackPackTypes;
-import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.Items;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.client.FMLClientHandler;
-
 public class RenderBackPackArmor extends ModelBiped
 {
-	public static final IModelCustom model = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/backpack/backpack.obj"));
-
-	public static final ResourceLocation[] texture = {
-			new ResourceLocation("hardcorenomad:models/backpack/backpack1.png"),
-			new ResourceLocation("hardcorenomad:models/backpack/backpackt2.png"),
-			new ResourceLocation("hardcorenomad:models/backpack/backpackt3.png"),
-			new ResourceLocation("hardcorenomad:models/backpack/backpackt4.png")
-	};
+	IModelCustom model = null;
+	ResourceLocation texture = null;
 
 	@Override
 	public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7)
@@ -51,9 +39,10 @@ public class RenderBackPackArmor extends ModelBiped
 		if (itemStack.getItem() == Items.ITEM_BACKPACKARMORED.getItem())
 			backPackType = 3;
 
+		texture = ModelRegistry.getTexture(Models.BACKPACK, backPackType);
+		ModelRegistry.bindTexture(texture);
 
 		GL11.glPushMatrix();
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture[backPackType]);
 		GL11.glTranslatef(0, 2.40f, .34f);
 		GL11.glScalef(.35f, .35f, .35f);
 		GL11.glRotatef(180, 1.0f, 0.0f, 0.0f);
