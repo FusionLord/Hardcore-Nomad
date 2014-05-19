@@ -1,6 +1,5 @@
 package net.firesquared.hardcorenomad.client.render;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import net.firesquared.hardcorenomad.block.Blocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -27,9 +26,24 @@ public class RenderCampfireTile extends TileEntitySpecialRenderer
 
 		GL11.glPushMatrix();
 		GL11.glTranslated(x, y, z);
-		GL11.glTranslatef(0.5f, 0f, 0.5f);
-		GL11.glScalef(.4f, .4f, .4f);
+		GL11.glTranslatef(.5f, .5f, .5f);
+		GL11.glScalef(.3f, .3f, .3f);
 		model.renderAll();
+		addRocks(); // addRandom
 		GL11.glPopMatrix();
+	}
+
+	private void addRocks()
+	{
+		GL11.glTranslatef(0f, -1.5f, 0f);
+		for (int i = 0; i < 8; i++)
+		{
+			model = ModelRegistry.getModel(Models.ROCK, i % Models.ROCK.modelCount);
+			GL11.glRotatef(45, 0f, (float)i * 1f, 0f);
+			GL11.glTranslatef(0f, 0f, 2.5f);
+			model.renderAll();
+			GL11.glTranslatef(0f, 0f, -2.5f);
+			//GL11.glRotatef(-45, 0f, (float)i * 1f, 0f);
+		}
 	}
 }

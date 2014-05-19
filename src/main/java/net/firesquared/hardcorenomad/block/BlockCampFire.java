@@ -32,7 +32,7 @@ public class BlockCampFire extends BlockContainer implements IBlockCampComponent
 		setHardness(1.0F);
 		setResistance(100.0F);
 		setStepSound(soundTypeMetal);
-		setBlockTextureName(Reference.MOD_ID + ":" + getUnlocalizedName());
+		setLightLevel(.8f);
 		needsRandomTick = true;
 	}
 

@@ -31,7 +31,7 @@ public class RenderRocksThrown extends Render
 		Tessellator.instance.setColorOpaque_F(1, 1, 1);
 
 		GL11.glPushMatrix();
-		GL11.glTranslatef((float)x, (float)y, (float)z);
+		GL11.glTranslatef((float)x, (float)y + .5f, (float)z);
 		GL11.glRotatef(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * yaw - 90.0F, 0.0F, 1.0F, 0.0F);
 		GL11.glRotatef(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * yaw, 0.0F, 0.0F, 1.0F);
 		GL11.glScalef(.25f, .25f, .25f);

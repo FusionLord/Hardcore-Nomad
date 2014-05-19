@@ -9,9 +9,11 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
@@ -107,7 +109,8 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 		this.dataWatcher.addObject(16, Byte.valueOf((byte)0));
 	}
 
-	@Override protected void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
+	@Override
+	protected void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
 	{
 		this.field_145791_d = par1NBTTagCompound.getShort("xTile");
 		this.field_145792_e = par1NBTTagCompound.getShort("yTile");
@@ -263,11 +266,20 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 		}
 	}
 
+
+
 	@Override
 	public void onUpdate()
 	{
 		super.onUpdate();
 
+		if (this.onGround)
+		{
+			EntityItem entityItem = new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Items.ITEM_MISC_PEBBLE.getItem()));
+			worldObj.spawnEntityInWorld(entityItem);
+			this.setDead();
+			return;
+		}
 		if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F)
 		{
 			float f = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
@@ -528,8 +540,8 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 					f4 = 0.25F;
 					this.worldObj.spawnParticle("bubble", this.posX - this.motionX * (double)f4, this.posY - this.motionY * (double)f4, this.posZ - this.motionZ * (double)f4, this.motionX, this.motionY, this.motionZ);
 				}
-
-				f3 = 0.8F;
+				this.motionY += .1f;
+				f3 = 1F;
 			}
 
 			if (this.isWet())
