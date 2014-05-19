@@ -2,6 +2,7 @@ package net.firesquared.hardcorenomad.proxy;
 
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.dispenser.DispenserBehaviorPebble;
@@ -18,21 +19,18 @@ import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
 import net.firesquared.hardcorenomad.tile.TileEntityCrafting;
 import net.firesquared.hardcorenomad.tile.TileEntityEnchantmentTable;
 import net.firesquared.hardcorenomad.world.WorldEvents;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockCauldron;
+
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.client.Minecraft;
-import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
-import net.minecraft.dispenser.BehaviorProjectileDispense;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemSaddle;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
-import net.minecraftforge.common.DungeonHooks;
 import net.minecraftforge.common.MinecraftForge;
 
-import java.io.File;
+import java.util.List;
+import java.util.Iterator;
 
 public abstract class CommonProxy implements IProxy
 {
@@ -107,6 +105,9 @@ public abstract class CommonProxy implements IProxy
 
 	// Register Recipes
 	public void registerRecipes() {
+
+		removeWoodenTools();
+
 		// BackPacks
 		GameRegistry.addRecipe(new ItemStack(Items.ITEM_BACKPACKBASIC.getItem(), 1), "sls", "xcx", "wxw", 's', new ItemStack(net.minecraft.init.Items.string), 'l', new ItemStack(net.minecraft.init.Items.leather), 'x', new ItemStack(net.minecraft.init.Items.stick), 'c', new ItemStack(net.minecraft.init.Blocks.chest), 'w', net.minecraft.init.Blocks.wool);
 
@@ -185,6 +186,26 @@ public abstract class CommonProxy implements IProxy
 		// ====== CRAFTING TABLE ======
 		// Crafting Table Tier 1
 		GameRegistry.addRecipe(new ItemStack(Items.ITEM_UPGRADE_CRAFTINGTABLE_TIER1.getItem(), 1), " s ", "scs", " s ", 's', new ItemStack(net.minecraft.init.Items.stick), 'c', new ItemStack(net.minecraft.init.Blocks.crafting_table));
+	}
+
+	private void removeWoodenTools()
+	{
+		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
+
+		Iterator<IRecipe> iterator = recipes.iterator();
+
+		while (iterator.hasNext()) {
+			ItemStack is = iterator.next().getRecipeOutput();
+			if (is != null &&
+					(is.getItem() == net.minecraft.init.Items.wooden_axe
+					|| is.getItem() == net.minecraft.init.Items.wooden_pickaxe
+					|| is.getItem() == net.minecraft.init.Items.wooden_hoe
+					|| is.getItem() == net.minecraft.init.Items.wooden_sword)
+				)
+			{
+				iterator.remove();
+			}
+		};
 	}
 
 	// Register Dungeon Loot
