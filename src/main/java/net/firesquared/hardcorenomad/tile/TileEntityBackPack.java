@@ -8,7 +8,7 @@ import net.firesquared.hardcorenomad.block.IBlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.BackPackTypes;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.backpacks.BackPackInventory;
-import net.firesquared.hardcorenomad.item.upgrades.itemUpgrade;
+import net.firesquared.hardcorenomad.item.upgrades.ItemUpgrade;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -243,11 +243,11 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public boolean doUpgrade()
 	{
 		upgradeSlot = getStackInSlot(-1);
-		if(upgradeSlot == null || !(upgradeSlot.getItem() instanceof itemUpgrade))
+		if(upgradeSlot == null || !(upgradeSlot.getItem() instanceof ItemUpgrade))
 			return false;
 		NBTTagCompound tag;
 		ItemStack is;
-		itemUpgrade iu = (itemUpgrade)upgradeSlot.getItem();
+		ItemUpgrade iu = (ItemUpgrade)upgradeSlot.getItem();
 		for(int i = 0; i < 9; i++)
 		{
 			tag = getUpgrade(i);
@@ -283,7 +283,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		return false;		
 	}
 	
-	private ItemStack applyUpgrade(ItemStack is, itemUpgrade iu)
+	private ItemStack applyUpgrade(ItemStack is, ItemUpgrade iu)
 	{
 		if(is.stackTagCompound == null)
 			is.stackTagCompound = new NBTTagCompound();

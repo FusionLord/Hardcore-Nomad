@@ -1,11 +1,10 @@
 package net.firesquared.hardcorenomad.client.render;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import net.firesquared.hardcorenomad.block.BlockBedRoll;
 import net.firesquared.hardcorenomad.block.BlockCampFire;
 import net.firesquared.hardcorenomad.block.BlockEnchantmentTable;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
-import net.firesquared.hardcorenomad.item.upgrades.itemUpgrade;
+import net.firesquared.hardcorenomad.item.upgrades.ItemUpgrade;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.RenderHelper;
@@ -39,7 +38,7 @@ public class RenderUpgradeItem implements IItemRenderer
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data)
 	{
-		itemUpgrade item = (itemUpgrade)itemStack.getItem();
+		ItemUpgrade item = (ItemUpgrade)itemStack.getItem();
 
 		if (item.getUpgradeTarget() == BlockEnchantmentTable.class)
 		{
