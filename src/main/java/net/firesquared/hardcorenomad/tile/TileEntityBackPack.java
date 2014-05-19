@@ -3,7 +3,6 @@
 package net.firesquared.hardcorenomad.tile;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.block.EnumSlotCoordinateOffsets;
 import net.firesquared.hardcorenomad.block.IBlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.BackPackTypes;
@@ -15,14 +14,9 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityBackPack extends TileEntity implements IInventory
+public class TileEntityBackPack extends TileEntityDeployableBase implements IInventory
 {
 	protected int blockMeta;
 	protected int backPackType;

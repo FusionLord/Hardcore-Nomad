@@ -7,7 +7,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityEnchantmentTable extends TileEntity
+public class TileEntityEnchantmentTable extends TileEntityDeployableBase
 {
 	protected int enchantmentTableType;
 	private NBTTagCompound tagInv;

@@ -12,15 +12,15 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderBedRollTile extends TileEntitySpecialRenderer
 {
-	public static final IModelCustom 
-			modelBed = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/bed/bedroll.obj")),
-			modelMat = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/bed/matting.obj")),
-			modelPillow = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/bed/pillow.obj"));
+	public static final IModelCustom
+			modelBed = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/bedroll/bedroll.obj")),
+			modelMat = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/bedroll/matting.obj")),
+			modelPillow = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/bedroll/pillow.obj"));
 
-	public static final ResourceLocation 
-			textureBed = new ResourceLocation("hardcorenomad:models/bed/bedroll.png"),
-			textureMat = new ResourceLocation("hardcorenomad:models/bed/matting.png"),
-			texturePillow = new ResourceLocation("hardcorenomad:models/bed/pillow.png");
+	public static final ResourceLocation
+			textureBed = new ResourceLocation("hardcorenomad:models/bedroll/bedroll.png"),
+			textureMat = new ResourceLocation("hardcorenomad:models/bedroll/matting.png"),
+			texturePillow = new ResourceLocation("hardcorenomad:models/bedroll/pillow.png");
 
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float var8)

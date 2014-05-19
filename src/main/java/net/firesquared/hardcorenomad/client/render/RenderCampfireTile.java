@@ -14,25 +14,16 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderCampfireTile extends TileEntitySpecialRenderer
 {
-	public static final IModelCustom modelLog = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/campfire/log.obj"));
-
-	public static final ResourceLocation texture = new ResourceLocation("hardcorenomad:models/campfire/logrocks.png");
-	
-	public static final IModelCustom modelCombined = 
-			AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/campfire/Campfire.obj"));
-	
-	public static final IModelCustom[] modelRock = new IModelCustom[]{
-		AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/campfire/rock1.obj")),
-		AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/campfire/rock2.obj")),
-		AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/campfire/rock3.obj")),
-		AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/campfire/rock4.obj")),};
-	
-public static final ResourceLocation textureRock = new ResourceLocation("hardcorenomad:models/campfire/logrocks.png");
 
 	@Override
 	public void renderTileEntityAt(TileEntity te, double x, double y, double z, float var8)
 	{
+		IModelCustom model = ModelRegistry.getModel(Models.MODEL_CAMPFIRE);
+		ResourceLocation texture = ModelRegistry.getTexture(Models.MODEL_CAMPFIRE);
+
 		GL11.glPushMatrix();
+		int i = Blocks.BLOCK_CAMPFIRE.getBlock().getLightValue(te.getWorldObj(), (int)x, (int)y, (int)z);
+		Tessellator.instance.setColorOpaque_F(i, i, i);
 		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
 		
 		GL11.glTranslated(x, y, z);
@@ -41,10 +32,7 @@ public static final ResourceLocation textureRock = new ResourceLocation("hardcor
 		
 		GL11.glScalef(.4f, .4f, .4f);
 
-		int i = Blocks.BLOCK_CAMPFIRE.getBlock().getLightValue(te.getWorldObj(), (int)x, (int)y, (int)z);
-		Tessellator.instance.setColorOpaque_F(i, i, i);
-
-		modelCombined.renderAll();
+		model.renderAll();
 		
 		GL11.glPopMatrix();
 	}

@@ -21,7 +21,7 @@ public class RenderBackPackArmor extends ModelBiped
 	public static final IModelCustom model = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/backpack/backpack.obj"));
 
 	public static final ResourceLocation[] texture = {
-			new ResourceLocation("hardcorenomad:models/backpack/backpackt1.png"),
+			new ResourceLocation("hardcorenomad:models/backpack/backpack1.png"),
 			new ResourceLocation("hardcorenomad:models/backpack/backpackt2.png"),
 			new ResourceLocation("hardcorenomad:models/backpack/backpackt3.png"),
 			new ResourceLocation("hardcorenomad:models/backpack/backpackt4.png")

@@ -1,14 +1,8 @@
 package net.firesquared.hardcorenomad.proxy;
 
 import net.firesquared.hardcorenomad.block.Blocks;
-import net.firesquared.hardcorenomad.client.render.RenderBackPack;
-import net.firesquared.hardcorenomad.client.render.RenderBackPackTile;
-import net.firesquared.hardcorenomad.client.render.RenderBedRollTile;
-import net.firesquared.hardcorenomad.client.render.RenderCampfireTile;
-import net.firesquared.hardcorenomad.client.render.RenderEnchantingItem;
-import net.firesquared.hardcorenomad.client.render.RenderEnchantingTile;
-import net.firesquared.hardcorenomad.client.render.RenderRocks;
-import net.firesquared.hardcorenomad.client.render.RenderRocksThrown;
+import net.firesquared.hardcorenomad.client.render.*;
+import net.firesquared.hardcorenomad.client.render.RenderBackPackItem;
 import net.firesquared.hardcorenomad.entity.EntityPebble;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
@@ -26,12 +20,22 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void registerItems()
 	{
-		MinecraftForgeClient.registerItemRenderer(Items.ITEM_BACKPACKBASIC.getItem(), new RenderBackPack());
-		MinecraftForgeClient.registerItemRenderer(Items.ITEM_BACKPACKIMPROVED.getItem(), new RenderBackPack());
-		MinecraftForgeClient.registerItemRenderer(Items.ITEM_BACKPACKADVANCED.getItem(), new RenderBackPack());
-		MinecraftForgeClient.registerItemRenderer(Items.ITEM_BACKPACKARMORED.getItem(), new RenderBackPack());
-		MinecraftForgeClient.registerItemRenderer(Items.ITEM_MISC_PEBBLE.getItem(), new RenderRocks());
+		ModelRegistry.initialise();
+
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_BACKPACKBASIC.getItem(), new RenderBackPackItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_BACKPACKIMPROVED.getItem(), new RenderBackPackItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_BACKPACKADVANCED.getItem(), new RenderBackPackItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_BACKPACKARMORED.getItem(), new RenderBackPackItem());
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_MISC_PEBBLE.getItem(), new RenderRocksItem());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_ENCHANTMENTTABLE.getBlock()), new RenderEnchantingItem());
+
+		//upgrades
+		RenderUpgradeItem renderUpgradeItem = new RenderUpgradeItem();
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER1.getItem(), renderUpgradeItem);
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER2.getItem(), renderUpgradeItem);
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER3.getItem(), renderUpgradeItem);
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER4.getItem(), renderUpgradeItem);
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTTABLE_TIER5.getItem(), renderUpgradeItem);
 		
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBackPack.class, new RenderBackPackTile());

@@ -8,6 +8,13 @@ public class TileEntityDeployableBase extends TileEntity
 {
 	protected TileEntityBackPack backPack;
 
+	private int tierLevel = 0;
+
+	public int getTierLevel()
+	{
+		return this.tierLevel;
+	}
+
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{

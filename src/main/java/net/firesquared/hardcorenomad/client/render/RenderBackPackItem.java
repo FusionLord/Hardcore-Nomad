@@ -3,28 +3,17 @@
 package net.firesquared.hardcorenomad.client.render;
 
 import net.firesquared.hardcorenomad.item.Items;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.FMLClientHandler;
 
-public class RenderBackPack implements IItemRenderer
+public class RenderBackPackItem implements IItemRenderer
 {
-	public static final IModelCustom model = AdvancedModelLoader.loadModel(new ResourceLocation("hardcorenomad:models/backpack/backpack.obj"));
-
-	public static final ResourceLocation[] texture = {
-			new ResourceLocation("hardcorenomad:models/backpack/backpackt1.png"),
-			new ResourceLocation("hardcorenomad:models/backpack/backpackt2.png"),
-			new ResourceLocation("hardcorenomad:models/backpack/backpackt3.png"),
-			new ResourceLocation("hardcorenomad:models/backpack/backpackt4.png")
-	};
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type)
@@ -41,6 +30,8 @@ public class RenderBackPack implements IItemRenderer
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{
+		IModelCustom model;
+		ResourceLocation texture;
 		int backPackType = 0;
 
 		if (item.getItem() == Items.ITEM_BACKPACKBASIC.getItem())
@@ -52,8 +43,11 @@ public class RenderBackPack implements IItemRenderer
 		if (item.getItem() == Items.ITEM_BACKPACKARMORED.getItem())
 			backPackType = 3;
 
+		model = ModelRegistry.getModel(Models.MODEL_BACKPACK);
+		texture = ModelRegistry.getTexture(Models.MODEL_BACKPACK, backPackType);
+
 		GL11.glPushMatrix();
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture[backPackType]);
+		FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
 		GL11.glScalef(.44f, .44f, .44f);
 		GL11.glTranslatef(0, -5.5f, 0);
 		GL11.glRotatef(180, 0.0f, 1.0f, 0.0f);

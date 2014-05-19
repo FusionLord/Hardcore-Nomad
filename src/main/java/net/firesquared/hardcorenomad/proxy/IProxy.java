@@ -33,4 +33,5 @@ public interface IProxy
 
 	// Register Dungeon Loot
 	public abstract void registerDungeonLoot();
+
 }
