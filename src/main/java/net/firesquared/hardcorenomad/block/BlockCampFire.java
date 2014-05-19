@@ -128,10 +128,13 @@ public class BlockCampFire extends BlockContainer implements IBlockCampComponent
 	public void randomDisplayTick(World w, int x, int y, int z, Random rand)
 	{
 		if(w.isRemote)
+		{
 			for(int j = 0; j < 6; j++)
 			{
-				w.spawnParticle("flame", x + .5f + (w.rand.nextFloat() - .5f)/5, y + .25f, z + .5f + (w.rand.nextFloat() - .5f)/5,
-						(w.rand.nextFloat() - .5f)/15,  w.rand.nextFloat() / 10, (w.rand.nextFloat() - .5f)/15);
+				w.spawnParticle("flame", x + .5f + (w.rand.nextFloat() - .5f) / 5, y + .25f,
+						z + .5f + (w.rand.nextFloat() - .5f) / 5,
+						(w.rand.nextFloat() - .5f) / 15, w.rand.nextFloat() / 10, (w.rand.nextFloat() - .5f) / 15);
 			}
+		}
 	}
 }
