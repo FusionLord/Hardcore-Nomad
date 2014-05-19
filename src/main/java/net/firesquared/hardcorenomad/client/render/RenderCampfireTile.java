@@ -43,7 +43,6 @@ public class RenderCampfireTile extends TileEntitySpecialRenderer
 			GL11.glTranslatef(0f, 0f, 2.5f);
 			model.renderAll();
 			GL11.glTranslatef(0f, 0f, -2.5f);
-			//GL11.glRotatef(-45, 0f, (float)i * 1f, 0f);
 		}
 	}
 }

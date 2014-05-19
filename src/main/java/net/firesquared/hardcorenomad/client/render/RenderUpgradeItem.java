@@ -91,6 +91,10 @@ public class RenderUpgradeItem implements IItemRenderer
 		{
 			renderBedrollExtras();
 		}
+		if (item.getUpgradeTarget() == BlockCampFire.class)
+		{
+			renderCampfireExtras();
+		}
 
 		GL11.glPopMatrix();
 		GL11.glPushMatrix();
@@ -108,6 +112,19 @@ public class RenderUpgradeItem implements IItemRenderer
 
 		GL11.glPopMatrix();
 
+	}
+
+	private void renderCampfireExtras()
+	{
+		GL11.glTranslatef(0f, -1.5f, 0f);
+		for (int i = 0; i < 8; i++)
+		{
+			model = ModelRegistry.getModel(Models.ROCK, i % Models.ROCK.modelCount);
+			GL11.glRotatef(45, 0f, (float)i * 1f, 0f);
+			GL11.glTranslatef(0f, 0f, 2.5f);
+			model.renderAll();
+			GL11.glTranslatef(0f, 0f, -2.5f);
+		}
 	}
 
 	private void renderBedrollExtras()
