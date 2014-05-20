@@ -1,6 +1,7 @@
 /*
 !/.gitignore
 !/src
+!/libs
 !/gradle
 !/gradlew
 !/gradlew.bat
