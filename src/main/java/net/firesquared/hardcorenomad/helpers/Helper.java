@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.helpers;
 
+import java.lang.Character.UnicodeBlock;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,21 @@ public class Helper
 		CD(400),
 		D(500),
 		CM(900),
-		M(1000);
+		M(1000),
+		IV_(4000, "I/x0304"+"V/x0304"),
+		V_(5000, "V\u0304"),
+		IX_(9000, "I\u0304"+"X\u0304"),
+		X_(10000, "X\u0304"),
+		XL_(40000, "X\u0304"+"L\u0304"),
+		L_(50000, "L\u0304"),
+		XC_(90000, "X\u0304"+"C\u0304"),
+		C_(100000, "C\u0304"),
+		CD_(400000, "C\u0304"+"D \u0304"),
+		D_(500000, "D\u0304"),
+		CM_(900000, "C\u0304"+"M\u0304"),
+		M_(1000000, "M\u0304");
 		int val;
+		String text;
 		public int value()
 		{
 			return val;
@@ -31,6 +45,19 @@ public class Helper
 		Numeral(int val)
 		{
 			this.val = val;
+		}
+		Numeral(int val, String text)
+		{
+			this.val = val;
+			this.text = text;
+		}
+		@Override
+		public String toString()
+		{
+			if(text != null)
+				return text;
+			else
+				return super.toString();
 		}
 		public static Numeral fromString(String s)
 		{
@@ -73,8 +100,8 @@ public class Helper
 		
 		public static Numeral nextSmallest(int i)
 		{
-			if(i>=1000)
-				return M;
+			if(i>=1000000)
+				return M_;
 			Numeral out = N;
 			for(Numeral n : Numeral.values())
 			{
@@ -89,8 +116,8 @@ public class Helper
 		//derived from algorithm at http://www.blackwasp.co.uk/NumberToRoman.aspx
 		public static String ToRoman(int i)
 		{
-			if(i < 0 || i > 3999)
-				throw new IndexOutOfBoundsException("Roman numeral function bounded between 0 and 3999");
+			if(i < 0 || i > 3999999)
+				throw new IndexOutOfBoundsException("Roman numeral function bounded between 0 and 3,999,999");
 			if(i == 0)
 				return "N";
 			return RRoman(i);
