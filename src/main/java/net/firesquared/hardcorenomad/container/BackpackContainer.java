@@ -62,12 +62,19 @@ public class BackpackContainer extends Container
 
 	private void bindBackpackSlots()
 	{
-		int paddingLeft = 15;
-		int paddingTop = 10;
+		int paddingLeft = 174;
+		int paddingTop = 12;
 		int slot;
 		for (slot = 0; slot < backPack.getSizeInventory(); slot++)
 		{
+			LogHelper.debug("[Binding slots] - storageslot " + slot);
 			addSlotToContainer(new Slot(backPack, slot, paddingLeft + ((slot % 2) * 18), paddingTop + ((slot / 2) * 18)));
+		}
+
+		for (int i = 0; i < 9; i++)
+		{
+			addSlotToContainer(new SlotDummy(backPack, slot, 8 + (i * 18), 48));
+			slot++;
 		}
 
 		addSlotToContainer(new Slot(backPack, slot, 128, 4));
@@ -75,14 +82,6 @@ public class BackpackContainer extends Container
 		if (isArmor)
 		{
 			addSlotToContainer(new Slot(backPack, slot, 128, 4));
-		}
-		slot++;
-
-		for (int i = 0; i < 9; i++)
-		{
-			LogHelper.debug("[Binding slots] - slot " + (slot - backPack.getSizeInventory() - 2));
-			addSlotToContainer(new SlotDummy(backPack, slot, 5 + (i * 18), 25));
-			slot++;
 		}
 	}
 
