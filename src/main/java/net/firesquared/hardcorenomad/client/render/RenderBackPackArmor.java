@@ -18,8 +18,6 @@ public class RenderBackPackArmor extends ModelBiped
 	@Override
 	public void render(Entity entity, float x, float y, float z, float yaw, float pitch, float roll)
 	{
-		int backPackType = 0;
-
 		ItemStack itemStack = null;
 
 		if (entity instanceof EntityPlayer) {
@@ -30,17 +28,8 @@ public class RenderBackPackArmor extends ModelBiped
 		if (itemStack == null)
 			return;
 
-		if (itemStack.getItem() == Items.ITEM_BACKPACKBASIC.getItem())
-			backPackType = 0;
-		if (itemStack.getItem() == Items.ITEM_BACKPACKIMPROVED.getItem())
-			backPackType = 1;
-		if (itemStack.getItem() == Items.ITEM_BACKPACKADVANCED.getItem())
-			backPackType = 2;
-		if (itemStack.getItem() == Items.ITEM_BACKPACKARMORED.getItem())
-			backPackType = 3;
-
 		model = ModelRegistry.getModel(Models.BACKPACK);
-		texture = ModelRegistry.getTexture(Models.BACKPACK, backPackType);
+		texture = ModelRegistry.getTexture(Models.BACKPACK, itemStack.getItemDamage());
 		ModelRegistry.bindTexture(texture);
 
 		GL11.glPushMatrix();

@@ -19,7 +19,7 @@ public class RenderBackPackTile extends TileEntitySpecialRenderer
 		TileEntityDeployableBase tileEntity = (TileEntityDeployableBase)te;
 
 		model = ModelRegistry.getModel(Models.BACKPACK);
-		texture = ModelRegistry.getTexture(Models.BACKPACK, tileEntity.getTierLevel());
+		texture = ModelRegistry.getTexture(Models.BACKPACK, tileEntity.getCurrentLevel());
 		bindTexture(texture);
 
 		GL11.glPushMatrix();

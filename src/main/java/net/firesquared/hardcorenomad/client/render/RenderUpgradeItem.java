@@ -1,13 +1,20 @@
 package net.firesquared.hardcorenomad.client.render;
 
+import codechicken.lib.render.BlockRenderer;
 import net.firesquared.hardcorenomad.block.BlockBedRoll;
 import net.firesquared.hardcorenomad.block.BlockCampFire;
-import net.firesquared.hardcorenomad.block.BlockEnchantmentTable;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.upgrades.ItemUpgrade;
+import net.firesquared.hardcorenomad.item.upgrades.UpgradeType;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
@@ -17,8 +24,10 @@ import org.lwjgl.opengl.GL11;
 public class RenderUpgradeItem implements IItemRenderer
 {
 	IModelCustom model = null;
+	RenderBlocks renderBlocks;
 	ResourceLocation texture = null;
 	FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+	TextureManager texmgr = Minecraft.getMinecraft().getTextureManager();
 	float scale = 0, xOffset = 0, yOffest = 0, zOffset = 0;
 	boolean needsRotate;
 	int rotDegree;
@@ -30,7 +39,7 @@ public class RenderUpgradeItem implements IItemRenderer
 	}
 
 	@Override
-	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,	ItemRendererHelper helper)
+	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper)
 	{
 		return type == ItemRenderType.INVENTORY || type == ItemRenderType.ENTITY;
 	}
@@ -39,32 +48,57 @@ public class RenderUpgradeItem implements IItemRenderer
 	public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data)
 	{
 		ItemUpgrade item = (ItemUpgrade)itemStack.getItem();
+		int upgradeLevel = ItemUpgrade.getUpgradeLevel(itemStack.getItemDamage());
 
-		if (item.getUpgradeTarget() == BlockEnchantmentTable.class)
+		if (type != ItemRenderType.FIRST_PERSON_MAP)
 		{
-			model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, item.getTargetLevel());
-			texture = ModelRegistry.getTexture(Models.ENCHANTINGTABLE);
-
-			scale = .25f;
-			yOffest = .5f;
+			renderBlocks = (RenderBlocks) data[0];
 		}
 
-		if (item.getUpgradeTarget() == BlockCampFire.class)
-		{
-			model = ModelRegistry.getModel(Models.CAMPFIRE);
-			texture = ModelRegistry.getTexture(Models.CAMPFIRE);
+		GL11.glPushMatrix();
 
-			scale = .25f;
+		if (type == ItemRenderType.INVENTORY)
+		{
+			GL11.glScalef(-.09f, -.09f, -.09f);
+			GL11.glRotatef(225, 0f, 1f, 0f);
+			GL11.glTranslatef(0f, 0f, 20f);
+			RenderHelper.disableStandardItemLighting();
+			font.drawString(Helper.Numeral.ToRoman(upgradeLevel), -9, -20, 0xFFFF00);
+			RenderHelper.enableStandardItemLighting();
+			RenderHelper.enableGUIStandardItemLighting();
+			GL11.glColor3f(1f, 1f, 1f);
 		}
 
-		if (item.getUpgradeTarget() == BlockBedRoll.class)
-		{
-			model = ModelRegistry.getModel(Models.BEDROLL);
-			texture = ModelRegistry.getTexture(Models.BEDROLL);
+		GL11.glPopMatrix();
 
-			scale = .20f;
-			needsRotate = true;
-			rotDegree = 180;
+		switch (item.getUpgradeType())
+		{
+			case ANVIL:
+			case BREWINGSTAND:
+			case COBBLEGEN:
+			case CRAFTINGTABLE:
+				return;
+			case BEDROLL:
+				model = ModelRegistry.getModel(Models.BEDROLL);
+				texture = ModelRegistry.getTexture(Models.BEDROLL);
+
+				scale = .18f;
+				needsRotate = true;
+				rotDegree = 90;
+				break;
+			case CAMPFIRE:
+				model = ModelRegistry.getModel(Models.CAMPFIRE);
+				texture = ModelRegistry.getTexture(Models.CAMPFIRE);
+
+				scale = .25f;
+				break;
+			case ENCHANTINGTABLE:
+				model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, upgradeLevel - 1);
+				texture = ModelRegistry.getTexture(Models.ENCHANTINGTABLE);
+
+				scale = .25f;
+				yOffest = .5f;
+				break;
 		}
 
 		if(model == null)
@@ -87,31 +121,16 @@ public class RenderUpgradeItem implements IItemRenderer
 
 		model.renderAll();
 
-		if (item.getUpgradeTarget() == BlockBedRoll.class)
+		if (item.getUpgradeType() == UpgradeType.BEDROLL)
 		{
 			renderBedrollExtras();
 		}
-		if (item.getUpgradeTarget() == BlockCampFire.class)
+		if (item.getUpgradeType() == UpgradeType.CAMPFIRE)
 		{
 			renderCampfireExtras();
 		}
 
 		GL11.glPopMatrix();
-		GL11.glPushMatrix();
-
-		if (type == ItemRenderType.INVENTORY)
-		{
-			GL11.glScalef(-.05f, -.05f, -.05f);
-			GL11.glRotatef(225, 0f, 1f, 0f);
-			GL11.glTranslatef(0f, 0f, 20f);
-			RenderHelper.disableStandardItemLighting();
-			font.drawString(Integer.toString(item.getTargetLevel() + 1), -12, -25, 0xFFFF00);
-			RenderHelper.enableStandardItemLighting();
-			RenderHelper.enableGUIStandardItemLighting();
-		}
-
-		GL11.glPopMatrix();
-
 	}
 
 	private void renderCampfireExtras()

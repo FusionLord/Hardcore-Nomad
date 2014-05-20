@@ -4,6 +4,7 @@ import net.firesquared.hardcorenomad.helpers.CobbleGeneratorTypes;
 import net.firesquared.hardcorenomad.helpers.TileEntityHelper;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityCobbleGenerator;
+import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
@@ -24,11 +25,6 @@ public class BlockCobbleGenerator extends BlockContainer implements IBlockCampCo
 	{
 		// TODO: Make a tile entity for the crafting table :/
 		return null;
-	}
-
-	public CobbleGeneratorTypes getCampFireType(World world, int x, int y, int z) {
-		TileEntityCobbleGenerator tileEntityCampFire = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityCobbleGenerator.class);
-		return tileEntityCampFire.getCobbleGeneratorType();
 	}
 
 	@Override

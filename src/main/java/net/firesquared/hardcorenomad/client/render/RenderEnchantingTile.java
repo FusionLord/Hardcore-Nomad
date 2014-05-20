@@ -20,7 +20,7 @@ public class RenderEnchantingTile extends TileEntitySpecialRenderer
 	{
 		TileEntityDeployableBase tileEntity = (TileEntityDeployableBase)te;
 
-		model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, tileEntity.getTierLevel());
+		model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, tileEntity.getCurrentLevel());
 		texture = ModelRegistry.getTexture(Models.ENCHANTINGTABLE);
 		bindTexture(texture);
 

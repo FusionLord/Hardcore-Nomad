@@ -1,18 +1,18 @@
 package net.firesquared.hardcorenomad.item.backpacks;
 
-import net.firesquared.hardcorenomad.helpers.BackPackTypes;
+import net.firesquared.hardcorenomad.helpers.BackPackType;
 
-public class ItemBackPackImproved extends ItemBackPack
+public class ItemBackPackImproved extends ItemBackPackOLD
 {
 
-	public ItemBackPackImproved(int renderID)
+	public ItemBackPackImproved()
 	{
-		super(renderID);
+		super();
 	}
 
-	public BackPackTypes getBackPackType()
+	public BackPackType getBackPackType()
 	{
-		return BackPackTypes.BACKPACK_IMPROVED;
+		return BackPackType.BACKPACK_IMPROVED;
 	}
 
 	@Override

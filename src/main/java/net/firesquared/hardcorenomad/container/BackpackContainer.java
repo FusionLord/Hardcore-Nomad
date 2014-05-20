@@ -1,6 +1,12 @@
 package net.firesquared.hardcorenomad.container;
 
+import codechicken.core.inventory.SlotDummy;
+import net.firesquared.hardcorenomad.helpers.BackPackType;
+import net.firesquared.hardcorenomad.helpers.LogHelper;
+import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.item.backpacks.BackPackInventory;
+import net.firesquared.hardcorenomad.item.backpacks.BackPackInventoryOLD;
+import net.firesquared.hardcorenomad.item.backpacks.ItemBackPack;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -11,8 +17,9 @@ import net.minecraft.item.ItemStack;
 
 public class BackpackContainer extends Container
 {
+	public final boolean isPlaced;
+	public final boolean isArmor;
 	public IInventory backPack;
-	public boolean isPlaced;
 
 	@Override
 	public boolean canInteractWith(EntityPlayer var1)
@@ -31,14 +38,16 @@ public class BackpackContainer extends Container
 		this.backPack = backPack;
 		bindBackpackSlots();
 		bindPlayerSlots(invPlayer);
+		isArmor = backPack.getCurrentLevel() == BackPackType.BACKPACK_ARMORED.ordinal();
 		isPlaced = true;
 	}
 
 	public BackpackContainer(InventoryPlayer invPlayer, ItemStack currentItem)
 	{
-		this.backPack = new BackPackInventory(currentItem.stackTagCompound);
+		backPack = new BackPackInventory(currentItem);
 		bindBackpackSlots();
 		bindPlayerSlots(invPlayer);
+		isArmor = currentItem.getTagCompound().getInteger(NBTHelper.CURRENTLEVEL) == BackPackType.BACKPACK_ARMORED.ordinal();
 		isPlaced = false;
 	}
 
@@ -53,32 +62,28 @@ public class BackpackContainer extends Container
 
 	private void bindBackpackSlots()
 	{
-		int i = 0;
-		switch(backPack.getSizeInventory())
+		int paddingLeft = 15;
+		int paddingTop = 10;
+		int slot;
+		for (slot = 0; slot < backPack.getSizeInventory(); slot++)
 		{
-			case 6+9:
-				for(int w = 0; w < 2; w++)
-					for(int h = 0; h < 3; h++)
-						addSlotToContainer(new Slot(backPack, i++, w * 18 + 192, h * 18 + 6));
-				break;
-			case 12+9:
-				for(int w = 0; w < 3; w++)
-					for(int h = 0; h < 4; h++)
-						addSlotToContainer(new Slot(backPack, i++, w * 18 + 192, h * 18 + 6));
-				break;
-			case 21+9:
-				for(int w = 0; w < 3; w++)
-					for(int h = 0; h < 7; h++)
-						addSlotToContainer(new Slot(backPack, i++, w * 18 + 192, h * 18 + 6));
-				break;
-			case 32+9:
-			default:
-				for(int w = 0; w < 4; w++)
-					for(int h = 0; h < 8; h++)
-						addSlotToContainer(new Slot(backPack, i++, w * 18 + 192, h * 18 + 6));
-				break;
+			addSlotToContainer(new Slot(backPack, slot, paddingLeft + ((slot % 2) * 18), paddingTop + ((slot / 2) * 18)));
 		}
-		addSlotToContainer(new Slot(backPack, -1, 128, 4));
+
+		addSlotToContainer(new Slot(backPack, slot, 128, 4));
+		slot++;
+		if (isArmor)
+		{
+			addSlotToContainer(new Slot(backPack, slot, 128, 4));
+		}
+		slot++;
+
+		for (int i = 0; i < 9; i++)
+		{
+			LogHelper.debug("[Binding slots] - slot " + (slot - backPack.getSizeInventory() - 2));
+			addSlotToContainer(new SlotDummy(backPack, slot, 5 + (i * 18), 25));
+			slot++;
+		}
 	}
 
 }

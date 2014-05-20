@@ -14,7 +14,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockBedRoll extends BlockContainer implements IBlockCampComponent
+public class BlockBedRoll extends BlockCampComponent
 {
 
 	public BlockBedRoll()
@@ -29,54 +29,6 @@ public class BlockBedRoll extends BlockContainer implements IBlockCampComponent
 		return new TileEntityBedRoll();
 	}
 
-	@Override
-	public ItemStack packIntoItemStack(World world, int x, int y, int z)
-	{
-		return new ItemStack(Blocks.BLOCK_BEDROLL.getBlock());
-	}
-	
-	@Override
-	public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_)
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isNormalCube()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isOpaqueCube()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isBlockNormalCube()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
-	{
-		return false;
-	}
-	
-	@Override
-	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_)
-	{
-		return false;
-	}
-	
 	@Override
 	public void addCollisionBoxesToList(World w, int x, int y, int z, AxisAlignedBB p_149743_5_, List p_149743_6_,
 			Entity p_149743_7_)

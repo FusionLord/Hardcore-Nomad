@@ -2,295 +2,246 @@
 
 package net.firesquared.hardcorenomad.tile;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import net.firesquared.hardcorenomad.block.EnumSlotCoordinateOffsets;
-import net.firesquared.hardcorenomad.block.IBlockCampComponent;
-import net.firesquared.hardcorenomad.helpers.BackPackTypes;
-import net.firesquared.hardcorenomad.helpers.LogHelper;
-import net.firesquared.hardcorenomad.item.backpacks.BackPackInventory;
+import net.firesquared.hardcorenomad.block.Blocks;
+import net.firesquared.hardcorenomad.helpers.BackPackType;
+import net.firesquared.hardcorenomad.helpers.NBTHelper;
+import net.firesquared.hardcorenomad.item.backpacks.ItemBackPackOLD;
 import net.firesquared.hardcorenomad.item.upgrades.ItemUpgrade;
+import net.firesquared.hardcorenomad.item.upgrades.UpgradeType;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
 public class TileEntityBackPack extends TileEntityDeployableBase implements IInventory
 {
-	protected int blockMeta;
-	protected int backPackType;
-	protected BackPackInventory inventory;
-	private NBTTagCompound tagInv;
-	public ItemStack upgradeSlot;
-	BackPackTypes type = BackPackTypes.BACKPACK_BASIC;
-	
-	public void setTagInv(NBTTagCompound tag)
-	{
-		tagInv = tag;
-		inventory = new BackPackInventory(tagInv);
-	}
-	
-	public void setBackpackType(BackPackTypes type)
-	{
-		this.type = type;
-	}
-	
-	public BackPackTypes getBackpackType()
-	{
-		return type;
-	}
+	protected ItemStack[] storageInventory;
+	protected ItemStack[] componentInventory = new ItemStack[9];
+	protected ItemStack upgradeSlot;
+	protected ItemStack armorSlot;
 
-	public static final int ModelID = RenderingRegistry.getNextAvailableRenderId();
 
 	public TileEntityBackPack()
 	{
-		super();
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound tag)
-	{
-		super.readFromNBT(tag);
-		type = BackPackTypes.values()[tag.getInteger("backPackType")];
-		if(tag.hasKey("tagInv"))
-			setTagInv(tag.getCompoundTag("tagInv"));
-		else
-			LogHelper.debug("WHERE'S MY NBT DATA!?");
+		super(ComponentType.BACKPACK);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		if(tagInv != null)
-			tag.setTag("tagInv", tagInv);
-		else
-			LogHelper.debug("Backpack NBT tag is misssssssiiiiiiinnnnnnggggggg!!!!!!!!");
-		tag.setInteger("backPackType", type.ordinal());
+		writeExtraNBT(tag);
 	}
 
-	/**
-	 * This will set the block meta data to the tile entity
-	 *
-	 * @param meta
-	 */
-	public void setBlockMeta(int meta)
+	public void writeExtraNBT(NBTTagCompound tag)
 	{
-		blockMeta = meta;
+		NBTTagCompound comInvTag = new NBTTagCompound();
+		for (int i = 0; i < 9; i++)
+		{
+			comInvTag.setTag(NBTHelper.SLOT.concat(""+i), componentInventory[i].writeToNBT(new NBTTagCompound()));
+		}
+		tag.setTag(NBTHelper.COMINV, comInvTag);
+		NBTTagCompound stgInvTag = new NBTTagCompound();
+		int stgInvSize = storageInventory.length;
+		stgInvTag.setInteger(NBTHelper.STGINVSIZE, stgInvSize);
+		for (int i = 0; i < stgInvSize; i++)
+		{
+			stgInvTag.setTag(NBTHelper.SLOT.concat(""+i), storageInventory[i].writeToNBT(new NBTTagCompound()));
+		}
+		tag.setTag(NBTHelper.STGINV, stgInvTag);
+		tag.setTag(NBTHelper.UPGRADESLOT, upgradeSlot.writeToNBT(new NBTTagCompound()));
+		tag.setTag(NBTHelper.ARMORSLOT, armorSlot.writeToNBT(new NBTTagCompound()));
 	}
 
-	/**
-	 * Get the block meta data
-	 *
-	 * @return
-	 */
-	public int getBlockMeta()
+	@Override
+	public void readFromNBT(NBTTagCompound tag)
 	{
-		return blockMeta;
+		super.readFromNBT(tag);
+		readExtraNBT(tag);
+	}
+
+	public void readExtraNBT(NBTTagCompound tag)
+	{
+		NBTTagCompound comInvTag = tag.getCompoundTag(NBTHelper.COMINV);
+		for (int i = 0; i < 9; i++)
+		{
+			componentInventory[i] = ItemStack.loadItemStackFromNBT(comInvTag.getCompoundTag(NBTHelper.SLOT.concat(""+i)));
+		}
+		NBTTagCompound stgInvTag = tag.getCompoundTag(NBTHelper.STGINV);
+		int stgInvSize = stgInvTag.getInteger(NBTHelper.STGINVSIZE);
+		storageInventory = new ItemStack[stgInvSize];
+		for (int i = 0; i < stgInvSize; i++)
+		{
+			storageInventory[i] = ItemStack.loadItemStackFromNBT(comInvTag.getCompoundTag(NBTHelper.SLOT.concat(""+i)));
+		}
+		upgradeSlot = ItemStack.loadItemStackFromNBT(tag.getCompoundTag(NBTHelper.UPGRADESLOT));
+		armorSlot = ItemStack.loadItemStackFromNBT(tag.getCompoundTag(NBTHelper.ARMORSLOT));
 	}
 
 	@Override
 	public int getSizeInventory()
 	{
-		return inventory.getSizeInventory();
+		return 9 * (getCurrentLevel() + 1);
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int var1)
+	public ItemStack getStackInSlot(int slot)
 	{
-		return inventory.getStackInSlot(var1);
+		boolean isArmor = getCurrentLevel() == BackPackType.BACKPACK_ARMORED.ordinal();
+
+		if (slot < storageInventory.length)
+			return storageInventory[slot];
+		if (slot == storageInventory.length)
+			return upgradeSlot;
+		if (slot == storageInventory.length + 1 && isArmor)
+			return armorSlot;
+		if (slot > storageInventory.length + (isArmor ? 2 : 1))
+			return componentInventory[slot - storageInventory.length - (isArmor ? 2 : 1)];
+		return null;
 	}
 
 	@Override
-	public ItemStack decrStackSize(int var1, int var2)
+	public ItemStack decrStackSize(int slot, int value)
 	{
-		return inventory.decrStackSize(var1, var2);
+		ItemStack itemStack = getStackInSlot(slot);
+		itemStack.stackSize -= value;
+		return itemStack;
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int var1)
+	public ItemStack getStackInSlotOnClosing(int slot)
 	{
-		return inventory.getStackInSlotOnClosing(var1);
+		return getStackInSlot(slot);
 	}
 
 	@Override
-	public void setInventorySlotContents(int var1, ItemStack var2)
+	public void setInventorySlotContents(int slot, ItemStack itemStack)
 	{
-		inventory.setInventorySlotContents(var1, var2);
+		if (slot < storageInventory.length)
+			storageInventory[slot] = itemStack;
+		if (slot == storageInventory.length)
+			upgradeSlot = itemStack;
+		if (slot == storageInventory.length + 1 && getCurrentLevel() == 4)
+			armorSlot = itemStack;
 	}
 
 	@Override
 	public String getInventoryName()
 	{
-		return inventory.getInventoryName();
+		return StatCollector.translateToLocal("inventory.backpack.name");
 	}
 
 	@Override
 	public boolean hasCustomInventoryName()
 	{
-		return inventory.hasCustomInventoryName();
+		return false; // TODO: add ability to change the backpack's name in the anvil
 	}
 
 	@Override
 	public int getInventoryStackLimit()
 	{
-		return inventory.getInventoryStackLimit();
+		return 64;
 	}
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer var1)
 	{
-		return inventory.isUseableByPlayer(var1);
+		return true;
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack itemStack)
+	{
+		if (slot < storageInventory.length)
+			return true;
+		if (slot == storageInventory.length && itemStack.getItem() instanceof ItemUpgrade)
+			return true;
+		if (slot == storageInventory.length + 1 && itemStack.getItem() instanceof ItemArmor && !(itemStack.getItem() instanceof ItemBackPackOLD))
+			return true;
+		return false;
 	}
 
 	@Override
 	public void openInventory()
-	{
-		inventory.openInventory();
-	}
+	{}
 
 	@Override
 	public void closeInventory()
+	{}
+
+	public void doUpgrade()
 	{
-		inventory.closeInventory();
+		if (upgradeSlot == null)
+			return;
+
+		ItemUpgrade upgrade = (ItemUpgrade)upgradeSlot.getItem();
+
+		NBTTagCompound tag = componentInventory[upgrade.getUpgradeType().ordinal()].getTagCompound();
+		tag.setInteger(NBTHelper.CURRENTLEVEL, ItemUpgrade.getUpgradeLevel(upgradeSlot.getItemDamage()));
 	}
 
-	@Override
-	public boolean isItemValidForSlot(int var1, ItemStack var2)
+	public ItemStack getComponentForDropping(ComponentType componentType)
 	{
-		return inventory.isItemValidForSlot(var1, var2);
-	}
-	
-	private NBTTagCompound getUpgrade(int i)
-	{
-		if(!tagInv.hasKey("ups"+i))
-			return null;
-		return tagInv.getCompoundTag("ups"+i);
-	}
-	
-	private NBTTagCompound setUpgrade(int i, NBTTagCompound tag)
-	{
-		NBTTagCompound temp = tagInv.getCompoundTag("ups"+i);
-		tagInv.setTag("ups"+i, tag);
-		return temp;
-	}
-	
-	public void toggle(int iD)
-	{
-		NBTTagCompound tag = getUpgrade(iD);
-		if(tag != null)
+		if (componentType == ComponentType.BACKPACK)
 		{
-			if(!tag.getBoolean("deployed"))
-				recover(iD);
-			else
-				deploy(iD);
+			return null; //this shouldn't happen;
 		}
-		
+		ItemStack itemStack = componentInventory[componentType.ordinal()];
+		componentInventory[componentType.ordinal()] = null;
+		return itemStack;
 	}
 
-	public void deploy(int iD)
+	public void toggleAll()
 	{
-		if(iD == -1)
-			for(int i = 0; i < 9; i++)
-				deploy(i);
-		else
+		for (int i = 0; i < 9; i++)
 		{
-			NBTTagCompound tag = getUpgrade(iD);
-			if(tag != null && !tag.getBoolean("deployed"))
-			{
-				try
-				{
-				ItemStack is = ItemStack.loadItemStackFromNBT(tag);
-				EnumSlotCoordinateOffsets offs = EnumSlotCoordinateOffsets.values()[iD];
-				
-				is.stackTagCompound.setInteger("x", xCoord + offs.x);
-				is.stackTagCompound.setInteger("y", yCoord + offs.y);
-				is.stackTagCompound.setInteger("z", zCoord + offs.z);
-				
-				worldObj.setBlock(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z, (BlockContainer)Block.getBlockFromItem(is.getItem()));
-				worldObj.getTileEntity(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z).readFromNBT(is.stackTagCompound);
-			
-				}
-				catch(Exception e)
-				{
-					LogHelper.error("NBT issue on deploy");
-				}
-			}
+			toggle(i);
 		}
 	}
-	
-	public void recover(int iD)
-	{
-		if(iD == -1)
-			for(int i = 0; i < 9; i++)
-				recover(i);
-		else
-		{
-			NBTTagCompound tag = getUpgrade(iD);
-			EnumSlotCoordinateOffsets offs = EnumSlotCoordinateOffsets.values()[iD];
-			Block b = worldObj.getBlock(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z);
-			if(b instanceof IBlockCampComponent)
-			{
-				ItemStack is = ((IBlockCampComponent)b).packIntoItemStack(worldObj, xCoord + offs.x, yCoord + offs.y, zCoord + offs.z);
-				is.writeToNBT(tag);
-				worldObj.setBlockToAir(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z);
-				worldObj.removeTileEntity(xCoord + offs.x, yCoord + offs.y, zCoord + offs.z);
-			}
-		}
-	}
-	
-	public boolean doUpgrade()
-	{
-		upgradeSlot = getStackInSlot(-1);
-		if(upgradeSlot == null || !(upgradeSlot.getItem() instanceof ItemUpgrade))
-			return false;
-		NBTTagCompound tag;
-		ItemStack is;
-		ItemUpgrade iu = (ItemUpgrade)upgradeSlot.getItem();
-		for(int i = 0; i < 9; i++)
-		{
-			tag = getUpgrade(i);
-			if(tag != null)
-			{
-				is = ItemStack.loadItemStackFromNBT(tag);
-				if(iu == is.getItem())
-				{
-					applyUpgrade(is, iu);
-					is.writeToNBT(tag);
-					setInventorySlotContents(-1, null);
-					return true;
-				}
-			}
-		}
-		
-		if(iu.getTargetLevel() == 0)
-			for(int i = 0; i < 9; i++)
-			{
-				tag = getUpgrade(i);
-				if(tag == null)
-				{
-					is = new ItemStack(iu.getContainerSingleton());
-					is = applyUpgrade(is, iu);
-					tag = new NBTTagCompound();
-					is.writeToNBT(tag);
-					setUpgrade(i, tag);
-					setInventorySlotContents(-1, null);
-					return true;
-				}
-			}
-		
-		return false;		
-	}
-	
-	private ItemStack applyUpgrade(ItemStack is, ItemUpgrade iu)
-	{
-		if(is.stackTagCompound == null)
-			is.stackTagCompound = new NBTTagCompound();
-		is.stackTagCompound.setInteger("upgradeLevel", iu.getNewLevel());
-		return is;
-	}
-	
-	
 
+	public void toggle(int slot)
+	{
+		ItemStack upgrade = componentInventory[slot];
+		if (upgrade == null)
+			return;
+		NBTTagCompound comTag = upgrade.getTagCompound();
+
+		int xoffset = comTag.getInteger(NBTHelper.XOFFSET);
+		int yoffset = comTag.getInteger(NBTHelper.YOFFSET);
+		int zoffset = comTag.getInteger(NBTHelper.ZOFFSET);
+
+
+
+		if (worldObj.setBlock(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset, getBlockFromComType(((ItemUpgrade)upgrade.getItem()).getUpgradeType())))
+		{
+			TileEntityDeployableBase deployableBase = (TileEntityDeployableBase) worldObj.getTileEntity(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset);
+			deployableBase.readFromNBT(comTag);
+		}
+	}
+
+	private Block getBlockFromComType(UpgradeType upgradeType)
+	{
+		switch (upgradeType)
+		{
+
+			case ANVIL:
+				return Blocks.BLOCK_ANVIL.getBlock();
+			case BEDROLL:
+				return Blocks.BLOCK_BEDROLL.getBlock();
+			case BREWINGSTAND:
+				return Blocks.BLOCK_BREWING.getBlock();
+			case CAMPFIRE:
+				return Blocks.BLOCK_CAMPFIRE.getBlock();
+			case COBBLEGEN:
+				return Blocks.BLOCK_COBBLEGEN.getBlock();
+			case CRAFTINGTABLE:
+				return Blocks.BLOCK_CRAFTING.getBlock();
+			case ENCHANTINGTABLE:
+				return Blocks.BLOCK_ENCHANTMENTTABLE.getBlock();
+		}
+		return net.minecraft.init.Blocks.air;
+	}
 }

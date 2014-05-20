@@ -10,7 +10,7 @@ public class ItemNomadBase extends Item
 	{
 		if (!itemStack.hasTagCompound())
 			return 0;
-		return itemStack.getTagCompound().getInteger(NBTHelper.NBT_TIER);
+		return itemStack.getTagCompound().getInteger(NBTHelper.CURRENTLEVEL);
 	}
 
 }

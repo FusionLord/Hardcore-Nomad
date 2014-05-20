@@ -30,19 +30,8 @@ public class RenderBackPackItem implements IItemRenderer
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{
-		int backPackType = 0;
-
-		if (item.getItem() == Items.ITEM_BACKPACKBASIC.getItem())
-			backPackType = 0;
-		if (item.getItem() == Items.ITEM_BACKPACKIMPROVED.getItem())
-			backPackType = 1;
-		if (item.getItem() == Items.ITEM_BACKPACKADVANCED.getItem())
-			backPackType = 2;
-		if (item.getItem() == Items.ITEM_BACKPACKARMORED.getItem())
-			backPackType = 3;
-
 		model = ModelRegistry.getModel(Models.BACKPACK);
-		texture = ModelRegistry.getTexture(Models.BACKPACK, backPackType);
+		texture = ModelRegistry.getTexture(Models.BACKPACK, item.getItemDamage());
 		ModelRegistry.bindTexture(texture);
 
 		GL11.glPushMatrix();

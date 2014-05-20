@@ -1,6 +1,5 @@
 package net.firesquared.hardcorenomad.tile;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.helpers.CampFireTypes;
@@ -26,11 +25,9 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 	public int furnaceCookTime;
 	private CampFireTypes campFireType = CampFireTypes.TIER_1;
 
-	public static final int ModelID = RenderingRegistry.getNextAvailableRenderId();
-
 	public TileEntityCampFire()
 	{
-		super();
+		super(ComponentType.CAMPFIRE);
 	}
 
 	@Override
@@ -75,8 +72,8 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
-		if(this.backPack != null)
-			super.writeToNBT(tag);
+//		if(this.backPack != null)
+//			super.writeToNBT(tag);
 		tag.setShort("BurnTime", (short) furnaceBurnTime);
 		tag.setShort("CookTime", (short)furnaceCookTime);
 		tag.setInteger("campFireType", campFireType.ordinal());

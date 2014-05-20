@@ -1,19 +1,19 @@
 package net.firesquared.hardcorenomad.item.backpacks;
 
-import net.firesquared.hardcorenomad.helpers.BackPackTypes;
+import net.firesquared.hardcorenomad.helpers.BackPackType;
 import net.minecraft.item.ItemStack;
 
-public class ItemBackPackArmored extends ItemBackPack
+public class ItemBackPackArmored extends ItemBackPackOLD
 {
 
-	public ItemBackPackArmored(int renderID)
+	public ItemBackPackArmored()
 	{
-		super(renderID);
+		super();
 	}
 
-	public BackPackTypes getBackPackType()
+	public BackPackType getBackPackType()
 	{
-		return BackPackTypes.BACKPACK_ARMORED;
+		return BackPackType.BACKPACK_ARMORED;
 	}
 
 	@Override

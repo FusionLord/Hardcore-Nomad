@@ -12,7 +12,7 @@ public class CreativeTab
 		@Override
 		public Item getTabIconItem()
 		{
-			return Items.ITEM_BACKPACKADVANCED.getItem();
+			return Items.ITEM_BACKPACK.getItem();
 		}
 
 		@Override
@@ -24,7 +24,7 @@ public class CreativeTab
 
 	public static final CreativeTabs HardCoreNomadUpgradesTab = new CreativeTabs(Reference.MOD_ID)
 	{
-		@Override public Item getTabIconItem() { return Items.ITEM_UPGRADE_BEDROLL_TIER1.getItem(); }
+		@Override public Item getTabIconItem() { return Items.ITEM_BACKPACK.getItem();/*ITEM_UPGRADE_BEDROLL_TIER1.getItem();*/ }
 
 		@Override public String getTranslatedTabLabel() { return "HardCore Nomad Upgrades"; }
 	};

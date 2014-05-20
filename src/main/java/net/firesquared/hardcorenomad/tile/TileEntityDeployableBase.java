@@ -1,42 +1,83 @@
 package net.firesquared.hardcorenomad.tile;
 
+import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.TileEntityHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
+enum ComponentType
+{
+	ANVIL,
+	BEDROLL,
+	BREWINGSTAND,
+	CAMPFIRE,
+	COBBLEGENERATOR,
+	CRAFTINGTABLE,
+	ENCHANTINGTABLE,
+	BACKPACK,
+	;
+}
+
 public class TileEntityDeployableBase extends TileEntity
 {
-	protected TileEntityBackPack backPack;
 
-	private int tierLevel = 0;
+	private int currentLevel;
+	private ComponentType componentType;
+	private int xOffset;
+	private int yOffset;
+	private int zOffset;
 
-	public int getTierLevel()
+	public TileEntityDeployableBase(ComponentType componentType)
 	{
-		return this.tierLevel;
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound tag)
-	{
-		int backPackX = tag.getInteger("backPackX");
-		int backPackY = tag.getInteger("backPackY");
-		int backPackZ = tag.getInteger("backPackZ");
-		backPack = TileEntityHelper.getTileEntity(this.getWorldObj(), backPackX, backPackY, backPackZ, TileEntityBackPack.class);
+		super();
+		this.componentType = componentType;
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
-		tag.setInteger("backPackX", backPack.xCoord);
-		tag.setInteger("backPackY", backPack.yCoord);
-		tag.setInteger("backPackZ", backPack.zCoord);
+		super.writeToNBT(tag);
+		tag.setInteger(NBTHelper.CURRENTLEVEL, currentLevel);
+		tag.setInteger(NBTHelper.COMPONENTTYPE, componentType.ordinal());
+		tag.setInteger(NBTHelper.XOFFSET, xOffset);
+		tag.setInteger(NBTHelper.YOFFSET, yOffset);
+		tag.setInteger(NBTHelper.ZOFFSET, zOffset);
 	}
 
-	public TileEntityBackPack getBackPack() {
-		return backPack;
+	@Override
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		super.readFromNBT(tag);
+		currentLevel = tag.getInteger(NBTHelper.CURRENTLEVEL);
+		componentType = ComponentType.values()[tag.getInteger(NBTHelper.COMPONENTTYPE)];
+		xOffset = tag.getInteger(NBTHelper.XOFFSET);
+		yOffset = tag.getInteger(NBTHelper.YOFFSET);
+		zOffset = tag.getInteger(NBTHelper.ZOFFSET);
 	}
 
-	public void setTileEntityBackPack(TileEntityBackPack tileEntityBackPack) {
-		this.backPack = tileEntityBackPack;
+	public int getCurrentLevel()
+	{
+		return currentLevel;
 	}
+
+	public ComponentType getComponentType()
+	{
+		return componentType;
+	}
+
+	public int getZOffset()
+	{
+		return zOffset;
+	}
+
+	public int getXOffset()
+	{
+		return xOffset;
+	}
+
+	public int getYOffset()
+	{
+		return yOffset;
+	}
+
 }

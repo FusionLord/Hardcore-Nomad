@@ -4,13 +4,10 @@ import cpw.mods.fml.common.network.IGuiHandler;
 import net.firesquared.hardcorenomad.client.gui.*;
 import net.firesquared.hardcorenomad.container.*;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
-import net.firesquared.hardcorenomad.helpers.TileEntityHelper;
-import net.firesquared.hardcorenomad.item.backpacks.ItemBackPack;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
+import net.firesquared.hardcorenomad.tile.TileEntityBackPackOLD;
 import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
-import net.minecraft.client.gui.inventory.GuiFurnace;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.world.World;
 

@@ -1,20 +1,14 @@
 package net.firesquared.hardcorenomad.client.gui;
 
-import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.container.BackpackContainer;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.firesquared.hardcorenomad.network.ButtonPacket;
-import net.firesquared.hardcorenomad.network.PacketHandler;
-import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
+import net.firesquared.hardcorenomad.tile.TileEntityBackPackOLD;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 
 public class BackpackGUI extends GuiContainer
 {
@@ -38,22 +32,24 @@ public class BackpackGUI extends GuiContainer
 		super.initGui();
 		buttons = new GuiButton[]
 		{
-			new GuiButton(-1, this.guiLeft + columnStart, this.guiTop + 6, size, size, "Dep"),
-			new GuiButton(-2, this.guiLeft + columnStart + 18, this.guiTop + 6, size, size, "Rec"),
-			new GuiButton(0, this.guiLeft + columnStart + 0*18, this.guiTop + rowStart, size, size, "1"),
-			new GuiButton(1, this.guiLeft + columnStart + 1*18, this.guiTop + rowStart, size, size, "2"),
-			new GuiButton(2, this.guiLeft + columnStart + 2*18, this.guiTop + rowStart, size, size, "3"),
-			new GuiButton(3, this.guiLeft + columnStart + 3*18, this.guiTop + rowStart, size, size, "4"),
-			new GuiButton(4, this.guiLeft + columnStart + 4*18, this.guiTop + rowStart, size, size, "5"),
-			new GuiButton(5, this.guiLeft + columnStart + 5*18, this.guiTop + rowStart, size, size, "6"),
-			new GuiButton(6, this.guiLeft + columnStart + 6*18, this.guiTop + rowStart, size, size, "7"),
-			new GuiButton(7, this.guiLeft + columnStart + 7*18, this.guiTop + rowStart, size, size, "8"),
-			new GuiButton(8, this.guiLeft + columnStart + 8*18, this.guiTop + rowStart, size, size, "9"),
-			new GuiButton(-10, this.guiLeft + 110, this.guiTop + 6, size, size, "U")
+			new GuiButton(0, this.guiLeft + 110, this.guiTop + 6, size, size, "U"),
+			new GuiButton(1, this.guiLeft + columnStart, this.guiTop + 6, size, size, "Dep"),
+			new GuiButton(2, this.guiLeft + columnStart + 0*18, this.guiTop + rowStart, size, size, "1"),
+			new GuiButton(3, this.guiLeft + columnStart + 1*18, this.guiTop + rowStart, size, size, "2"),
+			new GuiButton(4, this.guiLeft + columnStart + 2*18, this.guiTop + rowStart, size, size, "3"),
+			new GuiButton(5, this.guiLeft + columnStart + 3*18, this.guiTop + rowStart, size, size, "4"),
+			new GuiButton(6, this.guiLeft + columnStart + 4*18, this.guiTop + rowStart, size, size, "5"),
+			new GuiButton(7, this.guiLeft + columnStart + 5*18, this.guiTop + rowStart, size, size, "6"),
+			new GuiButton(8, this.guiLeft + columnStart + 6*18, this.guiTop + rowStart, size, size, "7"),
+			new GuiButton(9, this.guiLeft + columnStart + 7*18, this.guiTop + rowStart, size, size, "8"),
+			new GuiButton(10, this.guiLeft + columnStart + 8*18, this.guiTop + rowStart, size, size, "9"),
 		};
 		for(GuiButton b : buttons)
 		{
-			b.enabled = true;
+			if (b.id == 0)
+				b.enabled = true;
+			else
+				b.enabled = isPlaced;
 			buttonList.add(b);
 		}
 	}
@@ -72,12 +68,12 @@ public class BackpackGUI extends GuiContainer
 	}
 	
 	@Override
-	protected void actionPerformed(GuiButton butt)
+	protected void actionPerformed(GuiButton button)
 	{
-		TileEntityBackPack te = ((TileEntityBackPack)container.backPack);
-		Reference.PACKET_HANDLER.sendToServer(new ButtonPacket(te.xCoord, te.yCoord, te.zCoord, butt.id));
+		TileEntityBackPackOLD te = ((TileEntityBackPackOLD)container.backPack);
+		Reference.PACKET_HANDLER.sendToServer(new ButtonPacket(te.xCoord, te.yCoord, te.zCoord, button.id));
 		
-		super.actionPerformed(butt);
+		super.actionPerformed(button);
 	}
 
 	@Override

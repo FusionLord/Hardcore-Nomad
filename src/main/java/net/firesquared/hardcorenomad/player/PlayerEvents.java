@@ -52,7 +52,7 @@ public class PlayerEvents
 					nbtTagCompound.setBoolean("gotStarterBag", true);
 
 					EntityPlayer player = (EntityPlayer)event.entity;
-					ItemStack itemStack = new ItemStack(Items.ITEM_BACKPACKBASIC.getItem(), 1);
+					ItemStack itemStack = new ItemStack(Items.ITEM_BACKPACK.getItem(), 1);
 					itemStack.getItem().onCreated(itemStack, event.world, (EntityPlayer) event.entity);
 
 					player.inventory.addItemStackToInventory(itemStack);
