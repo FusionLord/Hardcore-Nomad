@@ -9,4 +9,5 @@
 !/build.gradle
 !/build.bat
 !/build.sh
+!/build.properties
 .DS_Store
