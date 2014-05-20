@@ -28,16 +28,17 @@ public class BlockBreakEvent
 	}
 
 	@SubscribeEvent
-	public void onBlockHarvest(BlockEvent.HarvestDropsEvent event) {
-		ItemStack itemstack = event.harvester.inventory.getCurrentItem();
-		int cap = 8;
-		if (itemstack != null)
-		{
-			cap = (itemstack.getItem() instanceof ItemPickaxe) ? 16 : 8;
-		}
-
+	public void onBlockHarvest(BlockEvent.HarvestDropsEvent event)
+	{
 		if (event.block == Blocks.cobblestone || event.block == Blocks.stone)
 		{
+			ItemStack itemstack = event.harvester.inventory.getCurrentItem();
+			int cap = 8;
+			if (itemstack != null)
+			{
+				cap = (itemstack.getItem() instanceof ItemPickaxe) ? 16 : 8;
+			}
+
 			if (!event.isSilkTouching)
 			{
 				int rand = event.world.rand.nextInt(cap);
