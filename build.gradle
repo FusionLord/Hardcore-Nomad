@@ -89,7 +89,7 @@ task deobfJar(type: Jar) {
     classifier = 'deobf'
 }
 
-task sourceJar(type: Jar) {
+task sourceJar(type: Zip) {
     from sourceSets.main.allSource
     classifier = 'source'
 }
