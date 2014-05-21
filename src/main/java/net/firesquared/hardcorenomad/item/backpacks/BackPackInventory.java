@@ -78,16 +78,12 @@ public class BackPackInventory implements IInventory
 
 		if (slot < storageInventory.length)
 			return storageInventory[slot];
-
-		if (slot > storageInventory.length && slot < storageInventory.length + 9)
-			return componentInventory[slot - storageInventory.length];
-
-		if (slot == storageInventory.length + componentInventory.length)
+		if (slot == storageInventory.length)
 			return upgradeSlot;
-
-		if (slot == storageInventory.length + componentInventory.length + 1 && isArmor)
+		if (slot == storageInventory.length + 1 && isArmor)
 			return armorSlot;
-
+		if (slot > storageInventory.length + 1)
+			return componentInventory[slot - storageInventory.length - 2];
 		return null;
 	}
 

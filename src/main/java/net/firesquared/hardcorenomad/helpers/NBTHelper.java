@@ -13,5 +13,4 @@ public class NBTHelper
 	public static final String SLOT = "slot";
 	public static final String UPGRADESLOT = "upgradeSlot";
 	public static final String ARMORSLOT = "armorSlot";
-	public static final String DEPLOYED = "deployed";
 }

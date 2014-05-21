@@ -3,7 +3,6 @@ package net.firesquared.hardcorenomad.item.backpacks;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.BackPackType;
-import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.Block;
@@ -75,9 +74,6 @@ public class ItemBackPack extends ItemArmor
 			return true;
 		}
 
-		if (world.isRemote)
-			return true;
-
 		Block block = world.getBlock(x, y, z);
 
 		if(!block.isReplaceable(world, x, y, z))
@@ -95,7 +91,6 @@ public class ItemBackPack extends ItemArmor
 		else
 			if (world.setBlock(x, y, z, Block.getBlockFromItem(this)))
 			{
-				LogHelper.debug("should place fucking item");
 				TileEntityBackPack backPack = (TileEntityBackPack)world.getTileEntity(x, y, z);
 				backPack.readExtraNBT(stack.getTagCompound());
 				return true;
@@ -108,11 +103,7 @@ public class ItemBackPack extends ItemArmor
 	{
 		for (BackPackType type : BackPackType.values())
 		{
-			ItemStack itemStack = new ItemStack(this, 0, type.ordinal());
-			NBTTagCompound tag = new NBTTagCompound();
-			tag.setInteger(NBTHelper.CURRENTLEVEL, type.ordinal());
-			itemStack.setTagCompound(tag);
-			list.add(itemStack);
+			list.add(new ItemStack(this, 0, type.ordinal()));
 		}
 	}
 }

@@ -42,7 +42,9 @@ public class BlockBackPack extends BlockCampComponent
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2)
 	{
-		return new TileEntityBackPack();
+		TileEntityBackPackOLD tileEntityBackPack = new TileEntityBackPackOLD();
+		tileEntityBackPack.setBlockMeta(var2);
+		return tileEntityBackPack;
 	}
 
 	@Override

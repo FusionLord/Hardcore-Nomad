@@ -98,8 +98,8 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			return upgradeSlot;
 		if (slot == storageInventory.length + 1 && isArmor)
 			return armorSlot;
-		if (slot > storageInventory.length + 2)
-			return componentInventory[slot - storageInventory.length - 2];
+		if (slot > storageInventory.length + (isArmor ? 2 : 1))
+			return componentInventory[slot - storageInventory.length - (isArmor ? 2 : 1)];
 		return null;
 	}
 
@@ -213,24 +213,12 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		int yoffset = comTag.getInteger(NBTHelper.YOFFSET);
 		int zoffset = comTag.getInteger(NBTHelper.ZOFFSET);
 
-		boolean deployed = comTag.getBoolean(NBTHelper.DEPLOYED);
-		if (!deployed)
+
+
+		if (worldObj.setBlock(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset, getBlockFromComType(((ItemUpgrade)upgrade.getItem()).getUpgradeType())))
 		{
-			if(worldObj.setBlock(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset,
-					getBlockFromComType(((ItemUpgrade) upgrade.getItem()).getUpgradeType())))
-			{
-				TileEntityDeployableBase deployableBase = (TileEntityDeployableBase) worldObj
-						.getTileEntity(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset);
-				comTag.setBoolean(NBTHelper.DEPLOYED, true);
-				deployableBase.readFromNBT(comTag);
-			}
-		}
-		else
-		{
-			comTag.setBoolean(NBTHelper.DEPLOYED, false);
-			//TODO: read component NBT back to its item;
-			worldObj.setBlockToAir(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset);
-			worldObj.removeTileEntity(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset);
+			TileEntityDeployableBase deployableBase = (TileEntityDeployableBase) worldObj.getTileEntity(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset);
+			deployableBase.readFromNBT(comTag);
 		}
 	}
 
