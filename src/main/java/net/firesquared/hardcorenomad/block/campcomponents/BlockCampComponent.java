@@ -69,5 +69,11 @@ public class BlockCampComponent extends BlockContainer
 	{
 		return false;
 	}
+	
+	@Override
+	public boolean isOpaqueCube()
+	{
+		return false;
+	}
 
 }

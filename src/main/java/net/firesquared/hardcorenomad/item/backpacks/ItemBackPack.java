@@ -94,6 +94,14 @@ public class ItemBackPack extends ItemArmor
 		if(player.canPlayerEdit(x, y, z, side, is))
 			if (world.setBlock(x, y, z, bbp, is.getItemDamage(), 3))
 			{
+				int meta = bbp.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, 0);
+				bbp.onBlockPlacedBy(world, x, y, z, player, is);
+				bbp.onPostBlockPlaced(world, x, y, z, meta);
+				world.playSoundEffect(x+.5f, y, z+.5f, bbp.stepSound.func_150496_b(), 
+						bbp.stepSound.getVolume() / 2f + .5f, bbp.stepSound.getPitch() * .8f);
+				TileEntityBackPack backPack = (TileEntityBackPack)world.getTileEntity(x, y, z);
+				backPack.readExtraNBT(is.stackTagCompound);
+				--is.stackSize;
 				return true;
 			}
 		return true;
