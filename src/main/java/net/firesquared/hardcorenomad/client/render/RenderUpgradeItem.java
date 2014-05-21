@@ -66,7 +66,7 @@ public class RenderUpgradeItem implements IItemRenderer
 			GL11.glRotatef(225, 0f, 1f, 0f);
 			GL11.glTranslatef(0f, 0f, 20f);
 			RenderHelper.disableStandardItemLighting();
-			font.drawString(Helper.Numeral.ToRoman(upgradeLevel), -9, -20, 0xFFFF00);
+			font.drawString(Helper.Numeral.ToRoman(upgradeLevel+1), -9, -20, 0xFFFF00);
 			RenderHelper.enableStandardItemLighting();
 			RenderHelper.enableGUIStandardItemLighting();
 			GL11.glColor3f(1f, 1f, 1f);
@@ -96,7 +96,7 @@ public class RenderUpgradeItem implements IItemRenderer
 				scale = .25f;
 				break;
 			case Enchanting:
-				model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, upgradeLevel - 1);
+				model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, upgradeLevel);
 				texture = ModelRegistry.getTexture(Models.ENCHANTINGTABLE);
 
 				scale = .25f;
