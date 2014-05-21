@@ -5,6 +5,7 @@ import net.firesquared.hardcorenomad.client.gui.*;
 import net.firesquared.hardcorenomad.container.*;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
+import net.firesquared.hardcorenomad.tile.TileEntityBackPackOLD;
 import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;

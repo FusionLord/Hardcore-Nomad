@@ -5,7 +5,7 @@ import net.firesquared.hardcorenomad.client.render.*;
 import net.firesquared.hardcorenomad.client.render.RenderBackPackItem;
 import net.firesquared.hardcorenomad.entity.EntityPebble;
 import net.firesquared.hardcorenomad.item.Items;
-import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
+import net.firesquared.hardcorenomad.tile.TileEntityBackPackOLD;
 import net.firesquared.hardcorenomad.tile.TileEntityBedRoll;
 import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
 import net.firesquared.hardcorenomad.tile.TileEntityEnchantmentTable;
@@ -41,11 +41,11 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE_ENCHANTINGTABLE.getItem(), new RenderUpgradeItem());
 
 		// ##TileEntities##
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBackPack.class, new RenderBackPackTile());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBackPackOLD.class, new RenderBackPackTile());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnchantmentTable.class, new RenderEnchantingTile());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCampFire.class, new RenderCampfireTile());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBedRoll.class, new RenderBedRollTile());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBackPack.class, new RenderBackPackTile());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBackPackOLD.class, new RenderBackPackTile());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnchantmentTable.class, new RenderEnchantingTile());
 
 		// ##Entities##

@@ -5,7 +5,7 @@ package net.firesquared.hardcorenomad.tile;
 import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.helpers.BackPackType;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
-import net.firesquared.hardcorenomad.item.backpacks.ItemBackPack;
+import net.firesquared.hardcorenomad.item.backpacks.ItemBackPackOLD;
 import net.firesquared.hardcorenomad.item.upgrades.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.upgrades.UpgradeType;
 import net.minecraft.block.Block;
@@ -38,7 +38,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 
 	public void writeExtraNBT(NBTTagCompound tag)
 	{
-		// TODO: initialise all of this or crash
 		NBTTagCompound comInvTag = new NBTTagCompound();
 		for (int i = 0; i < 9; i++)
 		{
@@ -160,7 +159,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			return true;
 		if (slot == storageInventory.length && itemStack.getItem() instanceof ItemUpgrade)
 			return true;
-		if (slot == storageInventory.length + 1 && itemStack.getItem() instanceof ItemArmor && !(itemStack.getItem() instanceof ItemBackPack))
+		if (slot == storageInventory.length + 1 && itemStack.getItem() instanceof ItemArmor && !(itemStack.getItem() instanceof ItemBackPackOLD))
 			return true;
 		return false;
 	}
