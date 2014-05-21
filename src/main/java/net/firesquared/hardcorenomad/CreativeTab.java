@@ -1,7 +1,7 @@
-package net.firesquared.hardcorenomad.creativetab;
+package net.firesquared.hardcorenomad;
 
+import net.firesquared.hardcorenomad.helpers.Reference;
 import net.firesquared.hardcorenomad.item.Items;
-import net.firesquared.hardcorenomad.lib.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 

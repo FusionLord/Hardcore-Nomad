@@ -2,7 +2,7 @@ package net.firesquared.hardcorenomad.client.render;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
-import net.firesquared.hardcorenomad.lib.Reference;
+import net.firesquared.hardcorenomad.helpers.Reference;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;

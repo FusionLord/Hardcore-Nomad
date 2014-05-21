@@ -1,11 +1,11 @@
 package net.firesquared.hardcorenomad.item;
 
-import net.firesquared.hardcorenomad.creativetab.CreativeTab;
+import net.firesquared.hardcorenomad.CreativeTab;
+import net.firesquared.hardcorenomad.helpers.Reference;
 import net.firesquared.hardcorenomad.item.backpacks.*;
 import net.firesquared.hardcorenomad.item.healing.ItemHealingHerb;
 import net.firesquared.hardcorenomad.item.misc.ItemPebble;
 import net.firesquared.hardcorenomad.item.misc.ItemSlingShot;
-import net.firesquared.hardcorenomad.lib.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;

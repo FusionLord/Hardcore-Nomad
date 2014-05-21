@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.lib;
+package net.firesquared.hardcorenomad.helpers;
 
 import net.firesquared.hardcorenomad.network.PacketHandler;
 

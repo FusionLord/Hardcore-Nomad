@@ -1,7 +1,7 @@
 package net.firesquared.hardcorenomad.block;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
-import net.firesquared.hardcorenomad.lib.Reference;
+import net.firesquared.hardcorenomad.helpers.Reference;
 import net.firesquared.hardcorenomad.tile.TileEntityEnchantmentTable;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

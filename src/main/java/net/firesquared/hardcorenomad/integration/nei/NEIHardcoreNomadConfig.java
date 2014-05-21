@@ -1,9 +1,9 @@
 package net.firesquared.hardcorenomad.integration.nei;
 
 import net.firesquared.hardcorenomad.client.gui.CraftingTableGUI;
+import net.firesquared.hardcorenomad.helpers.Reference;
 import net.firesquared.hardcorenomad.integration.nei.recipe.CampfireFuelRecipeHandler;
 import net.firesquared.hardcorenomad.integration.nei.recipe.CampfireRecipeHandler;
-import net.firesquared.hardcorenomad.lib.Reference;
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
 import codechicken.nei.recipe.DefaultOverlayHandler;

@@ -1,7 +1,7 @@
 package net.firesquared.hardcorenomad.client.gui;
 
 import net.firesquared.hardcorenomad.container.BackpackContainer;
-import net.firesquared.hardcorenomad.lib.Reference;
+import net.firesquared.hardcorenomad.helpers.Reference;
 import net.firesquared.hardcorenomad.network.ButtonPacket;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.client.gui.GuiButton;

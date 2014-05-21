@@ -10,8 +10,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import net.firesquared.hardcorenomad.helpers.Reference;
 import net.firesquared.hardcorenomad.helpers.Helper.Numeral;
-import net.firesquared.hardcorenomad.lib.Reference;
 import net.firesquared.hardcorenomad.proxy.IProxy;
 import net.minecraft.world.World;
 

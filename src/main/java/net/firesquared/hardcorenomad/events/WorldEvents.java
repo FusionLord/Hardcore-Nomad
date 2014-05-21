@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.world;
+package net.firesquared.hardcorenomad.events;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.firesquared.hardcorenomad.helpers.LogHelper;

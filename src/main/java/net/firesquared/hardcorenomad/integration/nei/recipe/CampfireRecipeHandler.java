@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import net.firesquared.hardcorenomad.client.gui.CampFireGUI;
-import net.firesquared.hardcorenomad.lib.Reference;
+import net.firesquared.hardcorenomad.helpers.Reference;
 import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.inventory.GuiContainer;

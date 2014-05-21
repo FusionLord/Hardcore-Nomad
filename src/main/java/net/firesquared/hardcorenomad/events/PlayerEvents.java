@@ -1,8 +1,8 @@
-package net.firesquared.hardcorenomad.player;
+package net.firesquared.hardcorenomad.events;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.firesquared.hardcorenomad.helpers.Reference;
 import net.firesquared.hardcorenomad.item.Items;
-import net.firesquared.hardcorenomad.lib.Reference;
 import net.firesquared.hardcorenomad.network.SyncPlayerPropertiesPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

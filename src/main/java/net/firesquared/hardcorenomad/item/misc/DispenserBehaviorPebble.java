@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.dispenser;
+package net.firesquared.hardcorenomad.item.misc;
 
 import net.firesquared.hardcorenomad.entity.EntityPebble;
 import net.minecraft.dispenser.BehaviorProjectileDispense;
