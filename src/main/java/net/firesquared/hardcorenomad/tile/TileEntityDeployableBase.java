@@ -19,6 +19,13 @@ public class TileEntityDeployableBase extends TileEntity
 		this.componentType = componentType;
 	}
 
+	public TileEntityDeployableBase(UpgradeType componentType, int metadata)
+	{
+		super();
+		this.componentType = componentType;
+		currentLevel = metadata;
+	}
+
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{

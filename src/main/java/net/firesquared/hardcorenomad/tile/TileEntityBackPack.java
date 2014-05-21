@@ -2,10 +2,8 @@
 
 package net.firesquared.hardcorenomad.tile;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.helpers.BackPackType;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
@@ -20,9 +18,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.StatCollector;
 
 public class TileEntityBackPack extends TileEntityDeployableBase implements IInventory
@@ -37,6 +32,11 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public TileEntityBackPack()
 	{
 		super(null);
+	}
+
+	public TileEntityBackPack(int metadata)
+	{
+		super(null, metadata);
 	}
 
 	@Override
@@ -211,7 +211,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	@Override
 	public boolean hasCustomInventoryName()
 	{
-		return false; // TODO: add ability to change the backpack's name in the anvil
+		return false; // TODO: add ability to change the backpack's name in the anvil?
 	}
 
 	@Override

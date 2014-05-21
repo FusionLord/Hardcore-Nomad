@@ -5,10 +5,8 @@ import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -19,9 +17,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import java.util.ArrayList;
 import java.util.Random;
-
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 
 public class BlockBackPack extends BlockContainer
 {
@@ -37,21 +34,19 @@ public class BlockBackPack extends BlockContainer
 	}
 
 	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int meta)
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
 	{
-		TileEntityBackPack backpack = (TileEntityBackPack)world.getTileEntity(x, y, z);
+		ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
+ 		TileEntityBackPack backpack = (TileEntityBackPack)world.getTileEntity(x, y, z);
 		ItemStack itemStack = new ItemStack(Items.ITEM_BACKPACK.getItem(), 1);
 		itemStack.stackTagCompound = new NBTTagCompound();
-
 		backpack.writeExtraNBT(itemStack.stackTagCompound);
-
-		//remember that we want to drop the backpack which is ItemArmor, and not this block container
-		EntityItem ei = new EntityItem(world, x, y, z, itemStack);
-		world.spawnEntityInWorld(ei);
+		drops.add(itemStack);
+		return drops;
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World var1, int var2)
+	public TileEntity createNewTileEntity(World var1, int metadata)
 	{
 		return null;
 	}
@@ -59,7 +54,7 @@ public class BlockBackPack extends BlockContainer
 	@Override
 	public TileEntity createTileEntity(World world, int metadata)
 	{
-		return new TileEntityBackPack();
+		return new TileEntityBackPack(metadata);
 	}
 
 	@Override
