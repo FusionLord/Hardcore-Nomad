@@ -10,18 +10,18 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import net.firesquared.hardcorenomad.helpers.Reference;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.Helper.Numeral;
 import net.firesquared.hardcorenomad.proxy.IProxy;
 import net.minecraft.world.World;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME)
+@Mod(modid = Helper.MOD_ID, name = Helper.MOD_NAME)
 public class HardcoreNomad
 {
-	@Mod.Instance(Reference.MOD_ID)
+	@Mod.Instance(Helper.MOD_ID)
 	public static HardcoreNomad instance;
 
-	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
+	@SidedProxy(clientSide = Helper.CLIENT_PROXY_CLASS, serverSide = Helper.SERVER_PROXY_CLASS)
 	public static IProxy proxy;
 
 	// Debugging Logging, disable this for real builds

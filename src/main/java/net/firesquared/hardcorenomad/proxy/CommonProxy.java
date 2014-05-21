@@ -10,8 +10,8 @@ import net.firesquared.hardcorenomad.entity.EntitySlingShotPebble;
 import net.firesquared.hardcorenomad.events.BlockBreakEvent;
 import net.firesquared.hardcorenomad.events.PlayerEvents;
 import net.firesquared.hardcorenomad.events.WorldEvents;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
-import net.firesquared.hardcorenomad.helpers.Reference;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.item.misc.DispenserBehaviorPebble;
@@ -43,11 +43,11 @@ public abstract class CommonProxy implements IProxy
 	// Register TileEntities
 	public void registerTileEntities()
 	{
-		GameRegistry.registerTileEntity(TileEntityBackPack.class, "tile." + Reference.MOD_ID + ".backpack");
-		GameRegistry.registerTileEntity(TileEntityCampFire.class, "tile." + Reference.MOD_ID + ".campfire");
-		GameRegistry.registerTileEntity(TileEntityEnchantmentTable.class, "tile." + Reference.MOD_ID + ".enchantmenttable");
-		GameRegistry.registerTileEntity(TileEntityCrafting.class, "tile." + Reference.MOD_ID + ".crafting");
-		GameRegistry.registerTileEntity(TileEntityBedRoll.class, "tile." + Reference.MOD_ID + ".bedroll");
+		GameRegistry.registerTileEntity(TileEntityBackPack.class, "tile." + Helper.MOD_ID + ".backpack");
+		GameRegistry.registerTileEntity(TileEntityCampFire.class, "tile." + Helper.MOD_ID + ".campfire");
+		GameRegistry.registerTileEntity(TileEntityEnchantmentTable.class, "tile." + Helper.MOD_ID + ".enchantmenttable");
+		GameRegistry.registerTileEntity(TileEntityCrafting.class, "tile." + Helper.MOD_ID + ".crafting");
+		GameRegistry.registerTileEntity(TileEntityBedRoll.class, "tile." + Helper.MOD_ID + ".bedroll");
 	}
 
 	// Register Entities
@@ -64,7 +64,7 @@ public abstract class CommonProxy implements IProxy
 		{
 			LogHelper.debug("Registering Item: " + item.getInternalName());
 			Item itemObject = item.getItem();
-			itemObject.setTextureName(Reference.MOD_ID + ":" + itemObject.getUnlocalizedName());
+			itemObject.setTextureName(Helper.MOD_ID + ":" + itemObject.getUnlocalizedName());
 			GameRegistry.registerItem(itemObject, item.getInternalName());
 		}
 	}
@@ -91,12 +91,12 @@ public abstract class CommonProxy implements IProxy
 	// Register Packet Handler
 	public void initPacketHandler()
 	{
-		Reference.PACKET_HANDLER.initialise();
+		Helper.PACKET_HANDLER.initialise();
 	}
 
 	public void postInitPacketHandler()
 	{
-		Reference.PACKET_HANDLER.postInitialise();
+		Helper.PACKET_HANDLER.postInitialise();
 	}
 
 	// Register Recipes

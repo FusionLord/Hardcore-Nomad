@@ -1,6 +1,6 @@
 package net.firesquared.hardcorenomad.item.backpacks;
 
-import net.firesquared.hardcorenomad.block.BlockCampComponent;
+import net.firesquared.hardcorenomad.block.campcomponents.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.BackPackType;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;

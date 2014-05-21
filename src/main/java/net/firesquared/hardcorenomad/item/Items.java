@@ -1,7 +1,7 @@
 package net.firesquared.hardcorenomad.item;
 
 import net.firesquared.hardcorenomad.CreativeTab;
-import net.firesquared.hardcorenomad.helpers.Reference;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.item.backpacks.*;
 import net.firesquared.hardcorenomad.item.healing.ItemHealingHerb;
 import net.firesquared.hardcorenomad.item.misc.ItemPebble;
@@ -46,7 +46,7 @@ public enum Items
 	Items(String internalName, Item item, CreativeTabs creativeTabs, int dungeonChestMin, int dungeonChestMax, int weight) {
 		this.internalName = internalName;
 		this.item = item;
-		item.setUnlocalizedName(Reference.MOD_ID + "." + internalName);
+		item.setUnlocalizedName(Helper.MOD_ID + "." + internalName);
 		item.setCreativeTab(creativeTabs);
 		this.dungeonChestMax = dungeonChestMax;
 		this.dungeonChestMin = dungeonChestMin;

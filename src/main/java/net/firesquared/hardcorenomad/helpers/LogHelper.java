@@ -8,7 +8,7 @@ public class LogHelper
 {
 	public static void log(Level logLevel, Object object)
 	{
-		System.out.println("[" + Reference.MOD_NAME + "] " + String.valueOf(object));
+		System.out.println("[" + Helper.MOD_NAME + "] " + String.valueOf(object));
 	}
 
 	public static void all(Object object)

@@ -1,6 +1,14 @@
 package net.firesquared.hardcorenomad.block;
 
-import net.firesquared.hardcorenomad.helpers.Reference;
+import net.firesquared.hardcorenomad.block.campcomponents.BlockAnvil;
+import net.firesquared.hardcorenomad.block.campcomponents.BlockBedRoll;
+import net.firesquared.hardcorenomad.block.campcomponents.BlockBrewing;
+import net.firesquared.hardcorenomad.block.campcomponents.BlockCampFire;
+import net.firesquared.hardcorenomad.block.campcomponents.BlockCobbleGenerator;
+import net.firesquared.hardcorenomad.block.campcomponents.BlockCrafting;
+import net.firesquared.hardcorenomad.block.campcomponents.BlockEnchantmentTable;
+import net.firesquared.hardcorenomad.block.campcomponents.BlockStorage;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;
@@ -50,7 +58,7 @@ public enum Blocks
 		this.block = block;
 		this.itemBlockClass = itemBlockClass;
 		this.creativeTabs = creativeTabs;
-		block.setBlockName(Reference.MOD_ID + "." + internalName);
+		block.setBlockName(Helper.MOD_ID + "." + internalName);
 	}
 
 	public String getInternalName()

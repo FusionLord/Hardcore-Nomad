@@ -2,7 +2,6 @@ package net.firesquared.hardcorenomad.block;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.helpers.Reference;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.BlockContainer;
@@ -29,7 +28,7 @@ public class BlockBackPack extends BlockContainer
 		setHardness(1.0F);
 		setResistance(100.0F);
 		setStepSound(soundTypeCloth);
-		setBlockTextureName(Reference.MOD_ID + ":" + getUnlocalizedName());
+		setBlockTextureName(Helper.MOD_ID + ":" + getUnlocalizedName());
 		setBlockBounds(0.1f, 0f, 0.3f, .9f, .9f, .7f);
 	}
 
@@ -72,7 +71,7 @@ public class BlockBackPack extends BlockContainer
 		if(te==null)
 			return true;
 		if(player instanceof EntityPlayerMP)
-			Reference.PACKET_HANDLER.sendTo(te.getPacket(), (EntityPlayerMP) player);
+			Helper.PACKET_HANDLER.sendTo(te.getPacket(), (EntityPlayerMP) player);
 		player.openGui(HardcoreNomad.instance, 0, world, x, y, z);
 		return true;
 	}

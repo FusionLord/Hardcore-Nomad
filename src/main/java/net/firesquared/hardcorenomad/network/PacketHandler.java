@@ -12,7 +12,7 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageCodec;
-import net.firesquared.hardcorenomad.helpers.Reference;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -106,7 +106,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, Abstrac
 
 	public void initialise()
 	{
-		this.channels = NetworkRegistry.INSTANCE.newChannel(Reference.CHANNEL_NAME, this);
+		this.channels = NetworkRegistry.INSTANCE.newChannel(Helper.CHANNEL_NAME, this);
 		registerPackets();
 	}
 

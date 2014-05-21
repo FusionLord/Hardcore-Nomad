@@ -2,6 +2,12 @@ package net.firesquared.hardcorenomad.proxy;
 
 import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.client.render.*;
+import net.firesquared.hardcorenomad.client.render.backpack.RenderBackPackItem;
+import net.firesquared.hardcorenomad.client.render.backpack.RenderBackPackTile;
+import net.firesquared.hardcorenomad.client.render.campcomponents.RenderBedRollTile;
+import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCampfireTile;
+import net.firesquared.hardcorenomad.client.render.campcomponents.RenderEnchantingItem;
+import net.firesquared.hardcorenomad.client.render.campcomponents.RenderEnchantingTile;
 import net.firesquared.hardcorenomad.entity.EntityPebble;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;

@@ -1,7 +1,7 @@
-package net.firesquared.hardcorenomad.block;
+package net.firesquared.hardcorenomad.block.campcomponents;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
-import net.firesquared.hardcorenomad.helpers.Reference;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.tile.TileEntityEnchantmentTable;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -20,7 +20,7 @@ public class BlockEnchantmentTable extends BlockCampComponent
 		setHardness(1.0F);
 		setResistance(100.0F);
 		setStepSound(soundTypeMetal);
-		setBlockTextureName(Reference.MOD_ID + ":" + getUnlocalizedName());
+		setBlockTextureName(Helper.MOD_ID + ":" + getUnlocalizedName());
 	}
 
 	@Override

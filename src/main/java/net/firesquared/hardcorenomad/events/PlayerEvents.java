@@ -1,7 +1,7 @@
 package net.firesquared.hardcorenomad.events;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.firesquared.hardcorenomad.helpers.Reference;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.network.SyncPlayerPropertiesPacket;
 import net.minecraft.entity.player.EntityPlayer;
@@ -45,7 +45,7 @@ public class PlayerEvents
 		{
 			if(!event.world.isRemote)
 			{
-				Reference.PACKET_HANDLER.sendTo(new SyncPlayerPropertiesPacket((EntityPlayer) event.entity), (EntityPlayerMP) event.entity);
+				Helper.PACKET_HANDLER.sendTo(new SyncPlayerPropertiesPacket((EntityPlayer) event.entity), (EntityPlayerMP) event.entity);
 
 				NBTTagCompound nbtTagCompound = event.entity.getEntityData();
 				if (!nbtTagCompound.hasKey("gotStarterBag")) {

@@ -1,9 +1,10 @@
-package net.firesquared.hardcorenomad.block;
+package net.firesquared.hardcorenomad.block.campcomponents;
 
 import java.util.List;
 import java.util.Random;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
+import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.helpers.CampFireTypes;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.LogHelper;

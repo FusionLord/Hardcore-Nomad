@@ -1,18 +1,17 @@
-package net.firesquared.hardcorenomad.block;
+package net.firesquared.hardcorenomad.block.campcomponents;
 
-import net.firesquared.hardcorenomad.item.Items;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockBrewing extends BlockCampComponent
+public class BlockStorage extends BlockCampComponent
 {
 
-	public BlockBrewing()
+	public BlockStorage()
 	{
-		super(Material.rock);
+		super(Material.wood);
 		// TODO Auto-generated constructor stub
 	}
 

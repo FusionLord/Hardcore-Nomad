@@ -1,8 +1,8 @@
 package net.firesquared.hardcorenomad.client.render;
 
 import codechicken.lib.render.BlockRenderer;
-import net.firesquared.hardcorenomad.block.BlockBedRoll;
-import net.firesquared.hardcorenomad.block.BlockCampFire;
+import net.firesquared.hardcorenomad.block.campcomponents.BlockBedRoll;
+import net.firesquared.hardcorenomad.block.campcomponents.BlockCampFire;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;

@@ -2,37 +2,11 @@ package net.firesquared.hardcorenomad.client.render;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
-import net.firesquared.hardcorenomad.helpers.Reference;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
-enum Models {
-	//The name of the enum variable is used for file path and name...
-	//fileName(modelCount, textureCount)
-	BACKPACK(1, 4),
-	BEDROLL(1, 1),
-	BEDROLL_PILLOW(1, 1),
-	BEDROLL_MATTING(1, 1),
-	CAMPFIRE(1, 1),
-	ENCHANTINGTABLE(5, 1),
-	ROCK(4, 1),
-	SLINGSHOT(1, 1),
-	;
 
-	int modelCount;
-	int textureCount;
-	String fileName;
-
-	Models(int modelCount, int textureCount)
-	{
-		String[] path = this.name().toLowerCase().split("_");
-		this.fileName = String.format("%s:models/%s/%s",
-				Reference.MOD_ID, path[0], (path.length > 1 ? path[1] : path[0]));
-		this.modelCount = modelCount;
-		this.textureCount = textureCount;
-	}
-}
 
 public class ModelRegistry
 {

@@ -1,5 +1,6 @@
-package net.firesquared.hardcorenomad.block;
+package net.firesquared.hardcorenomad.block.campcomponents;
 
+import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.helpers.CobbleGeneratorTypes;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.item.Items;

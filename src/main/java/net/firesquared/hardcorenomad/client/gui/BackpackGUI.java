@@ -1,7 +1,7 @@
 package net.firesquared.hardcorenomad.client.gui;
 
 import net.firesquared.hardcorenomad.container.BackpackContainer;
-import net.firesquared.hardcorenomad.helpers.Reference;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.network.ButtonPacket;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.client.gui.GuiButton;
@@ -81,7 +81,7 @@ public class BackpackGUI extends GuiContainer
 		if(isPlaced)
 		{
 			TileEntityBackPack te = ((TileEntityBackPack)container.backPack);
-			Reference.PACKET_HANDLER.sendToServer(new ButtonPacket(te.xCoord, te.yCoord, te.zCoord, button.id));
+			Helper.PACKET_HANDLER.sendToServer(new ButtonPacket(te.xCoord, te.yCoord, te.zCoord, button.id));
 		}
 		
 		super.actionPerformed(button);

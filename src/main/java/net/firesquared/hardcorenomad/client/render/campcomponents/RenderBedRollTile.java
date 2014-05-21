@@ -1,11 +1,14 @@
-package net.firesquared.hardcorenomad.client.render;
+package net.firesquared.hardcorenomad.client.render.campcomponents;
 
 import net.firesquared.hardcorenomad.block.Blocks;
+import net.firesquared.hardcorenomad.client.render.ModelRegistry;
+import net.firesquared.hardcorenomad.client.render.Models;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModelCustom;
+
 import org.lwjgl.opengl.GL11;
 
 public class RenderBedRollTile extends TileEntitySpecialRenderer

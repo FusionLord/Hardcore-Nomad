@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.block;
+package net.firesquared.hardcorenomad.block.campcomponents;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.minecraft.block.BlockContainer;

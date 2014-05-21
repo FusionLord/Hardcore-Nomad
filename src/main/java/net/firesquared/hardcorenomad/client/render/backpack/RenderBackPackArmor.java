@@ -1,5 +1,7 @@
-package net.firesquared.hardcorenomad.client.render;
+package net.firesquared.hardcorenomad.client.render.backpack;
 
+import net.firesquared.hardcorenomad.client.render.ModelRegistry;
+import net.firesquared.hardcorenomad.client.render.Models;
 import net.firesquared.hardcorenomad.item.Items;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;

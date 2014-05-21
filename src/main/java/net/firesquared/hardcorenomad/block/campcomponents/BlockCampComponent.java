@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.block;
+package net.firesquared.hardcorenomad.block.campcomponents;
 
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;

@@ -1,7 +1,7 @@
 package net.firesquared.hardcorenomad.integration.nei;
 
 import net.firesquared.hardcorenomad.client.gui.CraftingTableGUI;
-import net.firesquared.hardcorenomad.helpers.Reference;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.integration.nei.recipe.CampfireFuelRecipeHandler;
 import net.firesquared.hardcorenomad.integration.nei.recipe.CampfireRecipeHandler;
 import codechicken.nei.api.API;
@@ -59,12 +59,12 @@ public class NEIHardcoreNomadConfig implements IConfigureNEI {
 	 */
 	@Override
 	public String getName() {
-		return Reference.MOD_NAME;
+		return Helper.MOD_NAME;
 	}
 
 	@Override
 	public String getVersion() {
-		return Reference.MOD_ID;
+		return Helper.MOD_ID;
 	}
 
 }

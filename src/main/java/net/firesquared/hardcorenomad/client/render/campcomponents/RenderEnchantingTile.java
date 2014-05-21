@@ -1,9 +1,12 @@
-package net.firesquared.hardcorenomad.client.render;
+package net.firesquared.hardcorenomad.client.render.campcomponents;
 
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
+
 import org.lwjgl.opengl.GL11;
 
 import net.firesquared.hardcorenomad.block.Blocks;
+import net.firesquared.hardcorenomad.client.render.ModelRegistry;
+import net.firesquared.hardcorenomad.client.render.Models;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;

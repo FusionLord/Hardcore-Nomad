@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import net.firesquared.hardcorenomad.client.gui.CampFireGUI;
-import net.firesquared.hardcorenomad.helpers.Reference;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -27,11 +27,11 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 public class CampfireRecipeHandler extends TemplateRecipeHandler
 {
 	
-	public static final String fuelName = Reference.MOD_ID + "." + "campfireFuel";
-	public static final String smeltingName = Reference.MOD_ID + "." + "campfireSmelting";
+	public static final String fuelName = Helper.MOD_ID + "." + "campfireFuel";
+	public static final String smeltingName = Helper.MOD_ID + "." + "campfireSmelting";
 	
-	public static final String displayNameRecipe = "container" + "." + Reference.MOD_ID + "." + "recipe" + "." + "campfire";
-	public static final String displayNameFuel = "container" + "." + Reference.MOD_ID + "." + "fuel" + "." + "campfire";
+	public static final String displayNameRecipe = "container" + "." + Helper.MOD_ID + "." + "recipe" + "." + "campfire";
+	public static final String displayNameFuel = "container" + "." + Helper.MOD_ID + "." + "fuel" + "." + "campfire";
 	
     public class SmeltingPair extends CachedRecipe
     {
