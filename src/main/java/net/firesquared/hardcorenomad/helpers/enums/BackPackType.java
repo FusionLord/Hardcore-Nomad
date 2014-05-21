@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.helpers;
+package net.firesquared.hardcorenomad.helpers.enums;
 
 public enum BackPackType
 {

@@ -1,6 +1,5 @@
 package net.firesquared.hardcorenomad.proxy;
 
-import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.client.render.*;
 import net.firesquared.hardcorenomad.client.render.backpack.RenderBackPackItem;
 import net.firesquared.hardcorenomad.client.render.backpack.RenderBackPackTile;
@@ -9,11 +8,13 @@ import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCampfire
 import net.firesquared.hardcorenomad.client.render.campcomponents.RenderEnchantingItem;
 import net.firesquared.hardcorenomad.client.render.campcomponents.RenderEnchantingTile;
 import net.firesquared.hardcorenomad.entity.EntityPebble;
-import net.firesquared.hardcorenomad.item.Items;
+import net.firesquared.hardcorenomad.helpers.ModelRegistry;
+import net.firesquared.hardcorenomad.helpers.enums.Blocks;
+import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
-import net.firesquared.hardcorenomad.tile.TileEntityBedRoll;
-import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
-import net.firesquared.hardcorenomad.tile.TileEntityEnchantmentTable;
+import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBedRoll;
+import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
+import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityEnchantmentTable;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;

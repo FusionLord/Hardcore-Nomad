@@ -2,7 +2,7 @@ package net.firesquared.hardcorenomad.block.campcomponents;
 
 import java.util.List;
 
-import net.firesquared.hardcorenomad.tile.TileEntityBedRoll;
+import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBedRoll;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;

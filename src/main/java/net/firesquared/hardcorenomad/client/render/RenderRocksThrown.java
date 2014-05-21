@@ -1,7 +1,9 @@
 package net.firesquared.hardcorenomad.client.render;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import net.firesquared.hardcorenomad.block.Blocks;
+import net.firesquared.hardcorenomad.helpers.ModelRegistry;
+import net.firesquared.hardcorenomad.helpers.enums.Blocks;
+import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
@@ -10,6 +12,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 

@@ -1,6 +1,6 @@
 package net.firesquared.hardcorenomad.block.campcomponents;
 
-import net.firesquared.hardcorenomad.item.Items;
+import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;

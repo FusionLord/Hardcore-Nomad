@@ -1,8 +1,8 @@
 package net.firesquared.hardcorenomad.item.backpacks;
 
 import net.firesquared.hardcorenomad.block.campcomponents.BlockCampComponent;
-import net.firesquared.hardcorenomad.helpers.BackPackType;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
+import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

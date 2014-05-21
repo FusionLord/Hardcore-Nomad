@@ -5,6 +5,8 @@ import net.firesquared.hardcorenomad.block.campcomponents.BlockBedRoll;
 import net.firesquared.hardcorenomad.block.campcomponents.BlockCampFire;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
+import net.firesquared.hardcorenomad.helpers.ModelRegistry;
+import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.minecraft.block.Block;

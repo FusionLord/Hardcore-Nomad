@@ -6,7 +6,7 @@ import net.firesquared.hardcorenomad.entity.EntityPebble;
 import net.firesquared.hardcorenomad.entity.EntitySlingShotPebble;
 import net.firesquared.hardcorenomad.events.PebbleLooseEvent;
 import net.firesquared.hardcorenomad.events.PebbleNockEvent;
-import net.firesquared.hardcorenomad.item.Items;
+import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;

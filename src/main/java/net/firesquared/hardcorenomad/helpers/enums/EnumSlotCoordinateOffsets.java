@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.block;
+package net.firesquared.hardcorenomad.helpers.enums;
 
 import net.minecraftforge.common.util.ForgeDirection;
 

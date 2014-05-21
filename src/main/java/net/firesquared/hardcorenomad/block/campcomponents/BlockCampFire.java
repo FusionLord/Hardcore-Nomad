@@ -4,11 +4,10 @@ import java.util.List;
 import java.util.Random;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
-import net.firesquared.hardcorenomad.block.Blocks;
-import net.firesquared.hardcorenomad.helpers.CampFireTypes;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
-import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
+import net.firesquared.hardcorenomad.helpers.enums.Blocks;
+import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -56,11 +55,6 @@ public class BlockCampFire extends BlockCampComponent
 		//}
 
 		return true;
-	}
-
-	public CampFireTypes getCampFireType(World world, int x, int y, int z) {
-		TileEntityCampFire tileEntityCampFire = Helper.getTileEntity(world, x, y, z, TileEntityCampFire.class);
-		return tileEntityCampFire.getCampFireType();
 	}
 
 	public ItemStack packIntoItemStack(World world, int x, int y, int z)

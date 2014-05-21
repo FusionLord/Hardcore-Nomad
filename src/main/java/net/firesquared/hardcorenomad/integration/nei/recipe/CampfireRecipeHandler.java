@@ -11,7 +11,7 @@ import java.util.Set;
 
 import net.firesquared.hardcorenomad.client.gui.CampFireGUI;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
+import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.Blocks;

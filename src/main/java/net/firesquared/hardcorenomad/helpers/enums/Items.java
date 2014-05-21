@@ -1,7 +1,8 @@
-package net.firesquared.hardcorenomad.item;
+package net.firesquared.hardcorenomad.helpers.enums;
 
 import net.firesquared.hardcorenomad.CreativeTab;
 import net.firesquared.hardcorenomad.helpers.Helper;
+import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.backpacks.*;
 import net.firesquared.hardcorenomad.item.healing.ItemHealingHerb;
 import net.firesquared.hardcorenomad.item.misc.ItemPebble;

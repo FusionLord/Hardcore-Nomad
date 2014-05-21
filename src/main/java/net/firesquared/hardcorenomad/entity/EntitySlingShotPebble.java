@@ -2,7 +2,7 @@ package net.firesquared.hardcorenomad.entity;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.firesquared.hardcorenomad.item.Items;
+import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;

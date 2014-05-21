@@ -4,10 +4,10 @@ package net.firesquared.hardcorenomad.tile;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.firesquared.hardcorenomad.helpers.BackPackType;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
+import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.backpacks.ItemBackPack;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;

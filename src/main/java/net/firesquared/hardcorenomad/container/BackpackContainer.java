@@ -1,7 +1,7 @@
 package net.firesquared.hardcorenomad.container;
 
-import net.firesquared.hardcorenomad.helpers.BackPackType;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
+import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
 import net.firesquared.hardcorenomad.item.backpacks.BackPackInventory;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,9 +1,9 @@
-package net.firesquared.hardcorenomad.tile;
+package net.firesquared.hardcorenomad.tile.campcomponents;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.firesquared.hardcorenomad.helpers.CampFireTypes;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
+import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -24,7 +24,6 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 	public int furnaceBurnTime;
 	public int currentItemBurnTime;
 	public int furnaceCookTime;
-	private CampFireTypes campFireType = CampFireTypes.TIER_1;
 
 	public TileEntityCampFire()
 	{
@@ -67,7 +66,6 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 		furnaceBurnTime = tag.getShort("BurnTime");
 		furnaceCookTime = tag.getShort("CookTime");
 		currentItemBurnTime = getItemBurnTime(this.furnaceItemStacks[1]);
-		campFireType = CampFireTypes.values()[tag.getInteger("campFireType")];
 	}
 
 	@Override
@@ -77,7 +75,7 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 //			super.writeToNBT(tag);
 		tag.setShort("BurnTime", (short) furnaceBurnTime);
 		tag.setShort("CookTime", (short)furnaceCookTime);
-		tag.setInteger("campFireType", campFireType.ordinal());
+		tag.setInteger("campFireType", getCurrentLevel());
 
 		NBTTagList nbtTagList = new NBTTagList();
 
@@ -239,7 +237,7 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 			{
 				//this.furnaceCookTime += 15; // ToDo: Increase Cook Rate...
 				// Furnace Upgrades
-				int Upgrade = (campFireType.ordinal() + 1) * 5 - 4;
+				int Upgrade = (getCurrentLevel() + 1) * 5 - 4;
 				this.furnaceCookTime += Upgrade;
 
 				if (this.furnaceCookTime >= 200)
@@ -343,13 +341,5 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 	public boolean isItemValidForSlot(int var1, ItemStack var2)
 	{
 		return var1 == 2 ? false : (var1 == 1 ? isItemFuel(var2) : true);
-	}
-
-	public CampFireTypes getCampFireType() {
-		return campFireType;
-	}
-
-	public void setCampFireType(CampFireTypes campFireType) {
-		this.campFireType = campFireType;
 	}
 }

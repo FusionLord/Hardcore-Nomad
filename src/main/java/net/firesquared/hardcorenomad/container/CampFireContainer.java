@@ -2,7 +2,7 @@ package net.firesquared.hardcorenomad.container;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
+import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

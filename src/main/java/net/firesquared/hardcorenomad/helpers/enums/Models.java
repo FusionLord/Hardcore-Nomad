@@ -1,8 +1,8 @@
-package net.firesquared.hardcorenomad.client.render;
+package net.firesquared.hardcorenomad.helpers.enums;
 
 import net.firesquared.hardcorenomad.helpers.Helper;
 
-public enum Models 
+public enum Models
 {
 	//The name of the enum variable is used for file path and name...
 	//fileName(modelCount, textureCount)
@@ -15,16 +15,16 @@ public enum Models
 	ROCK(4, 1),
 	SLINGSHOT(1, 1),
 	;
-
+	
 	public final int modelCount;
 	public final int textureCount;
-	final String fileName;
-
+	public final String fileName;
+	
 	Models(final int modelCount, final int textureCount)
 	{
-		final String[] path = this.name().toLowerCase().split("_");
-		this.fileName = String.format("%s:models/%s/%s",
-				Helper.MOD_ID, path[0], (path.length > 1 ? path[1] : path[0]));
+		final String[] path = name().toLowerCase().split("_");
+		fileName = String.format("%s:models/%s/%s",
+				Helper.MOD_ID, path[0], path.length > 1 ? path[1] : path[0]);
 		this.modelCount = modelCount;
 		this.textureCount = textureCount;
 	}

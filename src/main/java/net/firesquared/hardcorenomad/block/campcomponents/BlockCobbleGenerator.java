@@ -1,11 +1,10 @@
 package net.firesquared.hardcorenomad.block.campcomponents;
 
-import net.firesquared.hardcorenomad.block.Blocks;
-import net.firesquared.hardcorenomad.helpers.CobbleGeneratorTypes;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.item.Items;
-import net.firesquared.hardcorenomad.tile.TileEntityCobbleGenerator;
+import net.firesquared.hardcorenomad.helpers.enums.Blocks;
+import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
+import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCobbleGenerator;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;

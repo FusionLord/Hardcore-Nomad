@@ -2,8 +2,8 @@ package net.firesquared.hardcorenomad.item;
 
 import java.util.List;
 
-import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.block.campcomponents.BlockCampComponent;
+import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

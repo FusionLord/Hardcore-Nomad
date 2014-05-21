@@ -2,7 +2,7 @@ package net.firesquared.hardcorenomad.block.campcomponents;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.tile.TileEntityEnchantmentTable;
+import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityEnchantmentTable;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;

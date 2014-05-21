@@ -1,7 +1,7 @@
 package net.firesquared.hardcorenomad.events;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.firesquared.hardcorenomad.item.Items;
+import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;

@@ -2,7 +2,7 @@ package net.firesquared.hardcorenomad.block;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.item.Items;
+import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

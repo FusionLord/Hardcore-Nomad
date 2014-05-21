@@ -1,5 +1,6 @@
-package net.firesquared.hardcorenomad.block;
+package net.firesquared.hardcorenomad.helpers.enums;
 
+import net.firesquared.hardcorenomad.block.BlockBackPack;
 import net.firesquared.hardcorenomad.block.campcomponents.BlockAnvil;
 import net.firesquared.hardcorenomad.block.campcomponents.BlockBedRoll;
 import net.firesquared.hardcorenomad.block.campcomponents.BlockBrewing;

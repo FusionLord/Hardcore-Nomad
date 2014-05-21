@@ -2,10 +2,10 @@ package net.firesquared.hardcorenomad.item.backpacks;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.firesquared.hardcorenomad.HardcoreNomad;
-import net.firesquared.hardcorenomad.block.Blocks;
-import net.firesquared.hardcorenomad.helpers.BackPackType;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
-import net.firesquared.hardcorenomad.item.Items;
+import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
+import net.firesquared.hardcorenomad.helpers.enums.Blocks;
+import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;

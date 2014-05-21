@@ -1,7 +1,7 @@
 package net.firesquared.hardcorenomad;
 
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.item.Items;
+import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
