@@ -2,8 +2,10 @@ package net.firesquared.hardcorenomad.item.backpacks;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.firesquared.hardcorenomad.HardcoreNomad;
+import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.helpers.BackPackType;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
+import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -13,6 +15,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.List;
 
@@ -27,17 +30,17 @@ public class ItemBackPack extends ItemArmor
 	}
 
 	@Override
-	public void onCreated(ItemStack itemStack, World world, EntityPlayer entityPlayer)
+	public void onCreated(ItemStack is, World world, EntityPlayer entityPlayer)
 	{
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setInteger(NBTHelper.CURRENTLEVEL, itemStack.getItemDamage());
-		itemStack.setTagCompound(tag);
+		if(is.stackTagCompound == null)
+			is.stackTagCompound = new NBTTagCompound();
+		is.stackTagCompound.setInteger(NBTHelper.CURRENTLEVEL, is.getItemDamage());
 	}
 
 	@Override
 	public void setDamage(ItemStack stack, int damage)
 	{
-		if (stack.getItemDamage() == BackPackType.BACKPACK_ARMORED.ordinal())
+		if (BackPackType.values()[stack.getItemDamage()%BackPackType.values().length].hasArmorSlot())
 		{
 			NBTTagCompound tag = stack.getTagCompound();
 			ItemStack armor = ItemStack.loadItemStackFromNBT(tag.getCompoundTag(NBTHelper.ARMORSLOT));
@@ -57,20 +60,23 @@ public class ItemBackPack extends ItemArmor
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
 	{
+		if(itemStack.stackTagCompound == null)
+			Items.ITEM_BACKPACK.getItem().onCreated(itemStack, world, player);
 		if(player.isSneaking())
 		{
 			FMLNetworkHandler.openGui(player, HardcoreNomad.instance, 1, world, 0, 0, 0);
-			return itemStack;
 		}
-		return super.onItemRightClick(itemStack, world, player);
+		return itemStack;
+		//return super.onItemRightClick(itemStack, world, player);
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+	public boolean onItemUse(ItemStack is, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
+		if(is.stackTagCompound == null)
+			Items.ITEM_BACKPACK.getItem().onCreated(is, world, player);
 		if(player.isSneaking())
 		{
-			FMLNetworkHandler.openGui(player, HardcoreNomad.instance, 1, world, x, y, z);
 			return true;
 		}
 
@@ -78,24 +84,27 @@ public class ItemBackPack extends ItemArmor
 
 		if(!block.isReplaceable(world, x, y, z))
 		{
-			if(side == 0)	--y;
-			if(side == 1)	++y;
-			if(side == 2)	--z;
-			if(side == 3)	++z;
-			if(side == 4)	--x;
-			if(side == 5)	++x;
+			ForgeDirection fd = ForgeDirection.values()[side];
+			x+=fd.offsetX;
+			y+=fd.offsetY;
+			z+=fd.offsetZ;
 		}
 
-		if(!player.canPlayerEdit(x, y, z, side, stack))
-			return false;
-		else
-			if (world.setBlock(x, y, z, Block.getBlockFromItem(this)))
+		Block bbp = Blocks.BLOCK_BACKPACK.getBlock();
+		if(player.canPlayerEdit(x, y, z, side, is))
+			if (world.setBlock(x, y, z, bbp))
 			{
+				int meta = bbp.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, 0);
+				bbp.onBlockPlacedBy(world, x, y, z, player, is);
+				bbp.onPostBlockPlaced(world, x, y, z, meta);
+				world.playSoundEffect(x+.5f, y, z+.5f, bbp.stepSound.func_150496_b(), 
+						bbp.stepSound.getVolume() / 2f + .5f, bbp.stepSound.getPitch() * .8f);
 				TileEntityBackPack backPack = (TileEntityBackPack)world.getTileEntity(x, y, z);
-				backPack.readExtraNBT(stack.getTagCompound());
+				backPack.readExtraNBT(is.stackTagCompound);
+				--is.stackSize;
 				return true;
 			}
-		return false;
+		return true;
 	}
 
 	@Override

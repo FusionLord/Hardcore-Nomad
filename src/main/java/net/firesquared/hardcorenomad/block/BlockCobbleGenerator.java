@@ -1,7 +1,7 @@
 package net.firesquared.hardcorenomad.block;
 
 import net.firesquared.hardcorenomad.helpers.CobbleGeneratorTypes;
-import net.firesquared.hardcorenomad.helpers.TileEntityHelper;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityCobbleGenerator;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockCobbleGenerator extends BlockContainer implements IBlockCampComponent
+public class BlockCobbleGenerator extends BlockCampComponent
 {
 
 	public BlockCobbleGenerator()
@@ -27,13 +27,12 @@ public class BlockCobbleGenerator extends BlockContainer implements IBlockCampCo
 		return null;
 	}
 
-	@Override
 	public ItemStack packIntoItemStack(World world, int x, int y, int z)
 	{
 		ItemStack itemStack;
 		itemStack = new ItemStack(Blocks.BLOCK_COBBLEGEN.getBlock());
 
-		TileEntityCobbleGenerator tileEntityCobbleGenerator = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityCobbleGenerator.class);
+		TileEntityCobbleGenerator tileEntityCobbleGenerator = Helper.getTileEntity(world, x, y, z, TileEntityCobbleGenerator.class);
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();
 		tileEntityCobbleGenerator.writeToNBT(nbtTagCompound);
 

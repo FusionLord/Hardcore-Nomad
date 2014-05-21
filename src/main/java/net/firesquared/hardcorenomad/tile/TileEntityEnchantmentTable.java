@@ -1,6 +1,7 @@
 package net.firesquared.hardcorenomad.tile;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -16,7 +17,7 @@ public class TileEntityEnchantmentTable extends TileEntityDeployableBase
 
 	public TileEntityEnchantmentTable()
 	{
-		super(ComponentType.ENCHANTINGTABLE);
+		super(UpgradeType.Enchanting);
 	}
 
 	@Override

@@ -28,6 +28,14 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, Abstrac
 	private LinkedList<Class<? extends AbstractPacket>> packets = new LinkedList<Class<? extends AbstractPacket>>();
 	private boolean isPostInitialised = false;
 
+	public void registerPackets()
+	{
+		// registerPacket(Packet.class);
+		registerPacket(SyncPlayerPropertiesPacket.class);
+		registerPacket(ButtonPacket.class);
+		registerPacket(BackpackTilePacket.class);
+	}
+
 	public boolean registerPacket(Class<? extends AbstractPacket> clazz)
 	{
 		if(this.packets.size() > 256)
@@ -100,13 +108,6 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, Abstrac
 	{
 		this.channels = NetworkRegistry.INSTANCE.newChannel(Reference.CHANNEL_NAME, this);
 		registerPackets();
-	}
-
-	public void registerPackets()
-	{
-		// registerPacket(Packet.class);
-		registerPacket(SyncPlayerPropertiesPacket.class);
-		registerPacket(ButtonPacket.class);
 	}
 
 	public void postInitialise()

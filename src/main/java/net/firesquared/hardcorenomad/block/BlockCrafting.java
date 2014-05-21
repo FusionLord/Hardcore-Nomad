@@ -14,7 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockCrafting extends BlockContainer implements IBlockCampComponent
+public class BlockCrafting extends BlockCampComponent
 {
 	@SideOnly(Side.CLIENT)
 	private IIcon field_150035_a;
@@ -61,10 +61,5 @@ public class BlockCrafting extends BlockContainer implements IBlockCampComponent
 	{
 		TileEntityCrafting tileEntityCrafting = new TileEntityCrafting();
 		return tileEntityCrafting;
-	}
-
-	@Override public ItemStack packIntoItemStack(World world, int x, int y, int z)
-	{
-		return new ItemStack(Blocks.BLOCK_CRAFTING.getBlock());
 	}
 }

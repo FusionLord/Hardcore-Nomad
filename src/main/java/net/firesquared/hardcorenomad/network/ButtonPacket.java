@@ -3,7 +3,6 @@ package net.firesquared.hardcorenomad.network;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
-import net.firesquared.hardcorenomad.tile.TileEntityBackPackOLD;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 
@@ -63,7 +62,6 @@ public class ButtonPacket extends AbstractPacket
 			if (ID > 1 && ID < 11)
 				backPack.toggle(ID - 2);
 		}
-
 	}
 	
 }

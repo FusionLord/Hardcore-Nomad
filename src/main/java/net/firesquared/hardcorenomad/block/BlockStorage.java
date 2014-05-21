@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockStorage extends BlockContainer implements IBlockCampComponent
+public class BlockStorage extends BlockCampComponent
 {
 
 	public BlockStorage()
@@ -20,11 +20,5 @@ public class BlockStorage extends BlockContainer implements IBlockCampComponent
 	{
 		// TODO: Make a tile entity for the crafting table :/
 		return null;
-	}
-
-	@Override
-	public ItemStack packIntoItemStack(World world, int x, int y, int z)
-	{
-		return new ItemStack(Blocks.BLOCK_STORAGE.getBlock());
 	}
 }

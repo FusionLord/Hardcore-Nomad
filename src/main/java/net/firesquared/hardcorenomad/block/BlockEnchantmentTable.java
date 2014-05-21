@@ -12,7 +12,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockEnchantmentTable extends BlockContainer implements IBlockCampComponent
+public class BlockEnchantmentTable extends BlockCampComponent
 {
 	public BlockEnchantmentTable()
 	{
@@ -80,10 +80,5 @@ public class BlockEnchantmentTable extends BlockContainer implements IBlockCampC
 	public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
 	{
 		return false;
-	}
-
-	@Override public ItemStack packIntoItemStack(World world, int x, int y, int z)
-	{
-		return new ItemStack(Blocks.BLOCK_ANVIL.getBlock());
 	}
 }

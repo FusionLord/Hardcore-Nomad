@@ -3,6 +3,7 @@ package net.firesquared.hardcorenomad.tile;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.helpers.CampFireTypes;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -27,7 +28,7 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 
 	public TileEntityCampFire()
 	{
-		super(ComponentType.CAMPFIRE);
+		super(UpgradeType.CampFire);
 	}
 
 	@Override

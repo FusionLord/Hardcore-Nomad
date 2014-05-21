@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockAnvil extends BlockContainer implements IBlockCampComponent
+public class BlockAnvil extends BlockCampComponent
 {
 
 	public BlockAnvil()
@@ -21,11 +21,6 @@ public class BlockAnvil extends BlockContainer implements IBlockCampComponent
 	public TileEntity createNewTileEntity(World var1, int var2)
 	{
 		return null;
-	}
-
-	@Override public ItemStack packIntoItemStack(World world, int x, int y, int z)
-	{
-		return new ItemStack(Blocks.BLOCK_ANVIL.getBlock());
 	}
 
 	@Override

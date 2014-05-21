@@ -5,8 +5,8 @@ import net.firesquared.hardcorenomad.block.BlockBedRoll;
 import net.firesquared.hardcorenomad.block.BlockCampFire;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
-import net.firesquared.hardcorenomad.item.upgrades.ItemUpgrade;
-import net.firesquared.hardcorenomad.item.upgrades.UpgradeType;
+import net.firesquared.hardcorenomad.item.ItemUpgrade;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.model.IModelCustom;
+
 import org.lwjgl.opengl.GL11;
 
 public class RenderUpgradeItem implements IItemRenderer
@@ -47,8 +48,8 @@ public class RenderUpgradeItem implements IItemRenderer
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data)
 	{
-		ItemUpgrade item = (ItemUpgrade)itemStack.getItem();
-		int upgradeLevel = ItemUpgrade.getUpgradeLevel(itemStack.getItemDamage());
+		int upgradeLevel = ItemUpgrade.getLevelFromDamage(itemStack.getItemDamage());
+		UpgradeType ut = ItemUpgrade.getTypeFromDamage(itemStack.getItemDamage());
 
 		if (type != ItemRenderType.FIRST_PERSON_MAP)
 		{
@@ -71,14 +72,14 @@ public class RenderUpgradeItem implements IItemRenderer
 
 		GL11.glPopMatrix();
 
-		switch (item.getUpgradeType())
+		switch (ItemUpgrade.getTypeFromDamage(itemStack.getItemDamage()))
 		{
-			case ANVIL:
-			case BREWINGSTAND:
-			case COBBLEGEN:
-			case CRAFTINGTABLE:
+			case Anvil:
+			case BrewingStand:
+			case CobbleGen:
+			case Crafting:
 				return;
-			case BEDROLL:
+			case BedRoll:
 				model = ModelRegistry.getModel(Models.BEDROLL);
 				texture = ModelRegistry.getTexture(Models.BEDROLL);
 
@@ -86,24 +87,27 @@ public class RenderUpgradeItem implements IItemRenderer
 				needsRotate = true;
 				rotDegree = 90;
 				break;
-			case CAMPFIRE:
+			case CampFire:
 				model = ModelRegistry.getModel(Models.CAMPFIRE);
 				texture = ModelRegistry.getTexture(Models.CAMPFIRE);
 
 				scale = .25f;
 				break;
-			case ENCHANTINGTABLE:
+			case Enchanting:
 				model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, upgradeLevel - 1);
 				texture = ModelRegistry.getTexture(Models.ENCHANTINGTABLE);
 
 				scale = .25f;
 				yOffest = .5f;
 				break;
+			default:
+				LogHelper.error("Attempting to render an upgrade with no render code in RenderUpgradeItem");
+				return;
 		}
 
 		if(model == null)
 		{
-			LogHelper.fatal("How did you even? Cannot render model.");
+			LogHelper.fatal("This programmer can't even. Failed to render null model.");
 			return;
 		}
 
@@ -121,11 +125,11 @@ public class RenderUpgradeItem implements IItemRenderer
 
 		model.renderAll();
 
-		if (item.getUpgradeType() == UpgradeType.BEDROLL)
+		if (ut == UpgradeType.BedRoll)
 		{
 			renderBedrollExtras();
 		}
-		if (item.getUpgradeType() == UpgradeType.CAMPFIRE)
+		if (ut == UpgradeType.CampFire)
 		{
 			renderCampfireExtras();
 		}

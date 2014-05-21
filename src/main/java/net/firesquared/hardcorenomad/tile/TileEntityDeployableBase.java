@@ -1,33 +1,19 @@
 package net.firesquared.hardcorenomad.tile;
 
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
-import net.firesquared.hardcorenomad.helpers.TileEntityHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-
-enum ComponentType
-{
-	ANVIL,
-	BEDROLL,
-	BREWINGSTAND,
-	CAMPFIRE,
-	COBBLEGENERATOR,
-	CRAFTINGTABLE,
-	ENCHANTINGTABLE,
-	BACKPACK,
-	;
-}
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;;
 
 public class TileEntityDeployableBase extends TileEntity
 {
-
 	private int currentLevel;
-	private ComponentType componentType;
+	private UpgradeType componentType;
 	private int xOffset;
 	private int yOffset;
 	private int zOffset;
 
-	public TileEntityDeployableBase(ComponentType componentType)
+	public TileEntityDeployableBase(UpgradeType componentType)
 	{
 		super();
 		this.componentType = componentType;
@@ -38,7 +24,8 @@ public class TileEntityDeployableBase extends TileEntity
 	{
 		super.writeToNBT(tag);
 		tag.setInteger(NBTHelper.CURRENTLEVEL, currentLevel);
-		tag.setInteger(NBTHelper.COMPONENTTYPE, componentType.ordinal());
+		if(componentType != null)
+			tag.setInteger(NBTHelper.COMPONENTTYPE, componentType.ordinal());
 		tag.setInteger(NBTHelper.XOFFSET, xOffset);
 		tag.setInteger(NBTHelper.YOFFSET, yOffset);
 		tag.setInteger(NBTHelper.ZOFFSET, zOffset);
@@ -49,7 +36,10 @@ public class TileEntityDeployableBase extends TileEntity
 	{
 		super.readFromNBT(tag);
 		currentLevel = tag.getInteger(NBTHelper.CURRENTLEVEL);
-		componentType = ComponentType.values()[tag.getInteger(NBTHelper.COMPONENTTYPE)];
+		if(tag.hasKey(NBTHelper.COMPONENTTYPE))
+			componentType = UpgradeType.values()[tag.getInteger(NBTHelper.COMPONENTTYPE)];
+		else
+			componentType = null;
 		xOffset = tag.getInteger(NBTHelper.XOFFSET);
 		yOffset = tag.getInteger(NBTHelper.YOFFSET);
 		zOffset = tag.getInteger(NBTHelper.ZOFFSET);
@@ -60,7 +50,7 @@ public class TileEntityDeployableBase extends TileEntity
 		return currentLevel;
 	}
 
-	public ComponentType getComponentType()
+	public UpgradeType getComponentType()
 	{
 		return componentType;
 	}

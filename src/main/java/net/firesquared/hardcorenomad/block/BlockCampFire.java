@@ -5,8 +5,8 @@ import java.util.Random;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.CampFireTypes;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
-import net.firesquared.hardcorenomad.helpers.TileEntityHelper;
 import net.firesquared.hardcorenomad.tile.TileEntityCampFire;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -22,7 +22,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockCampFire extends BlockContainer implements IBlockCampComponent
+public class BlockCampFire extends BlockCampComponent
 {
 	public BlockCampFire()
 	{
@@ -58,17 +58,16 @@ public class BlockCampFire extends BlockContainer implements IBlockCampComponent
 	}
 
 	public CampFireTypes getCampFireType(World world, int x, int y, int z) {
-		TileEntityCampFire tileEntityCampFire = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityCampFire.class);
+		TileEntityCampFire tileEntityCampFire = Helper.getTileEntity(world, x, y, z, TileEntityCampFire.class);
 		return tileEntityCampFire.getCampFireType();
 	}
 
-	@Override
 	public ItemStack packIntoItemStack(World world, int x, int y, int z)
 	{
 		ItemStack itemStack;
 		itemStack = new ItemStack(Blocks.BLOCK_CAMPFIRE.getBlock());
 
-		TileEntityCampFire tileEntityCampFire = TileEntityHelper.getTileEntity(world, x, y, z, TileEntityCampFire.class);
+		TileEntityCampFire tileEntityCampFire = Helper.getTileEntity(world, x, y, z, TileEntityCampFire.class);
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();
 		if (tileEntityCampFire == null) {
 			LogHelper.debug("===>>>> Tile Entity is null check your X Y Z <<<<======");

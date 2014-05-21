@@ -3,9 +3,10 @@ package net.firesquared.hardcorenomad.client.gui;
 import net.firesquared.hardcorenomad.container.BackpackContainer;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.firesquared.hardcorenomad.network.ButtonPacket;
-import net.firesquared.hardcorenomad.tile.TileEntityBackPackOLD;
+import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -30,6 +31,8 @@ public class BackpackGUI extends GuiContainer
 	public void initGui()
 	{
 		super.initGui();
+		if(!isPlaced)
+			return;
 		buttons = new GuiButton[]
 		{
 			new GuiButton(0, this.guiLeft + 110, this.guiTop + 6, size, size, "U"),
@@ -64,14 +67,22 @@ public class BackpackGUI extends GuiContainer
 		mc.getTextureManager().bindTexture(background);
 		drawTexturedModalRect(centX, centY, 0, 0, 256, ySize);
 		
-		
+		if(!isPlaced)
+		{
+			itemRender.renderItemAndEffectIntoGUI(this.fontRendererObj, this.mc.getTextureManager(), 
+					container.getThisBackpack(), container.getMySlot() * 18 + 8 + this.guiLeft, 
+					18 * 7 + 7 + this.guiTop);
+		}	
 	}
 	
 	@Override
 	protected void actionPerformed(GuiButton button)
 	{
-		TileEntityBackPackOLD te = ((TileEntityBackPackOLD)container.backPack);
-		Reference.PACKET_HANDLER.sendToServer(new ButtonPacket(te.xCoord, te.yCoord, te.zCoord, button.id));
+		if(isPlaced)
+		{
+			TileEntityBackPack te = ((TileEntityBackPack)container.backPack);
+			Reference.PACKET_HANDLER.sendToServer(new ButtonPacket(te.xCoord, te.yCoord, te.zCoord, button.id));
+		}
 		
 		super.actionPerformed(button);
 	}

@@ -5,7 +5,6 @@ import net.firesquared.hardcorenomad.item.backpacks.*;
 import net.firesquared.hardcorenomad.item.healing.ItemHealingHerb;
 import net.firesquared.hardcorenomad.item.misc.ItemPebble;
 import net.firesquared.hardcorenomad.item.misc.ItemSlingShot;
-import net.firesquared.hardcorenomad.item.upgrades.*;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -29,13 +28,7 @@ public enum Items
 	ITEM_MISC_SLINGSHOT("misc.slingshot", new ItemSlingShot(), CreativeTab.HardCoreNomadTab),
 
 	//Upgrade Items
-	ITEM_UPGRADE_ANVIL("anvil", new ItemUpgradeAnvil(), CreativeTab.HardCoreNomadUpgradesTab),
-	ITEM_UPGRADE_BEDROLL("bedroll", new ItemUpgradeBedRoll(), CreativeTab.HardCoreNomadUpgradesTab),
-	ITEM_UPGRADE_BREWINGSTAND("brewingstand", new ItemUpgradeBrewingStand(), CreativeTab.HardCoreNomadUpgradesTab),
-	ITEM_UPGRADE_CAMPFIRE("campfire", new ItemUpgradeCampFire(), CreativeTab.HardCoreNomadUpgradesTab),
-	ITEM_UPGRADE_COBBLEGEN("cobblegen", new ItemUpgradeCobbleGen(), CreativeTab.HardCoreNomadUpgradesTab),
-	ITEM_UPGRADE_CRAFTINGTABLE("craftingtable", new ItemUpgradeCraftingTable(), CreativeTab.HardCoreNomadUpgradesTab),
-	ITEM_UPGRADE_ENCHANTINGTABLE("enchantingtable", new ItemUpgradeEnchantingTable(), CreativeTab.HardCoreNomadUpgradesTab),
+	ITEM_UPGRADE("upgrade", new ItemUpgrade(), CreativeTab.HardCoreNomadUpgradesTab)
 
 	;
 

@@ -4,6 +4,9 @@ import java.lang.Character.UnicodeBlock;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
+
 public class Helper
 {
 	public enum Numeral
@@ -152,6 +155,12 @@ public class Helper
 			
 			return sum;
 		}
+	}
+
+	public static <T> T getTileEntity(IBlockAccess access, int x, int y, int z, Class<T> clazz)
+	{
+		TileEntity te = access.getTileEntity(x, y, z);
+		return !clazz.isInstance(te) ? null : (T) te;
 	}
 	
 

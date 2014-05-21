@@ -9,7 +9,6 @@ public class NBTHelper
 	public static final String COMPONENTTYPE = "componentType";
 	public static final String COMINV = "componentInventory";
 	public static final String STGINV = "storageInventory";
-	public static final String STGINVSIZE = "storageInventorySize";
 	public static final String SLOT = "slot";
 	public static final String UPGRADESLOT = "upgradeSlot";
 	public static final String ARMORSLOT = "armorSlot";

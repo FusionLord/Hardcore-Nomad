@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.item.campfire;
+package net.firesquared.hardcorenomad.item.firestarting;
 
 import net.minecraft.item.ItemTool;
 
