@@ -2,6 +2,7 @@ package net.firesquared.hardcorenomad.item.backpacks;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.firesquared.hardcorenomad.HardcoreNomad;
+import net.firesquared.hardcorenomad.block.Blocks;
 import net.firesquared.hardcorenomad.helpers.BackPackType;
 import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
@@ -93,9 +94,8 @@ public class ItemBackPack extends ItemArmor
 		if(!player.canPlayerEdit(x, y, z, side, stack))
 			return false;
 		else
-			if (world.setBlock(x, y, z, Block.getBlockFromItem(this)))
+			if (world.setBlock(x, y, z, Blocks.BLOCK_BACKPACK.getBlock()))
 			{
-				LogHelper.debug("should place fucking item");
 				TileEntityBackPack backPack = (TileEntityBackPack)world.getTileEntity(x, y, z);
 				backPack.readExtraNBT(stack.getTagCompound());
 				return true;

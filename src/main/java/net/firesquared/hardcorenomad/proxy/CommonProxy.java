@@ -14,7 +14,6 @@ import net.firesquared.hardcorenomad.item.Items;
 import net.firesquared.hardcorenomad.lib.Reference;
 import net.firesquared.hardcorenomad.player.PlayerEvents;
 import net.firesquared.hardcorenomad.tile.*;
-import net.firesquared.hardcorenomad.tile.TileEntityBackPackOLD;
 import net.firesquared.hardcorenomad.world.WorldEvents;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.item.Item;
@@ -42,7 +41,7 @@ public abstract class CommonProxy implements IProxy
 	// Register TileEntities
 	public void registerTileEntities()
 	{
-		GameRegistry.registerTileEntity(TileEntityBackPackOLD.class, "tile." + Reference.MOD_ID + ".backpack");
+		GameRegistry.registerTileEntity(TileEntityBackPack.class, "tile." + Reference.MOD_ID + ".backpack");
 		GameRegistry.registerTileEntity(TileEntityCampFire.class, "tile." + Reference.MOD_ID + ".campfire");
 		GameRegistry.registerTileEntity(TileEntityEnchantmentTable.class, "tile." + Reference.MOD_ID + ".enchantmenttable");
 		GameRegistry.registerTileEntity(TileEntityCrafting.class, "tile." + Reference.MOD_ID + ".crafting");

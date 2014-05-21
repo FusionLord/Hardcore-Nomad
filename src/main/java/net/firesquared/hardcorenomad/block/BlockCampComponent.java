@@ -65,6 +65,12 @@ public class BlockCampComponent extends BlockContainer
 	}
 
 	@Override
+	public boolean isOpaqueCube()
+	{
+		return false;
+	}
+
+	@Override
 	public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int meta)
 	{
 		return false;
