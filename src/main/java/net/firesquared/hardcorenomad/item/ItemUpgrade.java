@@ -60,6 +60,14 @@ public class ItemUpgrade extends Item
 	{
 		instance = this;
 	}
+	
+	@Override
+	public String getUnlocalizedName(ItemStack par1ItemStack)
+	{
+		int dmg = par1ItemStack.getItemDamage();
+		UpgradeType ut = getTypeFromDamage(dmg);
+		return ut.name()+"."+Numeral.ToRoman(getLevelFromDamage(dmg)+1)+".Upgrade";
+	}
 
 	@Override
 	public void getSubItems(Item item, CreativeTabs creativeTabs, List list)
@@ -68,7 +76,7 @@ public class ItemUpgrade extends Item
 		{
 			for(int i = 0; i < ut.getMaxLevels(); i++)
 			{
-				list.add(getUpgradeStack(ut, i).setStackDisplayName(ut.name()+" "+Numeral.ToRoman(i+1)+" Upgrade"));
+				list.add(getUpgradeStack(ut, i));
 			}
 		}
 	}
