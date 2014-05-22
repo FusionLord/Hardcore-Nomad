@@ -1,6 +1,7 @@
 package net.firesquared.hardcorenomad.events;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.firesquared.hardcorenomad.configuration.MainConfiguration;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemPickaxe;
@@ -11,7 +12,8 @@ public class BlockBreakEvent
 {
 	@SubscribeEvent
 	public void onBreakEvent(BlockEvent.BreakEvent event) {
-		if (event.block == Blocks.cobblestone || event.block == Blocks.stone)
+		if ((event.block == Blocks.cobblestone && MainConfiguration.CONFIG_COBBLEBREAKDROPSPEBBLES)
+				|| (event.block == Blocks.stone && MainConfiguration.CONFIG_STONEBREAKDROPSPEBBLES))
 		{
 			if (event.world.isRemote)
 				return;
