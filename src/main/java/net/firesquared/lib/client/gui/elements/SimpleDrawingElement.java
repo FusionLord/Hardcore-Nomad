@@ -1,6 +1,6 @@
-package net.firesquared.guiapi.client.gui.elements;
+package net.firesquared.lib.client.gui.elements;
 
-import net.firesquared.guiapi.client.gui.DrawConfig;
+import net.firesquared.lib.client.gui.helper.DrawConfig;
 
 public class SimpleDrawingElement implements IGuiElement
 {
@@ -18,9 +18,6 @@ public class SimpleDrawingElement implements IGuiElement
 		this.x = x;
 		this.y = y;
 	}
-	
-	@Override
-	public void init(){}
 	
 	@Override
 	public void draw()
@@ -52,10 +49,11 @@ public class SimpleDrawingElement implements IGuiElement
 		return x;
 	}
 	
-	public void setXY(int x, int y)
+	public SimpleDrawingElement setXY(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
+		return this;
 	}
 	
 }

@@ -1,14 +1,14 @@
-package net.firesquared.guiapi.client.gui.elements;
+package net.firesquared.lib.client.gui.elements;
 
-import net.firesquared.guiapi.client.gui.DrawConfig;
-import net.firesquared.guiapi.client.gui.GUISkin;
+import net.firesquared.lib.client.gui.helper.DrawConfig;
+import net.firesquared.lib.client.gui.skins.BackgroundSkin;
 import net.minecraft.inventory.Slot;
 
 public class SlotElement extends SimpleDrawingElement
 {
 	private static final int slotSize = 18;
 	protected final Slot slot;
-	public SlotElement(Slot slot, GUISkin skin)
+	public SlotElement(Slot slot, BackgroundSkin skin)
 	{
 		super(new DrawConfig(skin.texture, 0, slotSize, 11, 11+slotSize));
 		this.x = slot.xDisplayPosition - 1;
@@ -18,6 +18,6 @@ public class SlotElement extends SimpleDrawingElement
 	}
 	public SlotElement(Slot slot)
 	{
-		this(slot, GUISkin.defualt);
+		this(slot, BackgroundSkin.defualt);
 	}
 }

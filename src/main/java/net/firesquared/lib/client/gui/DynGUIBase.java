@@ -1,9 +1,12 @@
-package net.firesquared.guiapi.client.gui;
+package net.firesquared.lib.client.gui;
 
-import net.firesquared.guiapi.client.gui.DrawConfig.BackgroundConfig;
-import net.firesquared.guiapi.client.gui.elements.IGuiElement;
-import net.firesquared.guiapi.client.gui.elements.SlotElement;
-import net.firesquared.guiapi.client.gui.widgets.IWidget;
+import net.firesquared.lib.client.gui.backgrounds.GUIBackgroundProvider;
+import net.firesquared.lib.client.gui.backgrounds.SimpleRectangleBackground;
+import net.firesquared.lib.client.gui.elements.IGuiElement;
+import net.firesquared.lib.client.gui.elements.SlotElement;
+import net.firesquared.lib.client.gui.helper.DrawConfig;
+import net.firesquared.lib.client.gui.skins.BackgroundSkin;
+import net.firesquared.lib.client.gui.widgets.IWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.Tessellator;
@@ -27,27 +30,22 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 {
 	protected final T container;
 	protected int guiWidth, guiHeight;
-	final GUISkin skin;
+	final BackgroundSkin skin;
 	
 	List<IGuiElement> elements;
 	
-	private final List<DrawConfig> bgConfigs = new ArrayList<DrawConfig>();
+	private GUIBackgroundProvider background;
 
 	public DynGUIBase(T container)
 	{
-		this(container, GUISkin.defualt);
+		this(container, BackgroundSkin.defualt);
 	}
 
-	public DynGUIBase(T container, GUISkin skin)
+	public DynGUIBase(T container, BackgroundSkin skin)
 	{
 		super(container);
 		this.container = container;
 		this.skin = skin;
-		
-		BackgroundConfig[] vals = BackgroundConfig.values();
-		for(BackgroundConfig bc : vals)
-			bgConfigs.add(new DrawConfig(skin.texture, bc));
-
 	}
 
 	@Override
@@ -73,22 +71,12 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 		this.xSize = (guiWidth = newWidth);
 		this.ySize = (guiHeight = newHeight);
 		
-		initBackgroundElements();
+		background = getBackgroundProvider();
 	}
 
-	protected void initBackgroundElements()
+	protected GUIBackgroundProvider getBackgroundProvider()
 	{
-		bgConfigs.get(0).setWH(guiWidth - 5, guiHeight - 5);//Filler
-		
-		bgConfigs.get(1).setWH(guiWidth - 5, 3);//Top
-		bgConfigs.get(2).setWH(guiWidth - 5, 3);//Bottom
-		bgConfigs.get(3).setWH(3, guiHeight - 5);//Left
-		bgConfigs.get(4).setWH(3, guiHeight - 4);//Right
-		
-		bgConfigs.get(5).setWH(3, 3);//Top Left
-		bgConfigs.get(6).setWH(4, 4);//Top Right
-		bgConfigs.get(7).setWH(3, 3);//Bottom Left
-		bgConfigs.get(8).setWH(4, 4);//Bottom Right
+		return new SimpleRectangleBackground(skin, guiWidth, guiHeight);
 	}
 
 	/***
@@ -107,25 +95,10 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 	{
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glTranslatef(guiLeft, guiTop, 0f);
-		drawDynamicBackGround();
+		background.draw();
 		for (IGuiElement element : elements)
 			element.draw();
 		GL11.glTranslatef(-guiLeft, -guiTop, 0f);
-	}
-
-	private void drawDynamicBackGround()
-	{
-		bgConfigs.get(0).draw(2, 2);
-		
-		bgConfigs.get(1).draw(2, 0);
-		bgConfigs.get(2).draw(2, guiHeight - 3);
-		bgConfigs.get(3).draw(0, 2);
-		bgConfigs.get(4).draw(guiWidth - 3, 2);
-		
-		bgConfigs.get(5).draw(0, 0);
-		bgConfigs.get(6).draw(guiWidth - 4, 0);
-		bgConfigs.get(7).draw(0, guiHeight - 3);
-		bgConfigs.get(8).draw(guiWidth - 4, guiHeight - 4);
 	}
 
 	@Override
@@ -137,8 +110,9 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 				((IWidget) element).update();
 	}
 
-	public void addElement(IGuiElement element)
+	protected final DynGUIBase<T> addElement(IGuiElement element)
 	{
 		elements.add(element);
+		return this;
 	}
 }

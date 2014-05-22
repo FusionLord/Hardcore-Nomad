@@ -1,56 +1,25 @@
-package net.firesquared.guiapi.client.gui;
+package net.firesquared.lib.client.gui.helper;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Vector2f;
-
+import net.firesquared.lib.helper.Helper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.vector.Vector2f;
+
 public class DrawConfig
 {
-	public enum BackgroundConfig
-	{
-		FILLER(5, 6, 5, 6),
-		SIDE_TOP(5, 6, 0, 3),
-		SIDE_BOTTOM(5, 6, 8, 11),
-		SIDE_LEFT(0, 3, 5, 6),
-		SIDE_RIGHT(8, 11, 5, 6),
-		CORNER_TOP_LEFT(0, 3, 0, 3),
-		CORNER_TOP_RIGHT(7, 11, 0, 4),
-		CORNER_BOTTOM_LEFT(0, 3, 7, 10),
-		CORNER_BOTTOM_RIGHT(7, 11, 7, 11);
-		private BackgroundConfig(int uLow, int uHigh, int vLow, int vHigh)
-		{
-			this.uLow = uLow;
-			this.uHigh = uHigh;
-			this.vLow = vLow;
-			this.vHigh = vHigh;
-		}
-
-		public final int uLow, uHigh, vLow, vHigh;
-	}
+	private boolean hasWarned = false;
 	
 	float zLevel = 0;
-	public float getZLayer()
-	{
-		return zLevel;
-	}
-	public void setZLayer(float z)
-	{
-		zLevel = z;
-	}
 	ResourceLocation texture;
 	final Tessellator tessellator = Tessellator.instance;
 	final TextureManager texMan = Minecraft.getMinecraft().getTextureManager();
 	static final float scale = 0.00390625F;
-	public DrawConfig(ResourceLocation texture, float uMin, float uMax, float vMin, float vMax, int width, int height)
-	{
-		this(texture, uMin, uMax, vMin, vMax);
-		this.width = width;
-		this.height = height;
-	}
+	public final float u0,v0,u1,v1,u2,v2,u3,v3;
+	public int width, height;
 	public DrawConfig(ResourceLocation texture, float uMin, float uMax, float vMin, float vMax)
 	{
 		u3 = u0 = uMin * scale;
@@ -58,6 +27,12 @@ public class DrawConfig
 		u1 = u2 = uMax * scale;
 		v2 = v3 = vMin * scale;
 		this.texture = texture;
+	}
+	public DrawConfig(ResourceLocation texture, float uMin, float uMax, float vMin, float vMax, int width, int height)
+	{
+		this(texture, uMin, uMax, vMin, vMax);
+		this.width = width;
+		this.height = height;
 	}
 	public DrawConfig(ResourceLocation texture, Vector2f uv0, Vector2f uv1, Vector2f uv2, Vector2f uv3)
 	{
@@ -71,24 +46,17 @@ public class DrawConfig
 		v3 = uv3.y;
 		this.texture = texture;
 	}
-	public DrawConfig(ResourceLocation texture, BackgroundConfig configDef)
-	{
-		this(texture, configDef.uLow, configDef.uHigh, configDef.vLow, configDef.vHigh);
-	}
-	public final float u0,v0,u1,v1,u2,v2,u3,v3;
-	public int width, height;
-	public void setWH(int width, int height)
-	{
-		this.width = width;
-		this.height = height;
-	}
 	public void draw(int x,int y)
 	{
 		draw(x, y, width, height);
 	}
 	public void draw(int x, int y, int width, int height)
 	{
-		if (texture == null) Logger.error("Missing texture!");
+		if (texture == null && !hasWarned)
+		{
+			Helper.logger.error("Missing texture!");
+			hasWarned = true;
+		}
 		texMan.bindTexture(texture);
 		tessellator.startDrawingQuads();
 		tessellator.addVertexWithUV(x, 			y + height,     zLevel, u0, v0);
@@ -99,7 +67,11 @@ public class DrawConfig
 	}
 	public void draw(int x, int y, int width, int height, float rotation)
 	{
-		if (texture == null) Logger.error("Missing texture!");
+		if (texture == null && !hasWarned)
+		{
+			Helper.logger.error("Missing texture!");
+			hasWarned = true;
+		}
 		texMan.bindTexture(texture);
 		tessellator.startDrawingQuads();
 		tessellator.addVertexWithUV(x, 			y + height,     zLevel, u0, v0);
@@ -109,5 +81,20 @@ public class DrawConfig
 		GL11.glRotatef(rotation, 0, 0, 1);
 		tessellator.draw();
 		GL11.glRotatef(-rotation, 0, 0, 1);
+	}
+	public float getZLayer()
+	{
+		return zLevel;
+	}
+	public DrawConfig setWH(int width, int height)
+	{
+		this.width = width;
+		this.height = height;
+		return this;
+	}
+	public DrawConfig setZLayer(float z)
+	{
+		zLevel = z;
+		return this;
 	}
 }

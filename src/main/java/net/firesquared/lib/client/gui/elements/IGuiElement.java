@@ -1,12 +1,10 @@
 
 
 
-package net.firesquared.guiapi.client.gui.elements;
+package net.firesquared.lib.client.gui.elements;
 
 public interface IGuiElement
 {
-	public abstract void init();
-	
 	public abstract void draw();
 	
 	public abstract int getHeight();

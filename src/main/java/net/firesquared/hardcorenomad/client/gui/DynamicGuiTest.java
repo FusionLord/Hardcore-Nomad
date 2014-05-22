@@ -1,7 +1,7 @@
 package net.firesquared.hardcorenomad.client.gui;
 
-import net.firesquared.guiapi.client.gui.DynGUIBase;
 import net.firesquared.hardcorenomad.container.BackpackContainer;
+import net.firesquared.lib.client.gui.DynGUIBase;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.Container;
 
