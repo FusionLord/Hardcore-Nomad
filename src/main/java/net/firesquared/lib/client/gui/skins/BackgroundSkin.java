@@ -5,7 +5,7 @@ import net.minecraft.util.ResourceLocation;
 public class BackgroundSkin
 {
 	public static final BackgroundSkin defualt = 
-			new BackgroundSkin(new ResourceLocation("guiapi:textures/gui/gui.png"));
+			new BackgroundSkin(new ResourceLocation("lib:textures/gui/gui.png"));
 	public final ResourceLocation texture;
 	
 	public BackgroundSkin(ResourceLocation compoundTexture)
