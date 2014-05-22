@@ -4,7 +4,7 @@ import net.firesquared.lib.client.gui.backgrounds.GUIBackgroundProvider;
 import net.firesquared.lib.client.gui.backgrounds.SimpleRectangleBackground;
 import net.firesquared.lib.client.gui.elements.IGuiElement;
 import net.firesquared.lib.client.gui.elements.SlotElement;
-import net.firesquared.lib.client.gui.helper.DrawConfig;
+import net.firesquared.lib.client.gui.helper.TexturedQuadDrawer;
 import net.firesquared.lib.client.gui.skins.BackgroundSkin;
 import net.firesquared.lib.client.gui.widgets.IWidget;
 import net.firesquared.lib.helper.Helper;
@@ -90,6 +90,9 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		background.drawForeground();
+		for(IGuiElement element : elements)
+			element.drawForeground();
 	}
 
 	@Override
@@ -97,9 +100,9 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 	{
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glTranslatef(guiLeft, guiTop, 0f);
-		background.draw();
+		background.drawBackground();
 		for (IGuiElement element : elements)
-			element.draw();
+			element.drawBackground();
 		GL11.glTranslatef(-guiLeft, -guiTop, 0f);
 	}
 

@@ -1,7 +1,8 @@
 package net.firesquared.lib.client.gui.backgrounds;
 
 import net.firesquared.lib.client.gui.elements.SimpleDrawingElement;
-import net.firesquared.lib.client.gui.helper.DrawConfig;
+import net.firesquared.lib.client.gui.helper.TexturedQuadDrawer;
+import net.firesquared.lib.client.gui.helper.IQuadDrawer;
 import net.firesquared.lib.client.gui.skins.BackgroundSkin;
 import net.minecraft.util.ResourceLocation;
 
@@ -28,9 +29,9 @@ public class SimpleRectangleBackground extends GUIBackgroundProvider
 			this.vHigh = vHigh;
 		}
 		
-		public DrawConfig getConfig(ResourceLocation tex)
+		public IQuadDrawer getConfig(ResourceLocation tex)
 		{
-			return new DrawConfig(tex, uLow, uHigh, vLow, vHigh);
+			return new TexturedQuadDrawer(tex, uLow, uHigh, vLow, vHigh);
 		}
 	}
 	

@@ -1,40 +1,37 @@
 package net.firesquared.lib.client.gui.elements;
 
-import net.firesquared.lib.client.gui.helper.DrawConfig;
+import net.firesquared.lib.client.gui.helper.IQuadDrawer;
+import net.firesquared.lib.client.gui.helper.TexturedQuadDrawer;
 
 public class SimpleDrawingElement implements IGuiElement
 {
-	protected DrawConfig drawConfig;
+	protected IQuadDrawer drawer;
 	protected int x, y;
+	protected boolean drawInForeground = true;
 	
-	public SimpleDrawingElement(DrawConfig drawConfig)
+	public SimpleDrawingElement(IQuadDrawer drawConfig)
 	{
-		this.drawConfig = drawConfig;
+		this.drawer = drawConfig;
 	}
 	
-	public SimpleDrawingElement(DrawConfig drawConfig, int x, int y)
+	public SimpleDrawingElement(IQuadDrawer drawConfig, int x, int y, boolean drawForeground)
 	{
-		this.drawConfig = drawConfig;
+		this.drawer = drawConfig;
 		this.x = x;
 		this.y = y;
-	}
-	
-	@Override
-	public void draw()
-	{
-		drawConfig.draw(x, y);
+		drawInForeground = drawForeground;
 	}
 
 	@Override
 	public int getHeight()
 	{
-		return drawConfig.height;
+		return drawer.getHeight();
 	}
 
 	@Override
 	public int getWidth()
 	{
-		return drawConfig.width;
+		return drawer.getWidth();
 	}
 
 	@Override
@@ -54,6 +51,20 @@ public class SimpleDrawingElement implements IGuiElement
 		this.x = x;
 		this.y = y;
 		return this;
+	}
+
+	@Override
+	public void drawBackground()
+	{
+		if(!drawInForeground)
+			drawer.draw(x, y);
+	}
+
+	@Override
+	public void drawForeground()
+	{
+		if(drawInForeground)
+			drawer.draw(x, y);
 	}
 	
 }

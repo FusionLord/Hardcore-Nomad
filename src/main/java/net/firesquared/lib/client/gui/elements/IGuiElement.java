@@ -5,14 +5,16 @@ package net.firesquared.lib.client.gui.elements;
 
 public interface IGuiElement
 {
-	public abstract void draw();
+	public void drawBackground();
 	
-	public abstract int getHeight();
+	public abstract void  drawForeground();
 	
-	public abstract int getWidth();
+	public int getHeight();
 	
-	public abstract int getY();
+	public int getWidth();
 	
-	public abstract int getX();
+	public int getY();
+	
+	public int getX();
 	
 }

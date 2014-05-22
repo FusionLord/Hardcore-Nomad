@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.firesquared.lib.client.gui.elements.IGuiElement;
-import net.firesquared.lib.client.gui.helper.DrawConfig;
+import net.firesquared.lib.client.gui.helper.TexturedQuadDrawer;
 import net.firesquared.lib.client.gui.skins.BackgroundSkin;
 
 public abstract class GUIBackgroundProvider implements IGuiElement
@@ -29,13 +29,6 @@ public abstract class GUIBackgroundProvider implements IGuiElement
 	protected abstract void addComponents();
 
 	@Override
-	public void draw()
-	{
-		for(IGuiElement el : components)
-			el.draw();
-	}
-
-	@Override
 	public final int getHeight()
 	{
 		return height;
@@ -57,6 +50,20 @@ public abstract class GUIBackgroundProvider implements IGuiElement
 	public final int getX()
 	{
 		return 0;
+	}
+
+	@Override
+	public void drawBackground()
+	{
+		for(IGuiElement el : components)
+			el.drawBackground();
+	}
+
+	@Override
+	public void drawForeground()
+	{		
+		for(IGuiElement el : components)
+			el.drawForeground();
 	}
 	
 }

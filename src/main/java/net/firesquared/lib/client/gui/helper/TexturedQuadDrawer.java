@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 
-public class DrawConfig
+public class TexturedQuadDrawer implements IQuadDrawer
 {
 	private boolean hasWarned = false;
 	
@@ -20,7 +20,7 @@ public class DrawConfig
 	static final float scale = 0.00390625F;
 	public final float u0,v0,u1,v1,u2,v2,u3,v3;
 	public int width, height;
-	public DrawConfig(ResourceLocation texture, float uMin, float uMax, float vMin, float vMax)
+	public TexturedQuadDrawer(ResourceLocation texture, float uMin, float uMax, float vMin, float vMax)
 	{
 		u3 = u0 = uMin * scale;
 		v1 = v0 = vMax * scale;
@@ -28,13 +28,13 @@ public class DrawConfig
 		v2 = v3 = vMin * scale;
 		this.texture = texture;
 	}
-	public DrawConfig(ResourceLocation texture, float uMin, float uMax, float vMin, float vMax, int width, int height)
+	public TexturedQuadDrawer(ResourceLocation texture, float uMin, float uMax, float vMin, float vMax, int width, int height)
 	{
 		this(texture, uMin, uMax, vMin, vMax);
 		this.width = width;
 		this.height = height;
 	}
-	public DrawConfig(ResourceLocation texture, Vector2f uv0, Vector2f uv1, Vector2f uv2, Vector2f uv3)
+	public TexturedQuadDrawer(ResourceLocation texture, Vector2f uv0, Vector2f uv1, Vector2f uv2, Vector2f uv3)
 	{
 		u0 = uv0.x;
 		v0 = uv0.y;
@@ -46,10 +46,14 @@ public class DrawConfig
 		v3 = uv3.y;
 		this.texture = texture;
 	}
+
+	@Override
 	public void draw(int x,int y)
 	{
 		draw(x, y, width, height);
 	}
+
+	@Override
 	public void draw(int x, int y, int width, int height)
 	{
 		if (texture == null && !hasWarned)
@@ -65,6 +69,8 @@ public class DrawConfig
 		tessellator.addVertexWithUV(x,          y,              zLevel, u3, v3);
 		tessellator.draw();
 	}
+
+	@Override
 	public void draw(int x, int y, int width, int height, float rotation)
 	{
 		if (texture == null && !hasWarned)
@@ -82,19 +88,35 @@ public class DrawConfig
 		tessellator.draw();
 		GL11.glRotatef(-rotation, 0, 0, 1);
 	}
+
+	@Override
 	public float getZLayer()
 	{
 		return zLevel;
 	}
-	public DrawConfig setWH(int width, int height)
+
+	@Override
+	public TexturedQuadDrawer setWH(int width, int height)
 	{
 		this.width = width;
 		this.height = height;
 		return this;
 	}
-	public DrawConfig setZLayer(float z)
+
+	@Override
+	public IQuadDrawer setZLayer(float z)
 	{
 		zLevel = z;
 		return this;
+	}
+	@Override
+	public int getWidth()
+	{
+		return width;
+	}
+	@Override
+	public int getHeight()
+	{
+		return height;
 	}
 }
