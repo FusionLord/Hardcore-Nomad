@@ -1,0 +1,116 @@
+[
+    {
+        "slot": [
+            {
+                "umin": "0",
+                "umax": "18",
+                "vmin": "11",
+                "vmax": "18"
+            }
+        ],
+        "filler": [
+            {
+                "umin": "5",
+                "umax": "1",
+                "vmin": "5",
+                "vmax": "1"
+            }
+        ],
+        "bar_top": [
+            {
+                "umin": "5",
+                "umax": "1",
+                "vmin": "0",
+                "vmax": "3"
+            }
+        ],
+        "bar_left": [
+            {
+                "umin": "0",
+                "umax": "3",
+                "vmin": "5",
+                "vmax": "1"
+            }
+        ],
+        "bar_right": [
+            {
+                "umin": "8",
+                "umax": "3",
+                "vmin": "5",
+                "vmax": "1"
+            }
+        ],
+        "bar_bottom": [
+            {
+                "umin": "5",
+                "umax": "1",
+                "vmin": "8",
+                "vmax": "3"
+            }
+        ],
+        "corner_top_left": [
+            {
+                "umin": "0",
+                "umax": "4",
+                "vmin": "0",
+                "vmax": "4"
+            }
+        ],
+        "corner_top_right": [
+            {
+                "umin": "7",
+                "umax": "4",
+                "vmin": "0",
+                "vmax": "4"
+            }
+        ],
+        "corner_bottom_left": [
+            {
+                "umin": "0",
+                "umax": "4",
+                "vmin": "7",
+                "vmax": "4"
+            }
+        ],
+        "corner_bottom_right": [
+            {
+                "umin": "7",
+                "umax": "4",
+                "vmin": "7",
+                "vmax": "4"
+            }
+        ],
+        "corner_top_left_inverted": [
+            {
+                "umin": "12",
+                "umax": "5",
+                "vmin": "0",
+                "vmax": "5"
+            }
+        ],
+        "corner_top_right_inverted": [
+            {
+                "umin": "19",
+                "umax": "5",
+                "vmin": "0",
+                "vmax": "5"
+            }
+        ],
+        "corner_bottom_left_inverted": [
+            {
+                "umin": "12",
+                "umax": "5",
+                "vmin": "7",
+                "vmax": "5"
+            }
+        ],
+        "corner_bottom_right_inverted": [
+            {
+                "umin": "19",
+                "umax": "5",
+                "vmin": "7",
+                "vmax": "5"
+            }
+        ]
+    }
+]
