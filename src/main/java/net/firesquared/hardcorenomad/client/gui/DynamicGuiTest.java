@@ -1,17 +1,22 @@
 package net.firesquared.hardcorenomad.client.gui;
 
-import net.firesquared.guiapi.client.gui.DynamicGUI;
+import net.firesquared.guiapi.client.gui.DynGUIBase;
+import net.firesquared.hardcorenomad.container.BackpackContainer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.Container;
 
-public class DynamicGuiTest extends DynamicGUI
+public class DynamicGuiTest extends DynGUIBase<Container>
 {
 	static final int rowStart = 28, columnStart = 7, size = 18;
 	public GuiButton[] buttons;
+	BackpackContainer container;
+	private boolean isPlaced;
 
-	public DynamicGuiTest(Container container)
+	public DynamicGuiTest(BackpackContainer container)
 	{
 		super(container);
+		this.container = container;
+		this.isPlaced = container.isPlaced;
 	}
 
 	@Override
