@@ -3,6 +3,7 @@ package net.firesquared.hardcorenomad.item;
 import java.util.List;
 
 import net.firesquared.hardcorenomad.block.campcomponents.BlockCampComponent;
+import net.firesquared.hardcorenomad.helpers.Helper.Numeral;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -14,7 +15,6 @@ public class ItemUpgrade extends Item
 	public static ItemStack getUpgradeStack(UpgradeType type, int level)
 	{
 		ItemStack is = new ItemStack(instance);
-		level -= 1;
 		if(level >= type.getMaxLevels())
 			throw new IllegalArgumentException();
 		is.setItemDamage(type.ordinal() + 256 * level);
@@ -26,7 +26,7 @@ public class ItemUpgrade extends Item
 	}
 	public static int getLevelFromDamage(int damage)
 	{
-		return 1 + ((damage >> 8) % 256);
+		return (damage >> 8) % 256;
 	}
 	
 	public enum UpgradeType
@@ -59,6 +59,14 @@ public class ItemUpgrade extends Item
 	public ItemUpgrade()
 	{
 		instance = this;
+	}
+	
+	@Override
+	public String getUnlocalizedName(ItemStack par1ItemStack)
+	{
+		int dmg = par1ItemStack.getItemDamage();
+		UpgradeType ut = getTypeFromDamage(dmg);
+		return ut.name()+"."+Numeral.ToRoman(getLevelFromDamage(dmg)+1)+".Upgrade";
 	}
 
 	@Override

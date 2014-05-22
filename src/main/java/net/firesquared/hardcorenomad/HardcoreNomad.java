@@ -2,6 +2,7 @@
 
 package net.firesquared.hardcorenomad;
 
+import java.io.File;
 import java.util.Random;
 
 import cpw.mods.fml.common.Mod;
@@ -10,6 +11,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import net.firesquared.hardcorenomad.configuration.ConfigurationHandler;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.Helper.Numeral;
 import net.firesquared.hardcorenomad.proxy.IProxy;
@@ -34,6 +36,8 @@ public class HardcoreNomad
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		System.out.println("Shrek is love, Shrek is life");
+
+		ConfigurationHandler.init(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Helper.MOD_ID);
 	}
 
 	// Init Events
