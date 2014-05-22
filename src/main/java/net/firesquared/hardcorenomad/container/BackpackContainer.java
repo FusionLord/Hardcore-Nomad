@@ -65,31 +65,30 @@ public class BackpackContainer extends Container
 			for(int j = 0; j < 9; j++)
 				addSlotToContainer(new Slot(invPlayer, j + i * 9, j * 18 + 8, (i+3) * 18+ 3));
 		for(int i = 0; i < 9; i++)
-			if(isPlaced || i!=meSlot)
+//			if(isPlaced || i!=meSlot)
 				addSlotToContainer(new Slot(invPlayer, i, i * 18 + 8, 18 * 7 + 7));
-			else
-				addSlotToContainer(new Slot(invPlayer, i, -1000, -1000));
+//			else
+//				addSlotToContainer(new Slot(invPlayer, i, -1000, -1000));
 	}
 
 	private void bindBackpackSlots()
 	{
 		int paddingLeft = 174;
-		int paddingTop = 12;
+		int paddingTop = 7;
 		int slot = 0;
 		for (int x = 0; x < type.getStorageWidth(); x++)
 			for(int y = 0; y < type.getStorageHeight(); y++)
 				addSlotToContainer(new Slot(backPack, slot++, paddingLeft + x * 18, paddingTop + y * 18));
 		
-		slot += 9;
-//		for (int i = 0; i < 9; i++)
-//		{
-//			LogHelper.debug("[Binding slots] - slot " + slot);
-//			addSlotToContainer(new SlotDummy(backPack, slot++, 5 + (i * 18), 25));
-//		}
+//		slot += 9;
+		for (int i = 0; i < 8; i++)
+		{
+			addSlotToContainer(new Slot(backPack, slot++, 8 + i * 18, 50));
+		}
 
-		addSlotToContainer(new Slot(backPack, slot++, 128, 4));
+		addSlotToContainer(new Slot(backPack, slot++, 8 + 8 * 18, 50));
 		if (type.hasArmorSlot())
-			addSlotToContainer(new Slot(backPack, slot++, 128, 4));
+			addSlotToContainer(new Slot(backPack, slot++, 8 + 8 * 18, 8));
 	}
 	
 	public ItemStack getThisBackpack()
