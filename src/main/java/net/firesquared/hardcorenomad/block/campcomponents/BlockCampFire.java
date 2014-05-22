@@ -5,7 +5,6 @@ import java.util.Random;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.minecraft.block.BlockContainer;
@@ -65,7 +64,7 @@ public class BlockCampFire extends BlockCampComponent
 		TileEntityCampFire tileEntityCampFire = Helper.getTileEntity(world, x, y, z, TileEntityCampFire.class);
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();
 		if (tileEntityCampFire == null) {
-			LogHelper.debug("===>>>> Tile Entity is null check your X Y Z <<<<======");
+			Helper.getLogger().debug("===>>>> Tile Entity is null check your X Y Z <<<<======");
 			return null;
 		}
 		tileEntityCampFire.writeToNBT(nbtTagCompound);

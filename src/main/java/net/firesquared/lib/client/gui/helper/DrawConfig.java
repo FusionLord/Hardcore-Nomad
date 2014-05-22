@@ -54,7 +54,7 @@ public class DrawConfig
 	{
 		if (texture == null && !hasWarned)
 		{
-			Helper.logger.error("Missing texture!");
+			Helper.getLogger().error("Missing texture!");
 			hasWarned = true;
 		}
 		texMan.bindTexture(texture);
@@ -69,7 +69,7 @@ public class DrawConfig
 	{
 		if (texture == null && !hasWarned)
 		{
-			Helper.logger.error("Missing texture!");
+			Helper.getLogger().error("Missing texture!");
 			hasWarned = true;
 		}
 		texMan.bindTexture(texture);

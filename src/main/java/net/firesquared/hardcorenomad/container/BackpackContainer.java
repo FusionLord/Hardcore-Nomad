@@ -1,6 +1,6 @@
 package net.firesquared.hardcorenomad.container;
 
-import net.firesquared.hardcorenomad.helpers.LogHelper;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
 import net.firesquared.hardcorenomad.item.backpacks.BackPackInventory;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
@@ -46,7 +46,7 @@ public class BackpackContainer extends Container
 	{
 		if(invPlayer == null || currentItem == null || currentItem.stackTagCompound == null)
 		{
-			LogHelper.fatal("null input to backpack container");
+			Helper.getLogger().fatal("null input to backpack container");
 		}
 		me = currentItem;
 		meSlot = invPlayer.currentItem;
@@ -57,6 +57,8 @@ public class BackpackContainer extends Container
 		
 		bindBackpackSlots();
 		bindPlayerSlots(invPlayer);
+		
+		Helper.getLogger().debug("I'm logging from HardcoreNomad!");
 	}
 
 	private void bindPlayerSlots(InventoryPlayer invPlayer)

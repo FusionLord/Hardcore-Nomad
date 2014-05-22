@@ -5,7 +5,6 @@ package net.firesquared.hardcorenomad.tile;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
@@ -261,7 +260,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	{
 		if (componentType == null)
 		{
-			LogHelper.warn("Unexpected null value in TileEntityBackpack");
+			Helper.getLogger().warn("Unexpected null value in TileEntityBackpack");
 			return null; //this shouldn't happen;
 		}
 		ItemStack itemStack = componentInventory[componentType.ordinal()];

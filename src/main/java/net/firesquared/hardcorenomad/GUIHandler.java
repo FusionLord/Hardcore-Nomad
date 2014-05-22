@@ -3,7 +3,7 @@ package net.firesquared.hardcorenomad;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.firesquared.hardcorenomad.client.gui.*;
 import net.firesquared.hardcorenomad.container.*;
-import net.firesquared.hardcorenomad.helpers.LogHelper;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,7 +38,7 @@ public class GUIHandler implements IGuiHandler
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
-		LogHelper.debug("Opening GUI #" + ID);
+		Helper.getLogger().debug("Opening GUI #" + ID);
 		switch(ID)
 		{
 			case 0:

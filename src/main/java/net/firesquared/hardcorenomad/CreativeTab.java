@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 
 public class CreativeTab
 {
-	public static final CreativeTabs HardCoreNomadTab = new CreativeTabs(Helper.MOD_ID)
+	public static final CreativeTabs HardCoreNomadTab = new CreativeTabs(Helper.Strings.MOD_ID)
 	{
 		@Override
 		public Item getTabIconItem()
@@ -22,7 +22,7 @@ public class CreativeTab
 		}
 	};
 
-	public static final CreativeTabs HardCoreNomadUpgradesTab = new CreativeTabs(Helper.MOD_ID)
+	public static final CreativeTabs HardCoreNomadUpgradesTab = new CreativeTabs(Helper.Strings.MOD_ID)
 	{
 		@Override public Item getTabIconItem() { return Items.ITEM_BACKPACK.getItem();/*ITEM_UPGRADE_BEDROLL_TIER1.getItem();*/ }
 

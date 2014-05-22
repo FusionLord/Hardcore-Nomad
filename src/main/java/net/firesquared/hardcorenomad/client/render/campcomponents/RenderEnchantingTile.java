@@ -4,9 +4,9 @@ import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 
 import org.lwjgl.opengl.GL11;
 
-import net.firesquared.hardcorenomad.helpers.ModelRegistry;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
+import net.firesquared.lib.helper.ModelRegistry;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;

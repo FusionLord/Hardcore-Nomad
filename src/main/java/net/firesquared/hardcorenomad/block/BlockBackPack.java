@@ -28,7 +28,7 @@ public class BlockBackPack extends BlockContainer
 		setHardness(1.0F);
 		setResistance(100.0F);
 		setStepSound(soundTypeCloth);
-		setBlockTextureName(Helper.MOD_ID + ":" + getUnlocalizedName());
+		setBlockTextureName(Helper.Strings.MOD_ID + ":" + getUnlocalizedName());
 		setBlockBounds(0.1f, 0f, 0.3f, .9f, .9f, .7f);
 	}
 

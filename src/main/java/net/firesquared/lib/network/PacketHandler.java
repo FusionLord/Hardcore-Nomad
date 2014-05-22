@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.network;
+package net.firesquared.lib.network;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.FMLEmbeddedChannel;
@@ -12,7 +12,7 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageCodec;
-import net.firesquared.hardcorenomad.helpers.Helper;
+import net.firesquared.lib.network.AbstractPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -24,16 +24,22 @@ import java.util.*;
 @ChannelHandler.Sharable
 public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, AbstractPacket>
 {
+	public PacketHandler(String channel, Class<? extends AbstractPacket>... packetClasses)
+	{
+		CHANNEL = channel;
+		this.packetClasses = packetClasses;
+	}
+	
+	private Class[] packetClasses;
+	private final String CHANNEL;
 	private EnumMap<Side, FMLEmbeddedChannel> channels;
 	private LinkedList<Class<? extends AbstractPacket>> packets = new LinkedList<Class<? extends AbstractPacket>>();
 	private boolean isPostInitialised = false;
 
 	public void registerPackets()
 	{
-		// registerPacket(Packet.class);
-		registerPacket(SyncPlayerPropertiesPacket.class);
-		registerPacket(ButtonPacket.class);
-		registerPacket(BackpackTilePacket.class);
+		for(Class clazz : packetClasses)
+			registerPacket(clazz);
 	}
 
 	public boolean registerPacket(Class<? extends AbstractPacket> clazz)
@@ -106,7 +112,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, Abstrac
 
 	public void initialise()
 	{
-		this.channels = NetworkRegistry.INSTANCE.newChannel(Helper.CHANNEL_NAME, this);
+		this.channels = NetworkRegistry.INSTANCE.newChannel(CHANNEL, this);
 		registerPackets();
 	}
 

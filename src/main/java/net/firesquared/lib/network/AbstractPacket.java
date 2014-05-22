@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.network;
+package net.firesquared.lib.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

@@ -7,6 +7,7 @@ import net.firesquared.lib.client.gui.elements.SlotElement;
 import net.firesquared.lib.client.gui.helper.DrawConfig;
 import net.firesquared.lib.client.gui.skins.BackgroundSkin;
 import net.firesquared.lib.client.gui.widgets.IWidget;
+import net.firesquared.lib.helper.Helper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.Tessellator;
@@ -46,6 +47,7 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 		super(container);
 		this.container = container;
 		this.skin = skin;
+		Helper.getLogger().debug("I'm logging from the FireSquared Library!");
 	}
 
 	@Override

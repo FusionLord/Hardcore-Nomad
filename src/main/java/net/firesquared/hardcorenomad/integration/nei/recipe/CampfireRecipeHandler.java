@@ -27,11 +27,11 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 public class CampfireRecipeHandler extends TemplateRecipeHandler
 {
 	
-	public static final String fuelName = Helper.MOD_ID + "." + "campfireFuel";
-	public static final String smeltingName = Helper.MOD_ID + "." + "campfireSmelting";
+	public static final String fuelName = Helper.Strings.MOD_ID + "." + "campfireFuel";
+	public static final String smeltingName = Helper.Strings.MOD_ID + "." + "campfireSmelting";
 	
-	public static final String displayNameRecipe = "container" + "." + Helper.MOD_ID + "." + "recipe" + "." + "campfire";
-	public static final String displayNameFuel = "container" + "." + Helper.MOD_ID + "." + "fuel" + "." + "campfire";
+	public static final String displayNameRecipe = "container" + "." + Helper.Strings.MOD_ID + "." + "recipe" + "." + "campfire";
+	public static final String displayNameFuel = "container" + "." + Helper.Strings.MOD_ID + "." + "fuel" + "." + "campfire";
 	
     public class SmeltingPair extends CachedRecipe
     {

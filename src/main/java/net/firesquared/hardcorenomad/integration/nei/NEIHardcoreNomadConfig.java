@@ -59,12 +59,12 @@ public class NEIHardcoreNomadConfig implements IConfigureNEI {
 	 */
 	@Override
 	public String getName() {
-		return Helper.MOD_NAME;
+		return Helper.Strings.MOD_NAME;
 	}
 
 	@Override
 	public String getVersion() {
-		return Helper.MOD_ID;
+		return Helper.Strings.MOD_ID;
 	}
 
 }

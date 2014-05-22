@@ -4,8 +4,8 @@ import codechicken.lib.render.BlockRenderer;
 import net.firesquared.hardcorenomad.block.campcomponents.BlockBedRoll;
 import net.firesquared.hardcorenomad.block.campcomponents.BlockCampFire;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.helpers.LogHelper;
-import net.firesquared.hardcorenomad.helpers.ModelRegistry;
+import net.firesquared.lib.helper.ModelRegistry;
+import net.firesquared.lib.helper.Helper.Numeral;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
@@ -66,7 +66,7 @@ public class RenderUpgradeItem implements IItemRenderer
 			GL11.glRotatef(225, 0f, 1f, 0f);
 			GL11.glTranslatef(0f, 0f, 20f);
 			RenderHelper.disableStandardItemLighting();
-			font.drawString(Helper.Numeral.ToRoman(upgradeLevel+1), -9, -20, 0xFFFF00);
+			font.drawString(Numeral.ToRoman(upgradeLevel+1), -9, -20, 0xFFFF00);
 			RenderHelper.enableStandardItemLighting();
 			RenderHelper.enableGUIStandardItemLighting();
 			GL11.glColor3f(1f, 1f, 1f);
@@ -103,13 +103,13 @@ public class RenderUpgradeItem implements IItemRenderer
 				yOffest = .5f;
 				break;
 			default:
-				LogHelper.error("Attempting to render an upgrade with no render code in RenderUpgradeItem");
+				Helper.getLogger().error("Attempting to render an upgrade with no render code in RenderUpgradeItem");
 				return;
 		}
 
 		if(model == null)
 		{
-			LogHelper.fatal("This programmer can't even. Failed to render null model.");
+			Helper.getLogger().fatal("This programmer can't even. Failed to render null model.");
 			return;
 		}
 

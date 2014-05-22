@@ -1,8 +1,8 @@
 package net.firesquared.hardcorenomad.client.render.campcomponents;
 
-import net.firesquared.hardcorenomad.helpers.ModelRegistry;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquared.hardcorenomad.item.ItemNomadBase;
+import net.firesquared.lib.helper.ModelRegistry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModelCustom;
 

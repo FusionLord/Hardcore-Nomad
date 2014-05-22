@@ -20,7 +20,7 @@ public class BlockEnchantmentTable extends BlockCampComponent
 		setHardness(1.0F);
 		setResistance(100.0F);
 		setStepSound(soundTypeMetal);
-		setBlockTextureName(Helper.MOD_ID + ":" + getUnlocalizedName());
+		setBlockTextureName(Helper.Strings.MOD_ID + ":" + getUnlocalizedName());
 	}
 
 	@Override

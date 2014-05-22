@@ -13,17 +13,16 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.firesquared.hardcorenomad.configuration.ConfigurationHandler;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.helpers.Helper.Numeral;
-import net.firesquared.hardcorenomad.proxy.IProxy;
+import net.firesquared.lib.helper.IProxy;
 import net.minecraft.world.World;
 
-@Mod(modid = Helper.MOD_ID, name = Helper.MOD_NAME)
+@Mod(modid = Helper.Strings.MOD_ID, name = Helper.Strings.MOD_NAME)
 public class HardcoreNomad
 {
-	@Mod.Instance(Helper.MOD_ID)
+	@Mod.Instance(Helper.Strings.MOD_ID)
 	public static HardcoreNomad instance;
 
-	@SidedProxy(clientSide = Helper.CLIENT_PROXY_CLASS, serverSide = Helper.SERVER_PROXY_CLASS)
+	@SidedProxy(clientSide = Helper.Strings.CLIENT_PROXY_CLASS, serverSide = Helper.Strings.SERVER_PROXY_CLASS)
 	public static IProxy proxy;
 
 	// Debugging Logging, disable this for real builds
@@ -37,7 +36,7 @@ public class HardcoreNomad
 	{
 		System.out.println("Shrek is love, Shrek is life");
 
-		ConfigurationHandler.init(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Helper.MOD_ID);
+		ConfigurationHandler.init(event.getModConfigurationDirectory().getAbsolutePath() + File.separator + Helper.Strings.MOD_ID);
 	}
 
 	// Init Events

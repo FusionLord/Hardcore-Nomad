@@ -59,7 +59,7 @@ public enum Blocks
 		this.block = block;
 		this.itemBlockClass = itemBlockClass;
 		this.creativeTabs = creativeTabs;
-		block.setBlockName(Helper.MOD_ID + "." + internalName);
+		block.setBlockName(Helper.Strings.MOD_ID + "." + internalName);
 	}
 
 	public String getInternalName()

@@ -47,7 +47,7 @@ public enum Items
 	Items(String internalName, Item item, CreativeTabs creativeTabs, int dungeonChestMin, int dungeonChestMax, int weight) {
 		this.internalName = internalName;
 		this.item = item;
-		item.setUnlocalizedName(Helper.MOD_ID + "." + internalName);
+		item.setUnlocalizedName(Helper.Strings.MOD_ID + "." + internalName);
 		item.setCreativeTab(creativeTabs);
 		this.dungeonChestMax = dungeonChestMax;
 		this.dungeonChestMin = dungeonChestMin;

@@ -11,7 +11,6 @@ import net.firesquared.hardcorenomad.events.BlockBreakEvent;
 import net.firesquared.hardcorenomad.events.PlayerEvents;
 import net.firesquared.hardcorenomad.events.WorldEvents;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.helpers.LogHelper;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
@@ -22,6 +21,7 @@ import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBedRoll;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCrafting;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityEnchantmentTable;
+import net.firesquared.lib.helper.IProxy;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -41,7 +41,7 @@ public abstract class CommonProxy implements IProxy
 	{
 		for(Blocks block : Blocks.values())
 		{
-			LogHelper.debug("Registering Block: " + block.getInternalName());
+			Helper.getLogger().debug("Registering Block: " + block.getInternalName());
 			GameRegistry.registerBlock(block.getBlock().setCreativeTab(block.getCreativeTabs()), block.getItemBlockClass(), "tile." + block.getInternalName());
 		}
 	}
@@ -49,11 +49,11 @@ public abstract class CommonProxy implements IProxy
 	// Register TileEntities
 	public void registerTileEntities()
 	{
-		GameRegistry.registerTileEntity(TileEntityBackPack.class, "tile." + Helper.MOD_ID + ".backpack");
-		GameRegistry.registerTileEntity(TileEntityCampFire.class, "tile." + Helper.MOD_ID + ".campfire");
-		GameRegistry.registerTileEntity(TileEntityEnchantmentTable.class, "tile." + Helper.MOD_ID + ".enchantmenttable");
-		GameRegistry.registerTileEntity(TileEntityCrafting.class, "tile." + Helper.MOD_ID + ".crafting");
-		GameRegistry.registerTileEntity(TileEntityBedRoll.class, "tile." + Helper.MOD_ID + ".bedroll");
+		GameRegistry.registerTileEntity(TileEntityBackPack.class, "tile." + Helper.Strings.MOD_ID + ".backpack");
+		GameRegistry.registerTileEntity(TileEntityCampFire.class, "tile." + Helper.Strings.MOD_ID + ".campfire");
+		GameRegistry.registerTileEntity(TileEntityEnchantmentTable.class, "tile." + Helper.Strings.MOD_ID + ".enchantmenttable");
+		GameRegistry.registerTileEntity(TileEntityCrafting.class, "tile." + Helper.Strings.MOD_ID + ".crafting");
+		GameRegistry.registerTileEntity(TileEntityBedRoll.class, "tile." + Helper.Strings.MOD_ID + ".bedroll");
 	}
 
 	// Register Entities
@@ -68,9 +68,9 @@ public abstract class CommonProxy implements IProxy
 	{
 		for(Items item : Items.values())
 		{
-			LogHelper.debug("Registering Item: " + item.getInternalName());
+			Helper.getLogger().debug("Registering Item: " + item.getInternalName());
 			Item itemObject = item.getItem();
-			itemObject.setTextureName(Helper.MOD_ID + ":" + itemObject.getUnlocalizedName());
+			itemObject.setTextureName(Helper.Strings.MOD_ID + ":" + itemObject.getUnlocalizedName());
 			GameRegistry.registerItem(itemObject, item.getInternalName());
 		}
 	}
@@ -78,14 +78,14 @@ public abstract class CommonProxy implements IProxy
 	// Register World Events
 	public void registerWorldEvents()
 	{
-		LogHelper.debug("Registering World Event");
+		Helper.getLogger().debug("Registering World Event");
 		MinecraftForge.EVENT_BUS.register(new WorldEvents());
 	}
 
 	// Register Player Events
 	public void registerPlayerEvents()
 	{
-		LogHelper.debug("Registering Player Events");
+		Helper.getLogger().debug("Registering Player Events");
 		MinecraftForge.EVENT_BUS.register(new PlayerEvents());
 	}
 
@@ -199,7 +199,7 @@ public abstract class CommonProxy implements IProxy
 
 			if (Min != 0 && Max != 0)
 			{
-				LogHelper.debug("Registering DungeonLoot: " + item.getInternalName());
+				Helper.getLogger().debug("Registering DungeonLoot: " + item.getInternalName());
 				ChestGenHooks.addItem("dungeonChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
 				ChestGenHooks.addItem("bonusChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
 				ChestGenHooks.addItem("villageBlacksmith", new WeightedRandomChestContent(LootItem, Min, Max, Weight));

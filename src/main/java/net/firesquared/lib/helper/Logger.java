@@ -10,12 +10,17 @@ public class Logger
 {
 	String modIdentifier;
 	boolean timeStamp;
-	public Logger(String modIdentifier, boolean useTimestamp)
+	Level min;
+	public Logger(String modIdentifier, boolean useTimestamp, Level minImportance)
 	{
 		this.modIdentifier = "[ " + modIdentifier + " ] ";
+		this.timeStamp = useTimestamp;
+		min = minImportance;
 	}
-	public void log(Level logLevel, Object object)
+	protected void log(Level logLevel, Object object)
 	{
+		if(min.isAtLeastAsSpecificAs(logLevel))
+			return;
 		if(timeStamp)
 			System.out.println(getTimeStamp() + modIdentifier + String.valueOf(object));
 		else
@@ -61,5 +66,10 @@ public class Logger
 	public void off(Object object)
 	{
 		log(Level.OFF, object);
+	}
+	
+	public void debug(Object object)
+	{
+		log(Level.DEBUG, object);
 	}
 }
