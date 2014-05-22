@@ -3,7 +3,7 @@ package net.firesquared.hardcorenomad.network;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import net.firesquared.lib.network.AbstractPacket;
+import net.firesquared.firesquaredcore.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 

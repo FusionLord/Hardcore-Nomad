@@ -14,7 +14,6 @@ import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBedRoll;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityEnchantmentTable;
-import net.firesquared.lib.helper.ModelRegistry;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;

@@ -1,19 +1,15 @@
 package net.firesquared.hardcorenomad.helpers;
 
-import java.lang.Character.UnicodeBlock;
-
 import org.apache.logging.log4j.Level;
 
 import net.firesquared.hardcorenomad.network.BackpackTilePacket;
 import net.firesquared.hardcorenomad.network.ButtonPacket;
 import net.firesquared.hardcorenomad.network.SyncPlayerPropertiesPacket;
-import net.firesquared.lib.helper.Logger;
-import net.firesquared.lib.network.AbstractPacket;
-import net.firesquared.lib.network.PacketHandler;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockAccess;
+import net.firesquared.firesquaredcore.helper.Logger;
+import net.firesquared.firesquaredcore.network.AbstractPacket;
+import net.firesquared.firesquaredcore.network.PacketHandler;
 
-public class Helper extends net.firesquared.lib.helper.Helper
+public class Helper extends net.firesquared.firesquaredcore.helper.Helper
 {
 	private static final Class<? extends AbstractPacket>[] packets = new Class[]
 			{

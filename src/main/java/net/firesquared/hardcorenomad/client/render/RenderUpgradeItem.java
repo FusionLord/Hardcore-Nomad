@@ -1,22 +1,16 @@
 package net.firesquared.hardcorenomad.client.render;
 
-import codechicken.lib.render.BlockRenderer;
-import net.firesquared.hardcorenomad.block.campcomponents.BlockBedRoll;
-import net.firesquared.hardcorenomad.block.campcomponents.BlockCampFire;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.lib.helper.ModelRegistry;
-import net.firesquared.lib.helper.Helper.Numeral;
+import net.firesquared.firesquaredcore.helper.ModelRegistry;
+import net.firesquared.firesquaredcore.helper.Helper.Numeral;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;

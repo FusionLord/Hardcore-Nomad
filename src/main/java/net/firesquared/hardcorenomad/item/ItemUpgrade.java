@@ -3,7 +3,7 @@ package net.firesquared.hardcorenomad.item;
 import java.util.List;
 
 import net.firesquared.hardcorenomad.block.campcomponents.BlockCampComponent;
-import net.firesquared.lib.helper.Helper.Numeral;
+import net.firesquared.firesquaredcore.helper.Helper.Numeral;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

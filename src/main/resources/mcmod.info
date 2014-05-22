@@ -7,8 +7,22 @@
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authors": ["FireBall1725", "FireStormOOO", "Imalune", "Drullkus"],
+  "authors": ["FireBall1725", "FireStormOOO", "Imalune", "FusionLord", "Drullkus"],
   "credits": "Thanks to all the people in our TeamSpeak Channels for all the support!",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": [ "firesquaredcore" ]
+},
+{
+  "modid": "firesquaredcore",
+  "name": "FireSquared Core",
+  "description": "This is a library required for all FireSquared Mods.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["FireStormOOO", "FusionLord"],
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

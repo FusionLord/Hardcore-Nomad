@@ -3,7 +3,6 @@
 package net.firesquared.hardcorenomad;
 
 import java.io.File;
-import java.util.Random;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -13,7 +12,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.firesquared.hardcorenomad.configuration.ConfigurationHandler;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.lib.helper.IProxy;
+import net.firesquared.firesquaredcore.helper.IProxy;
 import net.minecraft.world.World;
 
 @Mod(modid = Helper.Strings.MOD_ID, name = Helper.Strings.MOD_NAME)

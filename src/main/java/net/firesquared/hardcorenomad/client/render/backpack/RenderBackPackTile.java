@@ -2,7 +2,7 @@ package net.firesquared.hardcorenomad.client.render.backpack;
 
 import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
-import net.firesquared.lib.helper.ModelRegistry;
+import net.firesquared.firesquaredcore.helper.ModelRegistry;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;

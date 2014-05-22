@@ -1,20 +1,14 @@
 package net.firesquared.hardcorenomad.client.render;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
-import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
-import net.firesquared.lib.helper.ModelRegistry;
+import net.firesquared.firesquaredcore.helper.ModelRegistry;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 public class RenderRocksThrown extends Render
 {
