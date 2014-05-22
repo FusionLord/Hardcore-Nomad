@@ -25,7 +25,7 @@ public class ItemBackPack extends ItemArmor
 	{
 		super(ArmorMaterial.CLOTH, 0, 1);
 		hasSubtypes = true;
-		setMaxDamage(0);
+		setMaxDamage(3);
 		setNoRepair();
 	}
 
@@ -35,6 +35,12 @@ public class ItemBackPack extends ItemArmor
 		if(is.stackTagCompound == null)
 			is.stackTagCompound = new NBTTagCompound();
 		is.stackTagCompound.setInteger(NBTHelper.CURRENTLEVEL, is.getItemDamage());
+	}
+	
+	@Override
+	public int getDisplayDamage(ItemStack stack)
+	{
+		return 0;
 	}
 
 	@Override
@@ -112,7 +118,7 @@ public class ItemBackPack extends ItemArmor
 	{
 		for (BackPackType type : BackPackType.values())
 		{
-			list.add(new ItemStack(this, 0, type.ordinal()));
+			list.add(new ItemStack(this, 1, type.ordinal()));
 		}
 	}
 }
