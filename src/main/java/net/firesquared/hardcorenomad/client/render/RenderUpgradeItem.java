@@ -28,6 +28,12 @@ public class RenderUpgradeItem implements IItemRenderer
 	float scale = 0, xOffset = 0, yOffest = 0, zOffset = 0;
 	boolean needsRotate;
 	int rotDegree;
+	private IItemRenderer backpackRenderer;
+	
+	public RenderUpgradeItem(IItemRenderer backpackItemRenderer)
+	{
+		backpackRenderer = backpackItemRenderer;
+	}
 
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type)
@@ -96,6 +102,11 @@ public class RenderUpgradeItem implements IItemRenderer
 				scale = .25f;
 				yOffest = .5f;
 				break;
+			case Backpack:
+				ItemStack copy = itemStack.copy();
+				copy.setItemDamage(upgradeLevel);
+				backpackRenderer.renderItem(type, copy, data);
+				return;
 			default:
 				Helper.getLogger().error("Attempting to render an upgrade with no render code in RenderUpgradeItem");
 				return;

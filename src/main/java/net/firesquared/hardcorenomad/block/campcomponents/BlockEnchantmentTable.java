@@ -3,6 +3,7 @@ package net.firesquared.hardcorenomad.block.campcomponents;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.Helper;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityEnchantmentTable;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -87,5 +88,10 @@ public class BlockEnchantmentTable extends BlockCampComponent
 	protected boolean has3dRender()
 	{
 		return true;
+	}
+	@Override
+	public UpgradeType getType()
+	{
+		return UpgradeType.Enchanting;
 	}
 }

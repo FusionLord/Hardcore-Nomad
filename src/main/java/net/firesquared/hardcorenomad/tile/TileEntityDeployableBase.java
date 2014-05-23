@@ -7,7 +7,6 @@ import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;;
 
 public class TileEntityDeployableBase extends TileEntity
 {
-	private int currentLevel;
 	private UpgradeType componentType;
 	private int xOffset;
 	private int yOffset;
@@ -23,14 +22,13 @@ public class TileEntityDeployableBase extends TileEntity
 	{
 		super();
 		this.componentType = componentType;
-		currentLevel = metadata;
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		tag.setInteger(NBTHelper.CURRENTLEVEL, currentLevel);
+		//tag.setInteger(NBTHelper.CURRENTLEVEL, currentLevel);
 		if(componentType != null)
 			tag.setInteger(NBTHelper.COMPONENTTYPE, componentType.ordinal());
 		tag.setInteger(NBTHelper.XOFFSET, xOffset);
@@ -42,7 +40,7 @@ public class TileEntityDeployableBase extends TileEntity
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		currentLevel = tag.getInteger(NBTHelper.CURRENTLEVEL);
+		//currentLevel = tag.getInteger(NBTHelper.CURRENTLEVEL);
 		if(tag.hasKey(NBTHelper.COMPONENTTYPE))
 			componentType = UpgradeType.values()[tag.getInteger(NBTHelper.COMPONENTTYPE)];
 		else
@@ -54,7 +52,7 @@ public class TileEntityDeployableBase extends TileEntity
 
 	public int getCurrentLevel()
 	{
-		return currentLevel;
+		return getBlockMetadata();
 	}
 
 	public UpgradeType getComponentType()

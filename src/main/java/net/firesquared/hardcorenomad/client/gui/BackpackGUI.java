@@ -1,7 +1,11 @@
 package net.firesquared.hardcorenomad.client.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.firesquared.hardcorenomad.container.BackpackContainer;
 import net.firesquared.hardcorenomad.helpers.Helper;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.network.ButtonPacket;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.client.gui.GuiButton;
@@ -16,7 +20,6 @@ public class BackpackGUI extends GuiContainer
 	private static final ResourceLocation background = new ResourceLocation("hardcorenomad:gui/GUIBackpack1.png");
 	boolean isPlaced;
 	static final int rowStart = 28, columnStart = 7, size = 18;
-	public GuiButton[] buttons;
 	BackpackContainer container;
 
 	public BackpackGUI(BackpackContainer par1Container)
@@ -33,26 +36,15 @@ public class BackpackGUI extends GuiContainer
 		super.initGui();
 		if(!isPlaced)
 			return;
-		buttons = new GuiButton[]
-		{
-			new GuiButton(0, this.guiLeft + 110, this.guiTop + 6, size, size, "U"),
-			new GuiButton(1, this.guiLeft + columnStart, this.guiTop + 6, size, size, "Dep"),
-			new GuiButton(2, this.guiLeft + columnStart + 0*18, this.guiTop + rowStart, size, size, "1"),
-			new GuiButton(3, this.guiLeft + columnStart + 1*18, this.guiTop + rowStart, size, size, "2"),
-			new GuiButton(4, this.guiLeft + columnStart + 2*18, this.guiTop + rowStart, size, size, "3"),
-			new GuiButton(5, this.guiLeft + columnStart + 3*18, this.guiTop + rowStart, size, size, "4"),
-			new GuiButton(6, this.guiLeft + columnStart + 4*18, this.guiTop + rowStart, size, size, "5"),
-			new GuiButton(7, this.guiLeft + columnStart + 5*18, this.guiTop + rowStart, size, size, "6"),
-			new GuiButton(8, this.guiLeft + columnStart + 6*18, this.guiTop + rowStart, size, size, "7"),
-			new GuiButton(9, this.guiLeft + columnStart + 7*18, this.guiTop + rowStart, size, size, "8"),
-			new GuiButton(10, this.guiLeft + columnStart + 8*18, this.guiTop + rowStart, size, size, "9"),
-		};
+		List<GuiButton> buttons = new ArrayList<GuiButton>();
+		int count;
+		buttons.add(new GuiButton(-1, this.guiLeft + 110, this.guiTop + 6, size, size, "U"));
+		buttons.add(new GuiButton(100, this.guiLeft + columnStart, this.guiTop + 6, size, size, "Dep"));
+		for(count = 0; count < UpgradeType.values().length - 1; count++)
+			new GuiButton(count, this.guiLeft + columnStart + count*18, this.guiTop + rowStart, size, size, ""+(count+1));
 		for(GuiButton b : buttons)
 		{
-			if (b.id == 0)
-				b.enabled = true;
-			else
-				b.enabled = isPlaced;
+			//perform any necessary enabling or disabling of buttons.
 			buttonList.add(b);
 		}
 	}

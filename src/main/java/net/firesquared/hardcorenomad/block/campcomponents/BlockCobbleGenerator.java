@@ -5,6 +5,7 @@ import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCobbleGenerator;
 import net.minecraft.block.BlockContainer;
@@ -47,6 +48,11 @@ public class BlockCobbleGenerator extends BlockCampComponent
 	protected boolean has3dRender()
 	{
 		return false;
+	}
+	@Override
+	public UpgradeType getType()
+	{
+		return UpgradeType.CobbleGen;
 	}
 
 }

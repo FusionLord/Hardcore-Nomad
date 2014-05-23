@@ -2,7 +2,7 @@ package net.firesquared.hardcorenomad.helpers;
 
 public class NBTHelper
 {
-	public static final String CURRENTLEVEL = "currentLevel";
+	//public static final String CURRENTLEVEL = "currentLevel";
 	public static final String XOFFSET = "xOffset";
 	public static final String YOFFSET = "yOffset";
 	public static final String ZOFFSET = "zOffset";
@@ -12,4 +12,5 @@ public class NBTHelper
 	public static final String SLOT = "slot";
 	public static final String UPGRADESLOT = "upgradeSlot";
 	public static final String ARMORSLOT = "armorSlot";
+	public static final String IS_DEPLOYED = "isDeployed";
 }

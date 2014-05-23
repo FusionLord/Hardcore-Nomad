@@ -3,6 +3,7 @@ package net.firesquared.hardcorenomad.block.campcomponents;
 import java.util.List;
 
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBedRoll;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -47,5 +48,11 @@ public class BlockBedRoll extends BlockCampComponent
 	protected boolean has3dRender()
 	{
 		return true;
+	}
+	
+	@Override
+	public UpgradeType getType()
+	{
+		return UpgradeType.BedRoll;
 	}
 }

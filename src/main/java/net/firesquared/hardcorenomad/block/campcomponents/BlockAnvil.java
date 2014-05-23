@@ -2,6 +2,7 @@ package net.firesquared.hardcorenomad.block.campcomponents;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,5 +39,11 @@ public class BlockAnvil extends BlockCampComponent
 	protected boolean has3dRender()
 	{
 		return false;
+	}
+
+	@Override
+	public UpgradeType getType()
+	{
+		return UpgradeType.Anvil;
 	}
 }

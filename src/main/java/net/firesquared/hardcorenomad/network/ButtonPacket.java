@@ -2,6 +2,7 @@ package net.firesquared.hardcorenomad.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquaredcore.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,7 +48,7 @@ public class ButtonPacket extends AbstractPacket
 	{
 		
 	}
-	
+	static final int componentCount = ItemUpgrade.UpgradeType.values().length - 1;
 	@Override
 	public void handleServerSide(EntityPlayer entityPlayer)
 	{
@@ -55,13 +56,21 @@ public class ButtonPacket extends AbstractPacket
 		if(te != null)
 		{
 			TileEntityBackPack backPack = (TileEntityBackPack)te;
-
-			if (ID == 0)
-				backPack.doUpgrade();
-			if (ID == 1)
-				backPack.toggleAll();
-			if (ID > 1 && ID < 11)
-				backPack.toggle(ID - 2);
+			switch(ID)
+			{
+				case -1:
+					backPack.doUpgrade();
+					return;
+				case 100:
+					backPack.deployAll();
+					return;
+				case 101:
+					backPack.recoverAll();
+					return;
+				default:
+					if(ID<0||ID>=componentCount)
+						backPack.toggle(ID);
+			}
 		}
 	}
 	

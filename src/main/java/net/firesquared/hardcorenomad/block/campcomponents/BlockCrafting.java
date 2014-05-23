@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCrafting;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -68,5 +69,10 @@ public class BlockCrafting extends BlockCampComponent
 	protected boolean has3dRender()
 	{
 		return false;
+	}
+	@Override
+	public UpgradeType getType()
+	{
+		return UpgradeType.Crafting;
 	}
 }

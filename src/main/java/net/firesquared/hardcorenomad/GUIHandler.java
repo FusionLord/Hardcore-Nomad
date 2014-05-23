@@ -44,7 +44,7 @@ public class GUIHandler implements IGuiHandler
 			case 0:
 			case 1:
 				return new DynamicGuiTest((BackpackContainer) getServerGuiElement(ID, player, world, x, y, z));
-//				return new BackpackGUI((BackpackContainer) getServerGuiElement(ID, player, world, x, y, z));
+				//return new BackpackGUI((BackpackContainer) getServerGuiElement(ID, player, world, x, y, z));
 			case 2:
 				return new CampFireGUI((Container) getServerGuiElement(ID, player, world, x, y, z));
 			case 3:

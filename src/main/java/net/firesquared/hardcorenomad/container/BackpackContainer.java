@@ -82,11 +82,11 @@ public class BackpackContainer extends Container
 			for(int y = 0; y < type.getStorageHeight(); y++)
 				addSlotToContainer(new Slot(backPack, slot++, paddingLeft + x * 18, paddingTop + y * 18));
 		
-//		slot += 9;
-		for (int i = 0; i < 8; i++)
-		{
-			addSlotToContainer(new Slot(backPack, slot++, 8 + i * 18, 50));
-		}
+		slot += 8;
+//		for (int i = 0; i < 8; i++)
+//		{
+//			addSlotToContainer(new Slot(backPack, slot++, 8 + i * 18, 50));
+//		}
 
 		addSlotToContainer(new Slot(backPack, slot++, 8 + 8 * 18, 50));
 		if (type.hasArmorSlot())

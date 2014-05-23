@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.block;
 
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.minecraft.block.Block;
@@ -42,6 +43,8 @@ public abstract class BlockCampComponent extends BlockContainer
 			deployableBase.writeToNBT(tag);
 			itemStack.setTagCompound(tag);
 		}
+		
+		itemStack.setItemDamage(meta);
 
 		dropBlockAsItem(world, x, y, z, itemStack);
 	}
@@ -83,5 +86,7 @@ public abstract class BlockCampComponent extends BlockContainer
 	{
 		return has3dRender() ? false : super.renderAsNormalBlock();
 	}
+	
+	public abstract UpgradeType getType();
 
 }

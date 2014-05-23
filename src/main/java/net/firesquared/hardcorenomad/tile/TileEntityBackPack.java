@@ -4,6 +4,7 @@ package net.firesquared.hardcorenomad.tile;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
@@ -14,6 +15,7 @@ import net.firesquared.hardcorenomad.network.BackpackTilePacket;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,8 +23,11 @@ import net.minecraft.util.StatCollector;
 
 public class TileEntityBackPack extends TileEntityDeployableBase implements IInventory
 {
+	//DO NOT MAKE ASSUMPTIONS about the size of any inventory or the value of any index
+	//get the value from where it is defined.  Don't just put the current value in as an integer
 	protected ItemStack[] storageInventory;
-	protected ItemStack[] componentInventory = new ItemStack[9];
+	//slot for everything excluding the backpack upgrade
+	protected ItemStack[] componentInventory = new ItemStack[ItemUpgrade.UpgradeType.values().length - 1];
 	protected ItemStack upgradeSlot;
 	protected ItemStack armorSlot;
 	private boolean initialized = false;
@@ -48,7 +53,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public void writeExtraNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound comInvTag = new NBTTagCompound();
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < componentInventory.length; i++)
 		{
 			if(componentInventory[i]!=null)
 				comInvTag.setTag(NBTHelper.SLOT.concat(""+i), componentInventory[i].writeToNBT(new NBTTagCompound()));
@@ -104,7 +109,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public void readExtraNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound comInvTag = tag.getCompoundTag(NBTHelper.COMINV);
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < componentInventory.length; i++)
 		{
 			if(comInvTag.hasKey(NBTHelper.SLOT.concat(""+i)))
 				componentInventory[i] = ItemStack.loadItemStackFromNBT(comInvTag.getCompoundTag(NBTHelper.SLOT.concat(""+i)));
@@ -228,12 +233,15 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack itemStack)
 	{
+		Item item = itemStack.getItem();
 		if (slot < storageInventory.length)
 			return true;
-		if (slot == storageInventory.length && itemStack.getItem() instanceof ItemUpgrade)
-			return true;
-		if (slot == storageInventory.length + 1 && itemStack.getItem() instanceof ItemArmor && !(itemStack.getItem() instanceof ItemBackPack))
-			return true;
+		if (slot >= storageInventory.length && slot < storageInventory.length + componentInventory.length)
+			return Block.getBlockFromItem(item) instanceof BlockCampComponent;
+		if (slot == storageInventory.length + componentInventory.length)
+			return item instanceof ItemUpgrade || Block.getBlockFromItem(item) instanceof BlockCampComponent;
+		if (slot == storageInventory.length + componentInventory.length + 1 && getType().hasArmorSlot())
+			return item instanceof ItemArmor && !(item instanceof ItemBackPack);
 		return false;
 	}
 
@@ -245,15 +253,72 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public void closeInventory()
 	{}
 
-	public void doUpgrade()
+	/**
+	 * Attempt to apply the upgrade currently in the upgrade slot
+	 * @return true if the upgrade was successfully applied
+	 */
+	public boolean doUpgrade()
 	{
 		if (upgradeSlot == null)
-			return;
+			return false;
 
-		ItemUpgrade upgrade = (ItemUpgrade)upgradeSlot.getItem();
-
-		NBTTagCompound tag = componentInventory[ItemUpgrade.getTypeFromDamage(upgradeSlot.getItemDamage()).ordinal()].getTagCompound();
-		tag.setInteger(NBTHelper.CURRENTLEVEL, ItemUpgrade.getLevelFromDamage(upgradeSlot.getItemDamage()));
+		if(upgradeSlot.getItem() instanceof ItemUpgrade)
+		{
+			ItemUpgrade upgrade = (ItemUpgrade)upgradeSlot.getItem();
+			int dmg = upgradeSlot.getItemDamage(), 
+					lvl = ItemUpgrade.getLevelFromDamage(dmg);
+			UpgradeType type = ItemUpgrade.getTypeFromDamage(dmg);
+			//if the user is upgrading their backpack in-place
+			if(type == UpgradeType.Backpack)
+			{
+				int meta = getBlockMetadata();
+				if(meta == lvl)
+				{
+					setBlockMeta(meta + 1);
+					Helper.getLogger().info("Applied upgrade "+upgradeSlot.getDisplayName());
+					upgradeSlot = null;
+					return true;
+				}
+				return false;
+			}
+			int typeIndex = type.ordinal(),
+				currentLvl = componentInventory[typeIndex] == null ? -1 : componentInventory[typeIndex].getItemDamage();
+			//if the user is upgrading one of their components and the upgrade levels match
+			if(currentLvl + 1 == lvl)
+			{
+				if(componentInventory[typeIndex] == null)
+					componentInventory[typeIndex] = new ItemStack(type.getBlockContainer());
+				componentInventory[typeIndex].setItemDamage(lvl);
+				if(componentInventory[typeIndex].stackTagCompound == null)
+					componentInventory[typeIndex].stackTagCompound = new NBTTagCompound();
+				upgradeSlot = null;
+				return true;
+			}
+			return false;
+		}
+		else if(Block.getBlockFromItem(upgradeSlot.getItem()) instanceof BlockCampComponent)
+		{
+			BlockCampComponent block = (BlockCampComponent) Block.getBlockFromItem(upgradeSlot.getItem());
+			int index = block.getType().ordinal();
+			if(upgradeSlot == null)
+			{
+				componentInventory[index] = upgradeSlot;
+				Helper.getLogger().info("Applied existing component to empty slot");
+				upgradeSlot = null;
+				return true;
+			}
+			else
+			{
+				ItemStack temp = componentInventory[index];
+				componentInventory[index] = upgradeSlot;
+				upgradeSlot = temp;
+				Helper.getLogger().info("Swapped upgrade component with existing item in slot");
+				return true;
+			}
+			
+		}
+		Helper.getLogger().warn("Had an invalid upgrade in the upgrade slot of a backpack which should not be there.");
+		return false;
 	}
 
 	public ItemStack getComponentForDropping(UpgradeType componentType)
@@ -267,15 +332,28 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		componentInventory[componentType.ordinal()] = null;
 		return itemStack;
 	}
-
-	public void toggleAll()
+	public void deployAll()
 	{
-		for (int i = 0; i < 9; i++)
-		{
-			toggle(i);
-		}
+		NBTTagCompound tag;
+		for (int i = 0; i < componentInventory.length; i++)
+			if(componentInventory[i] != null)
+			{
+				tag = componentInventory[i].stackTagCompound;
+				if(!tag.getBoolean(NBTHelper.IS_DEPLOYED))
+					toggle(i);
+			}
 	}
-
+	public void recoverAll()
+	{
+		NBTTagCompound tag;
+		for (int i = 0; i < componentInventory.length; i++)
+			if(componentInventory[i] != null)
+			{
+				tag = componentInventory[i].stackTagCompound;
+				if(tag.getBoolean(NBTHelper.IS_DEPLOYED))
+					toggle(i);
+			}
+	}
 	public void toggle(int slot)
 	{
 		ItemStack upgrade = componentInventory[slot];
@@ -287,6 +365,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		int yoffset = comTag.getInteger(NBTHelper.YOFFSET);
 		int zoffset = comTag.getInteger(NBTHelper.ZOFFSET);
 
+		//This shit here doesn't work at all; need to rewrite this function
 		if (worldObj.setBlock(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset, 
 				(Block) ItemUpgrade.getTypeFromDamage(upgrade.getItemDamage()).getBlockContainer()))
 			worldObj.getTileEntity(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset).readFromNBT(comTag);

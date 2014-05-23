@@ -2,6 +2,7 @@ package net.firesquared.hardcorenomad.block.campcomponents;
 
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
@@ -29,5 +30,11 @@ public class BlockBrewing extends BlockCampComponent
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	@Override
+	public UpgradeType getType()
+	{
+		return UpgradeType.BrewingStand;
 	}
 }

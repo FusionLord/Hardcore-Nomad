@@ -34,7 +34,6 @@ public class ItemBackPack extends ItemArmor
 	{
 		if(is.stackTagCompound == null)
 			is.stackTagCompound = new NBTTagCompound();
-		is.stackTagCompound.setInteger(NBTHelper.CURRENTLEVEL, is.getItemDamage());
 	}
 	
 	@Override

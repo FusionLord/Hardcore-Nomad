@@ -37,7 +37,10 @@ public class ItemUpgrade extends Item
 		CampFire((BlockCampComponent)Blocks.BLOCK_CAMPFIRE.getBlock(), 5),
 		CobbleGen((BlockCampComponent)Blocks.BLOCK_COBBLEGEN.getBlock(), 1),
 		Crafting((BlockCampComponent)Blocks.BLOCK_CRAFTING.getBlock(), 1),
-		Enchanting((BlockCampComponent)Blocks.BLOCK_ENCHANTMENTTABLE.getBlock(), 5);
+		Enchanting((BlockCampComponent)Blocks.BLOCK_ENCHANTMENTTABLE.getBlock(), 5),
+		Storage((BlockCampComponent)Blocks.BLOCK_STORAGE.getBlock(), 1),
+		
+		Backpack(null, 3);
 		
 		BlockCampComponent block;
 		byte levels;

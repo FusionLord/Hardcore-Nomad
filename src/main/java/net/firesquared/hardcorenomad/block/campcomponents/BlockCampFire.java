@@ -9,6 +9,7 @@ import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -58,6 +59,7 @@ public class BlockCampFire extends BlockCampComponent
 		return true;
 	}
 
+	@Deprecated
 	public ItemStack packIntoItemStack(World world, int x, int y, int z)
 	{
 		ItemStack itemStack;
@@ -166,5 +168,10 @@ public class BlockCampFire extends BlockCampComponent
 	protected boolean has3dRender()
 	{
 		return true;
+	}
+	@Override
+	public UpgradeType getType()
+	{
+		return UpgradeType.CampFire;
 	}
 }

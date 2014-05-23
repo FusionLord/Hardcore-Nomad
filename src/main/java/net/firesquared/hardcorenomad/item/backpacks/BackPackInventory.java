@@ -7,14 +7,18 @@ import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 
 public class BackPackInventory implements IInventory
 {
+	//DO NOT MAKE ASSUMPTIONS about the size of any inventory or the value of any index
+	//get the value from where it is defined.  Don't just put the current value in as an integer
 	protected ItemStack[] storageInventory;
-	protected ItemStack[] componentInventory = new ItemStack[9];
+	protected ItemStack[] componentInventory = new ItemStack[ItemUpgrade.UpgradeType.values().length-1];
 	protected ItemStack upgradeSlot;
 	protected ItemStack armorSlot;
 	protected BackPackType currentLevel;
@@ -26,15 +30,13 @@ public class BackPackInventory implements IInventory
 		this.itemStack = itemStack;
 		tag = itemStack.stackTagCompound;
 		currentLevel = BackPackType.values()[Math.max(0, 
-				Math.min(tag.getInteger(NBTHelper.CURRENTLEVEL), 
+				Math.min(itemStack.getItemDamage(), 
 						BackPackType.values().length-1))];
 		readExtraNBT(tag);
 	}
 
 	public void writeExtraNBT(NBTTagCompound tag)
-	{
-		tag.setInteger(NBTHelper.CURRENTLEVEL, currentLevel.ordinal());
-		
+	{		
 		NBTTagCompound comInvTag = new NBTTagCompound();
 		for (int i = 0; i < componentInventory.length; i++)
 		{
@@ -60,7 +62,7 @@ public class BackPackInventory implements IInventory
 	public void readExtraNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound comInvTag = tag.getCompoundTag(NBTHelper.COMINV);
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < componentInventory.length; i++)
 		{
 			if(comInvTag.hasKey(NBTHelper.SLOT.concat(""+i)))
 				componentInventory[i] = ItemStack.loadItemStackFromNBT(comInvTag.getCompoundTag(NBTHelper.SLOT.concat(""+i)));
@@ -180,17 +182,16 @@ public class BackPackInventory implements IInventory
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack itemStack)
-	{
-		if(itemStack == null)
-			return true;
+	{		
+		Item item = itemStack.getItem();
 		if (slot < storageInventory.length)
-			return !(itemStack.getItem() instanceof ItemBackPack);
+			return true;
 		if (slot >= storageInventory.length && slot < storageInventory.length + componentInventory.length)
-			return Block.getBlockFromItem(itemStack.getItem()) instanceof BlockCampComponent;
+			return Block.getBlockFromItem(item) instanceof BlockCampComponent;
 		if (slot == storageInventory.length + componentInventory.length)
-			return itemStack.getItem() instanceof ItemUpgrade;
-		if (slot == storageInventory.length + componentInventory.length + 1)
-			return currentLevel.hasArmorSlot();
+			return item instanceof ItemUpgrade || Block.getBlockFromItem(item) instanceof BlockCampComponent;
+		if (slot == storageInventory.length + componentInventory.length + 1 && currentLevel.hasArmorSlot())
+			return item instanceof ItemArmor && !(item instanceof ItemBackPack);
 		return false;
 	}
 
