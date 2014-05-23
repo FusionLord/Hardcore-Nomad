@@ -1,7 +1,7 @@
 package net.firesquared.hardcorenomad.client.render.campcomponents;
 
 import net.firesquared.hardcorenomad.helpers.enums.Models;
-import net.firesquared.hardcorenomad.item.ItemNomadBase;
+import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquaredcore.helper.ModelRegistry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModelCustom;
@@ -31,7 +31,7 @@ public class RenderEnchantingItem implements IItemRenderer
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{
-		model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, ItemNomadBase.getTierLevel(item));
+		model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, ItemUpgrade.getLevelFromDamage(item.getItemDamage()));
 		texture = ModelRegistry.getTexture(Models.ENCHANTINGTABLE);
 		ModelRegistry.bindTexture(texture);
 
