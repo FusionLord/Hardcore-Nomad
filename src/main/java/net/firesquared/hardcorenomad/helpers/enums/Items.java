@@ -1,5 +1,8 @@
 package net.firesquared.hardcorenomad.helpers.enums;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.CreativeTab;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
@@ -12,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.client.IItemRenderer;
 
 public enum Items
 {
@@ -34,24 +38,41 @@ public enum Items
 	;
 
 	private final String internalName;
-	private Item item;
+	private final boolean isDungeonLoot;
+	private final Item item;
 	private int dungeonChestMin;
 	private int dungeonChestMax;
 	private int weight;
 
 	Items(String internalName, Item item, CreativeTabs creativeTabs)
 	{
-		this(internalName, item, creativeTabs, 0, 0, 0);
+		this(internalName, item, creativeTabs, -1, -1, -1);
 	}
 
-	Items(String internalName, Item item, CreativeTabs creativeTabs, int dungeonChestMin, int dungeonChestMax, int weight) {
+	Items(String internalName, Item item, CreativeTabs creativeTabs, int dungeonChestMin, int dungeonChestMax, int weight) 
+	{
 		this.internalName = internalName;
 		this.item = item;
 		item.setUnlocalizedName(Helper.Strings.MOD_ID + "." + internalName);
+		item.setTextureName(Helper.Strings.MOD_ID + ":textures.item."+internalName);
 		item.setCreativeTab(creativeTabs);
-		this.dungeonChestMax = dungeonChestMax;
-		this.dungeonChestMin = dungeonChestMin;
-		this.weight = weight;
+		if(dungeonChestMax < 0 || dungeonChestMin < 0 || weight < 0)
+			isDungeonLoot = false;
+		else
+		{
+			this.dungeonChestMax = dungeonChestMax;
+			this.dungeonChestMin = dungeonChestMin;
+			this.weight = weight;
+			isDungeonLoot = true;
+		}
+	}
+	
+	private void register()
+	{
+		Helper.getLogger().debug("Registering Item: " + internalName);
+		Item itemObject = item;
+		itemObject.setTextureName(Helper.Strings.MOD_ID + ":" + itemObject.getUnlocalizedName());
+		GameRegistry.registerItem(itemObject, internalName);
 	}
 
 	public String getInternalName()
@@ -68,26 +89,32 @@ public enum Items
 	{
 		return StatCollector.translateToLocal(item.getUnlocalizedName());
 	}
-
-	public ItemStack getDamagedStack(int damage)
+	
+	public ItemStack getStack(int damage, int size)
 	{
-		return new ItemStack(item, 1, damage);
+		return new ItemStack(item, size, damage);
 	}
-
-	public ItemStack getSizedStack(int size)
+	
+	public boolean isDungeonLoot()
 	{
-		return new ItemStack(item, size);
+		return isDungeonLoot;
 	}
 
 	public int getDungeonChestMin() {
-		return this.dungeonChestMin;
+		return isDungeonLoot ? this.dungeonChestMin : -1;
 	}
 
 	public int getDungeonChestMax() {
-		return this.dungeonChestMax;
+		return isDungeonLoot ? this.dungeonChestMax : -1;
 	}
 
 	public int getWeight() {
-		return this.weight;
+		return isDungeonLoot ? this.weight : -1;
+	}
+
+	public static void registerAll()
+	{
+		for(Items i : Items.values())
+			i.register();
 	}
 }

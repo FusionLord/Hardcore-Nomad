@@ -15,11 +15,7 @@ import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.misc.DispenserBehaviorPebble;
-import net.firesquared.hardcorenomad.tile.*;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBedRoll;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCrafting;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityEnchantmentTable;
+import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquaredcore.helper.IProxy;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.item.Item;
@@ -38,21 +34,13 @@ public abstract class CommonProxy implements IProxy
 	// Register Blocks
 	public void registerBlocks()
 	{
-		for(Blocks block : Blocks.values())
-		{
-			Helper.getLogger().debug("Registering Block: " + block.getInternalName());
-			GameRegistry.registerBlock(block.getBlock().setCreativeTab(block.getCreativeTabs()), block.getItemBlockClass(), "tile." + block.getInternalName());
-		}
+		Blocks.registerAll();
 	}
 
 	// Register TileEntities
 	public void registerTileEntities()
 	{
-		GameRegistry.registerTileEntity(TileEntityBackPack.class, "tile." + Helper.Strings.MOD_ID + ".backpack");
-		GameRegistry.registerTileEntity(TileEntityCampFire.class, "tile." + Helper.Strings.MOD_ID + ".campfire");
-		GameRegistry.registerTileEntity(TileEntityEnchantmentTable.class, "tile." + Helper.Strings.MOD_ID + ".enchantmenttable");
-		GameRegistry.registerTileEntity(TileEntityCrafting.class, "tile." + Helper.Strings.MOD_ID + ".crafting");
-		GameRegistry.registerTileEntity(TileEntityBedRoll.class, "tile." + Helper.Strings.MOD_ID + ".bedroll");
+		Tiles.registerAll();
 	}
 
 	// Register Entities
@@ -65,13 +53,7 @@ public abstract class CommonProxy implements IProxy
 	// Register Items
 	public void registerItems()
 	{
-		for(Items item : Items.values())
-		{
-			Helper.getLogger().debug("Registering Item: " + item.getInternalName());
-			Item itemObject = item.getItem();
-			itemObject.setTextureName(Helper.Strings.MOD_ID + ":" + itemObject.getUnlocalizedName());
-			GameRegistry.registerItem(itemObject, item.getInternalName());
-		}
+		Items.registerAll();
 	}
 
 	// Register World Events

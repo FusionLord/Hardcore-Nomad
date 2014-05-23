@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.helpers.enums;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.firesquared.hardcorenomad.block.BlockBackPack;
 import net.firesquared.hardcorenomad.block.campcomponents.BlockAnvil;
 import net.firesquared.hardcorenomad.block.campcomponents.BlockBedRoll;
@@ -34,9 +35,9 @@ public enum Blocks
 	;
 
 	private final String internalName;
-	private Block block;
-	private Class<? extends ItemBlock> itemBlockClass;
-	private CreativeTabs creativeTabs;
+	private final Block block;
+	private final Class<? extends ItemBlock> itemBlockClass;
+	private final CreativeTabs creativeTabs;
 
 	Blocks(String internalName, Block block)
 	{
@@ -76,14 +77,21 @@ public enum Blocks
 	{
 		return block;
 	}
-
-	public Class<? extends ItemBlock> getItemBlockClass()
+	
+	private static boolean registered = false;
+	
+	private void register()
 	{
-		return itemBlockClass;
+		Helper.getLogger().debug("Registering Block: " + internalName);
+		GameRegistry.registerBlock(block.setCreativeTab(creativeTabs), itemBlockClass, "tile." + internalName);
 	}
 
-	public CreativeTabs getCreativeTabs()
+	public static void registerAll()
 	{
-		return creativeTabs;
+		if(registered)
+			return;
+		for(Blocks b : Blocks.values())
+			b.register();
+		registered = true;
 	}
 }

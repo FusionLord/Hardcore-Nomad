@@ -3,6 +3,7 @@ package net.firesquared.hardcorenomad.block.campcomponents;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.HardcoreNomad;
+import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCrafting;
 import net.minecraft.block.BlockContainer;
@@ -61,5 +62,11 @@ public class BlockCrafting extends BlockCampComponent
 	{
 		TileEntityCrafting tileEntityCrafting = new TileEntityCrafting();
 		return tileEntityCrafting;
+	}
+
+	@Override
+	protected boolean has3dRender()
+	{
+		return false;
 	}
 }

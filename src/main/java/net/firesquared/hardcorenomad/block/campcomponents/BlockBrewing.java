@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.block.campcomponents;
 
+import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -21,5 +22,12 @@ public class BlockBrewing extends BlockCampComponent
 	{
 		// TODO: Make a tile entity for the crafting table :/
 		return null;
+	}
+
+	@Override
+	protected boolean has3dRender()
+	{
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

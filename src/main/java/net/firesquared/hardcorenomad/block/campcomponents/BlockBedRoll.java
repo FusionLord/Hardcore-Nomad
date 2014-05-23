@@ -2,6 +2,7 @@ package net.firesquared.hardcorenomad.block.campcomponents;
 
 import java.util.List;
 
+import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBedRoll;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -40,5 +41,11 @@ public class BlockBedRoll extends BlockCampComponent
 	    {
 	        p_149743_6_.add(axisalignedbb1);
 	    }
+	}
+
+	@Override
+	protected boolean has3dRender()
+	{
+		return true;
 	}
 }

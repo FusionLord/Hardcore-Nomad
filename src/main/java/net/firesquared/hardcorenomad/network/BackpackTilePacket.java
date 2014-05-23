@@ -5,6 +5,7 @@ import java.io.IOException;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import net.firesquared.hardcorenomad.helpers.Helper;
+import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquaredcore.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
@@ -87,7 +88,7 @@ public class BackpackTilePacket extends AbstractPacket
 	@Override
 	public void handleClientSide(EntityPlayer entityPlayer)
 	{
-		TileEntityBackPack bp = Helper.getTileEntity(entityPlayer.worldObj, x, y, z, TileEntityBackPack.class);
+		TileEntityBackPack bp = Tiles.<TileEntityBackPack>getTileEntity(entityPlayer.worldObj, x, y, z);
 		if(bp==null)
 			return;
 		bp.acceptPacket(this);

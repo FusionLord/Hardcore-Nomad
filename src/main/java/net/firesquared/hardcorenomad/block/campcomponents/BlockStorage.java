@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.block.campcomponents;
 
+import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
@@ -20,5 +21,11 @@ public class BlockStorage extends BlockCampComponent
 	{
 		// TODO: Make a tile entity for the crafting table :/
 		return null;
+	}
+
+	@Override
+	protected boolean has3dRender()
+	{
+		return false;
 	}
 }

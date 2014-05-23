@@ -1,8 +1,10 @@
 package net.firesquared.hardcorenomad.block.campcomponents;
 
+import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
+import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCobbleGenerator;
 import net.minecraft.block.BlockContainer;
@@ -32,13 +34,19 @@ public class BlockCobbleGenerator extends BlockCampComponent
 		ItemStack itemStack;
 		itemStack = new ItemStack(Blocks.BLOCK_COBBLEGEN.getBlock());
 
-		TileEntityCobbleGenerator tileEntityCobbleGenerator = Helper.getTileEntity(world, x, y, z, TileEntityCobbleGenerator.class);
+		TileEntityCobbleGenerator tileEntityCobbleGenerator = Tiles.<TileEntityCobbleGenerator>getTileEntity(world, x, y, z);
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();
 		tileEntityCobbleGenerator.writeToNBT(nbtTagCompound);
 
 		itemStack.setTagCompound(nbtTagCompound);
 
 		return itemStack;
+	}
+
+	@Override
+	protected boolean has3dRender()
+	{
+		return false;
 	}
 
 }

@@ -1,6 +1,7 @@
 package net.firesquared.hardcorenomad.block.campcomponents;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
+import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityEnchantmentTable;
 import net.minecraft.block.BlockContainer;
@@ -80,5 +81,11 @@ public class BlockEnchantmentTable extends BlockCampComponent
 	public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
 	{
 		return false;
+	}
+
+	@Override
+	protected boolean has3dRender()
+	{
+		return true;
 	}
 }

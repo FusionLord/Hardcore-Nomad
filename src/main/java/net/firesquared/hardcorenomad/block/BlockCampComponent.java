@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.block.campcomponents;
+package net.firesquared.hardcorenomad.block;
 
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
@@ -12,7 +12,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockCampComponent extends BlockContainer
+public abstract class BlockCampComponent extends BlockContainer
 {
 	protected BlockCampComponent(Material material)
 	{
@@ -49,31 +49,39 @@ public class BlockCampComponent extends BlockContainer
 	@Override
 	public boolean isBlockSolid(IBlockAccess world, int x, int y, int z, int meta)
 	{
-		return true;
+		return has3dRender() ? false : super.isBlockSolid(world, x, y, z, meta);
 	}
-
+	
+	protected abstract boolean has3dRender();
+	
 	@Override
-	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
+	public boolean isOpaqueCube()
 	{
-		return false;
+		return has3dRender() ? false : super.isOpaqueCube();
 	}
-
+	
 	@Override
-	public boolean isBlockNormalCube()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int meta)
+	public boolean getCanBlockGrass()
 	{
 		return false;
 	}
 	
 	@Override
-	public boolean isOpaqueCube()
+	public boolean isFlammable(IBlockAccess world, int x, int y, int z, ForgeDirection face)
 	{
 		return false;
+	}
+	
+	@Override
+	public int getRenderType()
+	{
+		return has3dRender() ? -1 : 0;
+	}
+	
+	@Override
+	public boolean renderAsNormalBlock()
+	{
+		return has3dRender() ? false : super.renderAsNormalBlock();
 	}
 
 }

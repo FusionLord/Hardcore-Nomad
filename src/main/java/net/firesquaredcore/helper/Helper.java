@@ -171,10 +171,4 @@ public class Helper
 			return sum;
 		}
 	}
-	
-	public static <T> T getTileEntity(IBlockAccess access, int x, int y, int z, Class<T> clazz)
-	{
-		TileEntity te = access.getTileEntity(x, y, z);
-		return !clazz.isInstance(te) ? null : (T) te;
-	}
 }

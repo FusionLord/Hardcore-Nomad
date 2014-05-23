@@ -121,4 +121,6 @@ public class ItemBackPack extends ItemArmor
 			list.add(new ItemStack(this, 1, type.ordinal()));
 		}
 	}
+	
+	
 }

@@ -3,6 +3,7 @@ package net.firesquared.hardcorenomad.block;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
+import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -28,7 +29,7 @@ public class BlockBackPack extends BlockContainer
 		setHardness(1.0F);
 		setResistance(100.0F);
 		setStepSound(soundTypeCloth);
-		setBlockTextureName(Helper.Strings.MOD_ID + ":" + getUnlocalizedName());
+		//setBlockTextureName(Helper.Strings.MOD_ID + ":" + getUnlocalizedName());
 		setBlockBounds(0.1f, 0f, 0.3f, .9f, .9f, .7f);
 	}
 
@@ -67,7 +68,7 @@ public class BlockBackPack extends BlockContainer
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6,
 			float par7, float par8, float par9)
 	{
-		TileEntityBackPack te = Helper.getTileEntity(world, x, y, z, TileEntityBackPack.class);
+		TileEntityBackPack te = Tiles.<TileEntityBackPack>getTileEntity(world, x, y, z);
 		if(te==null)
 			return true;
 		if(player instanceof EntityPlayerMP)
@@ -75,39 +76,17 @@ public class BlockBackPack extends BlockContainer
 		player.openGui(HardcoreNomad.instance, 0, world, x, y, z);
 		return true;
 	}
+	
+	
 
 	@Override
 	public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_)
-	{
-		return true;
-	}
-
-	@Override
-	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isNormalCube()
 	{
 		return false;
 	}
 
 	@Override
 	public boolean isOpaqueCube()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isBlockNormalCube()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
 	{
 		return false;
 	}
@@ -120,6 +99,18 @@ public class BlockBackPack extends BlockContainer
 	
 	@Override
 	public boolean isFlammable(IBlockAccess world, int x, int y, int z, ForgeDirection face)
+	{
+		return false;
+	}
+	
+	@Override
+	public int getRenderType()
+	{
+		return -1;
+	}
+	
+	@Override
+	public boolean renderAsNormalBlock()
 	{
 		return false;
 	}
