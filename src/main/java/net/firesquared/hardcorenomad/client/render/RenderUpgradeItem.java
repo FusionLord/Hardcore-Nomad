@@ -1,11 +1,11 @@
 package net.firesquared.hardcorenomad.client.render;
 
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.firesquaredcore.helper.ModelRegistry;
-import net.firesquared.firesquaredcore.helper.Helper.Numeral;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
+import net.firesquaredcore.helper.ModelRegistry;
+import net.firesquaredcore.helper.Helper.Numeral;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.RenderBlocks;

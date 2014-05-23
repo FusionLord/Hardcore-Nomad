@@ -3,7 +3,7 @@
 package net.firesquared.hardcorenomad.client.render.backpack;
 
 import net.firesquared.hardcorenomad.helpers.enums.Models;
-import net.firesquared.firesquaredcore.helper.ModelRegistry;
+import net.firesquaredcore.helper.ModelRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;

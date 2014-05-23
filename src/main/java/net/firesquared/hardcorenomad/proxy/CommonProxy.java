@@ -20,7 +20,7 @@ import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBedRoll;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCrafting;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityEnchantmentTable;
-import net.firesquared.firesquaredcore.helper.IProxy;
+import net.firesquaredcore.helper.IProxy;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

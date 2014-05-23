@@ -1,7 +1,7 @@
 package net.firesquared.hardcorenomad.client.render;
 
 import net.firesquared.hardcorenomad.helpers.enums.Models;
-import net.firesquared.firesquaredcore.helper.ModelRegistry;
+import net.firesquaredcore.helper.ModelRegistry;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;

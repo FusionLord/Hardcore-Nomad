@@ -1,8 +1,8 @@
 package net.firesquared.hardcorenomad.helpers.enums;
 
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.firesquaredcore.helper.IModelEnum;
-import net.firesquared.firesquaredcore.helper.ModelRegistry;
+import net.firesquaredcore.helper.IModelEnum;
+import net.firesquaredcore.helper.ModelRegistry;
 
 public enum Models implements IModelEnum
 {

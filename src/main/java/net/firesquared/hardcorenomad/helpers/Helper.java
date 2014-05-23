@@ -5,11 +5,11 @@ import org.apache.logging.log4j.Level;
 import net.firesquared.hardcorenomad.network.BackpackTilePacket;
 import net.firesquared.hardcorenomad.network.ButtonPacket;
 import net.firesquared.hardcorenomad.network.SyncPlayerPropertiesPacket;
-import net.firesquared.firesquaredcore.helper.Logger;
-import net.firesquared.firesquaredcore.network.AbstractPacket;
-import net.firesquared.firesquaredcore.network.PacketHandler;
+import net.firesquaredcore.helper.Logger;
+import net.firesquaredcore.network.AbstractPacket;
+import net.firesquaredcore.network.PacketHandler;
 
-public class Helper extends net.firesquared.firesquaredcore.helper.Helper
+public class Helper extends net.firesquaredcore.helper.Helper
 {
 	private static final Class<? extends AbstractPacket>[] packets = new Class[]
 			{
