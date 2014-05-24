@@ -46,7 +46,7 @@ public class ItemBackPack extends ItemArmor
 	@Override
 	public void setDamage(ItemStack stack, int damage)
 	{
-		if (BackPackType.values()[stack.getItemDamage()%BackPackType.values().length].hasArmorSlot())
+		if (BackPackType.fromLevel(stack.getItemDamage()).hasArmorSlot())
 		{
 			NBTTagCompound tag = stack.getTagCompound();
 			ItemStack armor = ItemStack.loadItemStackFromNBT(tag.getCompoundTag(NBTHelper.ARMORSLOT));
@@ -61,7 +61,7 @@ public class ItemBackPack extends ItemArmor
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack)
 	{
-		if (BackPackType.values()[stack.getItemDamage() % BackPackType.values().length].hasArmorSlot())
+		if (BackPackType.fromLevel(stack.getItemDamage()).hasArmorSlot())
 		{
 			NBTTagCompound tag = stack.getTagCompound();
 			ItemStack armor = ItemStack.loadItemStackFromNBT(tag.getCompoundTag(NBTHelper.ARMORSLOT));
