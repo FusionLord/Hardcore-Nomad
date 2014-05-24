@@ -17,7 +17,7 @@ import net.minecraft.nbt.NBTTagCompound;
 public class BackpackTilePacket extends AbstractPacket
 {
 	public ItemStack[] storageInventory;
-	public ItemStack[] componentInventory = new ItemStack[9];
+	public ItemStack[] componentInventory;
 	public ItemStack upgradeSlot;
 	public ItemStack armorSlot;
 	int x,y,z;
@@ -76,7 +76,7 @@ public class BackpackTilePacket extends AbstractPacket
 			}
 			if(flag%2==0)
 				upgradeSlot = readItemStackFromBuffer(bbuf);
-			if(flag/2==0)
+			if((flag/2)%2==0)
 				armorSlot = readItemStackFromBuffer(bbuf);
 		}
 		catch(IOException e)

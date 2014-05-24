@@ -31,6 +31,7 @@ public class ItemUpgrade extends Item
 	
 	public enum UpgradeType
 	{
+		//NOTE: Changing the index of an item in this enum WILL BREAK saves!
 		Anvil((BlockCampComponent)Blocks.BLOCK_ANVIL.getBlock(), 1),
 		BedRoll((BlockCampComponent)Blocks.BLOCK_BEDROLL.getBlock(), 4),
 		BrewingStand((BlockCampComponent)Blocks.BLOCK_BREWING.getBlock(), 1),
@@ -82,5 +83,10 @@ public class ItemUpgrade extends Item
 				list.add(getUpgradeStack(ut, i));
 			}
 		}
+	}
+	
+	public static int getCampComponentCount()
+	{
+		return UpgradeType.values().length - 1;
 	}
 }

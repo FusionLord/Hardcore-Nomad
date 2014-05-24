@@ -1,89 +1,111 @@
 package net.firesquared.hardcorenomad.client.gui;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import net.firesquared.hardcorenomad.container.BackpackContainer;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
+import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.network.ButtonPacket;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
+import net.firesquaredcore.client.gui.DynGUIBase;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
 
-import org.lwjgl.opengl.GL11;
-
-public class BackpackGUI extends GuiContainer
+public class BackpackGUI extends DynGUIBase<BackpackContainer>
 {
-	private static final ResourceLocation background = new ResourceLocation("hardcorenomad:gui/GUIBackpack1.png");
-	boolean isPlaced;
 	static final int rowStart = 28, columnStart = 7, size = 18;
-	BackpackContainer container;
+	private final static int scrollThreshold = 9, scrollElements = scrollThreshold - 2;
+	final boolean isPlaced;
+	boolean useScrolling;
+	private int scrollIndex = 0;
+	private int startX, startY;
 
-	public BackpackGUI(BackpackContainer par1Container)
+	public BackpackGUI(BackpackContainer container)
 	{
-		super(par1Container);
-		container = par1Container;
-		isPlaced = par1Container.isPlaced;
-		xSize = 250;
+		super(container);
+		this.isPlaced = container.isPlaced;
 	}
-	
+
 	@Override
 	public void initGui()
 	{
 		super.initGui();
-		if(!isPlaced)
-			return;
-		List<GuiButton> buttons = new ArrayList<GuiButton>();
-		int count;
-		buttons.add(new GuiButton(-1, this.guiLeft + 110, this.guiTop + 6, size, size, "U"));
-		buttons.add(new GuiButton(100, this.guiLeft + columnStart, this.guiTop + 6, size, size, "Dep"));
-		for(count = 0; count < UpgradeType.values().length - 1; count++)
-			new GuiButton(count, this.guiLeft + columnStart + count*18, this.guiTop + rowStart, size, size, ""+(count+1));
+		int i = 0;
+		ArrayList<GuiButton> buttons = new ArrayList<GuiButton>();
+		buttons.add(new GuiButton(-1, this.guiLeft + columnStart + 6 * 18, this.guiTop + 7, size, size, "U"));
+		buttons.add(new GuiButton(100, this.guiLeft + columnStart, this.guiTop + 7, size * 3, size, "Dep All"));
+		buttons.add(new GuiButton(101,this.guiLeft + columnStart + size * 3, this.guiTop + 7, size * 3, size, "Rec All"));
+		int compCount = container.upgradeDisplaySlots.size();
+		useScrolling = compCount > scrollThreshold;
+		if(useScrolling)
+		{
+			//remove the GUI element showing the background for the slots that are going to be hidden
+			Slot first = container.upgradeDisplaySlots.get(0);
+			int index = first.slotNumber + 1 + scrollElements;
+			for(int j = 8; j < container.upgradeDisplaySlots.size(); j++)
+				elements.remove(index);
+			elements.remove(first.slotNumber);
+			for(int j = 0; j < scrollElements; j++)
+				buttons.add(new GuiButton(i, this.guiLeft + columnStart + ++i*18, this.guiTop + rowStart, size, size + 1, "Tog"));
+			startX = first.xDisplayPosition + 18;
+			startY = first.yDisplayPosition;
+			buttons.add(new GuiButton(-2, this.guiLeft + columnStart, this.guiTop + rowStart, size, 2 * size + 1, "<"));
+			buttons.add(new GuiButton(-3, this.guiLeft + columnStart, this.guiTop + rowStart + 9 * 18, size, 2 * size + 1, ">"));
+		}
+		else
+			for(;i < compCount;)
+				buttons.add(new GuiButton(i, this.guiLeft + columnStart + i++*18, this.guiTop + rowStart, size, size + 1, ""+i));
+		
 		for(GuiButton b : buttons)
 		{
-			//perform any necessary enabling or disabling of buttons.
+			b.enabled = true;
 			buttonList.add(b);
 		}
 	}
-
-	@Override
-	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3)
+	
+	private void shiftScroll()
 	{
-		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		int centX = (width - xSize) / 2;
-		int centY = (height - ySize) / 2;
-
-		mc.getTextureManager().bindTexture(background);
-		drawTexturedModalRect(centX, centY, 0, 0, 256, ySize);
-		
-		if(!isPlaced)
+		Slot s;
+		int i, j;
+		for(i = 0; i < container.upgradeDisplaySlots.size(); i++)
 		{
-			itemRender.renderItemAndEffectIntoGUI(this.fontRendererObj, this.mc.getTextureManager(), 
-					container.getThisBackpack(), container.getMySlot() * 18 + 8 + this.guiLeft, 
-					18 * 7 + 7 + this.guiTop);
-		}	
+			s = container.upgradeDisplaySlots.get(i);
+			if(i < scrollIndex || i >= scrollIndex + scrollElements)
+			{
+				s.xDisplayPosition = -1000;
+			}
+			else
+			{
+				j = i - scrollIndex;
+				s.xDisplayPosition = startX + j * 18;
+			}
+		}
 	}
 	
 	@Override
 	protected void actionPerformed(GuiButton button)
 	{
+		super.actionPerformed(button);
+		//if using scrolling and the player clicks an arrow
+		if(useScrolling && (button.id == -2 || button.id == -3))
+		{
+			if(button.id == -2)
+				scrollIndex--;
+			else
+				scrollIndex++;
+			scrollIndex%=container.upgradeDisplaySlots.size();
+			shiftScroll();
+		}
+		
 		if(isPlaced)
 		{
 			TileEntityBackPack te = ((TileEntityBackPack)container.backPack);
+			int id = button.id;
+			//if necessary, translate the button's index into an inventory index
+			if(useScrolling && scrollIndex != 0 && id >= 0 && id < scrollElements)
+				id = (id + scrollIndex) % scrollElements;
 			Helper.PACKET_HANDLER.sendToServer(new ButtonPacket(te.xCoord, te.yCoord, te.zCoord, button.id));
 		}
-		
-		super.actionPerformed(button);
 	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_)
-	{
-		super.drawGuiContainerForegroundLayer(p_146979_1_, p_146979_2_);
-	}
-
-	
 }

@@ -29,7 +29,7 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 	protected int guiWidth, guiHeight;
 	final BackgroundSkin skin;
 	
-	List<IGuiElement> elements;
+	protected List<IGuiElement> elements;
 	
 	private GUIBackgroundProvider background;
 
@@ -43,7 +43,6 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 		super(container);
 		this.container = container;
 		this.skin = skin;
-		Helper.getLogger().debug("I'm logging from the FireSquared Library!");
 	}
 
 	@Override
@@ -85,8 +84,7 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-		background.drawForeground();
+		
 		for(IGuiElement element : elements)
 			element.drawForeground();
 	}
@@ -95,11 +93,13 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 	protected void drawGuiContainerBackgroundLayer(float var1, int var2, int var3)
 	{
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glPushMatrix();
 		GL11.glTranslatef(guiLeft, guiTop, 0f);
 		background.drawBackground();
+		background.drawForeground();
 		for (IGuiElement element : elements)
 			element.drawBackground();
-		GL11.glTranslatef(-guiLeft, -guiTop, 0f);
+		GL11.glPopMatrix();
 	}
 
 	@Override

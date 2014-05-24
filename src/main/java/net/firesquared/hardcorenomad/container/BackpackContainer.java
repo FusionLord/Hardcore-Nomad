@@ -1,7 +1,10 @@
 package net.firesquared.hardcorenomad.container;
 
+import java.util.ArrayList;
+
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
+import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.backpacks.BackPackInventory;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +21,8 @@ public class BackpackContainer extends Container
 	public IInventory backPack;
 	ItemStack me;
 	int meSlot = -1;
+	public final ArrayList<Slot> upgradeDisplaySlots = new ArrayList<Slot>();
+	boolean isServer;
 
 	@Override
 	public boolean canInteractWith(EntityPlayer var1)
@@ -33,7 +38,7 @@ public class BackpackContainer extends Container
 
 	public BackpackContainer(InventoryPlayer invPlayer, TileEntityBackPack backPack)
 	{
-		super();
+		isServer = !invPlayer.player.worldObj.isRemote;
 		this.backPack = backPack;
 		isPlaced = true;
 		type = backPack.getType();
@@ -44,6 +49,7 @@ public class BackpackContainer extends Container
 
 	public BackpackContainer(InventoryPlayer invPlayer, ItemStack currentItem)
 	{
+		isServer = !invPlayer.player.worldObj.isRemote;
 		if(invPlayer == null || currentItem == null || currentItem.stackTagCompound == null)
 		{
 			Helper.getLogger().fatal("null input to backpack container");
@@ -67,10 +73,8 @@ public class BackpackContainer extends Container
 			for(int j = 0; j < 9; j++)
 				addSlotToContainer(new Slot(invPlayer, j + i * 9, j * 18 + 8, (i+3) * 18+ 3));
 		for(int i = 0; i < 9; i++)
-//			if(isPlaced || i!=meSlot)
+			if(isPlaced || i!=meSlot)
 				addSlotToContainer(new Slot(invPlayer, i, i * 18 + 8, 18 * 7 + 7));
-//			else
-//				addSlotToContainer(new Slot(invPlayer, i, -1000, -1000));
 	}
 
 	private void bindBackpackSlots()
@@ -82,15 +86,18 @@ public class BackpackContainer extends Container
 			for(int y = 0; y < type.getStorageHeight(); y++)
 				addSlotToContainer(new Slot(backPack, slot++, paddingLeft + x * 18, paddingTop + y * 18));
 		
-		slot += 8;
-//		for (int i = 0; i < 8; i++)
-//		{
-//			addSlotToContainer(new Slot(backPack, slot++, 8 + i * 18, 50));
-//		}
+		Slot tempSlot;
+		for (int i = 0; i < ItemUpgrade.getCampComponentCount(); i++)
+		{
+			tempSlot = new Slot(backPack, slot++, 8 + i * 18, 50);
+			upgradeDisplaySlots.add(tempSlot);
+			addSlotToContainer(tempSlot);
+		}
 
-		addSlotToContainer(new Slot(backPack, slot++, 8 + 8 * 18, 50));
+		addSlotToContainer(new Slot(backPack, slot++, 8 + 7 * 18, 8));
 		if (type.hasArmorSlot())
 			addSlotToContainer(new Slot(backPack, slot++, 8 + 8 * 18, 8));
+		Helper.getLogger().info((isServer?"Server":"Client")+" has " + slot + " slots");
 	}
 	
 	public ItemStack getThisBackpack()

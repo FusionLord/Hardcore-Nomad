@@ -11,6 +11,7 @@ public class TileEntityDeployableBase extends TileEntity
 	private int xOffset;
 	private int yOffset;
 	private int zOffset;
+	private int level;
 
 	public TileEntityDeployableBase(UpgradeType componentType)
 	{
@@ -34,6 +35,7 @@ public class TileEntityDeployableBase extends TileEntity
 		tag.setInteger(NBTHelper.XOFFSET, xOffset);
 		tag.setInteger(NBTHelper.YOFFSET, yOffset);
 		tag.setInteger(NBTHelper.ZOFFSET, zOffset);
+		tag.setByte("tileentitymetadata", (byte) getBlockMetadata());
 	}
 
 	@Override
@@ -48,10 +50,13 @@ public class TileEntityDeployableBase extends TileEntity
 		xOffset = tag.getInteger(NBTHelper.XOFFSET);
 		yOffset = tag.getInteger(NBTHelper.YOFFSET);
 		zOffset = tag.getInteger(NBTHelper.ZOFFSET);
+		level = tag.getByte("tileentitymetadata");
 	}
 
 	public int getCurrentLevel()
 	{
+		if(worldObj == null)
+			return level;
 		return getBlockMetadata();
 	}
 

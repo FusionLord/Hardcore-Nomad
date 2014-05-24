@@ -1,9 +1,13 @@
 package net.firesquared.hardcorenomad;
 
 import cpw.mods.fml.common.network.IGuiHandler;
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.firesquared.hardcorenomad.client.gui.*;
 import net.firesquared.hardcorenomad.container.*;
 import net.firesquared.hardcorenomad.helpers.Helper;
+import net.firesquared.hardcorenomad.helpers.enums.Tiles;
+import net.firesquared.hardcorenomad.network.YoDawg_YouDunFuckedUpYoNetcodeException;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +23,10 @@ public class GUIHandler implements IGuiHandler
 		switch(ID)
 		{
 			case 0:
-				return new BackpackContainer(player.inventory, (TileEntityBackPack) world.getTileEntity(x, y, z));
+				TileEntityBackPack backpack = Tiles.<TileEntityBackPack>getTileEntity(world, x, y, z);
+				if(backpack == null) return null;
+				Helper.PACKET_HANDLER.sendToAllAround(backpack.getPacket(), new TargetPoint(world.provider.dimensionId, x, y, z, 12));
+				return new BackpackContainer(player.inventory, backpack);
 			case 1:
 				return new BackpackContainer(player.inventory, player.inventory.getCurrentItem());
 			case 2:
@@ -43,8 +50,7 @@ public class GUIHandler implements IGuiHandler
 		{
 			case 0:
 			case 1:
-				return new DynamicGuiTest((BackpackContainer) getServerGuiElement(ID, player, world, x, y, z));
-				//return new BackpackGUI((BackpackContainer) getServerGuiElement(ID, player, world, x, y, z));
+				return new BackpackGUI((BackpackContainer) getServerGuiElement(ID, player, world, x, y, z));
 			case 2:
 				return new CampFireGUI((Container) getServerGuiElement(ID, player, world, x, y, z));
 			case 3:

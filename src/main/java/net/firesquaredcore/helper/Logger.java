@@ -28,7 +28,9 @@ public class Logger
 	private String getTimeStamp()
 	{
 		GregorianCalendar cal = new GregorianCalendar();
-		return "["+cal.get(cal.HOUR_OF_DAY) + cal.get(cal.MINUTE) + cal.get(cal.SECOND) + cal.get(cal.MILLISECOND) + "]";
+		return "["+cal.get(cal.HOUR_OF_DAY) + ":" + 
+				cal.get(cal.MINUTE) + ":"+ 
+		cal.get(cal.SECOND)+ "." + cal.get(cal.MILLISECOND) + "]";
 	}
 
 	public void all(Object object)

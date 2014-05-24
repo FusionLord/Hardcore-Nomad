@@ -2,6 +2,7 @@ package net.firesquared.hardcorenomad.item.backpacks;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.firesquared.hardcorenomad.HardcoreNomad;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
@@ -37,9 +38,9 @@ public class ItemBackPack extends ItemArmor
 	}
 	
 	@Override
-	public int getDisplayDamage(ItemStack stack)
+	public boolean showDurabilityBar(ItemStack stack)
 	{
-		return 0;
+		return false;
 	}
 
 	@Override
@@ -78,10 +79,14 @@ public class ItemBackPack extends ItemArmor
 	@Override
 	public boolean onItemUse(ItemStack is, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
+		boolean isServer = !world.isRemote;
+		if(isServer)
+			Helper.getLogger().info("running onItemUse server side"); 
 		if(is.stackTagCompound == null)
 			Items.ITEM_BACKPACK.getItem().onCreated(is, world, player);
 		if(player.isSneaking())
 		{
+			Helper.getLogger().info("Player sneaking; exiting item use method"); 
 			return true;
 		}
 
@@ -99,9 +104,9 @@ public class ItemBackPack extends ItemArmor
 		if(player.canPlayerEdit(x, y, z, side, is))
 			if (world.setBlock(x, y, z, bbp, is.getItemDamage(), 3))
 			{
-				int meta = bbp.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, 0);
+				//int meta = bbp.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, is.getItemDamage());
 				bbp.onBlockPlacedBy(world, x, y, z, player, is);
-				bbp.onPostBlockPlaced(world, x, y, z, meta);
+				bbp.onPostBlockPlaced(world, x, y, z, is.getItemDamage());
 				world.playSoundEffect(x+.5f, y, z+.5f, bbp.stepSound.func_150496_b(), 
 						bbp.stepSound.getVolume() / 2f + .5f, bbp.stepSound.getPitch() * .8f);
 				TileEntityBackPack backPack = (TileEntityBackPack)world.getTileEntity(x, y, z);
@@ -109,6 +114,16 @@ public class ItemBackPack extends ItemArmor
 				--is.stackSize;
 				return true;
 			}
+			else
+			{
+				if(isServer)
+					Helper.getLogger().info("failed on setBlock"); 
+			}
+		else		
+			if(isServer)
+				Helper.getLogger().info("failed on can edit"); 
+		if(isServer)
+			Helper.getLogger().info("placement successful"); 
 		return true;
 	}
 

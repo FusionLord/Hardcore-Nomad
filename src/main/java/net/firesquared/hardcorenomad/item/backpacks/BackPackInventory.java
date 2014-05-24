@@ -18,7 +18,7 @@ public class BackPackInventory implements IInventory
 	//DO NOT MAKE ASSUMPTIONS about the size of any inventory or the value of any index
 	//get the value from where it is defined.  Don't just put the current value in as an integer
 	protected ItemStack[] storageInventory;
-	protected ItemStack[] componentInventory = new ItemStack[ItemUpgrade.UpgradeType.values().length-1];
+	protected ItemStack[] componentInventory = new ItemStack[ItemUpgrade.getCampComponentCount()];
 	protected ItemStack upgradeSlot;
 	protected ItemStack armorSlot;
 	protected BackPackType currentLevel;

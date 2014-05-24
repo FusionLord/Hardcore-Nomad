@@ -48,7 +48,7 @@ public class ButtonPacket extends AbstractPacket
 	{
 		
 	}
-	static final int componentCount = ItemUpgrade.UpgradeType.values().length - 1;
+	static final int componentCount = ItemUpgrade.getCampComponentCount();
 	@Override
 	public void handleServerSide(EntityPlayer entityPlayer)
 	{
@@ -68,7 +68,7 @@ public class ButtonPacket extends AbstractPacket
 					backPack.recoverAll();
 					return;
 				default:
-					if(ID<0||ID>=componentCount)
+					if(ID>=0 && ID < componentCount)
 						backPack.toggle(ID);
 			}
 		}

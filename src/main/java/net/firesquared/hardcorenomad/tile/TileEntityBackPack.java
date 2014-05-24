@@ -2,6 +2,7 @@
 
 package net.firesquared.hardcorenomad.tile;
 
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
@@ -27,7 +28,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	//get the value from where it is defined.  Don't just put the current value in as an integer
 	protected ItemStack[] storageInventory;
 	//slot for everything excluding the backpack upgrade
-	protected ItemStack[] componentInventory = new ItemStack[ItemUpgrade.UpgradeType.values().length - 1];
+	protected ItemStack[] componentInventory = new ItemStack[ItemUpgrade.getCampComponentCount()];
 	protected ItemStack upgradeSlot;
 	protected ItemStack armorSlot;
 	private boolean initialized = false;
@@ -83,7 +84,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		this.armorSlot = pkt.armorSlot;
 		this.upgradeSlot = pkt.upgradeSlot;
 		this.componentInventory = pkt.componentInventory;
-		this.storageInventory = pkt.componentInventory;
+		this.storageInventory = pkt.storageInventory;
 	}
 	
 	public BackpackTilePacket getPacket()
@@ -120,7 +121,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		for (int i = 0; i < storageInventory.length; i++)
 		{
 			if(stgInvTag.hasKey(NBTHelper.SLOT.concat(""+i)))
-				storageInventory[i] = ItemStack.loadItemStackFromNBT(comInvTag.getCompoundTag(NBTHelper.SLOT.concat(""+i)));
+				storageInventory[i] = ItemStack.loadItemStackFromNBT(stgInvTag.getCompoundTag(NBTHelper.SLOT.concat(""+i)));
 		}
 		
 		if(tag.hasKey(NBTHelper.UPGRADESLOT))
@@ -146,6 +147,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	@Override
 	public ItemStack getStackInSlot(int slot)
 	{
+		//Helper.getLogger().info((worldObj.isRemote?"Client":"Server")+" getting slot contents at index " + slot);
 		//TODO: change so that the last 3 levels can all mount some form of armor
 		//improved limited to un-enchanted iron or leather armor only; possibly also wood armor from TC
 		//advanced can have any kind of un-enchanted, vanilla armor
@@ -192,17 +194,18 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack itemStack)
 	{
+		Helper.getLogger().info((worldObj.isRemote?"Client":"Server")+" setting slot contents at index " + slot);
 		boolean isArmor = getType().hasArmorSlot();
 		if(itemStack != null)
 			itemStack = itemStack.copy();
 		
 		if (slot < storageInventory.length)
 			storageInventory[slot] = itemStack;
-		if (slot >= storageInventory.length && slot < storageInventory.length + componentInventory.length)
+		else if (slot >= storageInventory.length && slot < storageInventory.length + componentInventory.length)
 			componentInventory[slot - storageInventory.length] = itemStack;
-		if (slot == storageInventory.length + componentInventory.length)
+		else if (slot == storageInventory.length + componentInventory.length)
 			upgradeSlot = itemStack;
-		if (slot == storageInventory.length + componentInventory.length + 1 && isArmor)
+		else if (slot == storageInventory.length + componentInventory.length + 1 && isArmor)
 			armorSlot = itemStack;
 	}
 
@@ -259,7 +262,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	 */
 	public boolean doUpgrade()
 	{
-		if (upgradeSlot == null)
+		if (upgradeSlot == null )
 			return false;
 
 		if(upgradeSlot.getItem() instanceof ItemUpgrade)
@@ -277,6 +280,11 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 					setBlockMeta(meta + 1);
 					Helper.getLogger().info("Applied upgrade "+upgradeSlot.getDisplayName());
 					upgradeSlot = null;
+					ItemStack[] isa = storageInventory;
+					storageInventory = new ItemStack[getType().getStorageCount()];
+					for(int i = 0; i < isa.length; i++)
+						storageInventory[i] = isa[i];
+					
 					return true;
 				}
 				return false;
@@ -319,6 +327,13 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		}
 		Helper.getLogger().warn("Had an invalid upgrade in the upgrade slot of a backpack which should not be there.");
 		return false;
+	}
+	
+	@SideOnly(Side.SERVER)
+	public void sendAreaUpdate(double range)
+	{
+		Helper.PACKET_HANDLER.sendToAllAround(getPacket(), 
+				new TargetPoint(worldObj.provider.dimensionId, xCoord, yCoord, zCoord, range));
 	}
 
 	public ItemStack getComponentForDropping(UpgradeType componentType)
