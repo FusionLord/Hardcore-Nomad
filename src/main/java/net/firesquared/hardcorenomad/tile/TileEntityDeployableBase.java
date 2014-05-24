@@ -2,6 +2,9 @@ package net.firesquared.hardcorenomad.tile;
 
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;;
 
@@ -58,6 +61,20 @@ public class TileEntityDeployableBase extends TileEntity
 		if(worldObj == null)
 			return level;
 		return getBlockMetadata();
+	}
+
+	@Override
+	public Packet getDescriptionPacket()
+	{
+		NBTTagCompound tag = new NBTTagCompound();
+		writeToNBT(tag);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, tag);
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+	{
+		readFromNBT(pkt.func_148857_g());
 	}
 
 	public UpgradeType getComponentType()

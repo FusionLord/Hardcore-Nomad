@@ -2,9 +2,6 @@
 
 package net.firesquared.hardcorenomad.tile;
 
-import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
@@ -12,7 +9,6 @@ import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.backpacks.ItemBackPack;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
-import net.firesquared.hardcorenomad.network.BackpackTilePacket;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -31,7 +27,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	protected ItemStack[] componentInventory = new ItemStack[ItemUpgrade.getCampComponentCount()];
 	protected ItemStack upgradeSlot;
 	protected ItemStack armorSlot;
-	private boolean initialized = false;
 
 
 	public TileEntityBackPack()
@@ -76,28 +71,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		if(getType().hasArmorSlot() && armorSlot != null)
 			tag.setTag(NBTHelper.ARMORSLOT, armorSlot.writeToNBT(new NBTTagCompound()));
 		markDirty();
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public void acceptPacket(BackpackTilePacket pkt)
-	{
-		this.armorSlot = pkt.armorSlot;
-		this.upgradeSlot = pkt.upgradeSlot;
-		this.componentInventory = pkt.componentInventory;
-		this.storageInventory = pkt.storageInventory;
-	}
-	
-	public BackpackTilePacket getPacket()
-	{
-		BackpackTilePacket pkt = new BackpackTilePacket();
-		
-		pkt.armorSlot = this.armorSlot;
-		pkt.upgradeSlot = this.upgradeSlot;
-		pkt.componentInventory = this.componentInventory;
-		pkt.storageInventory = this.storageInventory;
-		pkt.setCoords(xCoord,yCoord,zCoord);
-		
-		return pkt;
 	}
 
 	@Override
@@ -328,13 +301,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		Helper.getLogger().warn("Had an invalid upgrade in the upgrade slot of a backpack which should not be there.");
 		return false;
 	}
-	
-	@SideOnly(Side.SERVER)
-	public void sendAreaUpdate(double range)
-	{
-		Helper.PACKET_HANDLER.sendToAllAround(getPacket(), 
-				new TargetPoint(worldObj.provider.dimensionId, xCoord, yCoord, zCoord, range));
-	}
 
 	public ItemStack getComponentForDropping(UpgradeType componentType)
 	{
@@ -389,16 +355,5 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public void setBlockMeta(int meta)
 	{
 		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta, 2);
-	}
-	
-	@Override
-	public void updateEntity()
-	{
-		super.updateEntity();
-		if(!initialized)
-		{
-			Helper.PACKET_HANDLER.sendToDimension(getPacket(), worldObj.provider.dimensionId);
-			initialized = true;
-		}
 	}
 }

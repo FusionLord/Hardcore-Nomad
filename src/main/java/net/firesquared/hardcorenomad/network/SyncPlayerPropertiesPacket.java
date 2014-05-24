@@ -12,9 +12,7 @@ public class SyncPlayerPropertiesPacket extends AbstractPacket
 	private NBTTagCompound nbtTagCompound;
 
 	public SyncPlayerPropertiesPacket()
-	{
-
-	}
+	{}
 
 	public SyncPlayerPropertiesPacket(EntityPlayer player)
 	{
