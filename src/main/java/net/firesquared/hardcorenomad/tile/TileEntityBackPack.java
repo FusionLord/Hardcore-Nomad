@@ -68,9 +68,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	//HELPERS
 	public BackPackType getType()
 	{
-		return BackPackType.values()[Math.max(0, 
-				Math.min(getCurrentLevel(), 
-						BackPackType.values().length-1))];
+		return BackPackType.fromLevel(getCurrentLevel());
 	}
 	
 	public void setBlockMeta(int meta)
@@ -202,6 +200,79 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		if (worldObj.setBlock(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset, 
 				(Block) ItemUpgrade.getTypeFromDamage(upgrade.getItemDamage()).getBlockContainer()))
 			worldObj.getTileEntity(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset).readFromNBT(comTag);
+	}
+
+	//Inventory; redirects all calls to the wrapper
+	@Override
+	public int getSizeInventory()
+	{
+		return inv.getSizeInventory();
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int slot)
+	{
+		return inv.getStackInSlot(slot);
+	}
+
+	@Override
+	public ItemStack decrStackSize(int slot, int value)
+	{
+		return inv.decrStackSize(slot, value);
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int slot)
+	{
+		return inv.getStackInSlotOnClosing(slot);
+	}
+
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack itemStack)
+	{
+		inv.setInventorySlotContents(slot, itemStack);
+	}
+
+	@Override
+	public String getInventoryName()
+	{
+		return inv.getInventoryName();
+	}
+
+	@Override
+	public boolean hasCustomInventoryName()
+	{
+		return inv.hasCustomInventoryName();
+	}
+
+	@Override
+	public int getInventoryStackLimit()
+	{
+		return inv.getInventoryStackLimit();
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer player)
+	{
+		return inv.isUseableByPlayer(player);
+	}
+
+	@Override
+	public void openInventory()
+	{
+		inv.openInventory();
+	}
+
+	@Override
+	public void closeInventory()
+	{
+		inv.closeInventory();
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack itemStack)
+	{
+		return inv.isItemValidForSlot(slot, itemStack);
 	}
 
 

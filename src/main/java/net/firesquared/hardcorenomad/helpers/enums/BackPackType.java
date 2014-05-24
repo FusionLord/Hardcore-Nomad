@@ -38,4 +38,13 @@ public enum BackPackType
 	{
 		return armored;
 	}
+	
+	public static BackPackType fromLevel(int level)
+	{
+		if(level < 0)
+			level = 0;
+		else if(level >= values().length)
+			level = values().length - 1;
+		return values()[level];
+	}
 }
