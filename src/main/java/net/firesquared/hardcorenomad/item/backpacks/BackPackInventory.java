@@ -1,6 +1,7 @@
 package net.firesquared.hardcorenomad.item.backpacks;
 
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
@@ -90,6 +91,7 @@ public class BackPackInventory implements IInventory
 	@Override
 	public ItemStack getStackInSlot(int slot)
 	{
+		//Helper.getLogger().info((worldObj.isRemote?"Client":"Server")+" getting slot contents at index " + slot);
 		//TODO: change so that the last 3 levels can all mount some form of armor
 		//improved limited to un-enchanted iron or leather armor only; possibly also wood armor from TC
 		//advanced can have any kind of un-enchanted, vanilla armor
@@ -142,11 +144,11 @@ public class BackPackInventory implements IInventory
 		
 		if (slot < storageInventory.length)
 			storageInventory[slot] = itemStack;
-		if (slot >= storageInventory.length && slot < storageInventory.length + componentInventory.length)
+		else if (slot >= storageInventory.length && slot < storageInventory.length + componentInventory.length)
 			componentInventory[slot - storageInventory.length] = itemStack;
-		if (slot == storageInventory.length + componentInventory.length)
+		else if (slot == storageInventory.length + componentInventory.length)
 			upgradeSlot = itemStack;
-		if (slot == storageInventory.length + componentInventory.length + 1 && isArmor)
+		else if (slot == storageInventory.length + componentInventory.length + 1 && isArmor)
 			armorSlot = itemStack;
 	}
 
@@ -182,7 +184,7 @@ public class BackPackInventory implements IInventory
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack itemStack)
-	{		
+	{
 		Item item = itemStack.getItem();
 		if (slot < storageInventory.length)
 			return true;

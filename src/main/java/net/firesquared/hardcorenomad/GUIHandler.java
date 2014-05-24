@@ -7,7 +7,6 @@ import net.firesquared.hardcorenomad.client.gui.*;
 import net.firesquared.hardcorenomad.container.*;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
-import net.firesquared.hardcorenomad.network.YoDawg_YouDunFuckedUpYoNetcodeException;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.minecraft.entity.player.EntityPlayer;

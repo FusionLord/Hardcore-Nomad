@@ -132,7 +132,9 @@ public class ItemBackPack extends ItemArmor
 	{
 		for (BackPackType type : BackPackType.values())
 		{
-			list.add(new ItemStack(this, 1, type.ordinal()));
+			ItemStack is = new ItemStack(this, 1, type.ordinal());
+			onCreated(is, null, null);
+			list.add(is);
 		}
 	}
 	
