@@ -8,8 +8,6 @@ import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 import net.firesquaredcore.helper.Helper;
 
-
-
 public class ModelRegistry
 {
 	private static ArrayList<IModelCustom[]> models = new ArrayList<IModelCustom[]>();

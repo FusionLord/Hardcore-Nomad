@@ -69,10 +69,8 @@ public class BlockBackPack extends BlockContainer
 			float par7, float par8, float par9)
 	{
 		TileEntityBackPack te = Tiles.<TileEntityBackPack>getTileEntity(world, x, y, z);
-		if(te==null)
+		if(te == null)
 			return true;
-		if(player instanceof EntityPlayerMP)
-			Helper.PACKET_HANDLER.sendTo(te.getPacket(), (EntityPlayerMP) player);
 		player.openGui(HardcoreNomad.instance, 0, world, x, y, z);
 		return true;
 	}

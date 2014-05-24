@@ -13,6 +13,7 @@ public enum Models implements IModelEnum
 	BEDROLL_PILLOW(1, 1),
 	BEDROLL_MATTING(1, 1),
 	CAMPFIRE(1, 1),
+	CAMPFIRE_OPENOVEN(1, 1),
 	ENCHANTINGTABLE(5, 1),
 	ROCK(4, 1),
 	SLINGSHOT(1, 1),

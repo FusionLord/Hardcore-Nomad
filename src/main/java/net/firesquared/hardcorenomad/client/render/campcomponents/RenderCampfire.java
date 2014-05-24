@@ -1,6 +1,7 @@
 package net.firesquared.hardcorenomad.client.render.campcomponents;
 
 import net.firesquared.hardcorenomad.helpers.enums.Models;
+import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.firesquaredcore.helper.ModelRegistry;
 
@@ -13,26 +14,26 @@ public class RenderCampfire extends RenderCampComp
 	@Override
 	protected void renderTile(TileEntityDeployableBase tile, int lighting)
 	{
-		model = ModelRegistry.getModel(Models.CAMPFIRE);
-		texture = ModelRegistry.getTexture(Models.CAMPFIRE);
+		setModelAndTexture(tile.getCurrentLevel());
 		bindTexture(texture);
 		GL11.glTranslatef(.5f, .5f, .5f);
 		GL11.glScalef(.3f, .3f, .3f);
 		model.renderAll();
-		addRocks();
+		if (tile.getCurrentLevel() != 0 && tile.getCurrentLevel() != 4)
+			addRocks();
 	}
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{
-		model = ModelRegistry.getModel(Models.CAMPFIRE, 0);
-		texture = ModelRegistry.getTexture(Models.CAMPFIRE);
+		setModelAndTexture(item.getItemDamage());
 		bindTexture(texture);
 
 		GL11.glScalef(.25f, .25f, .25f);
 		GL11.glTranslatef(0, .75f, 0);
 		model.renderAll();
-		addRocks();
+		if (item.getItemDamage() != 0 && item.getItemDamage() != 4)
+			addRocks();
 	}
 	
 	private void addRocks()
@@ -47,5 +48,24 @@ public class RenderCampfire extends RenderCampComp
 			GL11.glTranslatef(0f, 0f, -2.5f);
 		}
 	}
-	
+
+	private void setModelAndTexture(int damage)
+	{
+		switch (damage)
+		{
+			case 0:
+			case 1:
+				model = ModelRegistry.getModel(Models.CAMPFIRE);
+				texture = ModelRegistry.getTexture(Models.CAMPFIRE);
+				break;
+			case 2:
+			case 3:
+
+				break;
+			case 4:
+				model = ModelRegistry.getModel(Models.CAMPFIRE_OPENOVEN);
+				texture = ModelRegistry.getTexture(Models.CAMPFIRE_OPENOVEN);
+				break;
+		}
+	}
 }

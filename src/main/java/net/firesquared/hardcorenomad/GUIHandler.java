@@ -1,8 +1,6 @@
 package net.firesquared.hardcorenomad;
 
 import cpw.mods.fml.common.network.IGuiHandler;
-import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.firesquared.hardcorenomad.client.gui.*;
 import net.firesquared.hardcorenomad.container.*;
 import net.firesquared.hardcorenomad.helpers.Helper;
@@ -23,8 +21,6 @@ public class GUIHandler implements IGuiHandler
 		{
 			case 0:
 				TileEntityBackPack backpack = Tiles.<TileEntityBackPack>getTileEntity(world, x, y, z);
-				if(backpack == null) return null;
-				Helper.PACKET_HANDLER.sendToAllAround(backpack.getPacket(), new TargetPoint(world.provider.dimensionId, x, y, z, 12));
 				return new BackpackContainer(player.inventory, backpack);
 			case 1:
 				return new BackpackContainer(player.inventory, player.inventory.getCurrentItem());
