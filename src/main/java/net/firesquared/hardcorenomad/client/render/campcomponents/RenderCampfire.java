@@ -1,45 +1,38 @@
 package net.firesquared.hardcorenomad.client.render.campcomponents;
 
 import net.firesquared.hardcorenomad.helpers.enums.Models;
+import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.firesquaredcore.helper.ModelRegistry;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IModelCustom;
 
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.IItemRenderer;
 
-public class RenderCampfireItem implements IItemRenderer
+public class RenderCampfire extends RenderCampComp
 {
-	IModelCustom model = null;
-	ResourceLocation texture = null;
+	@Override
+	protected void renderTile(TileEntityDeployableBase tile, int lighting)
+	{
+		model = ModelRegistry.getModel(Models.CAMPFIRE);
+		texture = ModelRegistry.getTexture(Models.CAMPFIRE);
+		bindTexture(texture);
+		GL11.glTranslatef(.5f, .5f, .5f);
+		GL11.glScalef(.3f, .3f, .3f);
+		model.renderAll();
+		addRocks();
+	}
 
-	@Override
-	public boolean handleRenderType(ItemStack item, ItemRenderType type)
-	{
-		return true;
-	}
-	
-	@Override
-	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper)
-	{
-		return type == ItemRenderType.ENTITY || type == ItemRenderType.INVENTORY;
-	}
-	
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{
 		model = ModelRegistry.getModel(Models.CAMPFIRE, 0);
 		texture = ModelRegistry.getTexture(Models.CAMPFIRE);
-		ModelRegistry.bindTexture(texture);
+		bindTexture(texture);
 
-		GL11.glPushMatrix();
 		GL11.glScalef(.25f, .25f, .25f);
 		GL11.glTranslatef(0, .75f, 0);
 		model.renderAll();
 		addRocks();
-		GL11.glPopMatrix();
 	}
 	
 	private void addRocks()

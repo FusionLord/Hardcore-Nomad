@@ -2,7 +2,6 @@ package net.firesquared.hardcorenomad.helpers;
 
 import org.apache.logging.log4j.Level;
 
-import net.firesquared.hardcorenomad.network.BackpackTilePacket;
 import net.firesquared.hardcorenomad.network.ButtonPacket;
 import net.firesquared.hardcorenomad.network.SyncPlayerPropertiesPacket;
 import net.firesquaredcore.helper.Logger;
@@ -14,8 +13,7 @@ public class Helper extends net.firesquaredcore.helper.Helper
 	private static final Class<? extends AbstractPacket>[] packets = new Class[]
 			{
 				SyncPlayerPropertiesPacket.class, 
-				ButtonPacket.class, 
-				BackpackTilePacket.class
+				ButtonPacket.class
 			};
 	public class Strings
 	{
