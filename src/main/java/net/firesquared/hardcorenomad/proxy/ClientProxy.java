@@ -3,8 +3,8 @@ package net.firesquared.hardcorenomad.proxy;
 import net.firesquared.hardcorenomad.client.render.*;
 import net.firesquared.hardcorenomad.client.render.backpack.RenderBackPackItem;
 import net.firesquared.hardcorenomad.client.render.backpack.RenderBackPackTile;
-import net.firesquared.hardcorenomad.client.render.campcomponents.RenderBedRollTile;
-import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCampfireTile;
+import net.firesquared.hardcorenomad.client.render.campcomponents.RenderBedRoll;
+import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCampfire;
 import net.firesquared.hardcorenomad.client.render.campcomponents.RenderEnchanting;
 import net.firesquared.hardcorenomad.entity.EntityPebble;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
@@ -39,8 +39,8 @@ public class ClientProxy extends CommonProxy
 		// ##TileEntities##
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBackPack.class, new RenderBackPackTile());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnchantmentTable.class, new RenderEnchanting());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCampFire.class, new RenderCampfireTile());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBedRoll.class, new RenderBedRollTile());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCampFire.class, new RenderCampfire());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBedRoll.class, new RenderBedRoll());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnchantmentTable.class, new RenderEnchanting());
 
 		// ##Entities##

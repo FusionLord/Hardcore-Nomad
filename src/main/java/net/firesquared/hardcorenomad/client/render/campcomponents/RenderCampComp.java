@@ -1,22 +1,22 @@
 package net.firesquared.hardcorenomad.client.render.campcomponents;
 
+import net.firesquared.hardcorenomad.helpers.enums.Blocks;
+import net.minecraft.client.renderer.Tessellator;
 import org.lwjgl.opengl.GL11;
 
-import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
 import net.minecraftforge.client.model.IModelCustom;
 
 public abstract class RenderCampComp extends TileEntitySpecialRenderer implements IItemRenderer
 {
 	protected IModelCustom model;
 	protected ResourceLocation texture;
+
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type)
 	{
@@ -33,8 +33,11 @@ public abstract class RenderCampComp extends TileEntitySpecialRenderer implement
 	public final void renderTileEntityAt(TileEntity te, double x, double y, double z, float var8)
 	{
 		GL11.glPushMatrix();
-		GL11.glTranslated(x, y, z);
-		
+		GL11.glTranslated(x + .5d, y, z + .5d);
+
+		int i = Blocks.BLOCK_BEDROLL.getBlock().getLightValue(te.getWorldObj(), (int)x, (int)y, (int)z);
+		Tessellator.instance.setColorOpaque_F(i, i, i);
+
 		renderTile((TileEntityDeployableBase)te, te.getWorldObj().getBlockLightOpacity((int)x, (int)y, (int)z));
 		
 		GL11.glPopMatrix();
