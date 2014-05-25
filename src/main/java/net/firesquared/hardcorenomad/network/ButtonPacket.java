@@ -62,14 +62,14 @@ public class ButtonPacket extends AbstractPacket
 					backPack.doUpgrade();
 					return;
 				case 100:
-					backPack.deployAll();
+					backPack.deployAll(entityPlayer);
 					return;
 				case 101:
-					backPack.recoverAll();
+					backPack.recoverAll(entityPlayer);
 					return;
 				default:
 					if(ID>=0 && ID < componentCount)
-						backPack.toggle(ID);
+						backPack.toggle(ID, entityPlayer);
 			}
 		}
 	}

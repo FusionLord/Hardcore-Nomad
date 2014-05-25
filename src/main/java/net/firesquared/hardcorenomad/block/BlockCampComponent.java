@@ -3,6 +3,7 @@ package net.firesquared.hardcorenomad.block;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
+import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -32,21 +33,32 @@ public abstract class BlockCampComponent extends BlockContainer
 		TileEntityDeployableBase deployableBase;
 		TileEntityBackPack backpack;
 		deployableBase = (TileEntityDeployableBase)world.getTileEntity(x, y, z);
-		backpack = (TileEntityBackPack)world.getTileEntity(x - deployableBase.getXOffset(), y - deployableBase.getYOffset(), z - deployableBase.getZOffset());
-
-		ItemStack itemStack = backpack.getComponentForDropping(deployableBase.getComponentType());
-
-		if (itemStack == null)
-		{
-			itemStack = new ItemStack(deployableBase.getBlockType(), 1);
-			NBTTagCompound tag = new NBTTagCompound();
-			deployableBase.writeToNBT(tag);
-			itemStack.setTagCompound(tag);
-		}
 		
-		itemStack.setItemDamage(meta);
-
-		dropBlockAsItem(world, x, y, z, itemStack);
+		if(deployableBase.hasParrent())
+		{
+			backpack = deployableBase.getParrent();
+	
+			ItemStack itemStack = backpack.getComponentForDropping(deployableBase.getComponentType());
+	
+			if (itemStack == null)
+			{
+				itemStack = new ItemStack(deployableBase.getBlockType(), 1);
+				NBTTagCompound tag = new NBTTagCompound();
+				deployableBase.writeToNBT(tag);
+				itemStack.setTagCompound(tag);
+			}
+			
+			itemStack.setItemDamage(meta);
+	
+			dropBlockAsItem(world, x, y, z, itemStack);
+		}
+		else
+		{
+			ItemStack itemstack = new ItemStack(this, 1, deployableBase.getBlockMetadata());
+			itemstack.stackTagCompound = new NBTTagCompound();
+			deployableBase.writeToNBT(itemstack.stackTagCompound);
+			dropBlockAsItem(world, x, y, z, itemstack);
+		}
 	}
 
 	@Override
