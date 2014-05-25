@@ -26,6 +26,7 @@ public class RenderBedRoll extends RenderCampComp
 
 	private void render(int damage)
 	{
+		GL11.glPushMatrix();
 		GL11.glScalef(.18f, .18f, .18f);
 		model = ModelRegistry.getModel(Models.BEDROLL);
 		bindTexture(ModelRegistry.getTexture(Models.BEDROLL));
@@ -47,17 +48,31 @@ public class RenderBedRoll extends RenderCampComp
 			GL11.glTranslated(0, .25, 0);
 			model.renderAll();
 		}
-		if (damage == 3)
+		GL11.glPopMatrix();
+		if (damage == 2)
 		{
+			GL11.glPushMatrix();
+			GL11.glDisable(GL11.GL_CULL_FACE);
+			GL11.glRotatef(180, 0f, 1f, 0f);
+			GL11.glTranslatef(.15f, 0.34375f, 0f);
+			GL11.glScalef(.18f, .18f, .18f);
 			model = ModelRegistry.getModel(Models.BEDROLL_LEANTO);
 			bindTexture(ModelRegistry.getTexture(Models.BEDROLL_LEANTO));
 			model.renderAll();
+			GL11.glEnable(GL11.GL_CULL_FACE);
+			GL11.glPopMatrix();
 		}
-		if (damage == 4)
+		if (damage == 3)
 		{
+			GL11.glPushMatrix();
+			GL11.glDisable(GL11.GL_CULL_FACE);
+			GL11.glTranslatef(.08f, 0.34375f, 0f);
+			GL11.glScalef(.18f, .18f, .18f);
 			model = ModelRegistry.getModel(Models.BEDROLL_TENT);
 			bindTexture(ModelRegistry.getTexture(Models.BEDROLL_TENT));
 			model.renderAll();
+			GL11.glEnable(GL11.GL_CULL_FACE);
+			GL11.glPopMatrix();
 		}
 	}
 }

@@ -63,6 +63,7 @@ public class ItemUpgrade extends Item
 	public ItemUpgrade()
 	{
 		instance = this;
+		setMaxStackSize(1);
 	}
 	
 	@Override
