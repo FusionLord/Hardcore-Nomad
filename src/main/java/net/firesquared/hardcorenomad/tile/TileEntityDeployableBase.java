@@ -7,15 +7,13 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
+import net.firesquaredcore.helper.Vector3n;
 
 public class TileEntityDeployableBase extends TileEntity
 {
 	private UpgradeType componentType;
-	private TileEntityBackPack pack;
-	private int xOffset;
-	private int yOffset;
-	private int zOffset;
+	protected TileEntityBackPack pack;
 	private int level;
 
 	public TileEntityDeployableBase(UpgradeType componentType)
@@ -34,41 +32,30 @@ public class TileEntityDeployableBase extends TileEntity
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		//tag.setInteger(NBTHelper.CURRENTLEVEL, currentLevel);
 		if(componentType != null)
 			tag.setInteger(NBTHelper.COMPONENTTYPE, componentType.ordinal());
-		tag.setInteger(NBTHelper.OFFSET + NBTHelper.X, xOffset);
-		tag.setInteger(NBTHelper.OFFSET + NBTHelper.Y, yOffset);
-		tag.setInteger(NBTHelper.OFFSET + NBTHelper.Z, zOffset);
 		tag.setByte("tileentitymetadata", (byte) getBlockMetadata());
 		tag.setBoolean(NBTHelper.HAS_PARRENT_BACKPACK, pack != null);
 		if(pack != null)
-		{
-			tag.setInteger(NBTHelper.PARRENT_BACKPACK_LOCATION + NBTHelper.X, pack.xCoord);
-			tag.setInteger(NBTHelper.PARRENT_BACKPACK_LOCATION + NBTHelper.Y, pack.yCoord);
-			tag.setInteger(NBTHelper.PARRENT_BACKPACK_LOCATION + NBTHelper.Z, pack.zCoord);
-		}
+			NBTHelper.setXYZ(tag, NBTHelper.PARRENT_BACKPACK_LOCATION, pack.xCoord, pack.yCoord, pack.zCoord);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		//currentLevel = tag.getInteger(NBTHelper.CURRENTLEVEL);
 		if(tag.hasKey(NBTHelper.COMPONENTTYPE))
 			componentType = UpgradeType.values()[tag.getInteger(NBTHelper.COMPONENTTYPE)];
 		else
 			componentType = null;
-		xOffset = tag.getInteger(NBTHelper.OFFSET + NBTHelper.X);
-		yOffset = tag.getInteger(NBTHelper.OFFSET + NBTHelper.Y);
-		zOffset = tag.getInteger(NBTHelper.OFFSET + NBTHelper.Z);
+		Vector3n offset = NBTHelper.getXYZ(tag, NBTHelper.OFFSET);
+		
 		level = tag.getByte("tileentitymetadata");
+		
 		if(tag.hasKey(NBTHelper.HAS_PARRENT_BACKPACK) && tag.getBoolean(NBTHelper.HAS_PARRENT_BACKPACK))
 		{
-			pack = Tiles.<TileEntityBackPack>getTileEntity(worldObj, 			
-					tag.getInteger(NBTHelper.PARRENT_BACKPACK_LOCATION + NBTHelper.X),
-					tag.getInteger(NBTHelper.PARRENT_BACKPACK_LOCATION + NBTHelper.Y),
-					tag.getInteger(NBTHelper.PARRENT_BACKPACK_LOCATION + NBTHelper.Z));
+			pack = Tiles.<TileEntityBackPack>getTileEntity(worldObj,
+					NBTHelper.getXYZ(tag, NBTHelper.PARRENT_BACKPACK_LOCATION));
 		}
 	}
 
@@ -96,21 +83,6 @@ public class TileEntityDeployableBase extends TileEntity
 	public UpgradeType getComponentType()
 	{
 		return componentType;
-	}
-
-	public int getZOffset()
-	{
-		return zOffset;
-	}
-
-	public int getXOffset()
-	{
-		return xOffset;
-	}
-
-	public int getYOffset()
-	{
-		return yOffset;
 	}
 	
 	public void setParrent(TileEntityBackPack backpack)

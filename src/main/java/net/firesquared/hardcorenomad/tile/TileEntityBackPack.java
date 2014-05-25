@@ -294,21 +294,20 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	{
 		ItemStack is = inv.componentInventory[slot];
 		NBTTagCompound comTag = is.getTagCompound();
-		if(!comTag.hasKey(NBTHelper.OFFSET + NBTHelper.X)||comTag.hasKey(NBTHelper.OFFSET + NBTHelper.Y)||comTag.hasKey(NBTHelper.OFFSET + NBTHelper.Z))
+		Vector3n vec = NBTHelper.getXYZ(comTag, NBTHelper.OFFSET);
+		if(vec == null)
+		{
 			promptUserForOffsets(slot, is);
-		return new Vector3n(
-				comTag.getInteger(NBTHelper.OFFSET + NBTHelper.X),
-				comTag.getInteger(NBTHelper.OFFSET + NBTHelper.Y),
-				comTag.getInteger(NBTHelper.OFFSET + NBTHelper.Z));
+			return null;
+		}
+		return vec;
 	}
 	
 	private void writeOffset(int slot, Vector3n newOffset)
 	{
 		ItemStack is = inv.componentInventory[slot];
 		NBTTagCompound comTag = is.getTagCompound();
-		comTag.setInteger(NBTHelper.OFFSET + NBTHelper.X, newOffset.x);
-		comTag.setInteger(NBTHelper.OFFSET + NBTHelper.Y, newOffset.y);
-		comTag.setInteger(NBTHelper.OFFSET + NBTHelper.Z, newOffset.z);
+		NBTHelper.setXYZ(comTag, NBTHelper.OFFSET, newOffset);
 	}
 
 	private void promptUserForOffsets(int slot, ItemStack is)

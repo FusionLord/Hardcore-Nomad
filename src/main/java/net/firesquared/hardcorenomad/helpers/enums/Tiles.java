@@ -6,6 +6,7 @@ import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBedRoll;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCrafting;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityEnchantmentTable;
+import net.firesquaredcore.helper.Vector3n;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -35,6 +36,11 @@ public enum Tiles
 	{
 		for(Tiles t : Tiles.values())
 			t.register();
+	}
+	
+	public static <T extends TileEntity> T getTileEntity(IBlockAccess access, Vector3n loc)
+	{
+		return Tiles.<T>getTileEntity(access, loc.x, loc.y, loc.z);
 	}
 	
 	public static <T extends TileEntity> T getTileEntity(IBlockAccess access, int x, int y, int z)
