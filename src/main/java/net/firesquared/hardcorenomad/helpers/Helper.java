@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.helpers;
 
+import net.firesquared.hardcorenomad.network.SetOffsetPacket;
 import org.apache.logging.log4j.Level;
 
 import net.firesquared.hardcorenomad.network.ButtonPacket;
@@ -13,7 +14,8 @@ public class Helper extends net.firesquaredcore.helper.Helper
 	private static final Class<? extends AbstractPacket>[] packets = new Class[]
 			{
 				SyncPlayerPropertiesPacket.class, 
-				ButtonPacket.class
+				ButtonPacket.class,
+				SetOffsetPacket.class,
 			};
 	public class Strings
 	{
