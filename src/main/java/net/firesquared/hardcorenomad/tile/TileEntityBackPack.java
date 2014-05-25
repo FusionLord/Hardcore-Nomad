@@ -29,13 +29,12 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public TileEntityBackPack()
 	{
 		super(null);
-		inv = new BackpackInvWrapper(getType());
+		
 	}
 
 	public TileEntityBackPack(int metadata)
 	{
 		super(null, metadata);
-		inv = new BackpackInvWrapper(getType());
 	}
 
 	//NBT AND PERSISTENCE
@@ -60,6 +59,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	
 	public void readExtraNBT(NBTTagCompound tag)
 	{
+		inv = new BackpackInvWrapper(getType());
 		BackpackInvWrapper.readExtraNBT(tag, inv);
 	}
 	
@@ -91,7 +91,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	 * Attempt to apply the upgrade currently in the upgrade slot
 	 * @return true if the upgrade was successfully applied
 	 */
-	//@SideOnly(Side.SERVER)
 	public boolean doUpgrade()
 	{
 		if (inv.upgradeSlot == null )
@@ -116,7 +115,8 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 					inv.storageInventory = new ItemStack[getType().getStorageCount()];
 					for(int i = 0; i < isa.length; i++)
 						inv.storageInventory[i] = isa[i];
-					
+					inv.type = getType();
+					markDirty();
 					return true;
 				}
 				return false;
@@ -161,7 +161,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		return false;
 	}
 
-	@SideOnly(Side.SERVER)
 	public void deployAll(EntityPlayer player)
 	{
 		NBTTagCompound tag;
@@ -173,8 +172,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 					toggle(i, player);
 			}
 	}
-	
-	@SideOnly(Side.SERVER)
+
 	public void recoverAll(EntityPlayer player)
 	{
 		NBTTagCompound tag;
@@ -186,7 +184,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 					toggle(i, player);
 			}
 	}
-	@SideOnly(Side.SERVER)
+
 	public boolean toggle(int componentID, EntityPlayer player)
 	{
 		ItemStack is = inv.componentInventory[componentID];
@@ -197,6 +195,11 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		}
 		
 		Vector3n offset = readOffset(componentID);
+		//if the thing doesn't have offset's, let's pull them from our nether regions
+		while(offset == null || (offset.x == 0 && offset.z == 0))
+			offset = new Vector3n(worldObj.rand.nextInt(19) - 9, 0, worldObj.rand.nextInt(19) - 9);
+		writeOffset(componentID, offset);
+			
 		Vector3n absolute = new Vector3n(offset.x + xCoord, offset.y + yCoord, offset.z + zCoord);
 		if(is.stackTagCompound.hasKey(NBTHelper.IS_DEPLOYED) && is.stackTagCompound.getBoolean(NBTHelper.IS_DEPLOYED))
 		{
@@ -225,7 +228,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		return false;
 	}
 	
-	@SideOnly(Side.SERVER)
 	private <TE extends TileEntityDeployableBase> 
 		boolean doBlockRecovery(Vector3n coords, int slotIndex, BlockCampComponent blockInst)
 	{
@@ -259,7 +261,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		
 	}
 	
-	@SideOnly(Side.SERVER)
 	private <TE extends TileEntityDeployableBase>boolean doBlockSetting(Vector3n coords, ItemStack is, int level)
 	{
 		int x = coords.x, y = coords.y, z = coords.z;
