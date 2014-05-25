@@ -17,6 +17,7 @@ public enum Models implements IModelEnum
 	CAMPFIRE,
 	CAMPFIRE_OPENOVEN,
 	CAMPFIRE_SPIT,
+	COBBLEGEN,
 	ENCHANTINGTABLE(5, 1),
 	ROCK(4, 1),
 	SLINGSHOT,

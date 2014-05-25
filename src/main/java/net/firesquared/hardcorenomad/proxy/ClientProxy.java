@@ -11,6 +11,7 @@ import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBedRoll;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
+import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCobbleGenerator;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityEnchantmentTable;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -24,19 +25,24 @@ public class ClientProxy extends CommonProxy
 	public void registerItems()
 	{
 		// ##Items##
+		MinecraftForgeClient.registerItemRenderer(Items.ITEM_BACKPACK.getItem(), RenderCampComp.backpack);
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_MISC_PEBBLE.getItem(), new RenderRocksItem());
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_MISC_SLINGSHOT.getItem(), new RenderSlingshotItem());
-		MinecraftForgeClient.registerItemRenderer(Items.ITEM_BACKPACK.getItem(), RenderCampComp.backpack);
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_ENCHANTMENTTABLE.getBlock()), RenderCampComp.enchanting);
-
-		// ##UPGRADES##
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE.getItem(), new RenderUpgradeItem());
+
+		// ##Blocks##
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_BACKPACK.getBlock()), RenderCampComp.backpack);
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_BEDROLL.getBlock()), RenderCampComp.bedroll);
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_CAMPFIRE.getBlock()), RenderCampComp.campfire);
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_COBBLEGEN.getBlock()), RenderCampComp.cobblegen);
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_ENCHANTMENTTABLE.getBlock()), RenderCampComp.enchanting);
 
 		// ##TileEntities##
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBackPack.class, RenderCampComp.backpack);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnchantmentTable.class, RenderCampComp.enchanting);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCampFire.class, RenderCampComp.campfire);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBedRoll.class, RenderCampComp.bedroll);
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCampFire.class, RenderCampComp.campfire);
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCobbleGenerator.class, RenderCampComp.cobblegen);
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnchantmentTable.class, RenderCampComp.enchanting);
 
 		// ##Entities##
 		RenderingRegistry.registerEntityRenderingHandler(EntityPebble.class, new RenderRocksThrown());

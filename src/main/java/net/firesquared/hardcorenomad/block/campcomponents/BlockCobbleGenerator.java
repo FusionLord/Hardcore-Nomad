@@ -26,8 +26,7 @@ public class BlockCobbleGenerator extends BlockCampComponent
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2)
 	{
-		// TODO: Make a tile entity for the crafting table :/
-		return null;
+		return new TileEntityCobbleGenerator();
 	}
 
 	public ItemStack packIntoItemStack(World world, int x, int y, int z)
@@ -47,7 +46,7 @@ public class BlockCobbleGenerator extends BlockCampComponent
 	@Override
 	protected boolean has3dRender()
 	{
-		return false;
+		return true;
 	}
 
 	@Override

@@ -19,6 +19,7 @@ public abstract class RenderCampComp extends TileEntitySpecialRenderer implement
 	public static RenderCampComp campfire = new RenderCampfire();
 	public static RenderCampComp bedroll = new RenderBedRoll();
 	public static RenderCampComp enchanting = new RenderEnchanting();
+	public static RenderCampComp cobblegen = new RenderCobbleGen();
 
 	protected IModelCustom model;
 	protected ResourceLocation texture;
