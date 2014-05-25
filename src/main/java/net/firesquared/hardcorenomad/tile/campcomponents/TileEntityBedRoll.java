@@ -8,6 +8,6 @@ public class TileEntityBedRoll extends TileEntityDeployableBase
 
 	public TileEntityBedRoll()
 	{
-		super(UpgradeType.BedRoll);
+		super(UpgradeType.BEDROLL);
 	}
 }

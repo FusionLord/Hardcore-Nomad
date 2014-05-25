@@ -18,7 +18,7 @@ public class TileEntityEnchantmentTable extends TileEntityDeployableBase
 
 	public TileEntityEnchantmentTable()
 	{
-		super(UpgradeType.Enchanting);
+		super(UpgradeType.ENCHANTING_TABLE);
 	}
 
 	@Override

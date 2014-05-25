@@ -8,6 +8,6 @@ public class TileEntityCrafting extends TileEntityDeployableBase
 
 	public TileEntityCrafting()
 	{
-		super(UpgradeType.Crafting);
+		super(UpgradeType.CRAFTING_TABLE);
 	}
 }

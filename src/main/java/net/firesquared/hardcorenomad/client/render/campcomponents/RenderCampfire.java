@@ -1,7 +1,6 @@
 package net.firesquared.hardcorenomad.client.render.campcomponents;
 
 import net.firesquared.hardcorenomad.helpers.enums.Models;
-import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.firesquaredcore.helper.ModelRegistry;
 
@@ -14,28 +13,45 @@ public class RenderCampfire extends RenderCampComp
 	@Override
 	protected void renderTile(TileEntityDeployableBase tile, int lighting)
 	{
+		int damage = tile.getCurrentLevel();
+		if (damage == 2)
+			renderSpit();
 		setModelAndTexture(tile.getCurrentLevel());
 		bindTexture(texture);
-		GL11.glTranslatef(.5f, .5f, .5f);
-		GL11.glScalef(.3f, .3f, .3f);
+		GL11.glTranslatef(.5f, .25f, .5f);
+		GL11.glScalef(.15f, .15f, .15f);
 		model.renderAll();
-		if (tile.getCurrentLevel() != 0 && tile.getCurrentLevel() != 4)
+		if (tile.getCurrentLevel() != 0 && tile.getCurrentLevel() != 3)
 			addRocks();
 	}
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{
-		setModelAndTexture(item.getItemDamage());
-		bindTexture(texture);
-
-		GL11.glScalef(.25f, .25f, .25f);
-		GL11.glTranslatef(0, .75f, 0);
-		model.renderAll();
-		if (item.getItemDamage() != 0 && item.getItemDamage() != 4)
-			addRocks();
+		int damage = item.getItemDamage();
+			if (damage == 2)
+				renderSpit();
+			setModelAndTexture(damage);
+			bindTexture(texture);
+			GL11.glTranslatef(.5f, .25f, .5f);
+			GL11.glScalef(.15f, .15f, .15f);
+			model.renderAll();
+			if (damage != 0 && damage != 3)
+				addRocks();
 	}
-	
+
+	private void renderSpit()
+	{
+		GL11.glPushMatrix();
+		GL11.glTranslatef(.5f, .3625f, .5f);
+		GL11.glScalef(.2f, .2f, .2f);
+		model = ModelRegistry.getModel(Models.CAMPFIRE_SPIT);
+		texture = ModelRegistry.getTexture(Models.CAMPFIRE_SPIT);
+		bindTexture(texture);
+		model.renderAll();
+		GL11.glPopMatrix();
+	}
+
 	private void addRocks()
 	{
 		GL11.glTranslatef(0f, -1.5f, 0f);
@@ -55,17 +71,14 @@ public class RenderCampfire extends RenderCampComp
 		{
 			case 0:
 			case 1:
+			case 2:
 				model = ModelRegistry.getModel(Models.CAMPFIRE);
 				texture = ModelRegistry.getTexture(Models.CAMPFIRE);
-				break;
-			case 2:
-				model = ModelRegistry.getModel(Models.CAMPFIRE_SPIT);
-				texture = ModelRegistry.getTexture(Models.CAMPFIRE_SPIT);
-				break;
+				return;
 			case 3:
 				model = ModelRegistry.getModel(Models.CAMPFIRE_OPENOVEN);
 				texture = ModelRegistry.getTexture(Models.CAMPFIRE_OPENOVEN);
-				break;
+				return;
 		}
 	}
 }

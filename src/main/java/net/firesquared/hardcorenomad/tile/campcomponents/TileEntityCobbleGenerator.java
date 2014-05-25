@@ -7,6 +7,6 @@ public class TileEntityCobbleGenerator extends TileEntityDeployableBase
 {
 	public TileEntityCobbleGenerator()
 	{
-		super(UpgradeType.CobbleGen);
+		super(UpgradeType.COBBLE_GENERATOR);
 	}
 }

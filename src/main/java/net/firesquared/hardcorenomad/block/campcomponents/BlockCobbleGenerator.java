@@ -49,10 +49,11 @@ public class BlockCobbleGenerator extends BlockCampComponent
 	{
 		return false;
 	}
+
 	@Override
 	public UpgradeType getType()
 	{
-		return UpgradeType.CobbleGen;
+		return UpgradeType.COBBLE_GENERATOR;
 	}
 
 }

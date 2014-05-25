@@ -20,9 +20,6 @@ import net.minecraftforge.client.model.IModelCustom;
 
 public class RenderEnchanting extends RenderCampComp
 {
-	IModelCustom model = null;
-	ResourceLocation texture = null;
-
 	@Override
 	protected void renderTile(TileEntityDeployableBase tile, int lighting)
 	{

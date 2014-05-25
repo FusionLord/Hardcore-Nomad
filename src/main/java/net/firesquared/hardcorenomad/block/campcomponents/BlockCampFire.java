@@ -1,6 +1,5 @@
 package net.firesquared.hardcorenomad.block.campcomponents;
 
-import java.util.List;
 import java.util.Random;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
@@ -10,14 +9,11 @@ import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -34,8 +30,6 @@ public class BlockCampFire extends BlockCampComponent
 		setStepSound(soundTypeMetal);
 		setLightLevel(.8f);
 		needsRandomTick = true;
-		float pixel = 1.0f / 16;
-		setBlockBounds(0.0f - 8*pixel, pixel/16, 0.0f - 8*pixel, 1.0f + 8*pixel, 1.0f, 1.0f + 8*pixel);
 	}
 
 	@Override
@@ -141,28 +135,6 @@ public class BlockCampFire extends BlockCampComponent
 			}
 		}
 	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	public void addCollisionBoxesToList(World w, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity e)
-    {
-		AxisAlignedBB axisAlignedBB1 = this.getCollisionBoundingBoxFromPool(w, x, y, z);
-
-        if (axisAlignedBB1 != null && axisAlignedBB.intersectsWith(axisAlignedBB1))
-        {
-        	list.add(axisAlignedBB1);
-        }
-		
-        TileEntityCampFire t = null;
-		if(w != null && w.getTileEntity(x, y, z) != null) {
-			t = (TileEntityCampFire) w.getTileEntity(x, y, z);
-		}
-		
-		if(t.isBurning()) {
-			//Sets e on fire for 5 seconds
-			e.setFire(5);
-		}
-    }
 
 	@Override
 	protected boolean has3dRender()
@@ -172,6 +144,6 @@ public class BlockCampFire extends BlockCampComponent
 	@Override
 	public UpgradeType getType()
 	{
-		return UpgradeType.CampFire;
+		return UpgradeType.CAMPFIRE;
 	}
 }

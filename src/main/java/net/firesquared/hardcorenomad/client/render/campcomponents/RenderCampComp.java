@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.client.render.campcomponents;
 
+import net.firesquared.hardcorenomad.client.render.backpack.RenderBackPack;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.minecraft.client.renderer.Tessellator;
 import org.lwjgl.opengl.GL11;
@@ -14,6 +15,11 @@ import net.minecraftforge.client.model.IModelCustom;
 
 public abstract class RenderCampComp extends TileEntitySpecialRenderer implements IItemRenderer
 {
+	public static RenderCampComp backpack = new RenderBackPack();
+	public static RenderCampComp campfire = new RenderCampfire();
+	public static RenderCampComp bedroll = new RenderBedRoll();
+	public static RenderCampComp enchanting = new RenderEnchanting();
+
 	protected IModelCustom model;
 	protected ResourceLocation texture;
 
@@ -22,7 +28,7 @@ public abstract class RenderCampComp extends TileEntitySpecialRenderer implement
 	{
 		return true;
 	}
-	
+
 	@Override
 	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper)
 	{
@@ -33,7 +39,7 @@ public abstract class RenderCampComp extends TileEntitySpecialRenderer implement
 	public final void renderTileEntityAt(TileEntity te, double x, double y, double z, float var8)
 	{
 		GL11.glPushMatrix();
-		GL11.glTranslated(x + .5d, y, z + .5d);
+		GL11.glTranslated(x, y, z);
 
 		int i = Blocks.BLOCK_BEDROLL.getBlock().getLightValue(te.getWorldObj(), (int)x, (int)y, (int)z);
 		Tessellator.instance.setColorOpaque_F(i, i, i);

@@ -28,7 +28,7 @@ public interface IProxy
 
 	public abstract void postInitPacketHandler();
 
-	// Register Crafting Recipes
+	// Register CRAFTING_TABLE Recipes
 	public abstract void registerRecipes();
 
 	// Register Dungeon Loot

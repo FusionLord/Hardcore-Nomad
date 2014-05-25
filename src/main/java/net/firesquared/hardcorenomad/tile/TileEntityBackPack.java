@@ -7,18 +7,12 @@ import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
-import net.firesquared.hardcorenomad.item.backpacks.ItemBackPack;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemWritableBook;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 
 public class TileEntityBackPack extends TileEntityDeployableBase implements IInventory
 {
@@ -105,7 +99,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 					lvl = ItemUpgrade.getLevelFromDamage(dmg);
 			UpgradeType type = ItemUpgrade.getTypeFromDamage(dmg);
 			//if the user is upgrading their backpack in-place
-			if(type == UpgradeType.Backpack)
+			if(type == UpgradeType.BACKPACK)
 			{
 				int meta = getBlockMetadata();
 				if(meta == lvl)
