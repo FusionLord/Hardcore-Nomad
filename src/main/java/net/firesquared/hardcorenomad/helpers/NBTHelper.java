@@ -5,20 +5,13 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public final class NBTHelper
 {
-	public static void setXYZ(NBTTagCompound tag, String baseName, Vector3n loc)
-	{
-		tag.setInteger(baseName+X, loc.x);
-		tag.setInteger(baseName+Y, loc.y);
-		tag.setInteger(baseName+Z, loc.z);
-	}
-	public static void setXYZ(NBTTagCompound tag, String baseName, int x, int y, int z)
+	public static void setXY(NBTTagCompound tag, String baseName, int x, int y)
 	{
 		tag.setInteger(baseName+X, x);
 		tag.setInteger(baseName+Y, y);
-		tag.setInteger(baseName+Z, z);
 	}
 	
-	public static Vector3n getXYZ(NBTTagCompound tag, String baseName, Integer x, Integer y, Integer z)
+	public static Vector3n getXY(NBTTagCompound tag, String baseName, Integer x, Integer y, Integer z)
 	{
 		if(tag == null || !tag.hasKey(baseName + X) || !tag.hasKey(baseName + Y) || !tag.hasKey(baseName + Z))
 			return null;
@@ -26,6 +19,36 @@ public final class NBTHelper
 		vect.x = tag.getInteger(baseName + X);
 		vect.y = tag.getInteger(baseName + Y);
 		vect.z = tag.getInteger(baseName + Z);
+		return vect;
+	}
+	public static void setXYZ(NBTTagCompound tag, String baseName, Vector3n loc)
+	{
+		setXY(tag, baseName, loc.x, loc.y);
+		tag.setInteger(baseName+Z, loc.z);
+	}
+	public static void setXYZ(NBTTagCompound tag, String baseName, int x, int y, int z)
+	{
+		setXY(tag, baseName, x, y);
+		tag.setInteger(baseName+Z, z);
+	}
+	
+	public static Vector3n getXYZ(NBTTagCompound tag, String baseName)
+	{
+		if(tag == null || !tag.hasKey(baseName + X) || !tag.hasKey(baseName + Y) || !tag.hasKey(baseName + Z))
+			return null;
+		Vector3n vect = new Vector3n();
+		vect.x = tag.getInteger(baseName + X);
+		vect.y = tag.getInteger(baseName + Y);
+		vect.z = tag.getInteger(baseName + Z);
+		return vect;
+	}
+	public static Vector3n getXY(NBTTagCompound tag, String baseName)
+	{
+		if(tag == null || !tag.hasKey(baseName + X) || !tag.hasKey(baseName + Y))
+			return null;
+		Vector3n vect = new Vector3n();
+		vect.x = tag.getInteger(baseName + X);
+		vect.y = tag.getInteger(baseName + Y);
 		return vect;
 	}
 	
