@@ -59,10 +59,10 @@ public class RenderCampfire extends RenderCampComp
 				texture = ModelRegistry.getTexture(Models.CAMPFIRE);
 				break;
 			case 2:
-			case 3:
-
+				model = ModelRegistry.getModel(Models.CAMPFIRE_SPIT);
+				texture = ModelRegistry.getTexture(Models.CAMPFIRE_SPIT);
 				break;
-			case 4:
+			case 3:
 				model = ModelRegistry.getModel(Models.CAMPFIRE_OPENOVEN);
 				texture = ModelRegistry.getTexture(Models.CAMPFIRE_OPENOVEN);
 				break;
