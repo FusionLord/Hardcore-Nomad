@@ -22,7 +22,7 @@ public class RenderBackPack extends RenderCampComp
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{
 		model = ModelRegistry.getModel(Models.BACKPACK);
-		texture = ModelRegistry.getTexture(Models.BACKPACK, item.getItemDamage());
+		texture = ModelRegistry.getTexture(Models.BACKPACK, item.getItemDamage() + 1);
 		ModelRegistry.bindTexture(texture);
 
 		GL11.glPushMatrix();

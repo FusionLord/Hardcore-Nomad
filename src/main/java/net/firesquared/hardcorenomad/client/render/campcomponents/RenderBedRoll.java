@@ -13,17 +13,18 @@ public class RenderBedRoll extends RenderCampComp
 	protected void renderTile(TileEntityDeployableBase tile, int lighting)
 	{
 		GL11.glTranslatef(.5f, 0f, .5f);
-		render();
+		render(tile.getCurrentLevel());
+
 	}
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{
 		GL11.glRotatef(180, 0f, 1f, 0f);
-		render();
+		render(item.getItemDamage());
 	}
 
-	private void render()
+	private void render(int damage)
 	{
 		GL11.glScalef(.18f, .18f, .18f);
 		model = ModelRegistry.getModel(Models.BEDROLL);
@@ -31,14 +32,32 @@ public class RenderBedRoll extends RenderCampComp
 		GL11.glTranslated(0, .3, 0);
 		model.renderAll();
 		GL11.glTranslated(0, -.3, 0);
-		model = ModelRegistry.getModel(Models.BEDROLL_MATTING);
-		bindTexture(ModelRegistry.getTexture(Models.BEDROLL_MATTING));
-		model.renderAll();
-		model = ModelRegistry.getModel(Models.BEDROLL_PILLOW);
-		bindTexture(ModelRegistry.getTexture(Models.BEDROLL_PILLOW));
-		GL11.glTranslated(3, .75, 0);
-		model.renderAll();
-		GL11.glTranslated(0, .25, 0);
-		model.renderAll();
+		if (damage >= 1)
+		{
+			model = ModelRegistry.getModel(Models.BEDROLL_MATTING);
+			bindTexture(ModelRegistry.getTexture(Models.BEDROLL_MATTING));
+			model.renderAll();
+		}
+		if (damage >= 2)
+		{
+			model = ModelRegistry.getModel(Models.BEDROLL_PILLOW);
+			bindTexture(ModelRegistry.getTexture(Models.BEDROLL_PILLOW));
+			GL11.glTranslated(3, .75, 0);
+			model.renderAll();
+			GL11.glTranslated(0, .25, 0);
+			model.renderAll();
+		}
+		if (damage == 3)
+		{
+			model = ModelRegistry.getModel(Models.BEDROLL_LEANTO);
+			bindTexture(ModelRegistry.getTexture(Models.BEDROLL_LEANTO));
+			model.renderAll();
+		}
+		if (damage == 4)
+		{
+			model = ModelRegistry.getModel(Models.BEDROLL_TENT);
+			bindTexture(ModelRegistry.getTexture(Models.BEDROLL_TENT));
+			model.renderAll();
+		}
 	}
 }
