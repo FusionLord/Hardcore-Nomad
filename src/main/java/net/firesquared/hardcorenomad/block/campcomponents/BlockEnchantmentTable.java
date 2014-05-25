@@ -92,6 +92,6 @@ public class BlockEnchantmentTable extends BlockCampComponent
 	@Override
 	public UpgradeType getType()
 	{
-		return UpgradeType.Enchanting;
+		return UpgradeType.ENCHANTING_TABLE;
 	}
 }

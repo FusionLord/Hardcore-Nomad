@@ -53,6 +53,6 @@ public class BlockBedRoll extends BlockCampComponent
 	@Override
 	public UpgradeType getType()
 	{
-		return UpgradeType.BedRoll;
+		return UpgradeType.BEDROLL;
 	}
 }

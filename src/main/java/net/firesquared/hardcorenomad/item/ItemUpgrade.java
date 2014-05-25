@@ -32,23 +32,23 @@ public class ItemUpgrade extends Item
 	public enum UpgradeType
 	{
 		//NOTE: Changing the index of an item in this enum WILL BREAK saves!
-		Anvil((BlockCampComponent)Blocks.BLOCK_ANVIL.getBlock(), 1),
-		BedRoll((BlockCampComponent)Blocks.BLOCK_BEDROLL.getBlock(), 4),
-		BrewingStand((BlockCampComponent)Blocks.BLOCK_BREWING.getBlock(), 1),
-		CampFire((BlockCampComponent)Blocks.BLOCK_CAMPFIRE.getBlock(), 5),
-		CobbleGen((BlockCampComponent)Blocks.BLOCK_COBBLEGEN.getBlock(), 1),
-		Crafting((BlockCampComponent)Blocks.BLOCK_CRAFTING.getBlock(), 1),
-		Enchanting((BlockCampComponent)Blocks.BLOCK_ENCHANTMENTTABLE.getBlock(), 5),
-		Storage((BlockCampComponent)Blocks.BLOCK_STORAGE.getBlock(), 1),
+		ANVIL((BlockCampComponent)Blocks.BLOCK_ANVIL.getBlock(), 1),
+		BEDROLL((BlockCampComponent)Blocks.BLOCK_BEDROLL.getBlock(), 4),
+		BREWING_STAND((BlockCampComponent)Blocks.BLOCK_BREWING.getBlock(), 1),
+		CAMPFIRE((BlockCampComponent)Blocks.BLOCK_CAMPFIRE.getBlock(), 4),
+		COBBLE_GENERATOR((BlockCampComponent)Blocks.BLOCK_COBBLEGEN.getBlock(), 1),
+		CRAFTING_TABLE((BlockCampComponent)Blocks.BLOCK_CRAFTING.getBlock(), 1),
+		ENCHANTING_TABLE((BlockCampComponent)Blocks.BLOCK_ENCHANTMENTTABLE.getBlock(), 5),
+		STORAGE((BlockCampComponent)Blocks.BLOCK_STORAGE.getBlock(), 1),
 		
-		Backpack(null, 3);
+		BACKPACK(null, 3);
 		
 		BlockCampComponent block;
-		byte levels;
+		int levels;
 		private UpgradeType(BlockCampComponent block, int levels)
 		{
 			this.block = block;
-			this.levels = (byte) levels;
+			this.levels = levels;
 		}
 		public BlockCampComponent getBlockContainer()
 		{

@@ -12,20 +12,18 @@ import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
-import net.firesquared.hardcorenomad.item.backpacks.ItemBackPack;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquaredcore.helper.Vector3n;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemWritableBook;
 import net.minecraft.nbt.NBTTagCompound;
+<<<<<<< HEAD
+=======
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
+>>>>>>> 0eb35a82cdf7a9b291fd6166f5e0e3e8a2843b9f
 
 public class TileEntityBackPack extends TileEntityDeployableBase implements IInventory
 {
@@ -113,7 +111,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 					lvl = ItemUpgrade.getLevelFromDamage(dmg);
 			UpgradeType type = ItemUpgrade.getTypeFromDamage(dmg);
 			//if the user is upgrading their backpack in-place
-			if(type == UpgradeType.Backpack)
+			if(type == UpgradeType.BACKPACK)
 			{
 				int meta = getBlockMetadata();
 				if(meta == lvl)

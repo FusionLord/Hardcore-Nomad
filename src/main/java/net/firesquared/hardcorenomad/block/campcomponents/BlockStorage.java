@@ -29,9 +29,10 @@ public class BlockStorage extends BlockCampComponent
 	{
 		return false;
 	}
+
 	@Override
 	public UpgradeType getType()
 	{
-		return UpgradeType.Storage;
+		return UpgradeType.STORAGE;
 	}
 }

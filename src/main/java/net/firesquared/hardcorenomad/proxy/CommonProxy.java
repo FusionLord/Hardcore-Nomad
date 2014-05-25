@@ -18,7 +18,6 @@ import net.firesquared.hardcorenomad.item.misc.DispenserBehaviorPebble;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquaredcore.helper.IProxy;
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -109,39 +108,39 @@ public abstract class CommonProxy implements IProxy
 //		GameRegistry.addRecipe(new ItemStack(Items.ITEM_FIREBUNDLE.getItem(), 1), "sts", "twt", "sts", 's', new ItemStack(net.minecraft.init.Items.stick), 't', net.minecraft.init.Blocks.sapling, 'w', net.minecraft.init.Blocks.planks);
 
 		// ====== CRAFTING TABLE ======
-		// Crafting Table Tier 1
-		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.Crafting, 0), " s ", "scs", " s ", 's', new ItemStack(net.minecraft.init.Items.stick), 'c', new ItemStack(net.minecraft.init.Blocks.crafting_table));
+		// CRAFTING_TABLE Table Tier 1
+		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.CRAFTING_TABLE, 0), " s ", "scs", " s ", 's', new ItemStack(net.minecraft.init.Items.stick), 'c', new ItemStack(net.minecraft.init.Blocks.crafting_table));
 
 		// ====== COBBLESTONE GENERATOR ======
 		// CobbleGen Level 1
-		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.CobbleGen, 0), "rpr", "lhw", "scs", 'r', new ItemStack(net.minecraft.init.Items.repeater), 'p', new ItemStack(net.minecraft.init.Blocks.piston), 'l', new ItemStack(net.minecraft.init.Items.lava_bucket), 'h', new ItemStack(net.minecraft.init.Blocks.hopper), 'w', new ItemStack(net.minecraft.init.Items.water_bucket), 's', new ItemStack(net.minecraft.init.Blocks.stone), 'c', new ItemStack(net.minecraft.init.Blocks.chest));
+		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.COBBLE_GENERATOR, 0), "rpr", "lhw", "scs", 'r', new ItemStack(net.minecraft.init.Items.repeater), 'p', new ItemStack(net.minecraft.init.Blocks.piston), 'l', new ItemStack(net.minecraft.init.Items.lava_bucket), 'h', new ItemStack(net.minecraft.init.Blocks.hopper), 'w', new ItemStack(net.minecraft.init.Items.water_bucket), 's', new ItemStack(net.minecraft.init.Blocks.stone), 'c', new ItemStack(net.minecraft.init.Blocks.chest));
 
 		// ====== BREWING STAND ======
 		// Brewing Stand Level 1
-		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.BrewingStand, 0), " b ", "fwf", "scs", 'b', new ItemStack(net.minecraft.init.Items.bone), 'f', new ItemStack(net.minecraft.init.Blocks.fence), 'w', new ItemStack(net.minecraft.init.Items.water_bucket), 's', new ItemStack(net.minecraft.init.Blocks.stone), 'c', new ItemStack(net.minecraft.init.Items.cauldron));
+		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.BREWING_STAND, 0), " b ", "fwf", "scs", 'b', new ItemStack(net.minecraft.init.Items.bone), 'f', new ItemStack(net.minecraft.init.Blocks.fence), 'w', new ItemStack(net.minecraft.init.Items.water_bucket), 's', new ItemStack(net.minecraft.init.Blocks.stone), 'c', new ItemStack(net.minecraft.init.Items.cauldron));
 
 		// ====== FIREPIT ======
 		//                                             Campfire Level indicated but n+1 here v       and    here v
-		GameRegistry.addRecipe(new ShapedOreRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.CampFire, 0), " t ", "tst", "sls", 't', net.minecraft.init.Blocks.sapling, 's', new ItemStack(net.minecraft.init.Items.stick), 'l', "logWood"));
-		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.CampFire, 1), "scs", "cac", "scs", 's', new ItemStack(net.minecraft.init.Blocks.stone), 'c', new ItemStack(net.minecraft.init.Blocks.cobblestone), 'a', new ItemStack(net.minecraft.init.Blocks.sand));
-		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.CampFire, 2), "sss", "ftf", "f f", 's', new ItemStack(net.minecraft.init.Items.reeds), 'f', new ItemStack(net.minecraft.init.Blocks.fence), 't', new ItemStack(net.minecraft.init.Items.string));
-		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.CampFire, 3), " c ", "cbc", "bob", 'c', new ItemStack(net.minecraft.init.Items.clay_ball), 'b', new ItemStack(net.minecraft.init.Blocks.cobblestone), 'o', new ItemStack(net.minecraft.init.Blocks.coal_block));
-		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.CampFire, 4), "sl ", "ttl", "lll", 's', new ItemStack(net.minecraft.init.Items.stick), 'l', new ItemStack(net.minecraft.init.Items.leather), 't', new ItemStack(net.minecraft.init.Items.string));
+		GameRegistry.addRecipe(new ShapedOreRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.CAMPFIRE, 0), " t ", "tst", "sls", 't', net.minecraft.init.Blocks.sapling, 's', new ItemStack(net.minecraft.init.Items.stick), 'l', "logWood"));
+		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.CAMPFIRE, 1), "scs", "cac", "scs", 's', new ItemStack(net.minecraft.init.Blocks.stone), 'c', new ItemStack(net.minecraft.init.Blocks.cobblestone), 'a', new ItemStack(net.minecraft.init.Blocks.sand));
+		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.CAMPFIRE, 2), "sss", "ftf", "f f", 's', new ItemStack(net.minecraft.init.Items.reeds), 'f', new ItemStack(net.minecraft.init.Blocks.fence), 't', new ItemStack(net.minecraft.init.Items.string));
+		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.CAMPFIRE, 3), " c ", "cbc", "bob", 'c', new ItemStack(net.minecraft.init.Items.clay_ball), 'b', new ItemStack(net.minecraft.init.Blocks.cobblestone), 'o', new ItemStack(net.minecraft.init.Blocks.coal_block));
+//		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.CAMPFIRE, 4), "sl ", "ttl", "lll", 's', new ItemStack(net.minecraft.init.Items.stick), 'l', new ItemStack(net.minecraft.init.Items.leather), 't', new ItemStack(net.minecraft.init.Items.string));
 		// ====== ENCHANTMENT TABLE ======
 		//                                                          Enchantment Table Level indicated but n+1 here v
-		GameRegistry.addRecipe(new ShapedOreRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.Enchanting, 0), " b ", "ili", "ooo", 'b', new ItemStack(net.minecraft.init.Items.book), 'i', new ItemStack(net.minecraft.init.Items.iron_ingot), 'l', new ItemStack(net.minecraft.init.Blocks.lapis_block), 'o', "logWood"));
-		GameRegistry.addRecipe(new ShapedOreRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.Enchanting, 1), " b ", "ili", "ooo", 'b', new ItemStack(net.minecraft.init.Items.book), 'i', new ItemStack(net.minecraft.init.Items.gold_ingot), 'l', new ItemStack(net.minecraft.init.Blocks.lapis_block), 'o', "logWood"));
-		GameRegistry.addRecipe(new ShapedOreRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.Enchanting, 2), " b ", "ili", "ooo", 'b', new ItemStack(net.minecraft.init.Items.book), 'i', new ItemStack(net.minecraft.init.Items.diamond), 'l', new ItemStack(net.minecraft.init.Blocks.lapis_block), 'o', "logWood"));
-		GameRegistry.addRecipe(new ShapedOreRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.Enchanting, 3), " b ", "ili", "ooo", 'b', new ItemStack(net.minecraft.init.Items.book), 'i', new ItemStack(net.minecraft.init.Items.emerald), 'l', new ItemStack(net.minecraft.init.Blocks.lapis_block), 'o', "logWood"));
-		GameRegistry.addRecipe(new ShapedOreRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.Enchanting, 4), " b ", "ili", "ooo", 'b', new ItemStack(net.minecraft.init.Items.book), 'i', new ItemStack(net.minecraft.init.Items.emerald), 'l', new ItemStack(net.minecraft.init.Blocks.iron_block), 'o', "logWood"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.ENCHANTING_TABLE, 0), " b ", "ili", "ooo", 'b', new ItemStack(net.minecraft.init.Items.book), 'i', new ItemStack(net.minecraft.init.Items.iron_ingot), 'l', new ItemStack(net.minecraft.init.Blocks.lapis_block), 'o', "logWood"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.ENCHANTING_TABLE, 1), " b ", "ili", "ooo", 'b', new ItemStack(net.minecraft.init.Items.book), 'i', new ItemStack(net.minecraft.init.Items.gold_ingot), 'l', new ItemStack(net.minecraft.init.Blocks.lapis_block), 'o', "logWood"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.ENCHANTING_TABLE, 2), " b ", "ili", "ooo", 'b', new ItemStack(net.minecraft.init.Items.book), 'i', new ItemStack(net.minecraft.init.Items.diamond), 'l', new ItemStack(net.minecraft.init.Blocks.lapis_block), 'o', "logWood"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.ENCHANTING_TABLE, 3), " b ", "ili", "ooo", 'b', new ItemStack(net.minecraft.init.Items.book), 'i', new ItemStack(net.minecraft.init.Items.emerald), 'l', new ItemStack(net.minecraft.init.Blocks.lapis_block), 'o', "logWood"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.ENCHANTING_TABLE, 4), " b ", "ili", "ooo", 'b', new ItemStack(net.minecraft.init.Items.book), 'i', new ItemStack(net.minecraft.init.Items.emerald), 'l', new ItemStack(net.minecraft.init.Blocks.iron_block), 'o', "logWood"));
 
 		// ====== BED ======
 		//                                   Enchantment Table Level indicated but n+1 here v
-		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.BedRoll, 0), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', net.minecraft.init.Blocks.planks);
-		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.BedRoll, 1), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', new ItemStack(net.minecraft.init.Blocks.hay_block));
-		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.BedRoll, 2), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', new ItemStack(net.minecraft.init.Blocks.cobblestone));
-		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.BedRoll, 3), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', new ItemStack(net.minecraft.init.Blocks.stone));
-//		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.BedRoll, 5), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', new ItemStack(net.minecraft.init.Items.iron_ingot));
+		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.BEDROLL, 0), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', net.minecraft.init.Blocks.planks);
+		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.BEDROLL, 1), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', new ItemStack(net.minecraft.init.Blocks.hay_block));
+		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.BEDROLL, 2), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', new ItemStack(net.minecraft.init.Blocks.cobblestone));
+		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.BEDROLL, 3), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', new ItemStack(net.minecraft.init.Blocks.stone));
+//		GameRegistry.addRecipe(ItemUpgrade.getUpgradeStack(ItemUpgrade.UpgradeType.BEDROLL, 5), "   ", "www", "ppp", 'w', net.minecraft.init.Blocks.wool, 'p', new ItemStack(net.minecraft.init.Items.iron_ingot));
 
 		// ====== BLOCKS ======
 		// Cobblestone Recipe

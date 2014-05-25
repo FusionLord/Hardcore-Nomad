@@ -4,14 +4,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
-import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCrafting;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -73,6 +70,6 @@ public class BlockCrafting extends BlockCampComponent
 	@Override
 	public UpgradeType getType()
 	{
-		return UpgradeType.Crafting;
+		return UpgradeType.CRAFTING_TABLE;
 	}
 }

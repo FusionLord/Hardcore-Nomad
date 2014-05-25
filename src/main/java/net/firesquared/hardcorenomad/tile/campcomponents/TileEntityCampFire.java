@@ -27,7 +27,7 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 
 	public TileEntityCampFire()
 	{
-		super(UpgradeType.CampFire);
+		super(UpgradeType.CAMPFIRE);
 	}
 
 	@Override
