@@ -2,10 +2,7 @@ package net.firesquared.hardcorenomad.helpers.enums;
 
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBedRoll;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCrafting;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityEnchantmentTable;
+import net.firesquared.hardcorenomad.tile.campcomponents.*;
 import net.firesquaredcore.helper.Vector3n;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
@@ -17,7 +14,8 @@ public enum Tiles
 	CAMPFIRE(TileEntityCampFire.class, "campfire"),
 	ENCHANT_TABLE_COMPACT(TileEntityEnchantmentTable.class, "enchantmenttable"),
 	CRAFTING(TileEntityCrafting.class, "crafting"),
-	BEDROLL(TileEntityBedRoll.class, "bedroll")
+	BEDROLL(TileEntityBedRoll.class, "bedroll"),
+	COBBLEGEN(TileEntityCobbleGenerator.class, "cobblegen"),
 	;
 	public final Class<? extends TileEntity> tileClass;
 	private final String ID;
