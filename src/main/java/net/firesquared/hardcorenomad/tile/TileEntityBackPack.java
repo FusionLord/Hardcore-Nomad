@@ -2,10 +2,6 @@
 
 package net.firesquared.hardcorenomad.tile;
 
-import org.lwjgl.util.vector.Vector3f;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
@@ -19,11 +15,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-<<<<<<< HEAD
-=======
-import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
->>>>>>> 0eb35a82cdf7a9b291fd6166f5e0e3e8a2843b9f
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileEntityBackPack extends TileEntityDeployableBase implements IInventory
 {
