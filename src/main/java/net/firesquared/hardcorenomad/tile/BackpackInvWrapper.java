@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.tile;
 
+import net.firesquared.hardcorenomad.block.BlockBackPack;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
@@ -60,7 +61,7 @@ public class BackpackInvWrapper implements IInventory
 	{
 		Item item = itemStack.getItem();
 		if (slot < storageInventory.length)
-			return true;
+			return !(Block.getBlockFromItem(itemStack.getItem()) instanceof BlockBackPack);
 		if (slot >= storageInventory.length && slot < storageInventory.length + componentInventory.length)
 			return Block.getBlockFromItem(item) instanceof BlockCampComponent;
 		if (slot == storageInventory.length + componentInventory.length)

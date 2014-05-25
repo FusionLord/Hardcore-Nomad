@@ -84,19 +84,44 @@ public class BackpackContainer extends Container
 		int slot = 0;
 		for (int x = 0; x < type.getStorageWidth(); x++)
 			for(int y = 0; y < type.getStorageHeight(); y++)
-				addSlotToContainer(new Slot(backPack, slot++, paddingLeft + x * 18, paddingTop + y * 18));
+				addSlotToContainer(new Slot(backPack, slot++, paddingLeft + x * 18, paddingTop + y * 18)
+				{@Override
+					public boolean isItemValid(ItemStack is)
+					{
+						return backPack.isItemValidForSlot(this.slotNumber, is);
+					}
+				});
 		
 		Slot tempSlot;
 		for (int i = 0; i < ItemUpgrade.getCampComponentCount(); i++)
 		{
-			tempSlot = new Slot(backPack, slot++, 8 + i * 18, 50);
+			tempSlot = new Slot(backPack, slot++, 8 + i * 18, 50)
+			{@Override
+				public boolean isItemValid(ItemStack is)
+				{
+					return backPack.isItemValidForSlot(this.slotNumber, is);
+				}
+			};
 			upgradeDisplaySlots.add(tempSlot);
 			addSlotToContainer(tempSlot);
 		}
 
-		addSlotToContainer(new Slot(backPack, slot++, 8 + 7 * 18, 8));
+		addSlotToContainer(
+				new Slot(backPack, slot++, 8 + 7 * 18, 8)			
+				{@Override
+					public boolean isItemValid(ItemStack is)
+					{
+						return backPack.isItemValidForSlot(this.slotNumber, is);
+					}
+				});
 		if (type.hasArmorSlot())
-			addSlotToContainer(new Slot(backPack, slot++, 8 + 8 * 18, 8));
+			addSlotToContainer(new Slot(backPack, slot++, 8 + 8 * 18, 8)
+			{@Override
+				public boolean isItemValid(ItemStack is)
+				{
+					return backPack.isItemValidForSlot(this.slotNumber, is);
+				}
+			});
 		Helper.getLogger().info((isServer?"Server":"Client")+" has " + slot + " slots");
 	}
 	
