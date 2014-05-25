@@ -66,7 +66,8 @@ public class RenderBedRoll extends RenderCampComp
 		{
 			GL11.glPushMatrix();
 			GL11.glDisable(GL11.GL_CULL_FACE);
-			GL11.glTranslatef(.08f, 0.34375f, 0f);
+			GL11.glRotatef(180, 0f, 1f, 0f);
+			GL11.glTranslatef(0f, 0.34375f, 0f);
 			GL11.glScalef(.18f, .18f, .18f);
 			model = ModelRegistry.getModel(Models.BEDROLL_TENT);
 			bindTexture(ModelRegistry.getTexture(Models.BEDROLL_TENT));

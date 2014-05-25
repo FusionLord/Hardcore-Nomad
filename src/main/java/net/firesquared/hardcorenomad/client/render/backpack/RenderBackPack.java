@@ -4,25 +4,33 @@ package net.firesquared.hardcorenomad.client.render.backpack;
 
 import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCampComp;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
+import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.firesquaredcore.helper.ModelRegistry;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.model.IModelCustom;
 
 import org.lwjgl.opengl.GL11;
 
 public class RenderBackPack extends RenderCampComp
 {
-	IModelCustom model = null;
-	ResourceLocation texture = null;
-
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{
+		render(item.getItemDamage() + (item.getItem() instanceof ItemUpgrade ? 1 : 0));
+	}
+
+	@Override
+	protected void renderTile(TileEntityDeployableBase tile, int lighting)
+	{
+		GL11.glScalef(.8f, .8f, .8f);
+		GL11.glTranslatef(.625f, .5f, .625f);
+		render(tile.getCurrentLevel());
+	}
+
+	protected void render(int damage)
+	{
 		model = ModelRegistry.getModel(Models.BACKPACK);
-		texture = ModelRegistry.getTexture(Models.BACKPACK, item.getItemDamage() + 1);
+		texture = ModelRegistry.getTexture(Models.BACKPACK, damage);
 		ModelRegistry.bindTexture(texture);
 
 		GL11.glPushMatrix();
@@ -32,11 +40,5 @@ public class RenderBackPack extends RenderCampComp
 		GL11.glColor4f(1, 1, 1, 1);
 		model.renderAll();
 		GL11.glPopMatrix();
-	}
-
-	@Override
-	protected void renderTile(TileEntityDeployableBase tile, int lighting)
-	{
-
 	}
 }

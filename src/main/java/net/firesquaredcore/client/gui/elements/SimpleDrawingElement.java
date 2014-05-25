@@ -6,7 +6,7 @@ public class SimpleDrawingElement implements IGuiElement
 {
 	protected IQuadDrawer drawer;
 	protected int x, y;
-	protected boolean drawInForeground = true;
+	protected boolean drawInForeground = false;
 	
 	public SimpleDrawingElement(IQuadDrawer drawConfig)
 	{
