@@ -1,11 +1,37 @@
 package net.firesquared.hardcorenomad.helpers;
 
-public class NBTHelper
+import net.firesquaredcore.helper.Vector3n;
+import net.minecraft.nbt.NBTTagCompound;
+
+public final class NBTHelper
 {
+	public static void setXYZ(NBTTagCompound tag, String baseName, Vector3n loc)
+	{
+		tag.setInteger(baseName+X, loc.x);
+		tag.setInteger(baseName+Y, loc.y);
+		tag.setInteger(baseName+Z, loc.z);
+	}
+	public static void setXYZ(NBTTagCompound tag, String baseName, int x, int y, int z)
+	{
+		tag.setInteger(baseName+X, x);
+		tag.setInteger(baseName+Y, y);
+		tag.setInteger(baseName+Z, z);
+	}
+	
+	public static Vector3n getXYZ(NBTTagCompound tag, String baseName, Integer x, Integer y, Integer z)
+	{
+		if(tag == null || !tag.hasKey(baseName + X) || !tag.hasKey(baseName + Y) || !tag.hasKey(baseName + Z))
+			return null;
+		Vector3n vect = new Vector3n();
+		vect.x = tag.getInteger(baseName + X);
+		vect.y = tag.getInteger(baseName + Y);
+		vect.z = tag.getInteger(baseName + Z);
+		return vect;
+	}
+	
 	//public static final String CURRENTLEVEL = "currentLevel";
-	public static final String XOFFSET = "xOffset";
-	public static final String YOFFSET = "yOffset";
-	public static final String ZOFFSET = "zOffset";
+	public static final String X = "PosX", Y = "PosY", Z = "PosZ";
+	public static final String OFFSET = "offset";
 	public static final String COMPONENTTYPE = "componentType";
 	public static final String COMINV = "componentInventory";
 	public static final String STGINV = "storageInventory";
@@ -13,4 +39,6 @@ public class NBTHelper
 	public static final String UPGRADESLOT = "upgradeSlot";
 	public static final String ARMORSLOT = "armorSlot";
 	public static final String IS_DEPLOYED = "isDeployed";
+	public static final String HAS_PARRENT_BACKPACK = "hasParrentBackpack";
+	public static final String PARRENT_BACKPACK_LOCATION = "parrentBackpackLocation";
 }

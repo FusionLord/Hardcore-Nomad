@@ -2,7 +2,7 @@
 {
   "modid": "hardcorenomad",
   "name": "HardCore Nomad",
-  "description": "Example placeholder mod.",
+  "description": "Improving mobility with portable bases and extra player storage.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
@@ -16,7 +16,7 @@
 {
   "modid": "firesquaredcore",
   "name": "FireSquared Core",
-  "description": "This is a library required for all FireSquared Mods.",
+  "description": "A required library for all FireSquared Mods, providing rich, dynamic, skinable GUIs, smoother handling of art assets, and assorted boilerplate code.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",

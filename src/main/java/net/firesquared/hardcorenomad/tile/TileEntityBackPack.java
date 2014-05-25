@@ -2,17 +2,28 @@
 
 package net.firesquared.hardcorenomad.tile;
 
+import org.lwjgl.util.vector.Vector3f;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
+import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
+import net.firesquaredcore.helper.Vector3n;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+<<<<<<< HEAD
+=======
+import net.minecraft.util.StatCollector;
+import net.minecraft.util.Vec3;
+>>>>>>> 0eb35a82cdf7a9b291fd6166f5e0e3e8a2843b9f
 
 public class TileEntityBackPack extends TileEntityDeployableBase implements IInventory
 {
@@ -87,6 +98,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	 * Attempt to apply the upgrade currently in the upgrade slot
 	 * @return true if the upgrade was successfully applied
 	 */
+	@SideOnly(Side.SERVER)
 	public boolean doUpgrade()
 	{
 		if (inv.upgradeSlot == null )
@@ -156,8 +168,8 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		return false;
 	}
 
-
-	public void deployAll()
+	@SideOnly(Side.SERVER)
+	public void deployAll(EntityPlayer player)
 	{
 		NBTTagCompound tag;
 		for (int i = 0; i < inv.componentInventory.length; i++)
@@ -165,10 +177,12 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			{
 				tag = inv.componentInventory[i].stackTagCompound;
 				if(!tag.getBoolean(NBTHelper.IS_DEPLOYED))
-					toggle(i);
+					toggle(i, player);
 			}
 	}
-	public void recoverAll()
+	
+	@SideOnly(Side.SERVER)
+	public void recoverAll(EntityPlayer player)
 	{
 		NBTTagCompound tag;
 		for (int i = 0; i < inv.componentInventory.length; i++)
@@ -176,24 +190,137 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			{
 				tag = inv.componentInventory[i].stackTagCompound;
 				if(tag.getBoolean(NBTHelper.IS_DEPLOYED))
-					toggle(i);
+					toggle(i, player);
 			}
 	}
-	public void toggle(int slot)
+	@SideOnly(Side.SERVER)
+	public boolean toggle(int componentID, EntityPlayer player)
 	{
-		ItemStack upgrade = inv.componentInventory[slot];
-		if (upgrade == null)
-			return;
-		NBTTagCompound comTag = upgrade.getTagCompound();
+		ItemStack is = inv.componentInventory[componentID];
+		if (is == null || is.stackTagCompound == null)
+		{
+			Helper.getLogger().error("Attempted to toggle component that " + is == null ? "was null" : "had a missing tag");
+			return false;
+		}
+		
+		Vector3n offset = readOffset(componentID);
+		Vector3n absolute = new Vector3n(offset.x + xCoord, offset.y + yCoord, offset.z + zCoord);
+		if(is.stackTagCompound.hasKey(NBTHelper.IS_DEPLOYED) && is.stackTagCompound.getBoolean(NBTHelper.IS_DEPLOYED))
+		{
+			BlockCampComponent b = (BlockCampComponent) Block.getBlockFromItem(is.getItem());
+			return this.<TileEntityDeployableBase>doBlockRecovery(absolute, componentID, b);
+		}
+		else
+		{
+			if(!isPlacementValid(absolute, player, is))
+				return false;
+			return doBlockSetting(absolute, is, is.getItemDamage());
+		}
+		
+		
+		
 
-		int xoffset = comTag.getInteger(NBTHelper.XOFFSET);
-		int yoffset = comTag.getInteger(NBTHelper.YOFFSET);
-		int zoffset = comTag.getInteger(NBTHelper.ZOFFSET);
+	}
+	
+	private boolean isPlacementValid(Vector3n location, EntityPlayer player, ItemStack is)
+	{
+		int x = location.x, y = location.y, z = location.z;
+		Block b = worldObj.getBlock(x,  y,  z);
+		int meta = worldObj.getBlockMetadata(x, y, z);
+		if(b.isReplaceable(worldObj, x, y, z) && player.canPlayerEdit(x, y, z, meta, is))
+			return true;
+		return false;
+	}
+	
+	@SideOnly(Side.SERVER)
+	private <TE extends TileEntityDeployableBase> 
+		boolean doBlockRecovery(Vector3n coords, int slotIndex, BlockCampComponent blockInst)
+	{
+		int x = coords.x, y = coords.y, z = coords.z;
+		ItemStack result = inv.componentInventory[slotIndex];
+		if(result == null || result.stackTagCompound == null)
+		{
+			Helper.getLogger().error("Attempted to recover a camp component with no, or corrupt, location data");
+			return false;
+		}
+		
+		inv.componentInventory[slotIndex] = new ItemStack(blockInst);
+		Block b = worldObj.getBlock(x, y, z);
+		
+		if(!blockInst.getClass().isInstance(b))
+		{
+			Helper.getLogger().error("Found unexpected block at target location");
+			return false;
+		}
+			
+		TE tile = Tiles.<TE>getTileEntity(worldObj, x, y, z);
+		if(tile == null)
+		{
+			Helper.getLogger().error("Specified tile entity was not found at target location");
+			return false;
+		}
+		tile.writeToNBT(result.stackTagCompound);
+		worldObj.setBlockToAir(x, y, z);
+		result.stackTagCompound.setBoolean(NBTHelper.IS_DEPLOYED, false);
+		return true;
+		
+	}
+	
+	@SideOnly(Side.SERVER)
+	private <TE extends TileEntityDeployableBase>boolean doBlockSetting(Vector3n coords, ItemStack is, int level)
+	{
+		int x = coords.x, y = coords.y, z = coords.z;
+		TE teComponent;
+		if (worldObj.setBlock(x, y, z, Block.getBlockFromItem(is.getItem())))
+		{
+			if(!(worldObj.getBlock(x, y, z) instanceof BlockCampComponent));
+			{
+				Helper.getLogger().warn("Failed to confirm block placement at ".concat(coords.toString()));
+			}
+			worldObj.setBlockMetadataWithNotify(x, y, z, level, 3);
+			teComponent = Tiles.<TE>getTileEntity(worldObj, x, y, z);
+			if(teComponent != null)
+			{
+				if(is.stackTagCompound != null)
+					teComponent.readFromNBT(is.stackTagCompound);
+				is.stackTagCompound.setBoolean(NBTHelper.IS_DEPLOYED, true);
+				return true;
+			}
+			else
+			{
+				Helper.getLogger().warn("Failed to validate tile entity at ".concat(coords.toString()));
+				return false;
+			}
+				
+		}
+		else
+			return false;
+	}
+	
+	private Vector3n readOffset(int slot)
+	{
+		ItemStack is = inv.componentInventory[slot];
+		NBTTagCompound comTag = is.getTagCompound();
+		if(!comTag.hasKey(NBTHelper.OFFSET + NBTHelper.X)||comTag.hasKey(NBTHelper.OFFSET + NBTHelper.Y)||comTag.hasKey(NBTHelper.OFFSET + NBTHelper.Z))
+			promptUserForOffsets(slot, is);
+		return new Vector3n(
+				comTag.getInteger(NBTHelper.OFFSET + NBTHelper.X),
+				comTag.getInteger(NBTHelper.OFFSET + NBTHelper.Y),
+				comTag.getInteger(NBTHelper.OFFSET + NBTHelper.Z));
+	}
+	
+	private void writeOffset(int slot, Vector3n newOffset)
+	{
+		ItemStack is = inv.componentInventory[slot];
+		NBTTagCompound comTag = is.getTagCompound();
+		comTag.setInteger(NBTHelper.OFFSET + NBTHelper.X, newOffset.x);
+		comTag.setInteger(NBTHelper.OFFSET + NBTHelper.Y, newOffset.y);
+		comTag.setInteger(NBTHelper.OFFSET + NBTHelper.Z, newOffset.z);
+	}
 
-		//This shit here doesn't work at all; need to rewrite this function
-		if (worldObj.setBlock(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset, 
-				(Block) ItemUpgrade.getTypeFromDamage(upgrade.getItemDamage()).getBlockContainer()))
-			worldObj.getTileEntity(xCoord + xoffset, yCoord + yoffset, zCoord + zoffset).readFromNBT(comTag);
+	private void promptUserForOffsets(int slot, ItemStack is)
+	{
+		
 	}
 
 	//Inventory; redirects all calls to the wrapper

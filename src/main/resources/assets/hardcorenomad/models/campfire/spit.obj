@@ -1,3 +1,6 @@
+# This file uses centimeters as units for non-parametric coordinates.
+
+mtllib Spit.mtl
 g default
 v -2.537996 -1.935550 0.188155
 v -2.228173 -1.935550 0.188155
@@ -577,6 +580,7 @@ vn 0.998091 -0.061761 0.000044
 vn 0.998091 -0.061761 0.000044
 s 1
 g polySurface50
+usemtl lambert4SG
 f 1/1/1 2/2/2 13/3/3 14/4/4
 s off
 f 25/7/5 26/8/6 27/9/7 28/10/8
