@@ -16,6 +16,7 @@ public class RenderCobbleGen extends RenderCampComp
 	@Override
 	protected void renderTile(TileEntityDeployableBase tile, int lighting)
 	{
+		//Comment to test pushing to new branch;
 		GL11.glTranslatef(.5f, 0f, .5f);
 		render();
 		if (/* (TileEntityCobbleGen)tile.time > 100 && (TileEntityCobbleGen)tile.time < 130 */ true)
