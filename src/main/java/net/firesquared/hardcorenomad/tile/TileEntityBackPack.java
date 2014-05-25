@@ -29,13 +29,12 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public TileEntityBackPack()
 	{
 		super(null);
-		inv = new BackpackInvWrapper(getType());
+		
 	}
 
 	public TileEntityBackPack(int metadata)
 	{
 		super(null, metadata);
-		inv = new BackpackInvWrapper(getType());
 	}
 
 	//NBT AND PERSISTENCE
@@ -55,6 +54,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
+		inv = new BackpackInvWrapper(getType());
 		readExtraNBT(tag);
 	}
 	
@@ -116,7 +116,8 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 					inv.storageInventory = new ItemStack[getType().getStorageCount()];
 					for(int i = 0; i < isa.length; i++)
 						inv.storageInventory[i] = isa[i];
-					
+					inv.type = getType();
+					markDirty();
 					return true;
 				}
 				return false;
