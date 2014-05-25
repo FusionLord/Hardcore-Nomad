@@ -91,7 +91,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	 * Attempt to apply the upgrade currently in the upgrade slot
 	 * @return true if the upgrade was successfully applied
 	 */
-	@SideOnly(Side.SERVER)
+	//@SideOnly(Side.SERVER)
 	public boolean doUpgrade()
 	{
 		if (inv.upgradeSlot == null )

@@ -20,7 +20,11 @@ import net.minecraft.util.StatCollector;
 public class BackpackInvWrapper implements IInventory
 {
 	public BackPackType type;
-	public BackpackInvWrapper(BackPackType type){this.type = type;}
+	public BackpackInvWrapper(BackPackType type)
+	{
+		this.type = type;
+		this.storageInventory = new ItemStack[type.getStorageCount()];
+	}
 	public BackpackInvWrapper(BackpackInvWrapper copy)
 	{
 		this.type = copy.type;

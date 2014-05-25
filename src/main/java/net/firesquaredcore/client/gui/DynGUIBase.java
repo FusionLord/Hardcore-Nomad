@@ -67,6 +67,8 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 		}
 		this.xSize = (guiWidth = newWidth);
 		this.ySize = (guiHeight = newHeight);
+
+		guiLeft = width / 2 - xSize / 2;
 		
 		background = getBackgroundProvider();
 	}
@@ -94,7 +96,7 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 	{
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glPushMatrix();
-		GL11.glTranslatef(guiLeft, guiTop, 0f);
+		GL11.glTranslatef(guiLeft, guiTop, 0);
 		background.drawBackground();
 		background.drawForeground();
 		for (IGuiElement element : elements)
