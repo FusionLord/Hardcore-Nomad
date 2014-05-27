@@ -19,6 +19,8 @@ public class RenderCampfire extends RenderCampComp
 		setModelAndTexture(tile.getCurrentLevel());
 		bindTexture(texture);
 		GL11.glTranslatef(.5f, .25f, .5f);
+		if (damage == 3)
+			GL11.glTranslatef(0f, -.22125f, 0f);
 		GL11.glScalef(.15f, .15f, .15f);
 		model.renderAll();
 		if (tile.getCurrentLevel() != 0 && tile.getCurrentLevel() != 3)
@@ -29,21 +31,21 @@ public class RenderCampfire extends RenderCampComp
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{
 		int damage = item.getItemDamage();
-			if (damage == 2)
-				renderSpit();
-			setModelAndTexture(damage);
-			bindTexture(texture);
-			GL11.glTranslatef(.5f, .25f, .5f);
-			GL11.glScalef(.15f, .15f, .15f);
-			model.renderAll();
-			if (damage != 0 && damage != 3)
-				addRocks();
+		if (damage == 2)
+			renderSpit();
+		setModelAndTexture(damage);
+		bindTexture(texture);
+		GL11.glTranslatef(.5f, 0f, .5f);
+		GL11.glScalef(.15f, .15f, .15f);
+		model.renderAll();
+		if (damage != 0 && damage != 3)
+			addRocks();
 	}
 
 	private void renderSpit()
 	{
 		GL11.glPushMatrix();
-		GL11.glTranslatef(.5f, .3625f, .5f);
+		GL11.glTranslatef(.5f, .1125f, .5f);
 		GL11.glScalef(.2f, .2f, .2f);
 		model = ModelRegistry.getModel(Models.CAMPFIRE_SPIT);
 		texture = ModelRegistry.getTexture(Models.CAMPFIRE_SPIT);

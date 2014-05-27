@@ -8,6 +8,7 @@ public enum Models implements IModelEnum
 {
 	//The name of the enum variable is used for file path and name...
 	//fileName(modelCount, textureCount)
+	ANVIL,
 	BACKPACK(1, 4),
 	BEDROLL,
 	BEDROLL_PILLOW,

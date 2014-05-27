@@ -14,13 +14,14 @@ public class RenderBedRoll extends RenderCampComp
 	{
 		GL11.glTranslatef(.5f, 0f, .5f);
 		render(tile.getCurrentLevel());
-
 	}
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{
 		GL11.glRotatef(180, 0f, 1f, 0f);
+		GL11.glTranslatef(0f, -.25f, .5f);
+		GL11.glScalef(.85f, .85f, .85f);
 		render(item.getItemDamage());
 	}
 

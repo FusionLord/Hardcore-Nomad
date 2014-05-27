@@ -22,12 +22,6 @@ public class TileEntityDeployableBase extends TileEntity
 		this.componentType = componentType;
 	}
 
-	public TileEntityDeployableBase(UpgradeType componentType, int metadata)
-	{
-		super();
-		this.componentType = componentType;
-	}
-
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
@@ -64,6 +58,10 @@ public class TileEntityDeployableBase extends TileEntity
 		if(worldObj == null)
 			return level;
 		return getBlockMetadata();
+	}
+	public void setCurrentLevel(int currentLevel)
+	{
+		this.level = currentLevel;
 	}
 
 	@Override

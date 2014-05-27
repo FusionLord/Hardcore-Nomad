@@ -71,7 +71,7 @@ public class ItemUpgrade extends Item
 	{
 		int dmg = par1ItemStack.getItemDamage();
 		UpgradeType ut = getTypeFromDamage(dmg);
-		return ut.name()+"."+Numeral.ToRoman(getLevelFromDamage(dmg)+1)+".Upgrade";
+		return ut.name().toLowerCase().replace('_', '.') + "." + Numeral.ToRoman(getLevelFromDamage(dmg) + 1) + ".Upgrade";
 	}
 
 	@Override

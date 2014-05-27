@@ -9,10 +9,7 @@ import net.firesquared.hardcorenomad.entity.EntityPebble;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBedRoll;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCobbleGenerator;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityEnchantmentTable;
+import net.firesquared.hardcorenomad.tile.campcomponents.*;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -31,6 +28,7 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.registerItemRenderer(Items.ITEM_UPGRADE.getItem(), new RenderUpgradeItem());
 
 		// ##Blocks##
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_ANVIL.getBlock()), RenderCampComp.anvil);
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_BACKPACK.getBlock()), RenderCampComp.backpack);
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_BEDROLL.getBlock()), RenderCampComp.bedroll);
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_CAMPFIRE.getBlock()), RenderCampComp.campfire);
@@ -38,6 +36,7 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_ENCHANTMENTTABLE.getBlock()), RenderCampComp.enchanting);
 
 		// ##TileEntities##
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAnvil.class, RenderCampComp.anvil);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBackPack.class, RenderCampComp.backpack);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBedRoll.class, RenderCampComp.bedroll);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCampFire.class, RenderCampComp.campfire);

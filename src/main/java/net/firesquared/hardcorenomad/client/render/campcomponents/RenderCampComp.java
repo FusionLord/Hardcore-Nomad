@@ -15,6 +15,7 @@ import net.minecraftforge.client.model.IModelCustom;
 
 public abstract class RenderCampComp extends TileEntitySpecialRenderer implements IItemRenderer
 {
+	public static RenderCampComp anvil = new RenderAnvil();
 	public static RenderCampComp backpack = new RenderBackPack();
 	public static RenderCampComp campfire = new RenderCampfire();
 	public static RenderCampComp bedroll = new RenderBedRoll();

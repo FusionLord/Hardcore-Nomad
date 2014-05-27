@@ -30,6 +30,11 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 		super(UpgradeType.CAMPFIRE);
 	}
 
+	public TileEntityCampFire(int meta)
+	{
+		super(UpgradeType.CAMPFIRE);
+	}
+
 	@Override
 	public Packet getDescriptionPacket()
 	{

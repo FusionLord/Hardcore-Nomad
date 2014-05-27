@@ -22,7 +22,6 @@ public class BlockEnchantmentTable extends BlockCampComponent
 		setHardness(1.0F);
 		setResistance(100.0F);
 		setStepSound(soundTypeMetal);
-		setBlockTextureName(Helper.Strings.MOD_ID + ":" + getUnlocalizedName());
 	}
 
 	@Override
@@ -41,13 +40,7 @@ public class BlockEnchantmentTable extends BlockCampComponent
 		}
 		return true;
 	}
-	
-	@Override
-	public int getRenderType()
-	{
-		return TileEntityEnchantmentTable.ModelID;
-	}
-	
+
 	@Override
 	public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_)
 	{

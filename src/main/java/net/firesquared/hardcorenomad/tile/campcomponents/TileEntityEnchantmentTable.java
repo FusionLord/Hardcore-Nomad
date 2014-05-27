@@ -14,8 +14,6 @@ public class TileEntityEnchantmentTable extends TileEntityDeployableBase
 	protected int enchantmentTableType;
 	private NBTTagCompound tagInv;
 
-	public static final int ModelID = RenderingRegistry.getNextAvailableRenderId();
-
 	public TileEntityEnchantmentTable()
 	{
 		super(UpgradeType.ENCHANTING_TABLE);

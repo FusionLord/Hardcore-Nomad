@@ -10,13 +10,12 @@ import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquaredcore.helper.Vector3n;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileEntityBackPack extends TileEntityDeployableBase implements IInventory
 {
@@ -24,17 +23,16 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	//get the value from where it is defined.  Don't just put the current value in as an integer
 	protected BackpackInvWrapper inv;
 
-
 	//CONSTRUCTORS
 	public TileEntityBackPack()
 	{
 		super(null);
-		
 	}
 
 	public TileEntityBackPack(int metadata)
 	{
-		super(null, metadata);
+		super(null);
+		inv = new BackpackInvWrapper(BackPackType.fromLevel(metadata));
 	}
 
 	//NBT AND PERSISTENCE
@@ -59,7 +57,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	
 	public void readExtraNBT(NBTTagCompound tag)
 	{
-		inv = new BackpackInvWrapper(getType());
 		BackpackInvWrapper.readExtraNBT(tag, inv);
 	}
 	
@@ -109,6 +106,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 				if(meta == lvl)
 				{
 					setBlockMeta(meta + 1);
+					setCurrentLevel(meta + 1);
 					Helper.getLogger().info("Applied upgrade "+inv.upgradeSlot.getDisplayName());
 					inv.upgradeSlot = null;
 					ItemStack[] isa = inv.storageInventory;
@@ -168,8 +166,11 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			if(inv.componentInventory[i] != null)
 			{
 				tag = inv.componentInventory[i].stackTagCompound;
-				if(!tag.getBoolean(NBTHelper.IS_DEPLOYED))
+				if (tag == null) return;
+				if(!tag.hasKey(NBTHelper.IS_DEPLOYED) || !tag.getBoolean(NBTHelper.IS_DEPLOYED))
+				{
 					toggle(i, player);
+				}
 			}
 	}
 
@@ -180,8 +181,11 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			if(inv.componentInventory[i] != null)
 			{
 				tag = inv.componentInventory[i].stackTagCompound;
-				if(tag.getBoolean(NBTHelper.IS_DEPLOYED))
+				if (tag == null) return;
+				if(!tag.hasKey(NBTHelper.IS_DEPLOYED) || !tag.getBoolean(NBTHelper.IS_DEPLOYED))
+				{
 					toggle(i, player);
+				}
 			}
 	}
 
@@ -190,7 +194,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		ItemStack is = inv.componentInventory[componentID];
 		if (is == null || is.stackTagCompound == null)
 		{
-			Helper.getLogger().error("Attempted to toggle component that " + is == null ? "was null" : "had a missing tag");
+			Helper.getLogger().error("Attempted to toggle component that " + (is == null ? "was null" : "had a missing tag"));
 			return false;
 		}
 		
@@ -212,10 +216,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 				return false;
 			return doBlockSetting(absolute, is, is.getItemDamage());
 		}
-		
-		
-		
-
 	}
 	
 	private boolean isPlacementValid(Vector3n location, EntityPlayer player, ItemStack is)
@@ -276,9 +276,16 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			if(teComponent != null)
 			{
 				if(is.stackTagCompound != null)
+				{
 					teComponent.readFromNBT(is.stackTagCompound);
-				is.stackTagCompound.setBoolean(NBTHelper.IS_DEPLOYED, true);
-				return true;
+					is.stackTagCompound.setBoolean(NBTHelper.IS_DEPLOYED, true);
+					return true;
+				}
+				else
+				{
+					Helper.getLogger().warn("ItemStack is doesn't have an nbt tag");
+					return false;
+				}
 			}
 			else
 			{
@@ -388,6 +395,5 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	{
 		return inv.isItemValidForSlot(slot, itemStack);
 	}
-
 
 }

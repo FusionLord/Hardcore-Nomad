@@ -23,7 +23,7 @@ public abstract class BlockCampComponent extends BlockContainer
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2)
 	{
-		return null;
+		return new TileEntityDeployableBase(getType());
 	}
 
 	@Override
@@ -58,6 +58,7 @@ public abstract class BlockCampComponent extends BlockContainer
 			deployableBase.writeToNBT(itemstack.stackTagCompound);
 			dropBlockAsItem(world, x, y, z, itemstack);
 		}
+		super.breakBlock(world, x, y, z, block, meta);
 	}
 
 	@Override
