@@ -182,7 +182,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			{
 				tag = inv.componentInventory[i].stackTagCompound;
 				if (tag == null) return;
-				if(!tag.hasKey(NBTHelper.IS_DEPLOYED) || !tag.getBoolean(NBTHelper.IS_DEPLOYED))
+				if(tag.hasKey(NBTHelper.IS_DEPLOYED) && tag.getBoolean(NBTHelper.IS_DEPLOYED))
 				{
 					toggle(i, player);
 				}
@@ -238,8 +238,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			Helper.getLogger().error("Attempted to recover a camp component with no, or corrupt, location data");
 			return false;
 		}
-		
-		inv.componentInventory[slotIndex] = new ItemStack(blockInst);
 		Block b = worldObj.getBlock(x, y, z);
 		
 		if(!blockInst.getClass().isInstance(b))
@@ -255,6 +253,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			return false;
 		}
 		tile.writeToNBT(result.stackTagCompound);
+		tile.isDuplicate = true;
 		worldObj.setBlockToAir(x, y, z);
 		result.stackTagCompound.setBoolean(NBTHelper.IS_DEPLOYED, false);
 		return true;
