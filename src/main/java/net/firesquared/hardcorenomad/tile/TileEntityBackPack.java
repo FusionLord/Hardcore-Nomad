@@ -2,6 +2,8 @@
 
 package net.firesquared.hardcorenomad.tile;
 
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
@@ -37,7 +39,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public TileEntityBackPack(int metadata)
 	{
 		super(null);
-		inv = new BackpackInvWrapper(BackPackType.fromLevel(metadata));
 	}
 
 	//NBT AND PERSISTENCE
@@ -45,6 +46,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
+		inv.type = BackPackType.fromLevel(getCurrentLevel());
 		writeExtraNBT(tag);
 	}
 	
@@ -62,13 +64,14 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	
 	public void readExtraNBT(NBTTagCompound tag)
 	{
+		inv = new BackpackInvWrapper();
 		BackpackInvWrapper.readExtraNBT(tag, inv);
 	}
 	
 	//HELPERS
 	public BackPackType getType()
 	{
-		return BackPackType.fromLevel(getCurrentLevel());
+		return inv.type;
 	}
 	
 	public void setBlockMeta(int meta)
@@ -95,73 +98,18 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	 */
 	public boolean doUpgrade(EntityPlayer player)
 	{
-		if (inv.upgradeSlot == null )
-			return false;
-
-		if(inv.upgradeSlot.getItem() instanceof ItemUpgrade)
+		if(inv.doServerUpgrade())
 		{
-			ItemUpgrade upgrade = (ItemUpgrade)inv.upgradeSlot.getItem();
-			int dmg = inv.upgradeSlot.getItemDamage(), 
-					lvl = ItemUpgrade.getLevelFromDamage(dmg);
-			UpgradeType type = ItemUpgrade.getTypeFromDamage(dmg);
-			//if the user is upgrading their backpack in-place
-			if(type == UpgradeType.BACKPACK)
+			if(getCurrentLevel() != inv.type.ordinal())
 			{
-				int meta = getBlockMetadata();
-				if(meta == lvl)
-				{
-					setBlockMeta(meta + 1);
-					setCurrentLevel(meta + 1);
-					Helper.getLogger().info("Applied upgrade "+inv.upgradeSlot.getDisplayName());
-					inv.upgradeSlot = null;
-					ItemStack[] isa = inv.storageInventory;
-					inv.storageInventory = new ItemStack[getType().getStorageCount()];
-					for(int i = 0; i < isa.length; i++)
-						inv.storageInventory[i] = isa[i];
-					inv.type = getType();
-					markDirty();
-					return true;
-				}
-				return false;
+				setBlockMeta(inv.type.ordinal());
+				markDirty();
+				player.closeScreen();
 			}
-			int typeIndex = type.ordinal(),
-				currentLvl = inv.componentInventory[typeIndex] == null ? -1 : inv.componentInventory[typeIndex].getItemDamage();
-			//if the user is upgrading one of their components and the upgrade levels match
-			if(currentLvl + 1 == lvl)
-			{
-				if(inv.componentInventory[typeIndex] == null)
-					inv.componentInventory[typeIndex] = new ItemStack(type.getBlockContainer());
-				inv.componentInventory[typeIndex].setItemDamage(lvl);
-				if(inv.componentInventory[typeIndex].stackTagCompound == null)
-					inv.componentInventory[typeIndex].stackTagCompound = new NBTTagCompound();
-				inv.upgradeSlot = null;
-				return true;
-			}
+			return true;
+		}
+		else
 			return false;
-		}
-		else if(Block.getBlockFromItem(inv.upgradeSlot.getItem()) instanceof BlockCampComponent)
-		{
-			BlockCampComponent block = (BlockCampComponent) Block.getBlockFromItem(inv.upgradeSlot.getItem());
-			int index = block.getType().ordinal();
-			if(inv.upgradeSlot == null)
-			{
-				inv.componentInventory[index] = inv.upgradeSlot;
-				Helper.getLogger().info("Applied existing component to empty slot");
-				inv.upgradeSlot = null;
-				return true;
-			}
-			else
-			{
-				ItemStack temp = inv.componentInventory[index];
-				inv.componentInventory[index] = inv.upgradeSlot;
-				inv.upgradeSlot = temp;
-				Helper.getLogger().info("Swapped upgrade component with existing item in slot");
-				return true;
-			}
-			
-		}
-		Helper.getLogger().warn("Had an invalid upgrade in the upgrade slot of a backpack which should not be there.");
-		return false;
 	}
 
 	public void deployAll(EntityPlayer player)
@@ -400,28 +348,19 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		return inv.isItemValidForSlot(slot, itemStack);
 	}
 
-	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
-	{
-		super.onDataPacket(net, pkt);
-
-		/***
-		 * This works! Are you increasing the backpack size twich on client side... it is looking for more slots not less.
-		 *
-		 * java.lang.IndexOutOfBoundsException: Index: 52, Size: 45
-		 */
-
-		if (worldObj.isRemote)
-		{
-			Helper.getLogger().debug("called");
-			Minecraft mc = Minecraft.getMinecraft();
-			EntityPlayer player = mc.thePlayer;
-			if (mc.currentScreen != null && mc.currentScreen instanceof BackpackGUI)
-			{
-				player.closeScreen();
-				player.openGui(HardcoreNomad.instance, GUIType.BACKPACK_TILEENTITY.ID, worldObj, xCoord, yCoord, zCoord);
-			}
-		}
-	}
+//	@Override
+//	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+//	{
+//		super.onDataPacket(net, pkt);
+//
+//		if (worldObj.isRemote && reopenGUI)
+//		{
+//			Helper.getLogger().debug("called");
+//			Minecraft mc = Minecraft.getMinecraft();
+//			EntityPlayer player = mc.thePlayer;
+//			player.closeScreen();
+//			FMLNetworkHandler.openGui(player, HardcoreNomad.instance, GUIType.BACKPACK_TILEENTITY.ID, worldObj, xCoord, yCoord, zCoord);
+//		}
+//	}
 
 }

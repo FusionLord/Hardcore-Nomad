@@ -38,6 +38,7 @@ public class TileEntityDeployableBase extends TileEntity
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
+		this.blockMetadata = -1;
 		super.readFromNBT(tag);
 		if(tag.hasKey(NBTHelper.COMPONENTTYPE))
 			componentType = UpgradeType.values()[tag.getInteger(NBTHelper.COMPONENTTYPE)];
@@ -59,10 +60,6 @@ public class TileEntityDeployableBase extends TileEntity
 		if(worldObj == null)
 			return level;
 		return getBlockMetadata();
-	}
-	public void setCurrentLevel(int currentLevel)
-	{
-		this.level = currentLevel;
 	}
 
 	@Override

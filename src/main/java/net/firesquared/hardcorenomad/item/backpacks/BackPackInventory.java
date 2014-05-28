@@ -27,7 +27,7 @@ public class BackPackInventory implements IInventory
 	{
 		this.itemStack = itemStack;
 		tag = itemStack.stackTagCompound;
-		inv = new BackpackInvWrapper(BackPackType.fromLevel(itemStack.getItemDamage()));
+		inv = new BackpackInvWrapper();
 		BackpackInvWrapper.readExtraNBT(tag, inv);
 	}
 

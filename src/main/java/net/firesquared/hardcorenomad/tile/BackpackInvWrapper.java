@@ -6,6 +6,7 @@ import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.item.backpacks.ItemBackPack;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,11 +21,10 @@ import net.minecraft.util.StatCollector;
 //get the value from where it is defined.  Don't just put the current value in as an integer
 public class BackpackInvWrapper implements IInventory
 {
+	private static final String levelKey = "inventoryLevel";
 	public BackPackType type;
-	public BackpackInvWrapper(BackPackType type)
+	public BackpackInvWrapper()
 	{
-		this.type = type;
-		this.storageInventory = new ItemStack[type.getStorageCount()];
 	}
 	public BackpackInvWrapper(BackpackInvWrapper copy)
 	{
@@ -184,7 +184,9 @@ public class BackpackInvWrapper implements IInventory
 	}
 	public static void readExtraNBT(NBTTagCompound tag, BackpackInvWrapper inv)
 	{
+		inv.type = BackPackType.fromLevel(tag.getByte(levelKey));
 		NBTTagCompound comInvTag = tag.getCompoundTag(NBTHelper.COMINV);
+		inv.componentInventory = new ItemStack[ItemUpgrade.getCampComponentCount()];
 		for (int i = 0; i < inv.componentInventory.length; i++)
 		{
 			if(comInvTag.hasKey(NBTHelper.SLOT.concat(""+i)))
@@ -210,6 +212,7 @@ public class BackpackInvWrapper implements IInventory
 	public static void writeExtraNBT(NBTTagCompound tag, 
 			BackpackInvWrapper inv)
 	{
+		tag.setByte(levelKey, (byte) inv.type.ordinal());
 		NBTTagCompound comInvTag = new NBTTagCompound();
 		for (int i = 0; i < inv.componentInventory.length; i++)
 		{
@@ -232,5 +235,75 @@ public class BackpackInvWrapper implements IInventory
 		
 		if(inv.type.hasArmorSlot() && inv.armorSlot != null)
 			tag.setTag(NBTHelper.ARMORSLOT, inv.armorSlot.writeToNBT(new NBTTagCompound()));
+	}
+	
+	private void commonUpgrade()
+	{
+		type = type.next();
+		NBTTagCompound tag = new NBTTagCompound();
+		writeExtraNBT(tag, this);
+		readExtraNBT(tag, this);
+	}
+	public boolean doServerUpgrade()
+	{		
+		if (upgradeSlot == null )
+			return false;
+	
+		if(upgradeSlot.getItem() instanceof ItemUpgrade)
+		{
+			ItemUpgrade upgrade = (ItemUpgrade)upgradeSlot.getItem();
+			int dmg = upgradeSlot.getItemDamage();
+			int lvl = ItemUpgrade.getLevelFromDamage(dmg);
+			UpgradeType uType = ItemUpgrade.getTypeFromDamage(dmg);
+			//if the user is upgrading their backpack in-place
+			if(uType == UpgradeType.BACKPACK)
+			{
+				if(type.ordinal() == lvl)
+				{
+					Helper.getLogger().info("Applied upgrade "+upgradeSlot.getDisplayName());
+					upgradeSlot = null;
+					commonUpgrade();
+					return true;
+				}
+				return false;
+			}
+			int typeIndex = type.ordinal();
+			int	currentLvl = componentInventory[typeIndex] == null ? -1 : componentInventory[typeIndex].getItemDamage();
+			//if the user is upgrading one of their components and the upgrade levels match
+			if(currentLvl + 1 == lvl)
+			{
+				if(componentInventory[typeIndex] == null)
+					componentInventory[typeIndex] = new ItemStack(uType.getBlockContainer());
+				componentInventory[typeIndex].setItemDamage(lvl);
+				if(componentInventory[typeIndex].stackTagCompound == null)
+					componentInventory[typeIndex].stackTagCompound = new NBTTagCompound();
+				upgradeSlot = null;
+				return true;
+			}
+			return false;
+		}
+		else if(Block.getBlockFromItem(upgradeSlot.getItem()) instanceof BlockCampComponent)
+		{
+			BlockCampComponent block = (BlockCampComponent) Block.getBlockFromItem(upgradeSlot.getItem());
+			int index = block.getType().ordinal();
+			if(upgradeSlot == null)
+			{
+				componentInventory[index] = upgradeSlot;
+				Helper.getLogger().info("Applied existing component to empty slot");
+				upgradeSlot = null;
+				return true;
+			}
+			else
+			{
+				ItemStack temp = componentInventory[index];
+				componentInventory[index] = upgradeSlot;
+				upgradeSlot = temp;
+				Helper.getLogger().info("Swapped upgrade component with existing item in slot");
+				return true;
+			}
+			
+		}
+		Helper.getLogger().warn("Had an invalid upgrade in the upgrade slot of a backpack which should not be there.");
+		return false;
 	}
 }

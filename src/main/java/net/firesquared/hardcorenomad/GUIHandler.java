@@ -17,7 +17,6 @@ public class GUIHandler implements IGuiHandler
 	public enum GUIType
 	{
 		BACKPACK_TILEENTITY(0),
-		BACKPACK_TILEENTITY_REOPEN(1),
 		BACKPACK_ITEMFORM(10),
 		CAMPFIRE_TILEENTITY(20),
 		CRAFTINGTABLE_BLOCK(30),
@@ -43,10 +42,7 @@ public class GUIHandler implements IGuiHandler
 		{
 			case BACKPACK_TILEENTITY:
 				TileEntityBackPack backpack = Tiles.<TileEntityBackPack>getTileEntity(world, x, y, z);
-				return new BackpackContainer(player.inventory, backpack, false);
-			case BACKPACK_TILEENTITY_REOPEN:
-				backpack = Tiles.<TileEntityBackPack>getTileEntity(world, x, y, z);
-				return new BackpackContainer(player.inventory, backpack, true); 
+				return new BackpackContainer(player.inventory, backpack);
 			case BACKPACK_ITEMFORM:
 				return new BackpackContainer(player.inventory, player.inventory.getCurrentItem());
 			case CAMPFIRE_TILEENTITY:

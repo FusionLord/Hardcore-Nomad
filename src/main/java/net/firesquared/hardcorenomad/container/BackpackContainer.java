@@ -36,15 +36,12 @@ public class BackpackContainer extends Container
 		return null;
 	}
 
-	public BackpackContainer(InventoryPlayer invPlayer, TileEntityBackPack backPack, boolean updateLevel)
+	public BackpackContainer(InventoryPlayer invPlayer, TileEntityBackPack backPack)
 	{
 		isServer = !invPlayer.player.worldObj.isRemote;
 		this.backPack = backPack;
 		isPlaced = true;
-		if(invPlayer.player.worldObj.isRemote && updateLevel)
-			type = backPack.getType().next();
-		else
-			type = backPack.getType();
+		type = backPack.getType();
 		
 		bindBackpackSlots();
 		bindPlayerSlots(invPlayer);
