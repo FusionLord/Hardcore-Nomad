@@ -8,6 +8,7 @@ import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.client.gui.BackpackGUI;
+import net.firesquared.hardcorenomad.container.BackpackContainer;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
@@ -29,6 +30,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	//DO NOT MAKE ASSUMPTIONS about the size of any inventory or the value of any index
 	//get the value from where it is defined.  Don't just put the current value in as an integer
 	protected BackpackInvWrapper inv;
+	private boolean reopen = false;
 
 	//CONSTRUCTORS
 	public TileEntityBackPack()
@@ -46,8 +48,14 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		inv.type = BackPackType.fromLevel(getCurrentLevel());
+		if(reopen)
+			tag.setBoolean("reopen", true);
 		writeExtraNBT(tag);
+		if(reopen)
+		{
+			//reopen();
+			reopen = false;
+		}
 	}
 	
 	public void writeExtraNBT(NBTTagCompound tag)
@@ -60,6 +68,8 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	{
 		super.readFromNBT(tag);
 		readExtraNBT(tag);
+		if(tag.hasKey("reopen"))
+			reopen = tag.getBoolean("reopen");
 	}
 	
 	public void readExtraNBT(NBTTagCompound tag)
@@ -102,9 +112,11 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		{
 			if(getCurrentLevel() != inv.type.ordinal())
 			{
+				reopen = true;
 				setBlockMeta(inv.type.ordinal());
 				markDirty();
 				player.closeScreen();
+				//player.openContainer = new BackpackContainer(player.inventory, this);
 			}
 			return true;
 		}
@@ -347,20 +359,24 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	{
 		return inv.isItemValidForSlot(slot, itemStack);
 	}
-
-//	@Override
-//	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
-//	{
-//		super.onDataPacket(net, pkt);
-//
-//		if (worldObj.isRemote && reopenGUI)
+	
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+	{
+		super.onDataPacket(net, pkt);
+//		if(reopen)
 //		{
-//			Helper.getLogger().debug("called");
 //			Minecraft mc = Minecraft.getMinecraft();
-//			EntityPlayer player = mc.thePlayer;
-//			player.closeScreen();
-//			FMLNetworkHandler.openGui(player, HardcoreNomad.instance, GUIType.BACKPACK_TILEENTITY.ID, worldObj, xCoord, yCoord, zCoord);
+//			reopen(mc.thePlayer);
+//			reopen = false;
 //		}
-//	}
+	}
+		
+	private void reopen(EntityPlayer player)
+	{
+		Helper.getLogger().debug("called");
+		player.closeScreen();
+		player.openGui(HardcoreNomad.instance, GUIType.BACKPACK_TILEENTITY.ID, worldObj, xCoord, yCoord, zCoord);
+	}
 
 }

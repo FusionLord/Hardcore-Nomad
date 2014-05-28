@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.tile;
 
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.minecraft.nbt.NBTTagCompound;
@@ -65,6 +66,7 @@ public class TileEntityDeployableBase extends TileEntity
 	@Override
 	public Packet getDescriptionPacket()
 	{
+		Helper.getLogger().info("Preparing description packet");
 		NBTTagCompound tag = new NBTTagCompound();
 		writeToNBT(tag);
 		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, tag);
@@ -73,6 +75,7 @@ public class TileEntityDeployableBase extends TileEntity
 	@Override
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
 	{
+		Helper.getLogger().info("Decoding description packet");
 		readFromNBT(pkt.func_148857_g());
 	}
 
