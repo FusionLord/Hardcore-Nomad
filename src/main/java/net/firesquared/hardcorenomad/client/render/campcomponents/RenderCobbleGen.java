@@ -4,7 +4,7 @@ import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCobbleGenerator;
 import net.firesquaredcore.helper.ModelRegistry;
-import net.firesquaredcore.helper.RendererUtil;
+import net.firesquaredcore.helper.RenderingUtil;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderCobbleGen extends RenderCampComp
 {
-	IModelCustom vat = ModelRegistry.getModel(Models.COBBLEGEN_VAT);
+	IModelCustom vat;
 
 	@Override
 	protected void renderTile(TileEntityDeployableBase tile, int lighting)
@@ -25,12 +25,14 @@ public class RenderCobbleGen extends RenderCampComp
 		float rot = cobbleGen.getRotation();
 
 		GL11.glTranslatef(.5f, 0f, .5f);
+		vat = ModelRegistry.getModel(Models.COBBLEGEN_VAT);
 		model = ModelRegistry.getModel(Models.COBBLEGEN);
 		texture = ModelRegistry.getTexture(Models.COBBLEGEN);
 		bindTexture(texture);
 		model.renderOnly("trough", "outputvat");
 		bindTexture(TextureMap.locationBlocksTexture);
-		RendererUtil.renderPartWithIcon((WavefrontObject) model, "output", Blocks.cobblestone.getIcon(0, 0), Tessellator.instance, -1);
+		RenderingUtil.renderPartWithIcon((WavefrontObject) model, "output", Blocks.cobblestone.getIcon(0, 0),
+				Tessellator.instance, -1);
 		GL11.glPushMatrix();
 		{
 			if (percentage > .75f)
@@ -44,7 +46,8 @@ public class RenderCobbleGen extends RenderCampComp
 				GL11.glRotatef(-rot, 0f, 0f, 1f);
 				vat.renderPart("vat");
 				bindTexture(TextureMap.locationBlocksTexture);
-				RendererUtil.renderPartWithIcon((WavefrontObject)vat, "contents", Blocks.lava.getIcon(0, 0), Tessellator.instance, -1);
+				RenderingUtil.renderPartWithIcon((WavefrontObject) vat, "contents", Blocks.lava.getIcon(0, 0),
+						Tessellator.instance, -1);
 			}
 			GL11.glPopMatrix();
 			GL11.glTranslatef(.7f, 0f, 0f);
@@ -54,7 +57,8 @@ public class RenderCobbleGen extends RenderCampComp
 				bindTexture(texture);
 				vat.renderPart("vat");
 				bindTexture(TextureMap.locationBlocksTexture);
-				RendererUtil.renderPartWithIcon((WavefrontObject)vat, "contents", Blocks.water.getIcon(0, 0), Tessellator.instance, -1);
+				RenderingUtil.renderPartWithIcon((WavefrontObject) vat, "contents", Blocks.water.getIcon(0, 0),
+						Tessellator.instance, -1);
 			}
 			GL11.glPopMatrix();
 		}
@@ -71,9 +75,14 @@ public class RenderCobbleGen extends RenderCampComp
 		model.renderOnly("trough", "outputvat", "lavavat", "watervat");
 
 		bindTexture(TextureMap.locationBlocksTexture);
-		RendererUtil.renderPartWithIcon((WavefrontObject)model, "lava", Blocks.lava.getIcon(0, 0), Tessellator.instance, -1);
-		RendererUtil.renderPartWithIcon((WavefrontObject)model, "water", Blocks.water.getIcon(0, 0), Tessellator.instance, -1);
+		RenderingUtil
+				.renderPartWithIcon((WavefrontObject) model, "lava", Blocks.lava.getIcon(0, 0), Tessellator.instance,
+						-1);
+		RenderingUtil
+				.renderPartWithIcon((WavefrontObject) model, "water", Blocks.water.getIcon(0, 0), Tessellator.instance,
+						-1);
 
-		RendererUtil.renderPartWithIcon((WavefrontObject) model, "output", Blocks.cobblestone.getIcon(0, 0), Tessellator.instance, -1);
+		RenderingUtil.renderPartWithIcon((WavefrontObject) model, "output", Blocks.cobblestone.getIcon(0, 0),
+				Tessellator.instance, -1);
 	}
 }

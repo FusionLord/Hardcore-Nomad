@@ -14,7 +14,7 @@ import net.minecraft.inventory.Slot;
 
 public class BackpackGUI extends DynGUIBase<BackpackContainer>
 {
-	static final int rowStart = 28, columnStart = 7, size = 18;
+	static final int rowStart = 28, columnStart = 7, xSize = 18, ySize = 20;
 	private final static int scrollThreshold = 9, scrollElements = scrollThreshold - 2;
 	final boolean isPlaced;
 	boolean useScrolling;
@@ -33,9 +33,9 @@ public class BackpackGUI extends DynGUIBase<BackpackContainer>
 		super.initGui();
 		int i = 0;
 		ArrayList<GuiButton> buttons = new ArrayList<GuiButton>();
-		buttons.add(new GuiButton(-1, this.guiLeft + columnStart + 6 * 18, this.guiTop + 7, size, size, "U"));
-		buttons.add(new GuiButton(100, this.guiLeft + columnStart, this.guiTop + 7, size * 3, size, "Dep All"));
-		buttons.add(new GuiButton(101,this.guiLeft + columnStart + size * 3, this.guiTop + 7, size * 3, size, "Rec All"));
+		buttons.add(new GuiButton(-1,  this.guiLeft + columnStart + 6 * 18,		this.guiTop + 6, xSize, ySize, "U"));
+		buttons.add(new GuiButton(100, this.guiLeft + columnStart, 				this.guiTop + 6, xSize * 3, ySize, "Dep All"));
+		buttons.add(new GuiButton(101, this.guiLeft + columnStart + xSize * 3, 	this.guiTop + 6, xSize * 3, ySize, "Rec All"));
 		int compCount = container.upgradeDisplaySlots.size();
 		useScrolling = compCount > scrollThreshold;
 		if(useScrolling)
@@ -47,15 +47,15 @@ public class BackpackGUI extends DynGUIBase<BackpackContainer>
 				elements.remove(index);
 			elements.remove(first.slotNumber);
 			for(int j = 0; j < scrollElements; j++)
-				buttons.add(new GuiButton(i, this.guiLeft + columnStart + ++i*18, this.guiTop + rowStart, size, size + 1, "Tog"));
+				buttons.add(new GuiButton(i, this.guiLeft + columnStart + ++i*18, this.guiTop + rowStart, xSize, ySize, "Tog"));
 			startX = first.xDisplayPosition + 18;
 			startY = first.yDisplayPosition;
-			buttons.add(new GuiButton(-2, this.guiLeft + columnStart, this.guiTop + rowStart, size, 2 * size + 1, "<"));
-			buttons.add(new GuiButton(-3, this.guiLeft + columnStart, this.guiTop + rowStart + 9 * 18, size, 2 * size + 1, ">"));
+			buttons.add(new GuiButton(-2, this.guiLeft + columnStart, this.guiTop + rowStart, xSize, 2 * ySize, "<"));
+			buttons.add(new GuiButton(-3, this.guiLeft + columnStart, this.guiTop + rowStart + 9 * 18, xSize, 2 * ySize, ">"));
 		}
 		else
 			for(;i < compCount;)
-				buttons.add(new GuiButton(i, this.guiLeft + columnStart + i++*18, this.guiTop + rowStart, size, size + 1, ""+i));
+				buttons.add(new GuiButton(i, this.guiLeft + columnStart + i++*18, this.guiTop + rowStart, xSize, ySize, ""+i));
 		
 		for(GuiButton b : buttons)
 		{

@@ -21,21 +21,20 @@ public class BlockBedRoll extends BlockCampComponent
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World var1, int var2)
+	public TileEntity createNewTileEntity(World world, int meta)
 	{
 		return new TileEntityBedRoll();
 	}
 
 	@Override
-	public void addCollisionBoxesToList(World w, int x, int y, int z, AxisAlignedBB p_149743_5_, List p_149743_6_,
-			Entity p_149743_7_)
+	public void addCollisionBoxesToList(World w, int x, int y, int z, AxisAlignedBB boundingbox, List list,	Entity entity)
 	{       
 		AxisAlignedBB axisalignedbb1 = AxisAlignedBB.getBoundingBox(getBlockBoundsMinX() + x, getBlockBoundsMinY() + y, getBlockBoundsMinZ() + z,
 				getBlockBoundsMaxX() + x, getBlockBoundsMaxY() + y, getBlockBoundsMaxZ() + z);
 
-	    if (axisalignedbb1 != null && p_149743_5_.intersectsWith(axisalignedbb1))
+	    if (axisalignedbb1 != null && boundingbox.intersectsWith(axisalignedbb1))
 	    {
-	        p_149743_6_.add(axisalignedbb1);
+	        list.add(axisalignedbb1);
 	    }
 	}
 

@@ -20,6 +20,7 @@ public enum Models implements IModelEnum
 	CAMPFIRE_SPIT,
 	COBBLEGEN,
 	COBBLEGEN_VAT,
+	CUBE(1, 0),
 	ENCHANTINGTABLE(5, 1),
 	ROCK(4, 1),
 	SLINGSHOT,

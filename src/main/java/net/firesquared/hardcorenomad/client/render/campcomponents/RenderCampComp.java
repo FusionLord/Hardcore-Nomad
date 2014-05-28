@@ -3,8 +3,11 @@ package net.firesquared.hardcorenomad.client.render.campcomponents;
 import net.firesquared.hardcorenomad.client.render.RenderUpgradeItem;
 import net.firesquared.hardcorenomad.client.render.backpack.RenderBackPack;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
+import net.firesquared.hardcorenomad.item.ItemUpgrade;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.item.backpacks.ItemBackPack;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.item.ItemBlock;
 import org.lwjgl.opengl.GL11;
 
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
@@ -19,10 +22,11 @@ public abstract class RenderCampComp extends TileEntitySpecialRenderer implement
 {
 	public static RenderCampComp anvil = new RenderAnvil();
 	public static RenderCampComp backpack = new RenderBackPack();
-	public static RenderCampComp campfire = new RenderCampfire();
 	public static RenderCampComp bedroll = new RenderBedRoll();
-	public static RenderCampComp enchanting = new RenderEnchanting();
+	public static RenderCampComp campfire = new RenderCampfire();
 	public static RenderCampComp cobblegen = new RenderCobbleGen();
+	public static RenderCampComp crafting = new RenderCrafting();
+	public static RenderCampComp enchanting = new RenderEnchanting();
 
 	protected IModelCustom model;
 	protected ResourceLocation texture;
@@ -45,7 +49,7 @@ public abstract class RenderCampComp extends TileEntitySpecialRenderer implement
 		GL11.glPushMatrix();
 		GL11.glTranslated(x, y, z);
 
-		int i = Blocks.BLOCK_BEDROLL.getBlock().getLightValue(te.getWorldObj(), (int)x, (int)y, (int)z);
+		int i = Blocks.BLOCK_ANVIL.getBlock().getLightValue(te.getWorldObj(), (int)x, (int)y, (int)z);
 		Tessellator.instance.setColorOpaque_F(i, i, i);
 
 		renderTile((TileEntityDeployableBase)te, te.getWorldObj().getBlockLightOpacity((int)x, (int)y, (int)z));
@@ -59,8 +63,13 @@ public abstract class RenderCampComp extends TileEntitySpecialRenderer implement
 		GL11.glPushMatrix();
 		renderItem(type, item);
 		GL11.glPopMatrix();
+		if (item.getItem() instanceof ItemBackPack || item.getItem() == ItemBlock.getItemFromBlock(Blocks.BLOCK_BACKPACK.getBlock()))
+			return;
+
+		UpgradeType ut = ItemUpgrade.getTypeFromDamage(item.getItemDamage());
+
 		if (type == ItemRenderType.INVENTORY)
-			RenderUpgradeItem.renderNumeral(item.getItemDamage() + (item.getItem() instanceof ItemBackPack ? 1 : 0));
+			RenderUpgradeItem.renderNumeral(item.getItemDamage() + (ut == UpgradeType.BACKPACK ? 2 : 0));
 	}
 
 	public abstract void renderItem(ItemRenderType type, ItemStack item);

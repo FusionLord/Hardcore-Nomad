@@ -6,8 +6,6 @@ import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquaredcore.helper.Helper.Numeral;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 
@@ -39,7 +37,6 @@ public class RenderUpgradeItem implements IItemRenderer
 		switch (ut)
 		{
 			case BREWING_STAND:
-			case CRAFTING_TABLE:
 			case STORAGE:
 				return;
 			case ANVIL:
@@ -47,6 +44,9 @@ public class RenderUpgradeItem implements IItemRenderer
 				return;
 			case COBBLE_GENERATOR:
 				RenderCampComp.cobblegen.renderItem(type, copy, data);
+				return;
+			case CRAFTING_TABLE:
+				RenderCampComp.crafting.renderItem(type, copy, data);
 				return;
 			case BEDROLL:
 				RenderCampComp.bedroll.renderItem(type, copy, data);

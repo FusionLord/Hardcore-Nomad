@@ -20,8 +20,8 @@ public class RenderBedRoll extends RenderCampComp
 	public void renderItem(ItemRenderType type, ItemStack item)
 	{
 		GL11.glRotatef(180, 0f, 1f, 0f);
-		GL11.glTranslatef(0f, -.25f, .5f);
-		GL11.glScalef(.85f, .85f, .85f);
+		GL11.glTranslatef(0f, -.25f, .09f);
+		GL11.glScalef(.8f, .8f, .8f);
 		render(item.getItemDamage());
 	}
 

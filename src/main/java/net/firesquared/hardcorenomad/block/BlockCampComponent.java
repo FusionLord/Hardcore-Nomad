@@ -66,7 +66,7 @@ public abstract class BlockCampComponent extends BlockContainer
 	@Override
 	public boolean isBlockSolid(IBlockAccess world, int x, int y, int z, int meta)
 	{
-		return has3dRender() ? false : super.isBlockSolid(world, x, y, z, meta);
+		return !has3dRender() && super.isBlockSolid(world, x, y, z, meta);
 	}
 	
 	protected abstract boolean has3dRender();
@@ -74,7 +74,7 @@ public abstract class BlockCampComponent extends BlockContainer
 	@Override
 	public boolean isOpaqueCube()
 	{
-		return has3dRender() ? false : super.isOpaqueCube();
+		return !has3dRender() && super.isOpaqueCube();
 	}
 	
 	@Override
@@ -94,11 +94,35 @@ public abstract class BlockCampComponent extends BlockContainer
 	{
 		return has3dRender() ? -1 : 0;
 	}
-	
+
+	@Override
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
+	{
+		return !has3dRender() && super.isSideSolid(world, x, y, z, side);
+	}
+
+	@Override
+	public boolean isNormalCube()
+	{
+		return !has3dRender() && super.isNormalCube();
+	}
+
+	@Override
+	public boolean isBlockNormalCube()
+	{
+		return !has3dRender() && super.isBlockNormalCube();
+	}
+
+	@Override
+	public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side)
+	{
+		return !has3dRender() && super.shouldSideBeRendered(world, x, y, z, side);
+	}
+
 	@Override
 	public boolean renderAsNormalBlock()
 	{
-		return has3dRender() ? false : super.renderAsNormalBlock();
+		return !has3dRender() && super.renderAsNormalBlock();
 	}
 	
 	public abstract UpgradeType getType();

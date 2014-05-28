@@ -9,7 +9,7 @@ import net.minecraftforge.client.model.obj.Vertex;
 import net.minecraftforge.client.model.obj.TextureCoordinate;
 import org.lwjgl.opengl.GL11;
 
-public class RendererUtil
+public class RenderingUtil
 {
 
 	public static void renderWithIcon(WavefrontObject model, IIcon icon, Tessellator tes)

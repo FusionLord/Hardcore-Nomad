@@ -33,6 +33,7 @@ public class ClientProxy extends CommonProxy
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_BEDROLL.getBlock()), RenderCampComp.bedroll);
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_CAMPFIRE.getBlock()), RenderCampComp.campfire);
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_COBBLEGEN.getBlock()), RenderCampComp.cobblegen);
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_CRAFTING.getBlock()), RenderCampComp.crafting);
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.BLOCK_ENCHANTMENTTABLE.getBlock()), RenderCampComp.enchanting);
 
 		// ##TileEntities##
@@ -41,6 +42,7 @@ public class ClientProxy extends CommonProxy
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBedRoll.class, RenderCampComp.bedroll);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCampFire.class, RenderCampComp.campfire);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCobbleGenerator.class, RenderCampComp.cobblegen);
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCrafting.class, RenderCampComp.crafting);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnchantmentTable.class, RenderCampComp.enchanting);
 
 		// ##Entities##

@@ -40,7 +40,7 @@ public class BlockCampFire extends BlockCampComponent
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int meta, float hitX, float hitY, float hitZ)
 	{
 		//TileEntityCampFire tileEntityCampFire = (TileEntityCampFire)world.getTileEntity(x, y, z);
 
@@ -70,49 +70,7 @@ public class BlockCampFire extends BlockCampComponent
 
 		return itemStack;
 	}
-	
-	@Override
-	public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_)
-	{
-		return true;
-	}
 
-	@Override
-	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isNormalCube()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isOpaqueCube()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isBlockNormalCube()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
-	{
-		return false;
-	}
-	
-	@Override
-	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_)
-	{
-		return false;
-	}
-	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World w, int x, int y, int z, Random rand)

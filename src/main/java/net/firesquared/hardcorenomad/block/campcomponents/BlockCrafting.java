@@ -13,7 +13,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockCrafting extends BlockCampComponent
 {
@@ -26,21 +28,13 @@ public class BlockCrafting extends BlockCampComponent
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int meta, int side)
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int meta, float hitX, float hitY, float hitZ)
 	{
-		return Blocks.crafting_table.getIcon(meta, side);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister p_149651_1_)
-	{
-	}
-
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
-	{
+		if (entityPlayer.isSneaking())
+		{
+			System.out.println(meta);
+			return true;
+		}
 		if (!world.isRemote)
 		{
 			entityPlayer.openGui(HardcoreNomad.instance, GUIType.CRAFTINGTABLE_BLOCK.ID, world, x, y, z);
@@ -49,17 +43,23 @@ public class BlockCrafting extends BlockCampComponent
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World var1, int var2)
+	public TileEntity createNewTileEntity(World world, int meta)
 	{
-		TileEntityCrafting tileEntityCrafting = new TileEntityCrafting();
-		return tileEntityCrafting;
+		return new TileEntityCrafting();
 	}
 
 	@Override
 	protected boolean has3dRender()
 	{
-		return false;
+		return true;
 	}
+
+	@Override
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
+	{
+		return true;
+	}
+
 	@Override
 	public UpgradeType getType()
 	{

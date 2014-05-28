@@ -26,14 +26,13 @@ public class BlockEnchantmentTable extends BlockCampComponent
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World var1, int var2)
+	public TileEntity createNewTileEntity(World world, int meta)
 	{
-		TileEntityEnchantmentTable tileEntityCampFire = new TileEntityEnchantmentTable();
-		return tileEntityCampFire;
+		return new TileEntityEnchantmentTable();
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int meta, float hitX, float hitY, float hitZ)
 	{
 		if (!world.isRemote)
 		{
@@ -43,7 +42,7 @@ public class BlockEnchantmentTable extends BlockCampComponent
 	}
 
 	@Override
-	public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_)
+	public boolean isBlockSolid(IBlockAccess world, int x, int y, int z, int meta)
 	{
 		return true;
 	}
