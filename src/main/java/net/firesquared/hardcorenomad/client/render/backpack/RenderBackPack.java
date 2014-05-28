@@ -14,7 +14,7 @@ import org.lwjgl.opengl.GL11;
 public class RenderBackPack extends RenderCampComp
 {
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
+	public void renderItem(ItemRenderType type, ItemStack item)
 	{
 		render(item.getItemDamage() + (item.getItem() instanceof ItemUpgrade ? 1 : 0));
 	}

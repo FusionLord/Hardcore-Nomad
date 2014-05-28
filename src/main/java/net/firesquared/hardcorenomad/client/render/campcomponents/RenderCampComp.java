@@ -1,7 +1,9 @@
 package net.firesquared.hardcorenomad.client.render.campcomponents;
 
+import net.firesquared.hardcorenomad.client.render.RenderUpgradeItem;
 import net.firesquared.hardcorenomad.client.render.backpack.RenderBackPack;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
+import net.firesquared.hardcorenomad.item.backpacks.ItemBackPack;
 import net.minecraft.client.renderer.Tessellator;
 import org.lwjgl.opengl.GL11;
 
@@ -50,7 +52,19 @@ public abstract class RenderCampComp extends TileEntitySpecialRenderer implement
 		
 		GL11.glPopMatrix();
 	}
-	
+
+	@Override
+	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
+	{
+		GL11.glPushMatrix();
+		renderItem(type, item);
+		GL11.glPopMatrix();
+		if (type == ItemRenderType.INVENTORY)
+			RenderUpgradeItem.renderNumeral(item.getItemDamage() + (item.getItem() instanceof ItemBackPack ? 1 : 0));
+	}
+
+	public abstract void renderItem(ItemRenderType type, ItemStack item);
+
 	protected abstract void renderTile(TileEntityDeployableBase tile, int lighting);
 	
 }

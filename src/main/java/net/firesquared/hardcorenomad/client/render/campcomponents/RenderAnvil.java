@@ -15,7 +15,7 @@ public class RenderAnvil extends RenderCampComp
 	}
 
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
+	public void renderItem(ItemRenderType type, ItemStack item)
 	{
 		renderAnvil();
 	}

@@ -35,7 +35,7 @@ public class RenderEnchanting extends RenderCampComp
 	}
 	
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
+	public void renderItem(ItemRenderType type, ItemStack item)
 	{
 		model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, item.getItemDamage());
 		texture = ModelRegistry.getTexture(Models.ENCHANTINGTABLE);

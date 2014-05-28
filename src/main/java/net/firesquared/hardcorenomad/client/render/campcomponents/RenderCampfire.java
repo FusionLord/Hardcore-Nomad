@@ -28,7 +28,7 @@ public class RenderCampfire extends RenderCampComp
 	}
 
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
+	public void renderItem(ItemRenderType type, ItemStack item)
 	{
 		int damage = item.getItemDamage();
 		if (damage == 2)

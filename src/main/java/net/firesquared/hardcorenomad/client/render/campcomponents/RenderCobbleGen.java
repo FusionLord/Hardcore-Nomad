@@ -62,7 +62,7 @@ public class RenderCobbleGen extends RenderCampComp
 	}
 
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
+	public void renderItem(ItemRenderType type, ItemStack item)
 	{
 		GL11.glTranslatef(0f, -.5f, 0f);
 		model = ModelRegistry.getModel(Models.COBBLEGEN);

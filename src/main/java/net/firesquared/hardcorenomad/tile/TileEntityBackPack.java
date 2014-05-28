@@ -5,6 +5,7 @@ package net.firesquared.hardcorenomad.tile;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
+import net.firesquared.hardcorenomad.client.gui.BackpackGUI;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
@@ -13,10 +14,13 @@ import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquaredcore.helper.Vector3n;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 public class TileEntityBackPack extends TileEntityDeployableBase implements IInventory
 {
@@ -115,10 +119,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 					for(int i = 0; i < isa.length; i++)
 						inv.storageInventory[i] = isa[i];
 					inv.type = getType();
-					player.closeScreen();
 					markDirty();
-//					player.openGui(HardcoreNomad.instance, GUIType.BACKPACK_TILEENTITY_REOPEN.ID, 
-//							worldObj, xCoord, yCoord, zCoord);
 					return true;
 				}
 				return false;
@@ -397,6 +398,30 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public boolean isItemValidForSlot(int slot, ItemStack itemStack)
 	{
 		return inv.isItemValidForSlot(slot, itemStack);
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+	{
+		super.onDataPacket(net, pkt);
+
+		/***
+		 * This works! Are you increasing the backpack size twich on client side... it is looking for more slots not less.
+		 *
+		 * java.lang.IndexOutOfBoundsException: Index: 52, Size: 45
+		 */
+
+		if (worldObj.isRemote)
+		{
+			Helper.getLogger().debug("called");
+			Minecraft mc = Minecraft.getMinecraft();
+			EntityPlayer player = mc.thePlayer;
+			if (mc.currentScreen != null && mc.currentScreen instanceof BackpackGUI)
+			{
+				player.closeScreen();
+				player.openGui(HardcoreNomad.instance, GUIType.BACKPACK_TILEENTITY.ID, worldObj, xCoord, yCoord, zCoord);
+			}
+		}
 	}
 
 }
