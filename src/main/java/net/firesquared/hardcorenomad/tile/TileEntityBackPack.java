@@ -2,6 +2,8 @@
 
 package net.firesquared.hardcorenomad.tile;
 
+import net.firesquared.hardcorenomad.HardcoreNomad;
+import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
@@ -10,7 +12,6 @@ import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquaredcore.helper.Vector3n;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -88,7 +89,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	 * Attempt to apply the upgrade currently in the upgrade slot
 	 * @return true if the upgrade was successfully applied
 	 */
-	public boolean doUpgrade()
+	public boolean doUpgrade(EntityPlayer player)
 	{
 		if (inv.upgradeSlot == null )
 			return false;
@@ -114,7 +115,10 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 					for(int i = 0; i < isa.length; i++)
 						inv.storageInventory[i] = isa[i];
 					inv.type = getType();
+					player.closeScreen();
 					markDirty();
+//					player.openGui(HardcoreNomad.instance, GUIType.BACKPACK_TILEENTITY_REOPEN.ID, 
+//							worldObj, xCoord, yCoord, zCoord);
 					return true;
 				}
 				return false;
@@ -182,7 +186,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			{
 				tag = inv.componentInventory[i].stackTagCompound;
 				if (tag == null) return;
-				if(!tag.hasKey(NBTHelper.IS_DEPLOYED) || !tag.getBoolean(NBTHelper.IS_DEPLOYED))
+				if(tag.hasKey(NBTHelper.IS_DEPLOYED) && tag.getBoolean(NBTHelper.IS_DEPLOYED))
 				{
 					toggle(i, player);
 				}
@@ -238,8 +242,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			Helper.getLogger().error("Attempted to recover a camp component with no, or corrupt, location data");
 			return false;
 		}
-		
-		inv.componentInventory[slotIndex] = new ItemStack(blockInst);
 		Block b = worldObj.getBlock(x, y, z);
 		
 		if(!blockInst.getClass().isInstance(b))
@@ -255,6 +257,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			return false;
 		}
 		tile.writeToNBT(result.stackTagCompound);
+		tile.isDuplicate = true;
 		worldObj.setBlockToAir(x, y, z);
 		result.stackTagCompound.setBoolean(NBTHelper.IS_DEPLOYED, false);
 		return true;

@@ -2,6 +2,7 @@ package net.firesquared.hardcorenomad.block.campcomponents;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
@@ -42,7 +43,7 @@ public class BlockCrafting extends BlockCampComponent
 	{
 		if (!world.isRemote)
 		{
-			entityPlayer.openGui(HardcoreNomad.instance, 3, world, x, y, z);
+			entityPlayer.openGui(HardcoreNomad.instance, GUIType.CRAFTINGTABLE_BLOCK.ID, world, x, y, z);
 		}
 		return true;
 	}

@@ -15,6 +15,7 @@ public class TileEntityDeployableBase extends TileEntity
 	private UpgradeType componentType;
 	protected TileEntityBackPack pack;
 	private int level;
+	public boolean isDuplicate = false;
 
 	public TileEntityDeployableBase(UpgradeType componentType)
 	{

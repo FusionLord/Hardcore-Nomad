@@ -59,7 +59,7 @@ public class ButtonPacket extends AbstractPacket
 			switch(ID)
 			{
 				case -1:
-					backPack.doUpgrade();
+					backPack.doUpgrade(entityPlayer);
 					return;
 				case 100:
 					backPack.deployAll(entityPlayer);

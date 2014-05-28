@@ -47,4 +47,16 @@ public enum BackPackType
 			level = values().length - 1;
 		return values()[level];
 	}
+
+	public BackPackType next()
+	{
+		try
+		{
+			return BackPackType.values()[ordinal()+1];
+		}
+		catch(Exception e)
+		{
+			return this;
+		}
+	}
 }

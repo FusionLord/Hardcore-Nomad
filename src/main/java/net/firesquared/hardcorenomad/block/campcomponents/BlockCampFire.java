@@ -2,6 +2,7 @@ package net.firesquared.hardcorenomad.block.campcomponents;
 
 import java.util.Random;
 
+import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.Helper;
@@ -45,7 +46,7 @@ public class BlockCampFire extends BlockCampComponent
 
 		//if (tileEntityCampFire != null)
 		//{
-			player.openGui(HardcoreNomad.instance, 2, world, x, y, z);
+			player.openGui(HardcoreNomad.instance, GUIType.CAMPFIRE_TILEENTITY.ID, world, x, y, z);
 		//}
 
 		return true;

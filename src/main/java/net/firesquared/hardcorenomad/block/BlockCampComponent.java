@@ -56,6 +56,8 @@ public abstract class BlockCampComponent extends BlockContainer
 			ItemStack itemstack = new ItemStack(this, 1, deployableBase.getBlockMetadata());
 			itemstack.stackTagCompound = new NBTTagCompound();
 			deployableBase.writeToNBT(itemstack.stackTagCompound);
+			if(deployableBase.isDuplicate)
+				return;
 			dropBlockAsItem(world, x, y, z, itemstack);
 		}
 		super.breakBlock(world, x, y, z, block, meta);
