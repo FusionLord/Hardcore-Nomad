@@ -1,5 +1,7 @@
 package net.firesquared.hardcorenomad.block;
 
+import net.firesquared.hardcorenomad.GUIHandler;
+import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
@@ -71,7 +73,7 @@ public class BlockBackPack extends BlockContainer
 		TileEntityBackPack te = Tiles.<TileEntityBackPack>getTileEntity(world, x, y, z);
 		if(te == null)
 			return true;
-		player.openGui(HardcoreNomad.instance, 0, world, x, y, z);
+		player.openGui(HardcoreNomad.instance, GUIType.BACKPACK_TILEENTITY.ID, world, x, y, z);
 		return true;
 	}
 	

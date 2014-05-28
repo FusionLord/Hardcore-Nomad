@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.block.campcomponents;
 
+import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
@@ -23,7 +24,7 @@ public class BlockAnvil extends BlockCampComponent
 	{
 		if (!world.isRemote)
 		{
-			entityPlayer.openGui(HardcoreNomad.instance, 5, world, x, y, z);
+			entityPlayer.openGui(HardcoreNomad.instance, GUIType.ANVIL_BLOCK.ID, world, x, y, z);
 		}
 		return true;
 	}

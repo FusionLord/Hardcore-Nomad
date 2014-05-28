@@ -1,6 +1,7 @@
 package net.firesquared.hardcorenomad.block.campcomponents;
 
 import net.firesquared.hardcorenomad.HardcoreNomad;
+import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
@@ -36,7 +37,7 @@ public class BlockEnchantmentTable extends BlockCampComponent
 	{
 		if (!world.isRemote)
 		{
-			entityPlayer.openGui(HardcoreNomad.instance, 4, world, x, y, z);
+			entityPlayer.openGui(HardcoreNomad.instance, GUIType.ENCHANTMENT_BLOCK.ID, world, x, y, z);
 		}
 		return true;
 	}

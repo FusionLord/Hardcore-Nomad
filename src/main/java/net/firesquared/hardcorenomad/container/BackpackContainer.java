@@ -36,12 +36,15 @@ public class BackpackContainer extends Container
 		return null;
 	}
 
-	public BackpackContainer(InventoryPlayer invPlayer, TileEntityBackPack backPack)
+	public BackpackContainer(InventoryPlayer invPlayer, TileEntityBackPack backPack, boolean updateLevel)
 	{
 		isServer = !invPlayer.player.worldObj.isRemote;
 		this.backPack = backPack;
 		isPlaced = true;
-		type = backPack.getType();
+		if(invPlayer.player.worldObj.isRemote && updateLevel)
+			type = backPack.getType().next();
+		else
+			type = backPack.getType();
 		
 		bindBackpackSlots();
 		bindPlayerSlots(invPlayer);
@@ -63,8 +66,6 @@ public class BackpackContainer extends Container
 		
 		bindBackpackSlots();
 		bindPlayerSlots(invPlayer);
-		
-		Helper.getLogger().debug("I'm logging from HardcoreNomad!");
 	}
 
 	private void bindPlayerSlots(InventoryPlayer invPlayer)
