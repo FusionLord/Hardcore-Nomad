@@ -252,7 +252,7 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 		{
 			boolean flag = this.canBePickedUp == 1 || this.canBePickedUp == 2 && par1EntityPlayer.capabilities.isCreativeMode;
 
-			if (this.canBePickedUp == 1 && !par1EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.ITEM_MISC_PEBBLE.getItem(), 1)))
+			if (this.canBePickedUp == 1 && !par1EntityPlayer.inventory.addItemStackToInventory(new ItemStack(Items.ITEM_MISC_PEBBLE.item, 1)))
 			{
 				flag = false;
 			}
@@ -275,7 +275,7 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 
 		if (this.onGround)
 		{
-			EntityItem entityItem = new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Items.ITEM_MISC_PEBBLE.getItem()));
+			EntityItem entityItem = new EntityItem(this.worldObj, this.posX, this.posY, this.posZ, new ItemStack(Items.ITEM_MISC_PEBBLE.item));
 			worldObj.spawnEntityInWorld(entityItem);
 			this.setDead();
 			return;

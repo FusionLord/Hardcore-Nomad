@@ -1,5 +1,6 @@
 package net.firesquared.hardcorenomad.client.render.campcomponents;
 
+import net.firesquared.hardcorenomad.client.render.RenderCampComp;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
@@ -9,6 +10,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.obj.WavefrontObject;
+
 import org.lwjgl.opengl.GL11;
 
 public class RenderCrafting extends RenderCampComp

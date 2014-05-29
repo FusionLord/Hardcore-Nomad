@@ -1,8 +1,7 @@
 package net.firesquared.hardcorenomad.helpers.enums;
 
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
-import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
+import net.firesquared.hardcorenomad.tile.*;
 import net.firesquared.hardcorenomad.tile.campcomponents.*;
 import net.firesquaredcore.helper.Vector3n;
 import net.minecraft.tileentity.TileEntity;
@@ -14,12 +13,12 @@ public enum Tiles
 	ANVIL(TileEntityAnvil.class, "anvil"),
 	BACKPACK(TileEntityBackPack.class, "backpack"),
 	BEDROLL(TileEntityBedRoll.class, "bedroll"),
-	BREWING_STAND(TileEntityDeployableBase.class, "brewingstand"),
+	BREWING_STAND(TileEntityBrewingStand.class, "brewingstand"),
 	CAMPFIRE(TileEntityCampFire.class, "campfire"),
 	COBBLEGEN(TileEntityCobbleGenerator.class, "cobblegen"),
 	CRAFTING(TileEntityCrafting.class, "crafting"),
 	ENCHANT_TABLE_COMPACT(TileEntityEnchantmentTable.class, "enchantmenttable"),
-	STORAGE(TileEntityDeployableBase.class, "storage"),
+	//STORAGE(TileEntityDeployableBase.class, "storage"),
 	;
 	public final Class<? extends TileEntity> tileClass;
 	private final String ID;

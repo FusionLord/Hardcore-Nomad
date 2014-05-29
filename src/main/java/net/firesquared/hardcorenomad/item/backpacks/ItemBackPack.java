@@ -46,7 +46,7 @@ public class ItemBackPack extends ItemArmor
 	@Override
 	public void setDamage(ItemStack stack, int damage)
 	{
-		if (BackPackType.fromLevel(stack.getItemDamage()).hasArmorSlot())
+		if (BackPackType.fromLevel(stack.getItemDamage()).hasArmorSlot)
 		{
 			NBTTagCompound tag = stack.getTagCompound();
 			ItemStack armor = ItemStack.loadItemStackFromNBT(tag.getCompoundTag(NBTHelper.ARMORSLOT));
@@ -61,7 +61,7 @@ public class ItemBackPack extends ItemArmor
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack)
 	{
-		if (BackPackType.fromLevel(stack.getItemDamage()).hasArmorSlot())
+		if (BackPackType.fromLevel(stack.getItemDamage()).hasArmorSlot)
 		{
 			NBTTagCompound tag = stack.getTagCompound();
 			ItemStack armor = ItemStack.loadItemStackFromNBT(tag.getCompoundTag(NBTHelper.ARMORSLOT));
@@ -79,7 +79,7 @@ public class ItemBackPack extends ItemArmor
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
 	{
 		if(itemStack.stackTagCompound == null)
-			Items.ITEM_BACKPACK.getItem().onCreated(itemStack, world, player);
+			Items.ITEM_BACKPACK.item.onCreated(itemStack, world, player);
 		if(player.isSneaking())
 		{
 			FMLNetworkHandler.openGui(player, HardcoreNomad.instance, 1, world, 0, 0, 0);
@@ -93,12 +93,12 @@ public class ItemBackPack extends ItemArmor
 	{
 		boolean isServer = !world.isRemote;
 		if(isServer)
-			Helper.getLogger().info("running onItemUse server side"); 
+			Helper.getNomadLogger().info("running onItemUse server side"); 
 		if(is.stackTagCompound == null)
-			Items.ITEM_BACKPACK.getItem().onCreated(is, world, player);
+			Items.ITEM_BACKPACK.item.onCreated(is, world, player);
 		if(player.isSneaking())
 		{
-			Helper.getLogger().info("Player sneaking; exiting item use method"); 
+			Helper.getNomadLogger().info("Player sneaking; exiting item use method"); 
 			return true;
 		}
 
@@ -112,7 +112,7 @@ public class ItemBackPack extends ItemArmor
 			z+=fd.offsetZ;
 		}
 
-		Block bbp = Blocks.BLOCK_BACKPACK.getBlock();
+		Block bbp = Blocks.BLOCK_BACKPACK.block;
 		if(player.canPlayerEdit(x, y, z, side, is))
 			if (world.setBlock(x, y, z, bbp, is.getItemDamage(), 3))
 			{
@@ -129,13 +129,13 @@ public class ItemBackPack extends ItemArmor
 			else
 			{
 				if(isServer)
-					Helper.getLogger().info("failed on setBlock"); 
+					Helper.getNomadLogger().info("failed on setBlock"); 
 			}
 		else		
 			if(isServer)
-				Helper.getLogger().info("failed on can edit"); 
+				Helper.getNomadLogger().info("failed on can edit"); 
 		if(isServer)
-			Helper.getLogger().info("placement successful"); 
+			Helper.getNomadLogger().info("placement successful"); 
 		return true;
 	}
 

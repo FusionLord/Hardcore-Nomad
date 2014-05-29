@@ -22,10 +22,8 @@ public class BlockAnvil extends BlockCampComponent
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int meta, float hitX, float hitY, float hitZ)
 	{
-		if (!world.isRemote)
-		{
+		if(!world.isRemote)
 			entityPlayer.openGui(HardcoreNomad.instance, GUIType.ANVIL_BLOCK.ID, world, x, y, z);
-		}
 		return true;
 	}
 

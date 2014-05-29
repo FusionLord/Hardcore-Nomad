@@ -70,7 +70,7 @@ public class BackpackInvWrapper implements IInventory
 			return Block.getBlockFromItem(item) instanceof BlockCampComponent;
 		if (slot == storageInventory.length + componentInventory.length)
 			return item instanceof ItemUpgrade || Block.getBlockFromItem(item) instanceof BlockCampComponent;
-		if (slot == storageInventory.length + componentInventory.length + 1 && type.hasArmorSlot())
+		if (slot == storageInventory.length + componentInventory.length + 1 && type.hasArmorSlot)
 			return item instanceof ItemArmor && !(item instanceof ItemBackPack);
 		return false;
 	}
@@ -110,7 +110,7 @@ public class BackpackInvWrapper implements IInventory
 	@Override
 	public int getSizeInventory()
 	{
-		return type.getStorageCount();
+		return type.storageTotal;
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class BackpackInvWrapper implements IInventory
 		//improved limited to un-enchanted iron or leather armor only; possibly also wood armor from TC
 		//advanced can have any kind of un-enchanted, vanilla armor
 		//aromored has no restrictions, beyond that the item extend ItemArmor
-		boolean isArmor = type.hasArmorSlot();
+		boolean isArmor = type.hasArmorSlot;
 
 		if (slot < storageInventory.length)
 			return storageInventory[slot];
@@ -163,7 +163,7 @@ public class BackpackInvWrapper implements IInventory
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack itemStack)
 	{
-		boolean isArmor = type.hasArmorSlot();
+		boolean isArmor = type.hasArmorSlot;
 		if(itemStack != null)
 			itemStack = itemStack.copy();
 		
@@ -195,7 +195,7 @@ public class BackpackInvWrapper implements IInventory
 		}
 		
 		NBTTagCompound stgInvTag = tag.getCompoundTag(NBTHelper.STGINV);
-		inv.storageInventory = new ItemStack[inv.type.getStorageCount()];
+		inv.storageInventory = new ItemStack[inv.type.storageTotal];
 		for (int i = 0; i < inv.storageInventory.length; i++)
 		{
 			if(stgInvTag.hasKey(NBTHelper.SLOT.concat(""+i)))
@@ -205,7 +205,7 @@ public class BackpackInvWrapper implements IInventory
 		
 		if(tag.hasKey(NBTHelper.UPGRADESLOT))
 			inv.upgradeSlot = ItemStack.loadItemStackFromNBT(tag.getCompoundTag(NBTHelper.UPGRADESLOT));
-		if(inv.type.hasArmorSlot() && tag.hasKey(NBTHelper.ARMORSLOT))
+		if(inv.type.hasArmorSlot && tag.hasKey(NBTHelper.ARMORSLOT))
 			inv.armorSlot = ItemStack.loadItemStackFromNBT(tag.getCompoundTag(NBTHelper.ARMORSLOT));
 	}
 	
@@ -233,7 +233,7 @@ public class BackpackInvWrapper implements IInventory
 		if(inv.upgradeSlot != null)
 			tag.setTag(NBTHelper.UPGRADESLOT, inv.upgradeSlot.writeToNBT(new NBTTagCompound()));
 		
-		if(inv.type.hasArmorSlot() && inv.armorSlot != null)
+		if(inv.type.hasArmorSlot && inv.armorSlot != null)
 			tag.setTag(NBTHelper.ARMORSLOT, inv.armorSlot.writeToNBT(new NBTTagCompound()));
 	}
 	
@@ -260,7 +260,7 @@ public class BackpackInvWrapper implements IInventory
 			{
 				if(type.ordinal() == lvl)
 				{
-					Helper.getLogger().info("Applied upgrade "+upgradeSlot.getDisplayName());
+					Helper.getNomadLogger().info("Applied upgrade "+upgradeSlot.getDisplayName());
 					upgradeSlot = null;
 					commonUpgrade();
 					return true;
@@ -273,7 +273,7 @@ public class BackpackInvWrapper implements IInventory
 			if(currentLvl + 1 == lvl)
 			{
 				if(componentInventory[typeIndex] == null)
-					componentInventory[typeIndex] = new ItemStack(uType.getBlockContainer());
+					componentInventory[typeIndex] = new ItemStack(uType.blockContainer);
 				componentInventory[typeIndex].setItemDamage(lvl);
 				if(componentInventory[typeIndex].stackTagCompound == null)
 					componentInventory[typeIndex].stackTagCompound = new NBTTagCompound();
@@ -289,7 +289,7 @@ public class BackpackInvWrapper implements IInventory
 			if(upgradeSlot == null)
 			{
 				componentInventory[index] = upgradeSlot;
-				Helper.getLogger().info("Applied existing component to empty slot");
+				Helper.getNomadLogger().info("Applied existing component to empty slot");
 				upgradeSlot = null;
 				return true;
 			}
@@ -298,12 +298,12 @@ public class BackpackInvWrapper implements IInventory
 				ItemStack temp = componentInventory[index];
 				componentInventory[index] = upgradeSlot;
 				upgradeSlot = temp;
-				Helper.getLogger().info("Swapped upgrade component with existing item in slot");
+				Helper.getNomadLogger().info("Swapped upgrade component with existing item in slot");
 				return true;
 			}
 			
 		}
-		Helper.getLogger().warn("Had an invalid upgrade in the upgrade slot of a backpack which should not be there.");
+		Helper.getNomadLogger().warn("Had an invalid upgrade in the upgrade slot of a backpack which should not be there.");
 		return false;
 	}
 }

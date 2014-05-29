@@ -45,7 +45,7 @@ public abstract class CommonProxy implements IProxy
 	// Register Entities
 	public void registerEntities() {
 		EntityRegistry.registerModEntity(EntityPebble.class, "entity.pebble", 0, HardcoreNomad.instance, 64, 1, true);
-		BlockDispenser.dispenseBehaviorRegistry.putObject(Items.ITEM_MISC_PEBBLE.getItem(), new DispenserBehaviorPebble());
+		BlockDispenser.dispenseBehaviorRegistry.putObject(Items.ITEM_MISC_PEBBLE.item, new DispenserBehaviorPebble());
 		EntityRegistry.registerModEntity(EntitySlingShotPebble.class, "entity.slingshotpebble", 0, HardcoreNomad.instance, 64, 1, true);
 	}
 
@@ -58,14 +58,14 @@ public abstract class CommonProxy implements IProxy
 	// Register World Events
 	public void registerWorldEvents()
 	{
-		Helper.getLogger().debug("Registering World Event");
+		Helper.getNomadLogger().debug("Registering World Event");
 		MinecraftForge.EVENT_BUS.register(new WorldEvents());
 	}
 
 	// Register Player Events
 	public void registerPlayerEvents()
 	{
-		Helper.getLogger().debug("Registering Player Events");
+		Helper.getNomadLogger().debug("Registering Player Events");
 		MinecraftForge.EVENT_BUS.register(new PlayerEvents());
 	}
 
@@ -95,13 +95,13 @@ public abstract class CommonProxy implements IProxy
 
 		if (MainConfiguration.CONFIG_ALTRECIPEFORPEBBLES)
 		{
-			GameRegistry.addShapelessRecipe(new ItemStack(Items.ITEM_MISC_PEBBLE.getItem(), 9), net.minecraft.init.Blocks.cobblestone);
-			GameRegistry.addShapelessRecipe(new ItemStack(Items.ITEM_MISC_PEBBLE.getItem(), 9), net.minecraft.init.Blocks.stone);
+			GameRegistry.addShapelessRecipe(new ItemStack(Items.ITEM_MISC_PEBBLE.item, 9), net.minecraft.init.Blocks.cobblestone);
+			GameRegistry.addShapelessRecipe(new ItemStack(Items.ITEM_MISC_PEBBLE.item, 9), net.minecraft.init.Blocks.stone);
 		}
 		// Flint Shears
-		GameRegistry.addRecipe(new ItemStack(Items.ITEM_FLINTSHEARS.getItem()), " f", "f ", 'f', net.minecraft.init.Items.flint);
+		GameRegistry.addRecipe(new ItemStack(Items.ITEM_FLINTSHEARS.item), " f", "f ", 'f', net.minecraft.init.Items.flint);
 
-		GameRegistry.addRecipe(new ItemStack(Items.ITEM_BACKPACK.getItem(), 0), "sls", "xcx", "wxw", 's', new ItemStack(net.minecraft.init.Items.string), 'l', new ItemStack(net.minecraft.init.Items.leather), 'x', new ItemStack(net.minecraft.init.Items.stick), 'c', new ItemStack(net.minecraft.init.Blocks.chest), 'w', net.minecraft.init.Blocks.wool);
+		GameRegistry.addRecipe(new ItemStack(Items.ITEM_BACKPACK.item, 0), "sls", "xcx", "wxw", 's', new ItemStack(net.minecraft.init.Items.string), 'l', new ItemStack(net.minecraft.init.Items.leather), 'x', new ItemStack(net.minecraft.init.Items.stick), 'c', new ItemStack(net.minecraft.init.Blocks.chest), 'w', net.minecraft.init.Blocks.wool);
 
 //		GameRegistry.addRecipe(new ItemStack(Items.ITEM_FIREBUNDLE.getItem(), 1), " b ", " s ", " l ", 'b', new ItemStack(net.minecraft.init.Items.bow), 's', new ItemStack(net.minecraft.init.Items.stick), 'l', net.minecraft.init.Blocks.log);
 //		GameRegistry.addRecipe(new ItemStack(Items.ITEM_FIREBUNDLE.getItem(), 1), " b ", " s ", " l ", 'b', new ItemStack(net.minecraft.init.Items.bow), 's', new ItemStack(net.minecraft.init.Items.stick), 'l', net.minecraft.init.Blocks.log2);
@@ -144,7 +144,7 @@ public abstract class CommonProxy implements IProxy
 
 		// ====== BLOCKS ======
 		// Cobblestone Recipe
-		GameRegistry.addRecipe(new ItemStack(net.minecraft.init.Blocks.cobblestone, 0), "ppp", "ppp", "ppp", 'p', new ItemStack(Items.ITEM_MISC_PEBBLE.getItem()));
+		GameRegistry.addRecipe(new ItemStack(net.minecraft.init.Blocks.cobblestone, 0), "ppp", "ppp", "ppp", 'p', new ItemStack(Items.ITEM_MISC_PEBBLE.item));
 	}
 
 	private void removeWoodenTools()
@@ -172,14 +172,14 @@ public abstract class CommonProxy implements IProxy
 	{
 		for(Items item : Items.values())
 		{
-			ItemStack LootItem = new ItemStack(item.getItem());
+			ItemStack LootItem = new ItemStack(item.item);
 			int Max = item.getDungeonChestMax();
 			int Min = item.getDungeonChestMin();
 			int Weight = item.getWeight();
 
 			if (Min != 0 && Max != 0)
 			{
-				Helper.getLogger().debug("Registering DungeonLoot: " + item.getInternalName());
+				Helper.getNomadLogger().debug("Registering DungeonLoot: " + item.getInternalName());
 				ChestGenHooks.addItem("dungeonChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
 				ChestGenHooks.addItem("bonusChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
 				ChestGenHooks.addItem("villageBlacksmith", new WeightedRandomChestContent(LootItem, Min, Max, Weight));

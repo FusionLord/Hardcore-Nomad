@@ -14,7 +14,7 @@ public class CreativeTab
 		@Override
 		public Item getTabIconItem()
 		{
-			return Items.ITEM_BACKPACK.getItem();
+			return Items.ITEM_BACKPACK.item;
 		}
 
 		@Override
@@ -29,7 +29,7 @@ public class CreativeTab
 		@Override
 		public Item getTabIconItem()
 		{
-			return Items.ITEM_UPGRADE.getItem();
+			return Items.ITEM_UPGRADE.item;
 		}
 
 		@Override

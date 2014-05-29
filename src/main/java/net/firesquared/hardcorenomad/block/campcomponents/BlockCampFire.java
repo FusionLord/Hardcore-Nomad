@@ -56,12 +56,12 @@ public class BlockCampFire extends BlockCampComponent
 	public ItemStack packIntoItemStack(World world, int x, int y, int z)
 	{
 		ItemStack itemStack;
-		itemStack = new ItemStack(Blocks.BLOCK_CAMPFIRE.getBlock());
+		itemStack = new ItemStack(Blocks.BLOCK_CAMPFIRE.block);
 
 		TileEntityCampFire tileEntityCampFire = Tiles.<TileEntityCampFire>getTileEntity(world, x, y, z);
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();
 		if (tileEntityCampFire == null) {
-			Helper.getLogger().debug("===>>>> Tile Entity is null check your X Y Z <<<<======");
+			Helper.getNomadLogger().debug("===>>>> Tile Entity is null check your X Y Z <<<<======");
 			return null;
 		}
 		tileEntityCampFire.writeToNBT(nbtTagCompound);

@@ -1,13 +1,19 @@
-package net.firesquared.hardcorenomad.client.render.campcomponents;
+package net.firesquared.hardcorenomad.client.render;
 
-import net.firesquared.hardcorenomad.client.render.RenderUpgradeItem;
 import net.firesquared.hardcorenomad.client.render.backpack.RenderBackPack;
+import net.firesquared.hardcorenomad.client.render.campcomponents.RenderAnvil;
+import net.firesquared.hardcorenomad.client.render.campcomponents.RenderBedRoll;
+import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCampfire;
+import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCobbleGen;
+import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCrafting;
+import net.firesquared.hardcorenomad.client.render.campcomponents.RenderEnchanting;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.item.backpacks.ItemBackPack;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemBlock;
+
 import org.lwjgl.opengl.GL11;
 
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
@@ -20,13 +26,7 @@ import net.minecraftforge.client.model.IModelCustom;
 
 public abstract class RenderCampComp extends TileEntitySpecialRenderer implements IItemRenderer
 {
-	public static RenderCampComp anvil = new RenderAnvil();
-	public static RenderCampComp backpack = new RenderBackPack();
-	public static RenderCampComp bedroll = new RenderBedRoll();
-	public static RenderCampComp campfire = new RenderCampfire();
-	public static RenderCampComp cobblegen = new RenderCobbleGen();
-	public static RenderCampComp crafting = new RenderCrafting();
-	public static RenderCampComp enchanting = new RenderEnchanting();
+
 
 	protected IModelCustom model;
 	protected ResourceLocation texture;
@@ -49,7 +49,7 @@ public abstract class RenderCampComp extends TileEntitySpecialRenderer implement
 		GL11.glPushMatrix();
 		GL11.glTranslated(x, y, z);
 
-		int i = Blocks.BLOCK_ANVIL.getBlock().getLightValue(te.getWorldObj(), (int)x, (int)y, (int)z);
+		int i = Blocks.BLOCK_ANVIL.block.getLightValue(te.getWorldObj(), (int)x, (int)y, (int)z);
 		Tessellator.instance.setColorOpaque_F(i, i, i);
 
 		renderTile((TileEntityDeployableBase)te, te.getWorldObj().getBlockLightOpacity((int)x, (int)y, (int)z));
@@ -63,7 +63,7 @@ public abstract class RenderCampComp extends TileEntitySpecialRenderer implement
 		GL11.glPushMatrix();
 		renderItem(type, item);
 		GL11.glPopMatrix();
-		if (item.getItem() instanceof ItemBackPack || item.getItem() == ItemBlock.getItemFromBlock(Blocks.BLOCK_BACKPACK.getBlock()))
+		if (item.getItem() instanceof ItemBackPack || item.getItem() == ItemBlock.getItemFromBlock(Blocks.BLOCK_BACKPACK.block))
 			return;
 
 		UpgradeType ut = ItemUpgrade.getTypeFromDamage(item.getItemDamage());

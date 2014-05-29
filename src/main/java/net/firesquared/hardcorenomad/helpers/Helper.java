@@ -27,11 +27,11 @@ public class Helper extends net.firesquaredcore.helper.Helper
 		public static final String SERVER_PROXY_CLASS = "net.firesquared.hardcorenomad.proxy.ServerProxy";
 		public static final String CLIENT_PROXY_CLASS = "net.firesquared.hardcorenomad.proxy.ClientProxy";
 	}
-	private static final Logger logger = new Logger(Strings.MOD_NAME, true, Level.ALL);
+	public static final Logger hcnLogger = new Logger(Strings.MOD_NAME, true, Level.ALL);
 	
-	public static Logger getLogger()
+	public static Logger getNomadLogger()
 	{
-		return logger;
+		return hcnLogger;
 	}
 
 	public static final PacketHandler PACKET_HANDLER = 

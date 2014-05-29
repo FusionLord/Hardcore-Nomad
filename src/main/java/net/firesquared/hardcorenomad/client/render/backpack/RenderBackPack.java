@@ -2,7 +2,7 @@
 
 package net.firesquared.hardcorenomad.client.render.backpack;
 
-import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCampComp;
+import net.firesquared.hardcorenomad.client.render.RenderCampComp;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;

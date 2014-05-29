@@ -1,6 +1,5 @@
 package net.firesquared.hardcorenomad.client.render;
 
-import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCampComp;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
@@ -34,34 +33,18 @@ public class RenderUpgradeItem implements IItemRenderer
 		ItemStack copy = itemStack.copy();
 		copy.setItemDamage(upgradeLevel);
 
+		if(ut.combinedRenderer != null)
+		{
+			ut.combinedRenderer.renderItem(type, copy, data);
+			return;
+		}
 		switch (ut)
 		{
 			case BREWING_STAND:
 			case STORAGE:
 				return;
-			case ANVIL:
-				RenderCampComp.anvil.renderItem(type, copy, data);
-				return;
-			case COBBLE_GENERATOR:
-				RenderCampComp.cobblegen.renderItem(type, copy, data);
-				return;
-			case CRAFTING_TABLE:
-				RenderCampComp.crafting.renderItem(type, copy, data);
-				return;
-			case BEDROLL:
-				RenderCampComp.bedroll.renderItem(type, copy, data);
-				return;
-			case CAMPFIRE:
-				RenderCampComp.campfire.renderItem(type, copy, data);
-				return;
-			case ENCHANTING_TABLE:
-				RenderCampComp.enchanting.renderItem(type, copy, data);
-				return;
-			case BACKPACK:
-				RenderCampComp.backpack.renderItem(type, copy, data);
-				return;
 			default:
-				Helper.getLogger().error("Attempting to render an upgrade(" + itemStack.getDisplayName() + ") with no render code in RenderUpgradeItem");
+				Helper.getNomadLogger().error("Attempting to render an upgrade(" + itemStack.getDisplayName() + ") with no render code in RenderUpgradeItem");
 				return;
 		}
 	}

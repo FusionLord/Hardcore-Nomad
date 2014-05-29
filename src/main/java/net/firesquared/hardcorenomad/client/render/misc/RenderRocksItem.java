@@ -1,4 +1,4 @@
-package net.firesquared.hardcorenomad.client.render;
+package net.firesquared.hardcorenomad.client.render.misc;
 
 import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquaredcore.helper.ModelRegistry;

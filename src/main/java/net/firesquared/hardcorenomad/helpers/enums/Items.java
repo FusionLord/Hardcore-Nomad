@@ -5,11 +5,10 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.CreativeTab;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.item.ItemUpgrade;
+import net.firesquared.hardcorenomad.item.*;
 import net.firesquared.hardcorenomad.item.backpacks.*;
-import net.firesquared.hardcorenomad.item.healing.ItemHealingHerb;
-import net.firesquared.hardcorenomad.item.misc.ItemPebble;
-import net.firesquared.hardcorenomad.item.misc.ItemSlingShot;
+import net.firesquared.hardcorenomad.item.healing.*;
+import net.firesquared.hardcorenomad.item.misc.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;
@@ -38,8 +37,8 @@ public enum Items
 	;
 
 	private final String internalName;
-	private final boolean isDungeonLoot;
-	private final Item item;
+	public final boolean isDungeonLoot;
+	public final Item item;
 	private int dungeonChestMin;
 	private int dungeonChestMax;
 	private int weight;
@@ -69,7 +68,7 @@ public enum Items
 	
 	private void register()
 	{
-		Helper.getLogger().debug("Registering Item: " + internalName);
+		Helper.getNomadLogger().debug("Registering Item: " + internalName);
 		Item itemObject = item;
 		itemObject.setTextureName(Helper.Strings.MOD_ID + ":" + itemObject.getUnlocalizedName());
 		GameRegistry.registerItem(itemObject, internalName);
@@ -80,11 +79,6 @@ public enum Items
 		return internalName;
 	}
 
-	public Item getItem()
-	{
-		return item;
-	}
-
 	public String getStatName()
 	{
 		return StatCollector.translateToLocal(item.getUnlocalizedName());
@@ -93,11 +87,6 @@ public enum Items
 	public ItemStack getStack(int damage, int size)
 	{
 		return new ItemStack(item, size, damage);
-	}
-	
-	public boolean isDungeonLoot()
-	{
-		return isDungeonLoot;
 	}
 
 	public int getDungeonChestMin() {

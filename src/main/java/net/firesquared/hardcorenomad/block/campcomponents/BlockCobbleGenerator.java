@@ -32,7 +32,7 @@ public class BlockCobbleGenerator extends BlockCampComponent
 	public ItemStack packIntoItemStack(World world, int x, int y, int z)
 	{
 		ItemStack itemStack;
-		itemStack = new ItemStack(Blocks.BLOCK_COBBLEGEN.getBlock());
+		itemStack = new ItemStack(Blocks.BLOCK_COBBLEGEN.block);
 
 		TileEntityCobbleGenerator tileEntityCobbleGenerator = Tiles.<TileEntityCobbleGenerator>getTileEntity(world, x, y, z);
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();

@@ -93,7 +93,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	{
 		if (componentType == null)
 		{
-			Helper.getLogger().warn("Unexpected null value in TileEntityBackpack");
+			Helper.getNomadLogger().warn("Unexpected null value in TileEntityBackpack");
 			return null; //this shouldn't happen;
 		}
 		ItemStack itemStack = inv.componentInventory[componentType.ordinal()];
@@ -159,7 +159,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		ItemStack is = inv.componentInventory[componentID];
 		if (is == null || is.stackTagCompound == null)
 		{
-			Helper.getLogger().error("Attempted to toggle component that " + (is == null ? "was null" : "had a missing tag"));
+			Helper.getNomadLogger().error("Attempted to toggle component that " + (is == null ? "was null" : "had a missing tag"));
 			return false;
 		}
 		
@@ -200,21 +200,21 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		ItemStack result = inv.componentInventory[slotIndex];
 		if(result == null || result.stackTagCompound == null)
 		{
-			Helper.getLogger().error("Attempted to recover a camp component with no, or corrupt, location data");
+			Helper.getNomadLogger().error("Attempted to recover a camp component with no, or corrupt, location data");
 			return false;
 		}
 		Block b = worldObj.getBlock(x, y, z);
 		
 		if(!blockInst.getClass().isInstance(b))
 		{
-			Helper.getLogger().error("Found unexpected block at target location");
+			Helper.getNomadLogger().error("Found unexpected block at target location");
 			return false;
 		}
 			
 		TE tile = Tiles.<TE>getTileEntity(worldObj, x, y, z);
 		if(tile == null)
 		{
-			Helper.getLogger().error("Specified tile entity was not found at target location");
+			Helper.getNomadLogger().error("Specified tile entity was not found at target location");
 			return false;
 		}
 		tile.writeToNBT(result.stackTagCompound);
@@ -233,7 +233,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		{
 			if(!(worldObj.getBlock(x, y, z) instanceof BlockCampComponent));
 			{
-				Helper.getLogger().warn("Failed to confirm block placement at ".concat(coords.toString()));
+				Helper.getNomadLogger().warn("Failed to confirm block placement at ".concat(coords.toString()));
 			}
 			worldObj.setBlockMetadataWithNotify(x, y, z, level, 3);
 			teComponent = Tiles.<TE>getTileEntity(worldObj, x, y, z);
@@ -247,13 +247,13 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 				}
 				else
 				{
-					Helper.getLogger().warn("ItemStack is doesn't have an nbt tag");
+					Helper.getNomadLogger().warn("ItemStack is doesn't have an nbt tag");
 					return false;
 				}
 			}
 			else
 			{
-				Helper.getLogger().warn("Failed to validate tile entity at ".concat(coords.toString()));
+				Helper.getNomadLogger().warn("Failed to validate tile entity at ".concat(coords.toString()));
 				return false;
 			}
 				
@@ -374,7 +374,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		
 	private void reopen(EntityPlayer player)
 	{
-		Helper.getLogger().debug("called");
+		Helper.getNomadLogger().debug("called");
 		player.closeScreen();
 		player.openGui(HardcoreNomad.instance, GUIType.BACKPACK_TILEENTITY.ID, worldObj, xCoord, yCoord, zCoord);
 	}

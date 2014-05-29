@@ -52,7 +52,7 @@ public class BackpackContainer extends Container
 		isServer = !invPlayer.player.worldObj.isRemote;
 		if(invPlayer == null || currentItem == null || currentItem.stackTagCompound == null)
 		{
-			Helper.getLogger().fatal("null input to backpack container");
+			Helper.getNomadLogger().fatal("null input to backpack container");
 		}
 		me = currentItem;
 		meSlot = invPlayer.currentItem;
@@ -80,8 +80,8 @@ public class BackpackContainer extends Container
 		int paddingLeft = 174;
 		int paddingTop = 7;
 		int slot = 0;
-		for (int x = 0; x < type.getStorageWidth(); x++)
-			for(int y = 0; y < type.getStorageHeight(); y++)
+		for (int x = 0; x < type.storageW; x++)
+			for(int y = 0; y < type.storageH; y++)
 				addSlotToContainer(new Slot(backPack, slot++, paddingLeft + x * 18, paddingTop + y * 18)
 				{@Override
 					public boolean isItemValid(ItemStack is)
@@ -112,7 +112,7 @@ public class BackpackContainer extends Container
 						return backPack.isItemValidForSlot(this.slotNumber, is);
 					}
 				});
-		if (type.hasArmorSlot())
+		if (type.hasArmorSlot)
 			addSlotToContainer(new Slot(backPack, slot++, 8 + 8 * 18, 8)
 			{@Override
 				public boolean isItemValid(ItemStack is)
@@ -120,7 +120,7 @@ public class BackpackContainer extends Container
 					return backPack.isItemValidForSlot(this.slotNumber, is);
 				}
 			});
-		Helper.getLogger().info((isServer?"Server":"Client")+" has " + slot + " slots");
+		Helper.getNomadLogger().info((isServer?"Server":"Client")+" has " + slot + " slots");
 	}
 	
 	public ItemStack getThisBackpack()

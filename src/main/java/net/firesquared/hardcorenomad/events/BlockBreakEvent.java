@@ -45,7 +45,7 @@ public class BlockBreakEvent
 			{
 				int rand = event.world.rand.nextInt(cap);
 				event.drops.clear();
-				event.drops.add(new ItemStack(Items.ITEM_MISC_PEBBLE.getItem(), rand + 1));
+				event.drops.add(new ItemStack(Items.ITEM_MISC_PEBBLE.item, rand + 1));
 				event.dropChance = 1.0F;
 			}
 		}

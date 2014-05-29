@@ -1,14 +1,20 @@
 package net.firesquared.hardcorenomad.block;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -21,9 +27,16 @@ public abstract class BlockCampComponent extends BlockContainer
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World var1, int var2)
+	public TileEntity createNewTileEntity(World world, int meta)
 	{
-		return new TileEntityDeployableBase(getType());
+		UpgradeType type = getType();
+		if(type.tileEntityClass != null)
+			try
+			{
+				return type.tileEntityClass.newInstance();
+			}
+			catch(Exception e){e.printStackTrace();}
+		return new TileEntityDeployableBase(type);
 	}
 
 	@Override
@@ -126,5 +139,22 @@ public abstract class BlockCampComponent extends BlockContainer
 	}
 	
 	public abstract UpgradeType getType();
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int hitX,
+			float hitY, float hitZ, float unknown)
+	{
+		return super.onBlockActivated(world, x, y, z, player, hitX, hitY, hitZ, unknown);
+	}
+	
+	@Override
+	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB boundingBox, List collisionBoxes,
+			Entity entity)
+	{
+		super.addCollisionBoxesToList(world, x, y, z, boundingBox, collisionBoxes, entity);
+	}
+	
+	
+	
 
 }

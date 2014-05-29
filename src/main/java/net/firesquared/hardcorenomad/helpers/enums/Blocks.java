@@ -2,14 +2,7 @@ package net.firesquared.hardcorenomad.helpers.enums;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.firesquared.hardcorenomad.block.BlockBackPack;
-import net.firesquared.hardcorenomad.block.campcomponents.BlockAnvil;
-import net.firesquared.hardcorenomad.block.campcomponents.BlockBedRoll;
-import net.firesquared.hardcorenomad.block.campcomponents.BlockBrewing;
-import net.firesquared.hardcorenomad.block.campcomponents.BlockCampFire;
-import net.firesquared.hardcorenomad.block.campcomponents.BlockCobbleGenerator;
-import net.firesquared.hardcorenomad.block.campcomponents.BlockCrafting;
-import net.firesquared.hardcorenomad.block.campcomponents.BlockEnchantmentTable;
-import net.firesquared.hardcorenomad.block.campcomponents.BlockStorage;
+import net.firesquared.hardcorenomad.block.campcomponents.*;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -27,7 +20,7 @@ public enum Blocks
 	BLOCK_CAMPFIRE("campfire", new BlockCampFire()),
 	BLOCK_BEDROLL("bedroll", new BlockBedRoll()),
 	BLOCK_CRAFTING("crafting", new BlockCrafting()),
-	BLOCK_STORAGE("storage", new BlockStorage()),
+	//BLOCK_STORAGE("storage", new BlockStorage()),
 	BLOCK_ENCHANTMENTTABLE("enchantmenttable", new BlockEnchantmentTable()),
 	BLOCK_ANVIL("anvil", new BlockAnvil()),
 	BLOCK_COBBLEGEN("cobblegen", new BlockCobbleGenerator()),
@@ -35,7 +28,7 @@ public enum Blocks
 	;
 
 	private final String internalName;
-	private final Block block;
+	public final Block block;
 	private final Class<? extends ItemBlock> itemBlockClass;
 	private final CreativeTabs creativeTabs;
 
@@ -72,17 +65,12 @@ public enum Blocks
 	{
 		return StatCollector.translateToLocal(block.getUnlocalizedName().replace("tile.", "block."));
 	}
-
-	public Block getBlock()
-	{
-		return block;
-	}
 	
 	private static boolean registered = false;
 	
 	private void register()
 	{
-		Helper.getLogger().debug("Registering Block: " + internalName);
+		Helper.getNomadLogger().debug("Registering Block: " + internalName);
 		GameRegistry.registerBlock(block.setCreativeTab(creativeTabs), itemBlockClass, "tile." + internalName);
 	}
 

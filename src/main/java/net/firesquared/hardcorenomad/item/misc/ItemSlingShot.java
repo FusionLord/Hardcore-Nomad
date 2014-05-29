@@ -51,7 +51,7 @@ public class ItemSlingShot extends Item
 			return event.result;
 		}
 
-		if (par3EntityPlayer.capabilities.isCreativeMode || par3EntityPlayer.inventory.hasItem(Items.ITEM_MISC_PEBBLE.getItem()))
+		if (par3EntityPlayer.capabilities.isCreativeMode || par3EntityPlayer.inventory.hasItem(Items.ITEM_MISC_PEBBLE.item))
 		{
 			par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
 		}
@@ -99,7 +99,7 @@ public class ItemSlingShot extends Item
 
 		boolean flag = entityPlayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, itemStack) > 0;
 
-		if (flag || entityPlayer.inventory.hasItem(Items.ITEM_MISC_PEBBLE.getItem()))
+		if (flag || entityPlayer.inventory.hasItem(Items.ITEM_MISC_PEBBLE.item))
 		{
 			float f = (float)j / 20.0F;
 			f = (f * f + f * 20.F) / 3.0F;
@@ -140,7 +140,7 @@ public class ItemSlingShot extends Item
 
 			if (!flag)
 			{
-				entityPlayer.inventory.consumeInventoryItem(Items.ITEM_MISC_PEBBLE.getItem());
+				entityPlayer.inventory.consumeInventoryItem(Items.ITEM_MISC_PEBBLE.item);
 			}
 
 			if (!world.isRemote)

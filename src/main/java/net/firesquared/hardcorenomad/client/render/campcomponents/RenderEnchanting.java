@@ -4,6 +4,7 @@ import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 
 import org.lwjgl.opengl.GL11;
 
+import net.firesquared.hardcorenomad.client.render.RenderCampComp;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;

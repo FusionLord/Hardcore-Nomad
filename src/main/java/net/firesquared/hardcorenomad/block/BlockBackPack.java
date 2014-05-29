@@ -40,7 +40,7 @@ public class BlockBackPack extends BlockContainer
 	{
 		ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
  		TileEntityBackPack backpack = (TileEntityBackPack)world.getTileEntity(x, y, z);
-		ItemStack itemStack = new ItemStack(Items.ITEM_BACKPACK.getItem(), 1);
+		ItemStack itemStack = new ItemStack(Items.ITEM_BACKPACK.item, 1);
 		itemStack.stackTagCompound = new NBTTagCompound();
 		backpack.writeExtraNBT(itemStack.stackTagCompound);
 		drops.add(itemStack);

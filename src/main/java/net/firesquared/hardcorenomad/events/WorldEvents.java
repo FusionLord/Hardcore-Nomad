@@ -11,7 +11,7 @@ public class WorldEvents
 	@SubscribeEvent
 	public void worldLoadEvent(WorldEvent.Load event)
 	{
-		Helper.getLogger().debug("World is loading...");
+		Helper.getNomadLogger().debug("World is loading...");
 		if (MainConfiguration.CONFIG_NATURALREGENENABLED)
 		{
 			event.world.getWorldInfo().getGameRulesInstance().setOrCreateGameRule("naturalRegeneration", "false");
