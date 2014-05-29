@@ -17,9 +17,6 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 public class TileEntityCampFire extends TileEntityDeployableBase implements IInventory
 {
 	private NBTTagCompound tagInv;
-	private static final int[] slotsTop = new int[] {0};
-	private static final int[] slotsBottom = new int[] {2, 1};
-	private static final int[] slotsSides = new int[] {1};
 	private ItemStack[] furnaceItemStacks = new ItemStack[3];
 	public int furnaceBurnTime;
 	public int currentItemBurnTime;
@@ -30,7 +27,7 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 		super(UpgradeType.CAMPFIRE);
 	}
 
-	public TileEntityCampFire(int meta)
+	public TileEntityCampFire(@SuppressWarnings("unused") int meta)
 	{
 		super(UpgradeType.CAMPFIRE);
 	}
@@ -110,6 +107,7 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 		return this.furnaceItemStacks[var1];
 	}
 
+	@Override
 	public ItemStack decrStackSize(int par1, int par2) {
 		if (this.furnaceItemStacks[par1] != null)
 		{
@@ -121,22 +119,16 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 				this.furnaceItemStacks[par1] = null;
 				return itemStack;
 			}
-			else
+			itemStack = this.furnaceItemStacks[par1].splitStack(par2);
+
+			if (this.furnaceItemStacks[par1].stackSize == 0)
 			{
-				itemStack = this.furnaceItemStacks[par1].splitStack(par2);
-
-				if (this.furnaceItemStacks[par1].stackSize == 0)
-				{
-					this.furnaceItemStacks[par1] = null;
-				}
-
-				return itemStack;
+				this.furnaceItemStacks[par1] = null;
 			}
+
+			return itemStack;
 		}
-		else
-		{
-			return null;
-		}
+		return null;
 	}
 
 	@Override
@@ -148,10 +140,7 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 			this.furnaceItemStacks[var1] = null;
 			return itemStack;
 		}
-		else
-		{
-			return null;
-		}
+		return null;
 	}
 
 	@Override
@@ -272,18 +261,13 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 	private boolean canSmelt()
 	{
 		if (this.furnaceItemStacks[0] == null)
-		{
 			return false;
-		}
-		else
-		{
-			ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.furnaceItemStacks[0]);
-			if (itemstack == null) return false;
-			if (this.furnaceItemStacks[2] == null) return true;
-			if (!this.furnaceItemStacks[2].isItemEqual(itemstack)) return false;
-			int result = furnaceItemStacks[2].stackSize + itemstack.stackSize;
-			return result <= getInventoryStackLimit() && result <= this.furnaceItemStacks[2].getMaxStackSize();
-		}
+		ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.furnaceItemStacks[0]);
+		if (itemstack == null) return false;
+		if (this.furnaceItemStacks[2] == null) return true;
+		if (!this.furnaceItemStacks[2].isItemEqual(itemstack)) return false;
+		int result = furnaceItemStacks[2].stackSize + itemstack.stackSize;
+		return result <= getInventoryStackLimit() && result <= this.furnaceItemStacks[2].getMaxStackSize();
 	}
 
 	public void smeltItem()
@@ -327,7 +311,7 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer var1)
 	{
-		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : var1.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
+		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : var1.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
 	}
 
 	@Override

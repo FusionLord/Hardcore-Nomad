@@ -2,7 +2,6 @@ package net.firesquared.hardcorenomad.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquaredcore.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -51,7 +50,7 @@ public class SetOffsetPacket extends AbstractPacket
 	@Override
 	public void handleServerSide(EntityPlayer entityPlayer)
 	{
-		TileEntityBackPack backPack = (TileEntityBackPack) entityPlayer.worldObj.getTileEntity(x, y, z);
+		//TileEntityBackPack backPack = (TileEntityBackPack) entityPlayer.worldObj.getTileEntity(x, y, z);
 
 //		backPack.setComponentOffset(xOffset, zOffset);
 	}

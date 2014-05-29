@@ -6,7 +6,6 @@ import net.firesquaredcore.client.gui.elements.IGuiElement;
 import net.firesquaredcore.client.gui.elements.SlotElement;
 import net.firesquaredcore.client.gui.skins.BackgroundSkin;
 import net.firesquaredcore.client.gui.widgets.IWidget;
-import net.firesquaredcore.helper.Helper;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
@@ -45,12 +44,13 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 		this.skin = skin;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{
 		super.initGui();
 		elements = new ArrayList<IGuiElement>();
-		int newWidth = 0;;
+		int newWidth = 0;
 		int newHeight = 0;
 		for (Slot slot : (ArrayList<Slot>)container.inventorySlots)
 		{

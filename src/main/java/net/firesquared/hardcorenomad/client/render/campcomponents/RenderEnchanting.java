@@ -5,19 +5,10 @@ import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import org.lwjgl.opengl.GL11;
 
 import net.firesquared.hardcorenomad.client.render.RenderCampComp;
-import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
-import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquaredcore.helper.ModelRegistry;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
-import net.minecraftforge.client.model.IModelCustom;
 
 public class RenderEnchanting extends RenderCampComp
 {

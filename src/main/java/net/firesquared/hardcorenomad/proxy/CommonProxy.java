@@ -14,14 +14,17 @@ import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
-import net.firesquared.hardcorenomad.item.misc.DispenserBehaviorPebble;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquaredcore.helper.IProxy;
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.dispenser.BehaviorProjectileDispense;
+import net.minecraft.dispenser.IPosition;
+import net.minecraft.entity.IProjectile;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -31,31 +34,43 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 public abstract class CommonProxy implements IProxy
 {
 	// Register Blocks
+	@Override
 	public void registerBlocks()
 	{
 		Blocks.registerAll();
 	}
 
 	// Register TileEntities
+	@Override
 	public void registerTileEntities()
 	{
 		Tiles.registerAll();
 	}
 
 	// Register Entities
+	@Override
 	public void registerEntities() {
 		EntityRegistry.registerModEntity(EntityPebble.class, "entity.pebble", 0, HardcoreNomad.instance, 64, 1, true);
-		BlockDispenser.dispenseBehaviorRegistry.putObject(Items.ITEM_MISC_PEBBLE.item, new DispenserBehaviorPebble());
+		BlockDispenser.dispenseBehaviorRegistry.putObject(Items.ITEM_MISC_PEBBLE.item, new BehaviorProjectileDispense()
+		{
+			@Override
+			protected IProjectile getProjectileEntity(World world, IPosition iPosition)
+			{
+				return new EntityPebble(world, iPosition.getX(), iPosition.getY(), iPosition.getZ());
+			}
+		});
 		EntityRegistry.registerModEntity(EntitySlingShotPebble.class, "entity.slingshotpebble", 0, HardcoreNomad.instance, 64, 1, true);
 	}
 
 	// Register Items
+	@Override
 	public void registerItems()
 	{
 		Items.registerAll();
 	}
 
 	// Register World Events
+	@Override
 	public void registerWorldEvents()
 	{
 		Helper.getNomadLogger().debug("Registering World Event");
@@ -63,6 +78,7 @@ public abstract class CommonProxy implements IProxy
 	}
 
 	// Register Player Events
+	@Override
 	public void registerPlayerEvents()
 	{
 		Helper.getNomadLogger().debug("Registering Player Events");
@@ -70,22 +86,27 @@ public abstract class CommonProxy implements IProxy
 	}
 
 	// Register Misc Events
+	@Override
 	public void registerEvents() {
 		MinecraftForge.EVENT_BUS.register(new BlockBreakEvent());
 	}
 
 	// Register Packet Handler
+	@Override
 	public void initPacketHandler()
 	{
 		Helper.PACKET_HANDLER.initialise();
 	}
 
+	@Override
 	public void postInitPacketHandler()
 	{
 		Helper.PACKET_HANDLER.postInitialise();
 	}
 
 	// Register Recipes
+	@Override
+	@SuppressWarnings("boxing")
 	public void registerRecipes() {
 
 		if (MainConfiguration.CONFIG_WOODTOOLSDISABLED)
@@ -147,7 +168,7 @@ public abstract class CommonProxy implements IProxy
 		GameRegistry.addRecipe(new ItemStack(net.minecraft.init.Blocks.cobblestone, 0), "ppp", "ppp", "ppp", 'p', new ItemStack(Items.ITEM_MISC_PEBBLE.item));
 	}
 
-	private void removeWoodenTools()
+	private static void removeWoodenTools()
 	{
 		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
 
@@ -164,10 +185,11 @@ public abstract class CommonProxy implements IProxy
 			{
 				iterator.remove();
 			}
-		};
+		}
 	}
 	
 	// Register Dungeon Loot
+	@Override
 	public void registerDungeonLoot()
 	{
 		for(Items item : Items.values())

@@ -16,6 +16,7 @@ import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.brewing.PotionBrewedEvent;
@@ -55,8 +56,8 @@ public class TileEntityBrewingStand extends TileEntityDeployableBase implements 
 				{
 					int dmg1 = brewingItemStacks[i].getItemDamage();
 					int dmg2 = modifyItemDamage(dmg1, itemstack);
-					List list = Items.potionitem.getEffects(dmg1);
-					List list1 = Items.potionitem.getEffects(dmg2);
+					List<PotionEffect> list = Items.potionitem.getEffects(dmg1);
+					List<PotionEffect> list1 = Items.potionitem.getEffects(dmg2);
 					
 					if((dmg1 <= 0 || list != list1) && (list == null || !list.equals(list1) && list1 != null))
 					{
@@ -86,37 +87,33 @@ public class TileEntityBrewingStand extends TileEntityDeployableBase implements 
 			
 			if(!itemstack.getItem().isPotionIngredient(itemstack))
 				return false;
-			else
-			{
-				boolean flag = false;
-				
-				for(int i = 0; i < 3; ++i)
-					if(brewingItemStacks[i] != null && brewingItemStacks[i].getItem() instanceof ItemPotion)
+			boolean flag = false;
+			
+			for(int i = 0; i < 3; ++i)
+				if(brewingItemStacks[i] != null && brewingItemStacks[i].getItem() instanceof ItemPotion)
+				{
+					int j = brewingItemStacks[i].getItemDamage();
+					int k = modifyItemDamage(j, itemstack);
+					
+					if(!ItemPotion.isSplash(j) && ItemPotion.isSplash(k))
 					{
-						int j = brewingItemStacks[i].getItemDamage();
-						int k = modifyItemDamage(j, itemstack);
-						
-						if(!ItemPotion.isSplash(j) && ItemPotion.isSplash(k))
-						{
-							flag = true;
-							break;
-						}
-						
-						List list = Items.potionitem.getEffects(j);
-						List list1 = Items.potionitem.getEffects(k);
-						
-						if((j <= 0 || list != list1) && (list == null || !list.equals(list1) && list1 != null) && j != k)
-						{
-							flag = true;
-							break;
-						}
+						flag = true;
+						break;
 					}
-				
-				return flag;
-			}
+					
+					List<PotionEffect> list = Items.potionitem.getEffects(j);
+					List<PotionEffect> list1 = Items.potionitem.getEffects(k);
+					
+					if((j <= 0 || list != list1) && (list == null || !list.equals(list1) && list1 != null) && j != k)
+					{
+						flag = true;
+						break;
+					}
+				}
+			
+			return flag;
 		}
-		else
-			return false;
+		return false;
 	}
 	
 	/**
@@ -157,19 +154,17 @@ public class TileEntityBrewingStand extends TileEntityDeployableBase implements 
 			brewingItemStacks[slot] = null;
 			return itemstack;
 		}
-		else
-			return null;
+		return null;
 	}
 	
-	private int modifyItemDamage(int oldDamage, ItemStack is)
+	private static int modifyItemDamage(int oldDamage, ItemStack is)
 	{
 		if(is == null)
 			return oldDamage;
 		if(is.getItem().isPotionIngredient(is))
 			return PotionHelper.applyIngredient(oldDamage,
 				is.getItem().getPotionEffect(is));
-		else
-			return oldDamage;
+		return oldDamage;
 	}
 	
 	public void setInvName(String newName)
@@ -262,8 +257,7 @@ public class TileEntityBrewingStand extends TileEntityDeployableBase implements 
 			brewingItemStacks[par1] = null;
 			return itemstack;
 		}
-		else
-			return null;
+		return null;
 	}
 	
 	/**
@@ -285,9 +279,8 @@ public class TileEntityBrewingStand extends TileEntityDeployableBase implements 
 		Item item = is.getItem();
 		if(slot == 3)
 			return item.isPotionIngredient(is);
-		else
-			return item instanceof ItemPotion ||
-				item == Items.glass_bottle;
+		return item instanceof ItemPotion ||
+			item == Items.glass_bottle;
 	}
 	
 	/**

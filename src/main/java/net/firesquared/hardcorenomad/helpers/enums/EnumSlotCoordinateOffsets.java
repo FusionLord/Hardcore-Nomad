@@ -1,7 +1,5 @@
 package net.firesquared.hardcorenomad.helpers.enums;
 
-import net.minecraftforge.common.util.ForgeDirection;
-
 public enum EnumSlotCoordinateOffsets
 {	
 	WEST(-3, 0, 0),

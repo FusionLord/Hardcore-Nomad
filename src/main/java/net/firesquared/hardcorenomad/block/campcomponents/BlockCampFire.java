@@ -1,4 +1,8 @@
+
+
+
 package net.firesquared.hardcorenomad.block.campcomponents;
+
 
 import java.util.Random;
 
@@ -15,9 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -32,72 +34,71 @@ public class BlockCampFire extends BlockCampComponent
 		setLightLevel(.8f);
 		needsRandomTick = true;
 	}
-
+	
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta)
 	{
 		return new TileEntityCampFire(meta);
 	}
-
+	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int meta, float hitX, float hitY, float hitZ)
 	{
-		//TileEntityCampFire tileEntityCampFire = (TileEntityCampFire)world.getTileEntity(x, y, z);
-
-		//if (tileEntityCampFire != null)
-		//{
-			player.openGui(HardcoreNomad.instance, GUIType.CAMPFIRE_TILEENTITY.ID, world, x, y, z);
-		//}
-
+		// TileEntityCampFire tileEntityCampFire =
+		// (TileEntityCampFire)world.getTileEntity(x, y, z);
+		
+		// if (tileEntityCampFire != null)
+		// {
+		player.openGui(HardcoreNomad.instance, GUIType.CAMPFIRE_TILEENTITY.ID, world, x, y, z);
+		// }
+		
 		return true;
 	}
-
+	
 	@Deprecated
 	public ItemStack packIntoItemStack(World world, int x, int y, int z)
 	{
 		ItemStack itemStack;
 		itemStack = new ItemStack(Blocks.BLOCK_CAMPFIRE.block);
-
-		TileEntityCampFire tileEntityCampFire = Tiles.<TileEntityCampFire>getTileEntity(world, x, y, z);
+		
+		TileEntityCampFire tileEntityCampFire = Tiles.<TileEntityCampFire> getTileEntity(world, x, y, z);
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();
-		if (tileEntityCampFire == null) {
+		if(tileEntityCampFire == null)
+		{
 			Helper.getNomadLogger().debug("===>>>> Tile Entity is null check your X Y Z <<<<======");
 			return null;
 		}
 		tileEntityCampFire.writeToNBT(nbtTagCompound);
-
+		
 		itemStack.setTagCompound(nbtTagCompound);
-
+		
 		return itemStack;
 	}
-
+	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void randomDisplayTick(World w, int x, int y, int z, Random rand)
+	public void randomDisplayTick(World world, int x, int y, int z, Random rand)
 	{
-		TileEntityCampFire t = null;
-		if(w != null && w.getTileEntity(x, y, z) != null) {
-			t = (TileEntityCampFire) w.getTileEntity(x, y, z);
-		}
+		if(!world.isRemote) return;
+		TileEntityCampFire campfire = Tiles.<TileEntityCampFire> getTileEntity(world, x, y, z);
+		if(campfire == null) return;
 		
-		if(t.isBurning()) {
-			if(w.isRemote) {
-				for(int j = 0; j < 6; j++)
-				{
-					w.spawnParticle("flame", x + .5f + (w.rand.nextFloat() - .5f)/5, y + .25f, z + .5f + (w.rand.nextFloat() - .5f)/5,
-							(w.rand.nextFloat() - .5f)/15,  w.rand.nextFloat() / 10, (w.rand.nextFloat() - .5f)/15);
-					w.spawnParticle("smoke", x + .5f + (w.rand.nextFloat() - .5f)/5, y + .25f, z + .5f + (w.rand.nextFloat() - .5f)/5,
-							(w.rand.nextFloat() - .5f)/15,  w.rand.nextFloat() / 10, (w.rand.nextFloat() - .5f)/15);
-				}
-			}
+		int particles = campfire.isBurning() ? 4 : 8;
+		for(int j = 0; j < particles; j++)
+		{
+			world.spawnParticle("flame", x + .5f + (world.rand.nextFloat() - .5f) / 5, y + .25f, z + .5f + (world.rand.nextFloat() - .5f) / 5,
+					(world.rand.nextFloat() - .5f) / 15, world.rand.nextFloat() / 10, (world.rand.nextFloat() - .5f) / 15);
+			world.spawnParticle("smoke", x + .5f + (world.rand.nextFloat() - .5f) / 5, y + .25f, z + .5f + (world.rand.nextFloat() - .5f) / 5,
+					(world.rand.nextFloat() - .5f) / 15, world.rand.nextFloat() / 10, (world.rand.nextFloat() - .5f) / 15);
 		}
 	}
-
+	
 	@Override
 	protected boolean has3dRender()
 	{
 		return true;
 	}
+	
 	@Override
 	public UpgradeType getType()
 	{

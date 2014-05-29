@@ -44,6 +44,7 @@ public enum Tiles
 		return Tiles.<T>getTileEntity(access, loc.x, loc.y, loc.z);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T extends TileEntity> T getTileEntity(IBlockAccess access, int x, int y, int z)
 	{
 		TileEntity te = access.getTileEntity(x, y, z);

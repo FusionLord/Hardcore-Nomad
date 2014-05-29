@@ -25,7 +25,7 @@ public class PlayerEvents
 			{
 				if(nbtTagCompound.hasKey("healTime"))
 				{
-					Long healTime = nbtTagCompound.getLong("healTime");
+					long healTime = nbtTagCompound.getLong("healTime");
 					if(healTime > 0)
 					{
 						healTime--;

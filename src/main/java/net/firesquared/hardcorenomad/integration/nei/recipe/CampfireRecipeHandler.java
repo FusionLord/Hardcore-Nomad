@@ -41,15 +41,18 @@ public class CampfireRecipeHandler extends TemplateRecipeHandler
             this.result = new PositionedStack(result, 111, 24);
         }
 
-        public List<PositionedStack> getIngredients() {
+        @Override
+		public List<PositionedStack> getIngredients() {
             return getCycledIngredients(cycleticks / 48, Arrays.asList(ingred));
         }
 
-        public PositionedStack getResult() {
+        @Override
+		public PositionedStack getResult() {
             return result;
         }
 
-        public PositionedStack getOtherStack() {
+        @Override
+		public PositionedStack getOtherStack() {
             return afuels.get((cycleticks / 48) % afuels.size()).stack;
         }
 
@@ -97,7 +100,7 @@ public class CampfireRecipeHandler extends TemplateRecipeHandler
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(smeltingName) && getClass() == CampfireRecipeHandler.class) {//don't want subclasses getting a hold of this
-            Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) FurnaceRecipes.smelting().getSmeltingList();
+            Map<ItemStack, ItemStack> recipes = FurnaceRecipes.smelting().getSmeltingList();
             for (Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
                 arecipes.add(new SmeltingPair(recipe.getKey(), recipe.getValue()));
         } else
@@ -106,7 +109,7 @@ public class CampfireRecipeHandler extends TemplateRecipeHandler
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) FurnaceRecipes.smelting().getSmeltingList();
+        Map<ItemStack, ItemStack> recipes = FurnaceRecipes.smelting().getSmeltingList();
         for (Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
             if (NEIServerUtils.areStacksSameType(recipe.getValue(), result))
                 arecipes.add(new SmeltingPair(recipe.getKey(), recipe.getValue()));
@@ -122,7 +125,7 @@ public class CampfireRecipeHandler extends TemplateRecipeHandler
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) FurnaceRecipes.smelting().getSmeltingList();
+        Map<ItemStack, ItemStack> recipes = FurnaceRecipes.smelting().getSmeltingList();
         for (Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
             if (NEIServerUtils.areStacksSameTypeCrafting(recipe.getKey(), ingredient)) {
                 SmeltingPair arecipe = new SmeltingPair(recipe.getKey(), recipe.getValue());
@@ -143,21 +146,21 @@ public class CampfireRecipeHandler extends TemplateRecipeHandler
     }
 
     private static Set<Item> excludedFuels() {
-        Set<Item> efuels = new HashSet<Item>();
-        efuels.add(Item.getItemFromBlock(Blocks.brown_mushroom));
-        efuels.add(Item.getItemFromBlock(Blocks.red_mushroom));
-        efuels.add(Item.getItemFromBlock(Blocks.standing_sign));
-        efuels.add(Item.getItemFromBlock(Blocks.wall_sign));
-        efuels.add(Item.getItemFromBlock(Blocks.wooden_door));
-        efuels.add(Item.getItemFromBlock(Blocks.trapped_chest));
-        return efuels;
+        Set<Item> excludedFuels = new HashSet<Item>();
+        excludedFuels.add(Item.getItemFromBlock(Blocks.brown_mushroom));
+        excludedFuels.add(Item.getItemFromBlock(Blocks.red_mushroom));
+        excludedFuels.add(Item.getItemFromBlock(Blocks.standing_sign));
+        excludedFuels.add(Item.getItemFromBlock(Blocks.wall_sign));
+        excludedFuels.add(Item.getItemFromBlock(Blocks.wooden_door));
+        excludedFuels.add(Item.getItemFromBlock(Blocks.trapped_chest));
+        return excludedFuels;
     }
 
     private static void findFuels() {
         afuels = new ArrayList<FuelPair>();
-        Set<Item> efuels = excludedFuels();
+        Set<Item> excludedfuels = excludedFuels();
         for (ItemStack item : ItemList.items)
-            if (!efuels.contains(item.getItem())) {
+            if (!excludedfuels.contains(item.getItem())) {
                 int burnTime = TileEntityCampFire.getItemBurnTime(item);
                 if (burnTime > 0)
                     afuels.add(new FuelPair(item.copy(), burnTime));

@@ -3,7 +3,6 @@ package net.firesquared.hardcorenomad.events;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.firesquared.hardcorenomad.configuration.MainConfiguration;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.minecraft.world.World;
 import net.minecraftforge.event.world.WorldEvent;
 
 public class WorldEvents

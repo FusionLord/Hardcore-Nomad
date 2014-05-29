@@ -1,15 +1,11 @@
 package net.firesquared.hardcorenomad.proxy;
 
 import net.firesquared.hardcorenomad.client.render.*;
-import net.firesquared.hardcorenomad.client.render.campcomponents.*;
 import net.firesquared.hardcorenomad.client.render.misc.*;
 import net.firesquared.hardcorenomad.entity.EntityPebble;
-import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
-import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
-import net.firesquared.hardcorenomad.tile.campcomponents.*;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;

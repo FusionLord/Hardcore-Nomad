@@ -80,6 +80,7 @@ public class CampFireContainer extends Container
 		this.lastItemBurnTime = this.tileEntityCampFire.currentItemBurnTime;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int par1, int par2)
 	{

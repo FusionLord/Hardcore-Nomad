@@ -29,7 +29,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, Abstrac
 		this.packetClasses = packetClasses;
 	}
 	
-	private Class[] packetClasses;
+	private Class<? extends AbstractPacket>[] packetClasses;
 	private final String CHANNEL;
 	private EnumMap<Side, FMLEmbeddedChannel> channels;
 	private LinkedList<Class<? extends AbstractPacket>> packets = new LinkedList<Class<? extends AbstractPacket>>();
@@ -37,7 +37,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, Abstrac
 
 	public void registerPackets()
 	{
-		for(Class clazz : packetClasses)
+		for(Class<? extends AbstractPacket> clazz : packetClasses)
 			registerPacket(clazz);
 	}
 
@@ -94,7 +94,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, Abstrac
 		switch(FMLCommonHandler.instance().getEffectiveSide())
 		{
 			case CLIENT:
-				player = this.getClientPlayer();
+				player = PacketHandler.getClientPlayer();
 				packet.handleClientSide(player);
 				break;
 
@@ -141,7 +141,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, Abstrac
 	}
 
 	@SideOnly(Side.CLIENT)
-	private EntityPlayer getClientPlayer()
+	private static EntityPlayer getClientPlayer()
 	{
 		return Minecraft.getMinecraft().thePlayer;
 	}
@@ -166,7 +166,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, Abstrac
 		this.channels.get(Side.SERVER).writeAndFlush(message);
 	}
 
-	public void sendToDimension(AbstractPacket message, int dimensionId)
+	public void sendToDimension(AbstractPacket message, Integer dimensionId)
 	{
 		this.channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGET).set(FMLOutboundHandler.OutboundTarget.DIMENSION);
 		this.channels.get(Side.SERVER).attr(FMLOutboundHandler.FML_MESSAGETARGETARGS).set(dimensionId);

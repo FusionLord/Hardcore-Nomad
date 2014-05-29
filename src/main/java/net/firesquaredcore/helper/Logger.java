@@ -1,5 +1,6 @@
 package net.firesquaredcore.helper;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.apache.logging.log4j.Level;
@@ -25,12 +26,12 @@ public class Logger
 			System.out.println(modIdentifier + String.valueOf(object));
 	}
 	
-	private String getTimeStamp()
+	private static String getTimeStamp()
 	{
 		GregorianCalendar cal = new GregorianCalendar();
-		return "["+cal.get(cal.HOUR_OF_DAY) + ":" + 
-				cal.get(cal.MINUTE) + ":"+ 
-		cal.get(cal.SECOND)+ "." + cal.get(cal.MILLISECOND) + "]";
+		return "["+cal.get(Calendar.HOUR_OF_DAY) + ":" + 
+				cal.get(Calendar.MINUTE) + ":"+ 
+		cal.get(Calendar.SECOND)+ "." + cal.get(Calendar.MILLISECOND) + "]";
 	}
 
 	public void all(Object object)

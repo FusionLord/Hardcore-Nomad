@@ -1,19 +1,11 @@
 package net.firesquared.hardcorenomad.client.render;
 
-import net.firesquared.hardcorenomad.client.render.backpack.RenderBackPack;
-import net.firesquared.hardcorenomad.client.render.campcomponents.RenderAnvil;
-import net.firesquared.hardcorenomad.client.render.campcomponents.RenderBedRoll;
-import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCampfire;
-import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCobbleGen;
-import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCrafting;
-import net.firesquared.hardcorenomad.client.render.campcomponents.RenderEnchanting;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.item.backpacks.ItemBackPack;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.item.ItemBlock;
-
+import net.minecraft.item.Item;
 import org.lwjgl.opengl.GL11;
 
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
@@ -58,12 +50,12 @@ public abstract class RenderCampComp extends TileEntitySpecialRenderer implement
 	}
 
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
+	public final void renderItem(ItemRenderType type, ItemStack item, Object... data)
 	{
 		GL11.glPushMatrix();
 		renderItem(type, item);
 		GL11.glPopMatrix();
-		if (item.getItem() instanceof ItemBackPack || item.getItem() == ItemBlock.getItemFromBlock(Blocks.BLOCK_BACKPACK.block))
+		if (item.getItem() instanceof ItemBackPack || item.getItem() == Item.getItemFromBlock(Blocks.BLOCK_BACKPACK.block))
 			return;
 
 		UpgradeType ut = ItemUpgrade.getTypeFromDamage(item.getItemDamage());

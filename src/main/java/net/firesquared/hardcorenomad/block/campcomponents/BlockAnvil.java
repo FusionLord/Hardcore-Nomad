@@ -4,7 +4,6 @@ import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
-import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityAnvil;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;

@@ -3,6 +3,7 @@ package net.firesquaredcore.client.gui.backgrounds;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 import net.minecraft.util.ResourceLocation;
 
 import java.lang.reflect.Field;
@@ -47,6 +48,7 @@ public enum DynGuiPart
 		return vMax;
 	}
 
+	@SuppressWarnings("boxing")
 	public void loadFromJSON()
 	{
 		JsonParser parser = new JsonParser();
@@ -54,7 +56,7 @@ public enum DynGuiPart
 		JsonObject contents = file.getAsJsonObject();
 		for (DynGuiPart part : values())
 		{
-			JsonObject current = contents.getAsJsonObject(part.name().toLowerCase());
+			//JsonObject current = contents.getAsJsonObject(part.name().toLowerCase());
 			for (Field field : part.getDeclaringClass().getFields())
 			{
 				try

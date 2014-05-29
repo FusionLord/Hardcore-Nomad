@@ -16,12 +16,6 @@ import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityAnvil;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBedRoll;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCobbleGenerator;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCrafting;
-import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityEnchantmentTable;
 import net.firesquaredcore.helper.Helper.Numeral;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -76,6 +70,7 @@ public class ItemUpgrade extends Item
 		public final int levels;
 		public final RenderCampComp combinedRenderer;
 		public final Class<? extends TileEntityDeployableBase> tileEntityClass;
+		@SuppressWarnings("unchecked")
 		private UpgradeType(BlockCampComponent block, RenderCampComp renderer, int levels, Class<? extends TileEntity> clazz)
 		{
 			this(block, renderer, (Class<? extends TileEntityDeployableBase>)clazz, levels);

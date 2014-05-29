@@ -1,7 +1,6 @@
 package net.firesquared.hardcorenomad.client.render.campcomponents;
 
 import net.firesquared.hardcorenomad.client.render.RenderCampComp;
-import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.firesquaredcore.helper.ModelRegistry;

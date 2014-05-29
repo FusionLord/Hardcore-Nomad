@@ -9,7 +9,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
-import net.firesquaredcore.helper.Vector3n;
 
 public class TileEntityDeployableBase extends TileEntity
 {
@@ -45,8 +44,6 @@ public class TileEntityDeployableBase extends TileEntity
 			componentType = UpgradeType.values()[tag.getInteger(NBTHelper.COMPONENTTYPE)];
 		else
 			componentType = null;
-		Vector3n offset = NBTHelper.getXYZ(tag, NBTHelper.OFFSET);
-		
 		level = tag.getByte("tileentitymetadata");
 		
 		if(tag.hasKey(NBTHelper.HAS_PARRENT_BACKPACK) && tag.getBoolean(NBTHelper.HAS_PARRENT_BACKPACK))

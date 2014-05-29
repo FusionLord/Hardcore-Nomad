@@ -13,7 +13,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import net.firesquared.hardcorenomad.configuration.ConfigurationHandler;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquaredcore.helper.IProxy;
-import net.minecraft.world.World;
 
 @Mod(modid = Helper.Strings.MOD_ID, name = Helper.Strings.MOD_NAME)
 public class HardcoreNomad
@@ -27,8 +26,6 @@ public class HardcoreNomad
 	// Debugging Logging, disable this for real builds
 	public static boolean logDebug = true;
 
-	private World world = null;
-
 	// PreInit Events
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -40,7 +37,7 @@ public class HardcoreNomad
 
 	// Init Events
 	@Mod.EventHandler
-	public void Init(FMLInitializationEvent event)
+	public void Init(@SuppressWarnings("unused") FMLInitializationEvent event)
 	{
 		proxy.registerBlocks();
 		proxy.registerItems();
@@ -59,14 +56,14 @@ public class HardcoreNomad
 	}
 
 	@Mod.EventHandler
-	public void load(FMLInitializationEvent event)
+	public void load(@SuppressWarnings("unused") FMLInitializationEvent event)
 	{
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GUIHandler());
 	}
 
 	// PostInit Events
 	@Mod.EventHandler
-	public void postInit(FMLPostInitializationEvent event)
+	public void postInit(@SuppressWarnings("unused") FMLPostInitializationEvent event)
 	{
 		proxy.postInitPacketHandler();
 		

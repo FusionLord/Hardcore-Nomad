@@ -3,18 +3,16 @@ package net.firesquared.hardcorenomad.client.gui;
 import org.lwjgl.opengl.GL11;
 
 import net.firesquared.hardcorenomad.container.BrewingContainer;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.tileentity.TileEntityBrewingStand;
 import net.minecraft.util.ResourceLocation;
 
 public class BrewingStandGUI extends GuiContainer
 {
     private static final ResourceLocation brewingStandGuiTextures = new ResourceLocation("textures/gui/container/brewing_stand.png");
     private final BrewingContainer container;
-    public BrewingStandGUI(InventoryPlayer inventory, BrewingContainer brewingContainer)
+    public BrewingStandGUI(@SuppressWarnings("unused") InventoryPlayer inventory, BrewingContainer brewingContainer)
     {
         super(brewingContainer);
         container = brewingContainer;
@@ -23,7 +21,8 @@ public class BrewingStandGUI extends GuiContainer
     /**
      * Draw the foreground layer for the GuiContainer (everything in front of the items)
      */
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
+    @Override
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
         String s = container.getInventoryName();
         if(container.hasCustomInventoryName())
@@ -32,7 +31,8 @@ public class BrewingStandGUI extends GuiContainer
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 0x404040);
     }
 
-    protected void drawGuiContainerBackgroundLayer(float someFloat, int mouseX, int mouseY)
+    @Override
+	protected void drawGuiContainerBackgroundLayer(float someFloat, int mouseX, int mouseY)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(brewingStandGuiTextures);

@@ -4,22 +4,20 @@ import java.util.ArrayList;
 
 import net.firesquared.hardcorenomad.container.BackpackContainer;
 import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.network.ButtonPacket;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquaredcore.client.gui.DynGUIBase;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 
 public class BackpackGUI extends DynGUIBase<BackpackContainer>
 {
-	static final int rowStart = 28, columnStart = 7, xSize = 18, ySize = 20;
+	static final int rowStart = 28, columnStart = 7, eleXSize = 18, eleYSize = 20;
 	private final static int scrollThreshold = 9, scrollElements = scrollThreshold - 2;
 	final boolean isPlaced;
 	boolean useScrolling;
 	private int scrollIndex = 0;
-	private int startX, startY;
+	private int startX;
 
 	public BackpackGUI(BackpackContainer container)
 	{
@@ -33,9 +31,9 @@ public class BackpackGUI extends DynGUIBase<BackpackContainer>
 		super.initGui();
 		int i = 0;
 		ArrayList<GuiButton> buttons = new ArrayList<GuiButton>();
-		buttons.add(new GuiButton(-1,  this.guiLeft + columnStart + 6 * 18,		this.guiTop + 6, xSize, ySize, "U"));
-		buttons.add(new GuiButton(100, this.guiLeft + columnStart, 				this.guiTop + 6, xSize * 3, ySize, "Dep All"));
-		buttons.add(new GuiButton(101, this.guiLeft + columnStart + xSize * 3, 	this.guiTop + 6, xSize * 3, ySize, "Rec All"));
+		buttons.add(new GuiButton(-1,  this.guiLeft + columnStart + 6 * 18,		this.guiTop + 6, eleXSize, eleYSize, "U"));
+		buttons.add(new GuiButton(100, this.guiLeft + columnStart, 				this.guiTop + 6, eleXSize * 3, eleYSize, "Dep All"));
+		buttons.add(new GuiButton(101, this.guiLeft + columnStart + eleXSize * 3, 	this.guiTop + 6, eleXSize * 3, eleYSize, "Rec All"));
 		int compCount = container.upgradeDisplaySlots.size();
 		useScrolling = compCount > scrollThreshold;
 		if(useScrolling)
@@ -47,15 +45,14 @@ public class BackpackGUI extends DynGUIBase<BackpackContainer>
 				elements.remove(index);
 			elements.remove(first.slotNumber);
 			for(int j = 0; j < scrollElements; j++)
-				buttons.add(new GuiButton(i, this.guiLeft + columnStart + ++i*18, this.guiTop + rowStart, xSize, ySize, "Tog"));
+				buttons.add(new GuiButton(i, this.guiLeft + columnStart + ++i*18, this.guiTop + rowStart, eleXSize, eleYSize, "Tog"));
 			startX = first.xDisplayPosition + 18;
-			startY = first.yDisplayPosition;
-			buttons.add(new GuiButton(-2, this.guiLeft + columnStart, this.guiTop + rowStart, xSize, 2 * ySize, "<"));
-			buttons.add(new GuiButton(-3, this.guiLeft + columnStart, this.guiTop + rowStart + 9 * 18, xSize, 2 * ySize, ">"));
+			buttons.add(new GuiButton(-2, this.guiLeft + columnStart, this.guiTop + rowStart, eleXSize, 2 * eleYSize, "<"));
+			buttons.add(new GuiButton(-3, this.guiLeft + columnStart, this.guiTop + rowStart + 9 * 18, eleXSize, 2 * eleYSize, ">"));
 		}
 		else
 			for(;i < compCount;)
-				buttons.add(new GuiButton(i, this.guiLeft + columnStart + i++*18, this.guiTop + rowStart, xSize, ySize, ""+i));
+				buttons.add(new GuiButton(i, this.guiLeft + columnStart + i++*18, this.guiTop + rowStart, eleXSize, eleYSize, ""+i));
 		
 		for(GuiButton b : buttons)
 		{

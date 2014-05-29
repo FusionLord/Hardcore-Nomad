@@ -2,7 +2,6 @@ package net.firesquared.hardcorenomad.item.misc;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.firesquared.hardcorenomad.entity.EntityPebble;
 import net.firesquared.hardcorenomad.entity.EntitySlingShotPebble;
 import net.firesquared.hardcorenomad.events.PebbleLooseEvent;
 import net.firesquared.hardcorenomad.events.PebbleNockEvent;
@@ -101,10 +100,10 @@ public class ItemSlingShot extends Item
 
 		if (flag || entityPlayer.inventory.hasItem(Items.ITEM_MISC_PEBBLE.item))
 		{
-			float f = (float)j / 20.0F;
+			float f = j / 20.0F;
 			f = (f * f + f * 20.F) / 3.0F;
 
-			if ((double)f < 0.1D)
+			if (f < 0.1D)
 			{
 				return;
 			}
@@ -125,7 +124,7 @@ public class ItemSlingShot extends Item
 
 			if (k > 0)
 			{
-				entitySlingShotPebble.setDamage(entitySlingShotPebble.getDamage() + (double)k * 0.5D + 0.5D);
+				entitySlingShotPebble.setDamage(entitySlingShotPebble.getDamage() + k * 0.5D + 0.5D);
 			}
 
 			int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, itemStack);

@@ -13,12 +13,9 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
@@ -61,11 +58,11 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 		this.renderDistanceWeight = 10.0D;
 		this.shootingEntity = par2EntityLivingBase;
 
-		this.posY = par2EntityLivingBase.posY + (double)par2EntityLivingBase.getEyeHeight() - 0.10000000149011612D;
+		this.posY = par2EntityLivingBase.posY + par2EntityLivingBase.getEyeHeight() - 0.10000000149011612D;
 		double d0 = par3EntityLivingBase.posX - par2EntityLivingBase.posX;
-		double d1 = par3EntityLivingBase.boundingBox.minY + (double)(par3EntityLivingBase.height / 3.0F) - this.posY;
+		double d1 = par3EntityLivingBase.boundingBox.minY + par3EntityLivingBase.height / 3.0F - this.posY;
 		double d2 = par3EntityLivingBase.posZ - par2EntityLivingBase.posZ;
-		double d3 = (double) MathHelper.sqrt_double(d0 * d0 + d2 * d2);
+		double d3 = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
 
 		if (d3 >= 1.0E-7D)
 		{
@@ -76,7 +73,7 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 			this.setLocationAndAngles(par2EntityLivingBase.posX + d4, this.posY, par2EntityLivingBase.posZ + d5, f2, f3);
 			this.yOffset = 0.0F;
 			float f4 = (float)d3 * 0.2F;
-			this.setThrowableHeading(d0, d1 + (double)f4, d2, par4, par5);
+			this.setThrowableHeading(d0, d1 + f4, d2, par4, par5);
 		}
 	}
 
@@ -92,18 +89,19 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 		}
 
 		this.setSize(0.5F, 0.5F);
-		this.setLocationAndAngles(par2EntityLivingBase.posX, par2EntityLivingBase.posY + (double)par2EntityLivingBase.getEyeHeight(), par2EntityLivingBase.posZ, par2EntityLivingBase.rotationYaw, par2EntityLivingBase.rotationPitch);
-		this.posX -= (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
+		this.setLocationAndAngles(par2EntityLivingBase.posX, par2EntityLivingBase.posY + par2EntityLivingBase.getEyeHeight(), par2EntityLivingBase.posZ, par2EntityLivingBase.rotationYaw, par2EntityLivingBase.rotationPitch);
+		this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
 		this.posY -= 0.10000000149011612D;
-		this.posZ -= (double)(MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
+		this.posZ -= MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
 		this.setPosition(this.posX, this.posY, this.posZ);
 		this.yOffset = 0.0F;
-		this.motionX = (double)(-MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI));
-		this.motionZ = (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI));
-		this.motionY = (double)(-MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI));
+		this.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI);
+		this.motionZ = MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI);
+		this.motionY = (-MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI));
 		this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, par3 * 1.5F, 1.0F);
 	}
 
+	@Override
 	protected void entityInit()
 	{
 		this.dataWatcher.addObject(16, Byte.valueOf((byte)0));
@@ -150,26 +148,28 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 		par1NBTTagCompound.setDouble("damage", this.damage);
 	}
 
+	@Override
 	public void setThrowableHeading(double par1, double par3, double par5, float par7, float par8)
 	{
 		float f2 = MathHelper.sqrt_double(par1 * par1 + par3 * par3 + par5 * par5);
-		par1 /= (double)f2;
-		par3 /= (double)f2;
-		par5 /= (double)f2;
-		par1 += this.rand.nextGaussian() * (double)(this.rand.nextBoolean() ? -1 : 1) * 0.007499999832361937D * (double)par8;
-		par3 += this.rand.nextGaussian() * (double)(this.rand.nextBoolean() ? -1 : 1) * 0.007499999832361937D * (double)par8;
-		par5 += this.rand.nextGaussian() * (double)(this.rand.nextBoolean() ? -1 : 1) * 0.007499999832361937D * (double)par8;
-		par1 *= (double)par7;
-		par3 *= (double)par7;
-		par5 *= (double)par7;
+		par1 /= f2;
+		par3 /= f2;
+		par5 /= f2;
+		par1 += this.rand.nextGaussian() * (this.rand.nextBoolean() ? -1 : 1) * 0.007499999832361937D * par8;
+		par3 += this.rand.nextGaussian() * (this.rand.nextBoolean() ? -1 : 1) * 0.007499999832361937D * par8;
+		par5 += this.rand.nextGaussian() * (this.rand.nextBoolean() ? -1 : 1) * 0.007499999832361937D * par8;
+		par1 *= par7;
+		par3 *= par7;
+		par5 *= par7;
 		this.motionX = par1;
 		this.motionY = par3;
 		this.motionZ = par5;
 		float f3 = MathHelper.sqrt_double(par1 * par1 + par5 * par5);
 		this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(par1, par5) * 180.0D / Math.PI);
-		this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(par3, (double)f3) * 180.0D / Math.PI);
+		this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(par3, f3) * 180.0D / Math.PI);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void setPositionAndRotation2(double par1, double par3, double par5, float par7, float par8, int par9)
 	{
@@ -177,6 +177,7 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 		this.setRotation(par7, par8);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void setVelocity(double par1, double par3, double par5)
 	{
@@ -188,7 +189,7 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 		{
 			float f = MathHelper.sqrt_double(par1 * par1 + par5 * par5);
 			this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(par1, par5) * 180.0D / Math.PI);
-			this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(par3, (double)f) * 180.0D / Math.PI);
+			this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(par3, f) * 180.0D / Math.PI);
 			this.prevRotationPitch = this.rotationPitch;
 			this.prevRotationYaw = this.rotationYaw;
 			this.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
@@ -215,6 +216,7 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 		return (b0 & 1) != 0;
 	}
 
+	@Override
 	public boolean canAttackWithItem()
 	{
 		return false;
@@ -230,6 +232,7 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 		return this.damage;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public float getShadowSize()
 	{
@@ -241,11 +244,13 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 		this.damage = par1;
 	}
 
+	@Override
 	protected boolean canTriggerWalking()
 	{
 		return false;
 	}
 
+	@Override
 	public void onCollideWithPlayer(EntityPlayer par1EntityPlayer)
 	{
 		if (!this.worldObj.isRemote && this.inGround && this.arrowShake <= 0)
@@ -284,7 +289,7 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 		{
 			float f = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
 			this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
-			this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(this.motionY, (double)f) * 180.0D / Math.PI);
+			this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(this.motionY, f) * 180.0D / Math.PI);
 		}
 
 		Block block = this.worldObj.getBlock(this.field_145791_d, this.field_145792_e, this.field_145789_f);
@@ -321,9 +326,9 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 			else
 			{
 				this.inGround = false;
-				this.motionX *= (double)(this.rand.nextFloat() * 0.2F);
-				this.motionY *= (double)(this.rand.nextFloat() * 0.2F);
-				this.motionZ *= (double)(this.rand.nextFloat() * 0.2F);
+				this.motionX *= this.rand.nextFloat() * 0.2F;
+				this.motionY *= this.rand.nextFloat() * 0.2F;
+				this.motionZ *= this.rand.nextFloat() * 0.2F;
 				this.ticksInGround = 0;
 				this.ticksInAir = 0;
 			}
@@ -343,19 +348,19 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 			}
 
 			Entity entity = null;
-			List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
+			List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
 			double d0 = 0.0D;
 			int i;
 			float f1;
 
 			for (i = 0; i < list.size(); ++i)
 			{
-				Entity entity1 = (Entity)list.get(i);
+				Entity entity1 = list.get(i);
 
 				if (entity1.canBeCollidedWith() && (entity1 != this.shootingEntity || this.ticksInAir >= 5))
 				{
 					f1 = 0.3F;
-					AxisAlignedBB axisalignedbb1 = entity1.boundingBox.expand((double)f1, (double)f1, (double)f1);
+					AxisAlignedBB axisalignedbb1 = entity1.boundingBox.expand(f1, f1, f1);
 					MovingObjectPosition movingobjectposition1 = axisalignedbb1.calculateIntercept(vec31, vec3);
 
 					if (movingobjectposition1 != null)
@@ -394,7 +399,7 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 				if (movingobjectposition.entityHit != null)
 				{
 					f2 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-					int k = MathHelper.ceiling_double_int((double)f2 * this.damage);
+					int k = MathHelper.ceiling_double_int(f2 * this.damage);
 
 					if (this.getIsCritical())
 					{
@@ -418,7 +423,7 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 						movingobjectposition.entityHit.setFire(5);
 					}
 
-					if (movingobjectposition.entityHit.attackEntityFrom(damagesource, (float)k))
+					if (movingobjectposition.entityHit.attackEntityFrom(damagesource, k))
 					{
 						if (movingobjectposition.entityHit instanceof EntityLivingBase)
 						{
@@ -435,7 +440,7 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 
 								if (f4 > 0.0F)
 								{
-									movingobjectposition.entityHit.addVelocity(this.motionX * (double)this.knockbackStrength * 0.6000000238418579D / (double)f4, 0.1D, this.motionZ * (double)this.knockbackStrength * 0.6000000238418579D / (double)f4);
+									movingobjectposition.entityHit.addVelocity(this.motionX * this.knockbackStrength * 0.6000000238418579D / f4, 0.1D, this.motionZ * this.knockbackStrength * 0.6000000238418579D / f4);
 								}
 							}
 
@@ -475,13 +480,13 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 					this.field_145789_f = movingobjectposition.blockZ;
 					this.field_145790_g = block;
 					this.inData = this.worldObj.getBlockMetadata(this.field_145791_d, this.field_145792_e, this.field_145789_f);
-					this.motionX = (double)((float)(movingobjectposition.hitVec.xCoord - this.posX));
-					this.motionY = (double)((float)(movingobjectposition.hitVec.yCoord - this.posY));
-					this.motionZ = (double)((float)(movingobjectposition.hitVec.zCoord - this.posZ));
+					this.motionX = ((float)(movingobjectposition.hitVec.xCoord - this.posX));
+					this.motionY = ((float)(movingobjectposition.hitVec.yCoord - this.posY));
+					this.motionZ = ((float)(movingobjectposition.hitVec.zCoord - this.posZ));
 					f2 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-					this.posX -= this.motionX / (double)f2 * 0.05000000074505806D;
-					this.posY -= this.motionY / (double)f2 * 0.05000000074505806D;
-					this.posZ -= this.motionZ / (double)f2 * 0.05000000074505806D;
+					this.posX -= this.motionX / f2 * 0.05000000074505806D;
+					this.posY -= this.motionY / f2 * 0.05000000074505806D;
+					this.posZ -= this.motionZ / f2 * 0.05000000074505806D;
 					this.playSound("random.bowhit", 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
 					this.inGround = true;
 					this.arrowShake = 7;
@@ -498,7 +503,7 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 			{
 				for (i = 0; i < 4; ++i)
 				{
-					this.worldObj.spawnParticle("crit", this.posX + this.motionX * (double)i / 4.0D, this.posY + this.motionY * (double)i / 4.0D, this.posZ + this.motionZ * (double)i / 4.0D, -this.motionX, -this.motionY + 0.2D, -this.motionZ);
+					this.worldObj.spawnParticle("crit", this.posX + this.motionX * i / 4.0D, this.posY + this.motionY * i / 4.0D, this.posZ + this.motionZ * i / 4.0D, -this.motionX, -this.motionY + 0.2D, -this.motionZ);
 				}
 			}
 
@@ -508,10 +513,10 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 			f2 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
 			this.rotationYaw = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
 
-			for (this.rotationPitch = (float)(Math.atan2(this.motionY, (double)f2) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
-			{
-				;
-			}
+//			for (this.rotationPitch = (float)(Math.atan2(this.motionY, f2) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
+//			{
+//				
+//			}
 
 			while (this.rotationPitch - this.prevRotationPitch >= 180.0F)
 			{
@@ -538,7 +543,7 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 				for (int l = 0; l < 4; ++l)
 				{
 					f4 = 0.25F;
-					this.worldObj.spawnParticle("bubble", this.posX - this.motionX * (double)f4, this.posY - this.motionY * (double)f4, this.posZ - this.motionZ * (double)f4, this.motionX, this.motionY, this.motionZ);
+					this.worldObj.spawnParticle("bubble", this.posX - this.motionX * f4, this.posY - this.motionY * f4, this.posZ - this.motionZ * f4, this.motionX, this.motionY, this.motionZ);
 				}
 				this.motionY += .1f;
 				f3 = 1F;
@@ -549,10 +554,10 @@ public class EntitySlingShotPebble extends Entity implements IProjectile
 				this.extinguish();
 			}
 
-			this.motionX *= (double)f3;
-			this.motionY *= (double)f3;
-			this.motionZ *= (double)f3;
-			this.motionY -= (double)f1;
+			this.motionX *= f3;
+			this.motionY *= f3;
+			this.motionZ *= f3;
+			this.motionY -= f1;
 			this.setPosition(this.posX, this.posY, this.posZ);
 			this.func_145775_I();
 		}

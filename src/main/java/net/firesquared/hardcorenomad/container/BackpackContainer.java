@@ -49,11 +49,10 @@ public class BackpackContainer extends Container
 
 	public BackpackContainer(InventoryPlayer invPlayer, ItemStack currentItem)
 	{
-		isServer = !invPlayer.player.worldObj.isRemote;
-		if(invPlayer == null || currentItem == null || currentItem.stackTagCompound == null)
-		{
+		assert(invPlayer != null && currentItem != null);
+		if(currentItem.stackTagCompound == null)
 			Helper.getNomadLogger().fatal("null input to backpack container");
-		}
+		isServer = !invPlayer.player.worldObj.isRemote;
 		me = currentItem;
 		meSlot = invPlayer.currentItem;
 		isPlaced = false;

@@ -12,6 +12,7 @@ public class ItemPebble extends Item
 		this.maxStackSize = 23;
 	}
 
+	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
 	{
 		if (!par3EntityPlayer.capabilities.isCreativeMode)

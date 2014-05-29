@@ -44,7 +44,8 @@ public class CampfireFuelRecipeHandler extends CampfireRecipeHandler
         loadAllSmelting();
     }
 
-    public String getRecipeName() {
+    @Override
+	public String getRecipeName() {
         return NEIClientUtils.translate(CampfireRecipeHandler.displayNameFuel);
     }
 
@@ -53,7 +54,7 @@ public class CampfireFuelRecipeHandler extends CampfireRecipeHandler
             return;
 
         mfurnace = new ArrayList<CampfireRecipeHandler.SmeltingPair>();
-        Map<ItemStack, ItemStack> recipes = (Map<ItemStack, ItemStack>) FurnaceRecipes.smelting().getSmeltingList();
+        Map<ItemStack, ItemStack> recipes = FurnaceRecipes.smelting().getSmeltingList();
 
         for (Entry<ItemStack, ItemStack> recipe : recipes.entrySet())
             mfurnace.add(new SmeltingPair(recipe.getKey(), recipe.getValue()));
@@ -66,13 +67,15 @@ public class CampfireFuelRecipeHandler extends CampfireRecipeHandler
                 arecipes.add(new CachedFuelRecipe(fuel));
     }
 
-    public void loadUsageRecipes(ItemStack ingredient) {
+    @Override
+	public void loadUsageRecipes(ItemStack ingredient) {
         for (FuelPair fuel : afuels)
             if (fuel.stack.contains(ingredient))
                 arecipes.add(new CachedFuelRecipe(fuel));
     }
 
-    public String getOverlayIdentifier() {
+    @Override
+	public String getOverlayIdentifier() {
         return CampfireRecipeHandler.fuelName;
     }
 

@@ -56,11 +56,6 @@ public class ProgressElement implements IWidget
 		tessellator.draw();
     }
     
-	private void drawPartialRect()
-	{
-		
-	}
-
 	@Override public void drawForeground()
 	{}
 

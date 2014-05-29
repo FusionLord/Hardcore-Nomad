@@ -5,7 +5,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerBrewingStand;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -41,7 +40,8 @@ public class BrewingContainer extends Container
             this.addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
     }
 
-    public void addCraftingToCrafters(ICrafting crafting)
+    @Override
+	public void addCraftingToCrafters(ICrafting crafting)
     {
         super.addCraftingToCrafters(crafting);
         crafting.sendProgressBarUpdate(this, 0, this.tileBrewingStand.getBrewTime());
@@ -50,7 +50,8 @@ public class BrewingContainer extends Container
     /**
      * Looks for changes made in the container, sends them to every listener.
      */
-    public void detectAndSendChanges()
+    @Override
+	public void detectAndSendChanges()
     {
         super.detectAndSendChanges();
 
@@ -67,14 +68,16 @@ public class BrewingContainer extends Container
         this.brewTime = this.tileBrewingStand.getBrewTime();
     }
 
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
     public void updateProgressBar(int barID, int time)
     {
         if (barID == 0)
             this.tileBrewingStand.setBrewTime(time);
     }
 
-    public boolean canInteractWith(EntityPlayer par1EntityPlayer)
+    @Override
+	public boolean canInteractWith(EntityPlayer par1EntityPlayer)
     {
         return this.tileBrewingStand.isUseableByPlayer(par1EntityPlayer);
     }
@@ -82,7 +85,8 @@ public class BrewingContainer extends Container
     /**
      * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
      */
-    public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotID)
+    @Override
+	public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotID)
     {
         ItemStack isCopy = null;
         Slot slot = (Slot)this.inventorySlots.get(slotID);
@@ -141,7 +145,8 @@ public class BrewingContainer extends Container
         /**
          * Check if the stack is a valid item for this slot. Always true beside for the armor slots.
          */
-        public boolean isItemValid(ItemStack itemStack)
+        @Override
+		public boolean isItemValid(ItemStack itemStack)
         {
             return itemStack != null ? itemStack.getItem().isPotionIngredient(itemStack) : false;
         }
@@ -150,7 +155,8 @@ public class BrewingContainer extends Container
          * Returns the maximum stack size for a given slot (usually the same as getInventoryStackLimit(), but 1 in the
          * case of armor slots)
          */
-        public int getSlotStackLimit()
+        @Override
+		public int getSlotStackLimit()
         {
             return 64;
         }
@@ -170,7 +176,8 @@ public class BrewingContainer extends Container
             /**
              * Check if the stack is a valid item for this slot. Always true beside for the armor slots.
              */
-            public boolean isItemValid(ItemStack itemStack)
+            @Override
+			public boolean isItemValid(ItemStack itemStack)
             {
                 /**
                  * Returns true if this itemstack can be filled with a potion
@@ -182,12 +189,14 @@ public class BrewingContainer extends Container
              * Returns the maximum stack size for a given slot (usually the same as getInventoryStackLimit(), but 1 in
              * the case of armor slots)
              */
-            public int getSlotStackLimit()
+            @Override
+			public int getSlotStackLimit()
             {
                 return 1;
             }
 
-            public void onPickupFromSlot(EntityPlayer entityPlayer, ItemStack itemStack)
+            @Override
+			public void onPickupFromSlot(EntityPlayer entityPlayer, ItemStack itemStack)
             {
                 if (itemStack.getItem() instanceof ItemPotion && itemStack.getItemDamage() > 0)
                 {

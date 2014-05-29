@@ -1,6 +1,5 @@
 package net.firesquared.hardcorenomad.block;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;

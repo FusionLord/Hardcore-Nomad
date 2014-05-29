@@ -14,7 +14,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class BlockBedRoll extends BlockCampComponent
 {
@@ -43,7 +42,8 @@ public class BlockBedRoll extends BlockCampComponent
 	    }
 	}
 	
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int hit_x, float hit_y, float hit_z, float someOtherFloat)
+    @Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int hit_x, float hit_y, float hit_z, float someOtherFloat)
     {
         if (world.isRemote)
             return true;
@@ -58,11 +58,11 @@ public class BlockBedRoll extends BlockCampComponent
         //if ((metaData & 4) != 0)
         //{
             EntityPlayer otherPlayer2 = null;
-            Iterator playerIterator = world.playerEntities.iterator();
+            Iterator<EntityPlayer> playerIterator = world.playerEntities.iterator();
 
             while (playerIterator.hasNext())
             {
-                EntityPlayer otherPlayer = (EntityPlayer)playerIterator.next();
+                EntityPlayer otherPlayer = playerIterator.next();
 
                 if (otherPlayer.isPlayerSleeping())
                 {

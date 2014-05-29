@@ -114,6 +114,7 @@ public class ItemBackPack extends ItemArmor
 
 		Block bbp = Blocks.BLOCK_BACKPACK.block;
 		if(player.canPlayerEdit(x, y, z, side, is))
+		{
 			if (world.setBlock(x, y, z, bbp, is.getItemDamage(), 3))
 			{
 				//int meta = bbp.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, is.getItemDamage());
@@ -126,11 +127,9 @@ public class ItemBackPack extends ItemArmor
 				--is.stackSize;
 				return true;
 			}
-			else
-			{
-				if(isServer)
-					Helper.getNomadLogger().info("failed on setBlock"); 
-			}
+			if(isServer)
+				Helper.getNomadLogger().info("failed on setBlock");
+		}
 		else		
 			if(isServer)
 				Helper.getNomadLogger().info("failed on can edit"); 

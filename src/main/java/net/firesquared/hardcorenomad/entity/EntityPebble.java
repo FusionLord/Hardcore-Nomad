@@ -28,13 +28,14 @@ public class EntityPebble extends EntityThrowable
 	/**
 	 * Called when this EntityThrowable hits a block or entity.
 	 */
+	@Override
 	protected void onImpact(MovingObjectPosition movingObjectPosition)
 	{
 		if (movingObjectPosition.entityHit != null)
 		{
 			byte damage = 1;
 
-			movingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), (float)damage);
+			movingObjectPosition.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), damage);
 
 			if (movingObjectPosition.entityHit instanceof EntityLivingBase) {
 				EntityLivingBase entity = (EntityLivingBase)movingObjectPosition.entityHit;

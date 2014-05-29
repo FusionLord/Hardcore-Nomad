@@ -54,7 +54,7 @@ public class TexturedQuadDrawer implements IQuadDrawer
 	}
 
 	@Override
-	public void draw(int x, int y, int width, int height)
+	public void draw(int x, int y, int drawWidth, int drawHeight)
 	{
 		if (texture == null && !hasWarned)
 		{
@@ -63,30 +63,20 @@ public class TexturedQuadDrawer implements IQuadDrawer
 		}
 		texMan.bindTexture(texture);
 		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(x, 			y + height,     zLevel, u0, v0);
-		tessellator.addVertexWithUV(x + width,	y + height,     zLevel, u1, v1);
-		tessellator.addVertexWithUV(x + width,  y,              zLevel, u2, v2);
+		tessellator.addVertexWithUV(x, 			y + drawHeight,     zLevel, u0, v0);
+		tessellator.addVertexWithUV(x + drawWidth,	y + drawHeight,     zLevel, u1, v1);
+		tessellator.addVertexWithUV(x + drawWidth,  y,              zLevel, u2, v2);
 		tessellator.addVertexWithUV(x,          y,              zLevel, u3, v3);
 		tessellator.draw();
 	}
 
 	@Override
-	public void draw(int x, int y, int width, int height, float rotation)
+	public void draw(int x, int y, int drawWidth, int drawHeight, float rotation)
 	{
-		if (texture == null && !hasWarned)
-		{
-			Helper.getLogger().error("Missing texture!");
-			hasWarned = true;
-		}
-		texMan.bindTexture(texture);
-		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(x, 			y + height,     zLevel, u0, v0);
-		tessellator.addVertexWithUV(x + width,	y + height,     zLevel, u1, v1);
-		tessellator.addVertexWithUV(x + width,  y,              zLevel, u2, v2);
-		tessellator.addVertexWithUV(x,          y,              zLevel, u3, v3);
+		GL11.glPushMatrix();
 		GL11.glRotatef(rotation, 0, 0, 1);
-		tessellator.draw();
-		GL11.glRotatef(-rotation, 0, 0, 1);
+		draw(x, y, drawWidth, drawHeight);
+		GL11.glPopMatrix();
 	}
 
 	@Override

@@ -13,6 +13,7 @@ public class ModelRegistry
 	private static ArrayList<IModelCustom[]> models = new ArrayList<IModelCustom[]>();
 	private static ArrayList<ResourceLocation[]> textures = new ArrayList<ResourceLocation[]>();
 	
+	@SuppressWarnings("boxing")
 	private static void add(IModelEnum modelGroup)
 	{
 		IModelCustom[] mg = new IModelCustom[modelGroup.getModelCount()];

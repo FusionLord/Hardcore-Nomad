@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 
 public class DispenserBehaviorPebble extends BehaviorProjectileDispense
 {
+	@Override
 	protected IProjectile getProjectileEntity(World world, IPosition iPosition)
 	{
 		return new EntityPebble(world, iPosition.getX(), iPosition.getY(), iPosition.getZ());

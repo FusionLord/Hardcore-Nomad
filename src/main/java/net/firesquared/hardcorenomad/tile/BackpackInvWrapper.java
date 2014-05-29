@@ -147,11 +147,8 @@ public class BackpackInvWrapper implements IInventory
 			isTemp.stackSize = value;
 			return isTemp;
 		}
-		else
-		{
-			setInventorySlotContents(slot, null);
-			return isTemp;
-		}
+		setInventorySlotContents(slot, null);
+		return isTemp;
 	}
 
 	@Override
@@ -251,7 +248,6 @@ public class BackpackInvWrapper implements IInventory
 	
 		if(upgradeSlot.getItem() instanceof ItemUpgrade)
 		{
-			ItemUpgrade upgrade = (ItemUpgrade)upgradeSlot.getItem();
 			int dmg = upgradeSlot.getItemDamage();
 			int lvl = ItemUpgrade.getLevelFromDamage(dmg);
 			UpgradeType uType = ItemUpgrade.getTypeFromDamage(dmg);
@@ -293,14 +289,11 @@ public class BackpackInvWrapper implements IInventory
 				upgradeSlot = null;
 				return true;
 			}
-			else
-			{
-				ItemStack temp = componentInventory[index];
-				componentInventory[index] = upgradeSlot;
-				upgradeSlot = temp;
-				Helper.getNomadLogger().info("Swapped upgrade component with existing item in slot");
-				return true;
-			}
+			ItemStack temp = componentInventory[index];
+			componentInventory[index] = upgradeSlot;
+			upgradeSlot = temp;
+			Helper.getNomadLogger().info("Swapped upgrade component with existing item in slot");
+			return true;
 			
 		}
 		Helper.getNomadLogger().warn("Had an invalid upgrade in the upgrade slot of a backpack which should not be there.");

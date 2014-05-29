@@ -66,11 +66,8 @@ public class NBTBackedInventory implements IInventory
 			isTemp.stackSize = count;
 			return isTemp.copy();
 		}
-		else
-		{
-			inv.removeTag(String.valueOf(slot));
-			return isTemp;
-		}
+		inv.removeTag(String.valueOf(slot));
+		return isTemp;
 	}
 	
 	@Override

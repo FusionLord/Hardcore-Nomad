@@ -1,13 +1,11 @@
 package net.firesquared.hardcorenomad.tile.campcomponents;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityEnchantmentTable extends TileEntityDeployableBase
 {

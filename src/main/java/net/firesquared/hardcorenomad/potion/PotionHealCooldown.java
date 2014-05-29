@@ -9,6 +9,7 @@ public class PotionHealCooldown extends Potion
 		super(par1, par2, par3);
 	}
 
+	@Override
 	public int getId()
 	{
 		return this.id;

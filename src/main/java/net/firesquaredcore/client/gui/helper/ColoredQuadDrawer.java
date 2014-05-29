@@ -36,18 +36,18 @@ public class ColoredQuadDrawer implements IQuadDrawer
 	}
 
 	@Override
-	public void draw(int x, int y, int width, int height)
+	public void draw(int x, int y, int drawWidth, int drawHeight)
 	{
 		tessellator.startDrawingQuads();
 		
 		tessellator.setColorOpaque_I(color0);
-		tessellator.addVertex(x, 			y + height,     zLevel);
+		tessellator.addVertex(x, 			y + drawHeight,     zLevel);
 		
 		tessellator.setColorOpaque_I(color1);
-		tessellator.addVertex(x + width,	y + height,     zLevel);
+		tessellator.addVertex(x + drawWidth,	y + drawHeight,     zLevel);
 		
 		tessellator.setColorOpaque_I(color2);
-		tessellator.addVertex(x + width,  y,              zLevel);
+		tessellator.addVertex(x + drawWidth,  y,              zLevel);
 		
 		tessellator.setColorOpaque_I(color3);
 		tessellator.addVertex(x,          y,              zLevel);
@@ -56,24 +56,12 @@ public class ColoredQuadDrawer implements IQuadDrawer
 	}
 
 	@Override
-	public void draw(int x, int y, int width, int height, float rotation)
+	public void draw(int x, int y, int drawWidth, int drawHeight, float rotation)
 	{
-		tessellator.startDrawingQuads();
-		
-		tessellator.setColorOpaque_I(color0);
-		tessellator.addVertex(x, 			y + height,     zLevel);
-		
-		tessellator.setColorOpaque_I(color1);
-		tessellator.addVertex(x + width,	y + height,     zLevel);
-		
-		tessellator.setColorOpaque_I(color2);
-		tessellator.addVertex(x + width,  y,              zLevel);
-		
-		tessellator.setColorOpaque_I(color3);
-		tessellator.addVertex(x,          y,              zLevel);
+		GL11.glPushMatrix();
 		GL11.glRotatef(rotation, 0, 0, 1);
-		tessellator.draw();
-		GL11.glRotatef(-rotation, 0, 0, 1);
+		draw(x, y, drawWidth, drawHeight);
+		GL11.glPopMatrix();
 	}
 
 	@Override

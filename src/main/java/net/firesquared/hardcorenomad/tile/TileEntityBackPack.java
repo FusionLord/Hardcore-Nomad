@@ -2,22 +2,14 @@
 
 package net.firesquared.hardcorenomad.tile;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
-import net.firesquared.hardcorenomad.HardcoreNomad;
-import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
-import net.firesquared.hardcorenomad.client.gui.BackpackGUI;
-import net.firesquared.hardcorenomad.container.BackpackContainer;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
-import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquaredcore.helper.Vector3n;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -38,7 +30,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		super(null);
 	}
 
-	public TileEntityBackPack(int metadata)
+	public TileEntityBackPack(@SuppressWarnings("unused") int metadata)
 	{
 		super(null);
 	}
@@ -120,8 +112,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			}
 			return true;
 		}
-		else
-			return false;
+		return false;
 	}
 
 	public void deployAll(EntityPlayer player)
@@ -175,12 +166,9 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			BlockCampComponent b = (BlockCampComponent) Block.getBlockFromItem(is.getItem());
 			return this.<TileEntityDeployableBase>doBlockRecovery(absolute, componentID, b);
 		}
-		else
-		{
-			if(!isPlacementValid(absolute, player, is))
-				return false;
-			return doBlockSetting(absolute, is, is.getItemDamage());
-		}
+		if(!isPlacementValid(absolute, player, is))
+			return false;
+		return doBlockSetting(absolute, is, is.getItemDamage());
 	}
 	
 	private boolean isPlacementValid(Vector3n location, EntityPlayer player, ItemStack is)
@@ -207,7 +195,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		
 		if(!blockInst.getClass().isInstance(b))
 		{
-			Helper.getNomadLogger().error("Found unexpected block at target location");
+			Helper.getNomadLogger().error("Found unexpected block at target location".concat(coords.toString()));
 			return false;
 		}
 			
@@ -224,17 +212,19 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		return true;
 		
 	}
-	
 	private <TE extends TileEntityDeployableBase>boolean doBlockSetting(Vector3n coords, ItemStack is, int level)
 	{
 		int x = coords.x, y = coords.y, z = coords.z;
 		TE teComponent;
 		if (worldObj.setBlock(x, y, z, Block.getBlockFromItem(is.getItem())))
 		{
-			if(!(worldObj.getBlock(x, y, z) instanceof BlockCampComponent));
+			try	{Thread.sleep(1);}catch(InterruptedException e){e.printStackTrace();}
+			if(!(worldObj.getBlock(x, y, z) instanceof BlockCampComponent))
 			{
 				Helper.getNomadLogger().warn("Failed to confirm block placement at ".concat(coords.toString()));
+				return false;
 			}
+			
 			worldObj.setBlockMetadataWithNotify(x, y, z, level, 3);
 			teComponent = Tiles.<TE>getTileEntity(worldObj, x, y, z);
 			if(teComponent != null)
@@ -245,21 +235,14 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 					is.stackTagCompound.setBoolean(NBTHelper.IS_DEPLOYED, true);
 					return true;
 				}
-				else
-				{
-					Helper.getNomadLogger().warn("ItemStack is doesn't have an nbt tag");
-					return false;
-				}
-			}
-			else
-			{
-				Helper.getNomadLogger().warn("Failed to validate tile entity at ".concat(coords.toString()));
+				Helper.getNomadLogger().warn("ItemStack is doesn't have an nbt tag");
 				return false;
 			}
+			Helper.getNomadLogger().warn("Failed to validate tile entity at ".concat(coords.toString()));
+			return false;
 				
 		}
-		else
-			return false;
+		return false;
 	}
 	
 	private Vector3n readOffset(int slot)
@@ -282,6 +265,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		NBTHelper.setXYZ(comTag, NBTHelper.OFFSET, newOffset);
 	}
 
+	@SuppressWarnings("unused")
 	private void promptUserForOffsets(int slot, ItemStack is)
 	{
 		
@@ -372,11 +356,11 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 //		}
 	}
 		
-	private void reopen(EntityPlayer player)
-	{
-		Helper.getNomadLogger().debug("called");
-		player.closeScreen();
-		player.openGui(HardcoreNomad.instance, GUIType.BACKPACK_TILEENTITY.ID, worldObj, xCoord, yCoord, zCoord);
-	}
+//	private void reopen(EntityPlayer player)
+//	{
+//		Helper.getNomadLogger().debug("called");
+//		player.closeScreen();
+//		player.openGui(HardcoreNomad.instance, GUIType.BACKPACK_TILEENTITY.ID, worldObj, xCoord, yCoord, zCoord);
+//	}
 
 }

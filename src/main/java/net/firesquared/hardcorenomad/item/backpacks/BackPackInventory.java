@@ -1,34 +1,26 @@
 package net.firesquared.hardcorenomad.item.backpacks;
 
-import net.firesquared.hardcorenomad.block.BlockCampComponent;
-import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
-import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.tile.BackpackInvWrapper;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
 
 public class BackPackInventory implements IInventory
 {
 	//DO NOT MAKE ASSUMPTIONS about the size of any inventory or the value of any index
 	//get the value from where it is defined.  Don't just put the current value in as an integer
 	protected BackpackInvWrapper inv;
-	protected NBTTagCompound tag;
+	protected NBTTagCompound myTag;
 	protected ItemStack itemStack;
 
 	public BackPackInventory(ItemStack itemStack)
 	{
 		this.itemStack = itemStack;
-		tag = itemStack.stackTagCompound;
+		myTag = itemStack.stackTagCompound;
 		inv = new BackpackInvWrapper();
-		BackpackInvWrapper.readExtraNBT(tag, inv);
+		BackpackInvWrapper.readExtraNBT(myTag, inv);
 	}
 
 	@Override

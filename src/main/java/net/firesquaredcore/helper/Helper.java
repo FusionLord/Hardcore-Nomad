@@ -5,9 +5,6 @@ import java.util.List;
 
 import org.apache.logging.log4j.Level;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockAccess;
-
 public class Helper
 {
 	public class Strings
@@ -72,8 +69,7 @@ public class Helper
 		{
 			if(text != null)
 				return text;
-			else
-				return super.toString();
+			return super.toString();
 		}
 		public static Numeral fromString(String s)
 		{
@@ -81,14 +77,11 @@ public class Helper
 				throw new IllegalArgumentException();
 			if(s.length() == 1)
 				return fromChar(s.charAt(0));
-			else
-			{
-				Numeral first = fromChar(s.charAt(0));
-				Numeral second = fromChar(s.charAt(1));
-				if(second.val < first.val || second.val/first.val>10)
-					throw new IllegalArgumentException();
-				return fromInt(second.val-first.val);
-			}
+			Numeral first = fromChar(s.charAt(0));
+			Numeral second = fromChar(s.charAt(1));
+			if(second.val < first.val || second.val/first.val>10)
+				throw new IllegalArgumentException();
+			return fromInt(second.val-first.val);
 		}
 		public static Numeral fromChar(char c)
 		{
@@ -143,11 +136,8 @@ public class Helper
 		{
 			if(i == 0)
 				return "";
-			else
-			{
-				Numeral n = nextSmallest(i);
-				return n.toString().concat(RRoman(i-n.value()));
-			}
+			Numeral n = nextSmallest(i);
+			return n.toString().concat(RRoman(i-n.value()));
 		}
 		public static int Parse(String numeral)
 		{
@@ -164,8 +154,7 @@ public class Helper
 					sum -= nums.get(i).val - nums.get(++i).val;
 					continue;
 				}
-				else
-					sum += nums.get(i).val;
+				sum += nums.get(i).val;
 			}
 			
 			return sum;
