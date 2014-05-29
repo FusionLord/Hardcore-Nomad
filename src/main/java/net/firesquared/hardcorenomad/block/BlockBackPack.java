@@ -2,9 +2,11 @@ package net.firesquared.hardcorenomad.block;
 
 import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.HardcoreNomad;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
+import net.firesquaredcore.helper.Vector3n;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,7 +38,13 @@ public class BlockBackPack extends BlockContainer
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
 	{
 		ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
- 		TileEntityBackPack backpack = (TileEntityBackPack)world.getTileEntity(x, y, z);
+ 		TileEntityBackPack backpack = Tiles.<TileEntityBackPack>getTileEntity(world, x, y, z);
+ 		if(backpack==null)
+ 		{
+ 			Helper.getNomadLogger().error("Missing tileentity when getting drops for backpack block at "
+ 					.concat(new Vector3n(x, y, z).toString()));
+ 			return drops;
+ 		}
 		ItemStack itemStack = new ItemStack(Items.ITEM_BACKPACK.item, 1);
 		itemStack.stackTagCompound = new NBTTagCompound();
 		backpack.writeExtraNBT(itemStack.stackTagCompound);

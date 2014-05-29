@@ -2,6 +2,7 @@ package net.firesquared.hardcorenomad.item.backpacks;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.firesquared.hardcorenomad.HardcoreNomad;
+import net.firesquared.hardcorenomad.client.render.backpack.RenderBackPackArmor;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
@@ -9,7 +10,9 @@ import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.Block;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -22,6 +25,7 @@ import java.util.List;
 
 public class ItemBackPack extends ItemArmor
 {
+	private static final ModelBiped armorRenderer = new RenderBackPackArmor();
 	public ItemBackPack()
 	{
 		super(ArmorMaterial.CLOTH, 0, 1);
@@ -41,6 +45,12 @@ public class ItemBackPack extends ItemArmor
 	public boolean showDurabilityBar(ItemStack stack)
 	{
 		return false;
+	}
+	
+	@Override
+	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot)
+	{
+		return armorRenderer;
 	}
 
 	@Override
