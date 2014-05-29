@@ -102,11 +102,14 @@ public class ItemUpgrade extends Item
 	@Override
 	public void getSubItems(Item item, CreativeTabs creativeTabs, List list)
 	{		
+		ItemStack is;
 		for(UpgradeType ut : UpgradeType.values())
 		{
 			for(int i = 0; i < ut.levels; i++)
 			{
-				list.add(getUpgradeStack(ut, i));
+				is = getUpgradeStack(ut, i);
+				if(is != null)
+				list.add(is);
 			}
 		}
 	}
