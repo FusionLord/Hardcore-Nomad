@@ -6,11 +6,11 @@ import net.firesquared.hardcorenomad.container.BackpackContainer;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.network.ButtonPacket;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
-import net.firesquaredcore.client.gui.DynGUIBase;
+import net.firesquaredcore.client.gui.DynamicGUIContainer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.Slot;
 
-public class BackpackGUI extends DynGUIBase<BackpackContainer>
+public class BackpackGUI extends DynamicGUIContainer<BackpackContainer>
 {
 	static final int rowStart = 28, columnStart = 7, eleXSize = 18, eleYSize = 20;
 	private final static int scrollThreshold = 9, scrollElements = scrollThreshold - 2;

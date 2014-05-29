@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * @param <T> Either Container, or a type that extends it; use something specific if
  * you want tighter integration between your GUI elements and the container
  */
-public abstract class DynGUIBase<T extends Container> extends GuiContainer
+public abstract class DynamicGUIContainer<T extends Container> extends GuiContainer
 {
 	protected final T container;
 	protected int guiWidth, guiHeight;
@@ -32,12 +32,12 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 	
 	private GUIBackgroundProvider background;
 
-	public DynGUIBase(T container)
+	public DynamicGUIContainer(T container)
 	{
 		this(container, BackgroundSkin.defualt);
 	}
 
-	public DynGUIBase(T container, BackgroundSkin skin)
+	public DynamicGUIContainer(T container, BackgroundSkin skin)
 	{
 		super(container);
 		this.container = container;
@@ -113,7 +113,7 @@ public abstract class DynGUIBase<T extends Container> extends GuiContainer
 				((IWidget) element).update();
 	}
 
-	protected final DynGUIBase<T> addElement(IGuiElement element)
+	protected final DynamicGUIContainer<T> addElement(IGuiElement element)
 	{
 		elements.add(element);
 		return this;
