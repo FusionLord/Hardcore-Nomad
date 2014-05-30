@@ -324,7 +324,10 @@ public class BackpackInvWrapper implements IInventory
 		if (upgradeSlot == null )
 			return false;
 	
-		if(upgradeSlot.getItem() instanceof ItemUpgrade)
+		Block b;
+		BlockCampComponent block;
+		Item item = upgradeSlot.getItem();
+		if(item instanceof ItemUpgrade)
 		{
 			int dmg = upgradeSlot.getItemDamage();
 			int lvl = ItemUpgrade.getLevelFromDamage(dmg);
@@ -389,19 +392,30 @@ public class BackpackInvWrapper implements IInventory
 			upgradeSlot = null;
 			return true;
 		}
-		else if(Block.getBlockFromItem(upgradeSlot.getItem()) instanceof BlockCampComponent)
+		else if((b = Block.getBlockFromItem(item)) instanceof BlockCampComponent)
 		{
-			BlockCampComponent block = (BlockCampComponent) Block.getBlockFromItem(upgradeSlot.getItem());
-			int index = block.getUpgradeType().ordinal();
-			if(upgradeSlot == null)
+			block = (BlockCampComponent) b;
+			int existingUpgrade = -1;
+			//Check if there's already an upgrade of this type
+			for(int i = 0; i < componentInventory.size(); i++)
 			{
-				componentInventory.set(index, upgradeSlot);
+				ItemStack is = componentInventory.get(i);
+				if(is!=null && Block.getBlockFromItem(is.getItem()) == block)
+				{
+					existingUpgrade = i;
+					break;
+				}
+			}
+			
+			if(existingUpgrade == -1)
+			{
+				componentInventory.add(upgradeSlot.copy());
 				Helper.getNomadLogger().info("Applied existing component to empty slot");
 				upgradeSlot = null;
 				return true;
 			}
-			ItemStack temp = componentInventory.get(index);
-			componentInventory.set(index, upgradeSlot);
+			ItemStack temp = componentInventory.get(existingUpgrade);
+			componentInventory.set(existingUpgrade, upgradeSlot);
 			upgradeSlot = temp;
 			Helper.getNomadLogger().info("Swapped upgrade component with existing item in slot");
 			return true;

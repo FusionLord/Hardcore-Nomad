@@ -76,6 +76,8 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	
 	public void setBlockMeta(int meta)
 	{
+		if(meta < 0 || meta >= 16)
+			throw new IndexOutOfBoundsException("<"+xCoord+","+yCoord+","+zCoord+"> meta: "+meta);
 		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta, 2);
 	}
 	
@@ -133,6 +135,8 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	
 	public boolean toggle(int index, EntityPlayer player)
 	{
+		if(index < 0 || index >= inv.componentInventory.size())
+			return false;
 		ItemStack is = inv.componentInventory.get(index);
 		if(is!=null)
 			return toggle(is, player);
@@ -160,6 +164,11 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			
 			return TileEntityBackPack.<TileEntityDeployableBase>doBlockRecovery(worldObj, absolute, is, b);
 		}
+		
+		offset.y = worldObj.getHeightValue(offset.x, offset.z) - yCoord;
+		writeOffset(is, offset);
+		absolute = new Vector3n(offset.x + xCoord, offset.y + yCoord, offset.z + zCoord);
+		
 		if(!isPlacementValid(absolute, player, is))
 			return false;
 		return doBlockSetting(worldObj, absolute, is, is.getItemDamage());
