@@ -187,13 +187,13 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			offset = new Vector3n(worldObj.rand.nextInt(2*randomDisplacement+1) - randomDisplacement, 0, 
 					worldObj.rand.nextInt(2*randomDisplacement+1) - randomDisplacement);
 			offset.y = Helper.getValidHeight(worldObj, offset.x + xCoord, offset.z + zCoord, yCoord + 5, 12) - yCoord;
-			Vector3n.add(offset, here, absolute);
+			absolute = Vector3n.add(offset, here, absolute);
 			breakout--;
 		}
 		if(breakout <= 0)
 			Helper.getNomadLogger().warn("Failed to find valid placement after 100 attempts");
 		writeOffset(is, offset);
-		absolute = new Vector3n(offset.x + xCoord, offset.y + yCoord, offset.z + zCoord);
+		absolute = Vector3n.add(here, offset, absolute);
 		
 		if(!isPlacementValid(absolute, player, is))
 		{
@@ -203,7 +203,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		int meta = is.getItemDamage();
 		if(meta >= 16)
 			Helper.getNomadLogger().error("Metadata is restricted to 4bits(0-15): "+meta);
-		boolean success = doBlockSetting(worldObj, absolute, is, meta);
+		boolean success = doBlockSetting(worldObj, absolute, is, meta, this);
 		if(success)
 		{
 			Tiles.<TileEntityDeployableBase>getTileEntity(worldObj, absolute).setParrent(this);
@@ -213,7 +213,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	
 	private void refreshBreakReisistance()
 	{
-		boolean prev = resistBreaking;
 		for(ItemStack is : inv.componentInventory)
 		{
 			if(is != null && is.stackTagCompound != null)
@@ -279,7 +278,8 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		return true;
 		
 	}
-	private static <TE extends TileEntityDeployableBase>boolean doBlockSetting(World world, Vector3n coords, ItemStack is, int level)
+	private static <TE extends TileEntityDeployableBase>boolean doBlockSetting(World world, Vector3n coords, 
+			ItemStack is, int level, TileEntityBackPack te)
 	{
 		int x = coords.x, y = coords.y, z = coords.z;
 		TE teComponent;
@@ -299,6 +299,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 				if(is.stackTagCompound != null)
 				{
 					teComponent.readExtraNBT(is.stackTagCompound);
+					teComponent.setParrent(te);
 					is.stackTagCompound.setBoolean(NBTHelper.IS_DEPLOYED, true);
 					return true;
 				}

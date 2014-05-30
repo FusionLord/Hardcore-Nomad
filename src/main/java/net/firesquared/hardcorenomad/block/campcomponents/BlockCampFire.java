@@ -4,13 +4,16 @@
 package net.firesquared.hardcorenomad.block.campcomponents;
 
 
+import java.util.List;
 import java.util.Random;
 
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -57,5 +60,23 @@ public class BlockCampFire extends BlockCampComponent
 		return true;
 	}
 	
-	
+	@Override
+	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
+	{
+		AxisAlignedBB thisBoundingBox = this.getCollisionBoundingBoxFromPool(world, x, y, z);
+		
+		if (thisBoundingBox != null && axisAlignedBB.intersectsWith(thisBoundingBox))
+			list.add(thisBoundingBox);
+		
+		TileEntityCampFire campfire = null;
+		campfire = Tiles.<TileEntityCampFire>getTileEntity(world, x, y, z);
+		if(campfire == null)
+			return;			
+		
+		if(campfire.isBurning()) 
+		{
+			//Sets e on fire for 5 seconds
+			entity.setFire(3);
+		}
+	}
 }

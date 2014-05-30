@@ -80,7 +80,7 @@ public abstract class BlockCampComponent extends BlockContainer
 			@SuppressWarnings("unused") int meta, List<ItemStack> list)
 	{
 		ItemStack is = new ItemStack(deployableBase.getComponentType().blockContainer);
-		is.stackTagCompound = new  NBTTagCompound();
+		is.stackTagCompound = new NBTTagCompound();
 		deployableBase.writeExtraNBT(is.stackTagCompound);
 		list.add(is);
 		return list;
