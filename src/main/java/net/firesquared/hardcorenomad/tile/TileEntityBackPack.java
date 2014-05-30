@@ -7,15 +7,13 @@ import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
-import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquaredcore.helper.Vector3n;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.world.World;
 
 public class TileEntityBackPack extends TileEntityDeployableBase implements IInventory
 {
@@ -42,7 +40,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		super.writeToNBT(tag);
 		if(reopen)
 			tag.setBoolean("reopen", true);
-		writeExtraNBT(tag);
 		if(reopen)
 		{
 			//reopen();
@@ -50,6 +47,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		}
 	}
 	
+	@Override
 	public void writeExtraNBT(NBTTagCompound tag)
 	{
 		BackpackInvWrapper.writeExtraNBT(tag, inv);
@@ -59,11 +57,11 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		readExtraNBT(tag);
 		if(tag.hasKey("reopen"))
 			reopen = tag.getBoolean("reopen");
 	}
 	
+	@Override
 	public void readExtraNBT(NBTTagCompound tag)
 	{
 		inv = new BackpackInvWrapper();
@@ -79,18 +77,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public void setBlockMeta(int meta)
 	{
 		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta, 2);
-	}
-	
-	public ItemStack getComponentForDropping(UpgradeType componentType)
-	{
-		if (componentType == null)
-		{
-			Helper.getNomadLogger().warn("Unexpected null value in TileEntityBackpack");
-			return null; //this shouldn't happen;
-		}
-		ItemStack itemStack = inv.componentInventory[componentType.ordinal()];
-		inv.componentInventory[componentType.ordinal()] = null;
-		return itemStack;
 	}
 	
 	//UPGRADE AND DEPLOYMENT HANDLING
@@ -118,14 +104,14 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public void deployAll(EntityPlayer player)
 	{
 		NBTTagCompound tag;
-		for (int i = 0; i < inv.componentInventory.length; i++)
-			if(inv.componentInventory[i] != null)
+		for (ItemStack is : inv.componentInventory)
+			if(is != null)
 			{
-				tag = inv.componentInventory[i].stackTagCompound;
+				tag = is.stackTagCompound;
 				if (tag == null) return;
 				if(!tag.hasKey(NBTHelper.IS_DEPLOYED) || !tag.getBoolean(NBTHelper.IS_DEPLOYED))
 				{
-					toggle(i, player);
+					toggle(is, player);
 				}
 			}
 	}
@@ -133,42 +119,50 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public void recoverAll(EntityPlayer player)
 	{
 		NBTTagCompound tag;
-		for (int i = 0; i < inv.componentInventory.length; i++)
-			if(inv.componentInventory[i] != null)
+		for (ItemStack is : inv.componentInventory)
+			if(is != null)
 			{
-				tag = inv.componentInventory[i].stackTagCompound;
+				tag = is.stackTagCompound;
 				if (tag == null) return;
 				if(tag.hasKey(NBTHelper.IS_DEPLOYED) && tag.getBoolean(NBTHelper.IS_DEPLOYED))
 				{
-					toggle(i, player);
+					toggle(is, player);
 				}
 			}
 	}
-
-	public boolean toggle(int componentID, EntityPlayer player)
+	
+	public boolean toggle(int index, EntityPlayer player)
 	{
-		ItemStack is = inv.componentInventory[componentID];
-		if (is == null || is.stackTagCompound == null)
+		ItemStack is = inv.componentInventory.get(index);
+		if(is!=null)
+			return toggle(is, player);
+		return false;
+	}
+
+	private boolean toggle(ItemStack is, EntityPlayer player)
+	{
+		if (is == null || is.stackTagCompound == null || !inv.componentInventory.contains(is))
 		{
 			Helper.getNomadLogger().error("Attempted to toggle component that " + (is == null ? "was null" : "had a missing tag"));
 			return false;
 		}
 		
-		Vector3n offset = readOffset(componentID);
+		Vector3n offset = readOffset(is);
 		//if the thing doesn't have offset's, let's pull them from our nether regions
 		while(offset == null || (offset.x == 0 && offset.z == 0))
 			offset = new Vector3n(worldObj.rand.nextInt(19) - 9, 0, worldObj.rand.nextInt(19) - 9);
-		writeOffset(componentID, offset);
+		writeOffset(is, offset);
 			
 		Vector3n absolute = new Vector3n(offset.x + xCoord, offset.y + yCoord, offset.z + zCoord);
 		if(is.stackTagCompound.hasKey(NBTHelper.IS_DEPLOYED) && is.stackTagCompound.getBoolean(NBTHelper.IS_DEPLOYED))
 		{
 			BlockCampComponent b = (BlockCampComponent) Block.getBlockFromItem(is.getItem());
-			return this.<TileEntityDeployableBase>doBlockRecovery(absolute, componentID, b);
+			
+			return TileEntityBackPack.<TileEntityDeployableBase>doBlockRecovery(worldObj, absolute, is, b);
 		}
 		if(!isPlacementValid(absolute, player, is))
 			return false;
-		return doBlockSetting(absolute, is, is.getItemDamage());
+		return doBlockSetting(worldObj, absolute, is, is.getItemDamage());
 	}
 	
 	private boolean isPlacementValid(Vector3n location, EntityPlayer player, ItemStack is)
@@ -181,17 +175,16 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		return false;
 	}
 	
-	private <TE extends TileEntityDeployableBase> 
-		boolean doBlockRecovery(Vector3n coords, int slotIndex, BlockCampComponent blockInst)
+	private static <TE extends TileEntityDeployableBase> 
+		boolean doBlockRecovery(World world, Vector3n coords, ItemStack result, BlockCampComponent blockInst)
 	{
 		int x = coords.x, y = coords.y, z = coords.z;
-		ItemStack result = inv.componentInventory[slotIndex];
 		if(result == null || result.stackTagCompound == null)
 		{
 			Helper.getNomadLogger().error("Attempted to recover a camp component with no, or corrupt, location data");
 			return false;
 		}
-		Block b = worldObj.getBlock(x, y, z);
+		Block b = world.getBlock(x, y, z);
 		
 		if(!blockInst.getClass().isInstance(b))
 		{
@@ -199,7 +192,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			return false;
 		}
 			
-		TE tile = Tiles.<TE>getTileEntity(worldObj, x, y, z);
+		TE tile = Tiles.<TE>getTileEntity(world, x, y, z);
 		if(tile == null)
 		{
 			Helper.getNomadLogger().error("Specified tile entity was not found at target location");
@@ -207,26 +200,26 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		}
 		tile.writeToNBT(result.stackTagCompound);
 		tile.isDuplicate = true;
-		worldObj.setBlockToAir(x, y, z);
+		world.setBlockToAir(x, y, z);
 		result.stackTagCompound.setBoolean(NBTHelper.IS_DEPLOYED, false);
 		return true;
 		
 	}
-	private <TE extends TileEntityDeployableBase>boolean doBlockSetting(Vector3n coords, ItemStack is, int level)
+	private static <TE extends TileEntityDeployableBase>boolean doBlockSetting(World world, Vector3n coords, ItemStack is, int level)
 	{
 		int x = coords.x, y = coords.y, z = coords.z;
 		TE teComponent;
-		if (worldObj.setBlock(x, y, z, Block.getBlockFromItem(is.getItem())))
+		if (world.setBlock(x, y, z, Block.getBlockFromItem(is.getItem())))
 		{
 			try	{Thread.sleep(1);}catch(InterruptedException e){e.printStackTrace();}
-			if(!(worldObj.getBlock(x, y, z) instanceof BlockCampComponent))
+			if(!(world.getBlock(x, y, z) instanceof BlockCampComponent))
 			{
 				Helper.getNomadLogger().warn("Failed to confirm block placement at ".concat(coords.toString()));
 				return false;
 			}
 			
-			worldObj.setBlockMetadataWithNotify(x, y, z, level, 3);
-			teComponent = Tiles.<TE>getTileEntity(worldObj, x, y, z);
+			world.setBlockMetadataWithNotify(x, y, z, level, 3);
+			teComponent = Tiles.<TE>getTileEntity(world, x, y, z);
 			if(teComponent != null)
 			{
 				if(is.stackTagCompound != null)
@@ -245,28 +238,26 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		return false;
 	}
 	
-	private Vector3n readOffset(int slot)
+	private static Vector3n readOffset(ItemStack is)
 	{
-		ItemStack is = inv.componentInventory[slot];
 		NBTTagCompound comTag = is.getTagCompound();
 		Vector3n vec = NBTHelper.getXYZ(comTag, NBTHelper.OFFSET);
 		if(vec == null)
 		{
-			promptUserForOffsets(slot, is);
+			promptUserForOffsets(is);
 			return null;
 		}
 		return vec;
 	}
 	
-	private void writeOffset(int slot, Vector3n newOffset)
+	private static void writeOffset(ItemStack is, Vector3n newOffset)
 	{
-		ItemStack is = inv.componentInventory[slot];
 		NBTTagCompound comTag = is.getTagCompound();
 		NBTHelper.setXYZ(comTag, NBTHelper.OFFSET, newOffset);
 	}
 
 	@SuppressWarnings("unused")
-	private void promptUserForOffsets(int slot, ItemStack is)
+	private static void promptUserForOffsets(ItemStack is)
 	{
 		
 	}
@@ -344,16 +335,28 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		return inv.isItemValidForSlot(slot, itemStack);
 	}
 	
-	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+//	@Override
+//	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+//	{
+//		super.onDataPacket(net, pkt);
+////		if(reopen)
+////		{
+////			Minecraft mc = Minecraft.getMinecraft();
+////			reopen(mc.thePlayer);
+////			reopen = false;
+////		}
+//	}
+
+	public void notifyBreak(Vector3n tgt)
 	{
-		super.onDataPacket(net, pkt);
-//		if(reopen)
-//		{
-//			Minecraft mc = Minecraft.getMinecraft();
-//			reopen(mc.thePlayer);
-//			reopen = false;
-//		}
+		tgt = new Vector3n(tgt).translate(-xCoord, -yCoord, -zCoord);
+		for(ItemStack is : inv.componentInventory)
+			if(is != null && is.stackTagCompound != null)
+				if(readOffset(is).equals(tgt))
+				{
+					inv.componentInventory.remove(is);
+					return;
+				}
 	}
 		
 //	private void reopen(EntityPlayer player)

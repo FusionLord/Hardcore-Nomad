@@ -1,8 +1,10 @@
 package net.firesquared.hardcorenomad.block.campcomponents;
 
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
-import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.minecraft.block.material.Material;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.world.World;
 
 public class BlockStorage extends BlockCampComponent
 {
@@ -17,10 +19,16 @@ public class BlockStorage extends BlockCampComponent
 	{
 		return false;
 	}
-
+	
 	@Override
-	public UpgradeType getType()
+	public TileEntity createTileEntity(World world, int metadata)
 	{
-		return UpgradeType.STORAGE;
+		return new TileEntityChest();//change to our version once it's implemented
+	}
+	
+	@Override
+	public TileEntity createNewTileEntity(World world, int meta)
+	{
+		return createNewTileEntity(world, meta);
 	}
 }

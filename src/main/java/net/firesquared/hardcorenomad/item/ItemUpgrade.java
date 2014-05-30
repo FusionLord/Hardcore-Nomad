@@ -1,5 +1,8 @@
 package net.firesquared.hardcorenomad.item;
 
+//You saw nothing
+import java.lang.reflect.Method;
+//You may continue reading here
 import java.util.List;
 
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
@@ -82,6 +85,30 @@ public class ItemUpgrade extends Item
 			this.combinedRenderer = renderer;
 			this.tileEntityClass = clazz;
 			isEnabled = levels > 0 && (blockContainer != null || combinedRenderer != null || tileEntityClass != null);
+			
+			//Just pretend this isn't here.  There's a reason for it.
+			if(blockContainer != null)
+			{
+				try
+				{
+					Class<BlockCampComponent> clazz1 = BlockCampComponent.class;
+					Method[] methods = clazz1.getDeclaredMethods();
+					Method m = null;
+					for(Method method : methods)
+						if(method.getName().equals("setUpgradeType"))
+							m = method;
+					if(m==null)
+						return;
+					
+					m.setAccessible(true);
+					m.invoke(blockContainer, this);
+					m.setAccessible(false);
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	

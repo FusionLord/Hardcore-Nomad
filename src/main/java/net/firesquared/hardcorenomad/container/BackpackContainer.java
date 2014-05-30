@@ -88,20 +88,6 @@ public class BackpackContainer extends Container
 						return backPack.isItemValidForSlot(this.slotNumber, is);
 					}
 				});
-		
-		Slot tempSlot;
-		for (int i = 0; i < ItemUpgrade.getCampComponentCount(); i++)
-		{
-			tempSlot = new Slot(backPack, slot++, 8 + i * 18, 50)
-			{@Override
-				public boolean isItemValid(ItemStack is)
-				{
-					return backPack.isItemValidForSlot(this.slotNumber, is);
-				}
-			};
-			upgradeDisplaySlots.add(tempSlot);
-			addSlotToContainer(tempSlot);
-		}
 
 		addSlotToContainer(
 				new Slot(backPack, slot++, 8 + 7 * 18, 8)			
@@ -119,6 +105,20 @@ public class BackpackContainer extends Container
 					return backPack.isItemValidForSlot(this.slotNumber, is);
 				}
 			});
+		
+		Slot tempSlot;
+		for (int i = 0; i < ItemUpgrade.getCampComponentCount(); i++)
+		{
+			tempSlot = new Slot(backPack, slot++, 8 + i * 18, 50)
+			{@Override
+				public boolean isItemValid(ItemStack is)
+				{
+					return backPack.isItemValidForSlot(this.slotNumber, is);
+				}
+			};
+			upgradeDisplaySlots.add(tempSlot);
+			addSlotToContainer(tempSlot);
+		}
 		Helper.getNomadLogger().info((isServer?"Server":"Client")+" has " + slot + " slots");
 	}
 	

@@ -103,6 +103,9 @@ public class BackpackGUI extends DynamicGUIContainer<BackpackContainer>
 			if(useScrolling && scrollIndex != 0 && id >= 0 && id < scrollElements)
 				id = (id + scrollIndex) % scrollElements;
 			Helper.PACKET_HANDLER.sendToServer(new ButtonPacket(te.xCoord, te.yCoord, te.zCoord, button.id));
+			if(id==-1)
+				container.detectAndSendChanges();
+				
 		}
 	}
 }

@@ -48,9 +48,8 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound tag)
+	public void readExtraNBT(NBTTagCompound tag)
 	{
-		super.readFromNBT(tag);
 		NBTTagList nbtTagList = tag.getTagList("Items", 10);
 		this.furnaceItemStacks = new ItemStack[this.getSizeInventory()];
 
@@ -71,13 +70,10 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tag)
+	public void writeExtraNBT(NBTTagCompound tag)
 	{
-//		if(this.backPack != null)
-//			super.writeToNBT(tag);
 		tag.setShort("BurnTime", (short) furnaceBurnTime);
 		tag.setShort("CookTime", (short)furnaceCookTime);
-		tag.setInteger("campFireType", getCurrentLevel());
 
 		NBTTagList nbtTagList = new NBTTagList();
 
@@ -272,26 +268,19 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 
 	public void smeltItem()
 	{
-		if (this.canSmelt())
-		{
-			ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.furnaceItemStacks[0]);
+		if(!this.canSmelt())
+		return;
+		ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.furnaceItemStacks[0]);
 
-			if (this.furnaceItemStacks[2] == null)
-			{
-				this.furnaceItemStacks[2] = itemstack.copy();
-			}
-			else if (this.furnaceItemStacks[2].getItem() == itemstack.getItem())
-			{
-				this.furnaceItemStacks[2].stackSize += itemstack.stackSize; // Forge BugFix: Results may have multiple items
-			}
+		if (this.furnaceItemStacks[2] == null)
+			this.furnaceItemStacks[2] = itemstack.copy();
+		else if (this.furnaceItemStacks[2].getItem() == itemstack.getItem())
+			this.furnaceItemStacks[2].stackSize += itemstack.stackSize; // Forge BugFix: Results may have multiple items
 
-			--this.furnaceItemStacks[0].stackSize;
+		--this.furnaceItemStacks[0].stackSize;
 
-			if (this.furnaceItemStacks[0].stackSize <= 0)
-			{
-				this.furnaceItemStacks[0] = null;
-			}
-		}
+		if (this.furnaceItemStacks[0].stackSize <= 0)
+			this.furnaceItemStacks[0] = null;
 	}
 
 	public static int getItemBurnTime(ItemStack itemStack)
@@ -315,16 +304,10 @@ public class TileEntityCampFire extends TileEntityDeployableBase implements IInv
 	}
 
 	@Override
-	public void openInventory()
-	{
-
-	}
+	public void openInventory()	{}
 
 	@Override
-	public void closeInventory()
-	{
-
-	}
+	public void closeInventory() {}
 
 	@Override
 	public boolean isItemValidForSlot(int var1, ItemStack var2)

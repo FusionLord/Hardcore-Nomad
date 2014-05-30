@@ -7,9 +7,12 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
+/**
+ * TODO: FINISH; no implementation
+ *
+ */
 public class TileEntityEnchantmentTable extends TileEntityDeployableBase
 {
-	protected int enchantmentTableType;
 	private NBTTagCompound tagInv;
 
 	public TileEntityEnchantmentTable()
@@ -30,19 +33,5 @@ public class TileEntityEnchantmentTable extends TileEntityDeployableBase
 	{
 		worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
 		readFromNBT(packetUpdateTileEntity.func_148857_g());
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound tag)
-	{
-		super.readFromNBT(tag);
-		enchantmentTableType = tag.getInteger("enchantmentTableType");
-	}
-
-	@Override
-	public void writeToNBT(NBTTagCompound tag)
-	{
-		super.writeToNBT(tag);
-		tag.setInteger("enchantmentTableType", enchantmentTableType);
 	}
 }

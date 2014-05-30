@@ -1,5 +1,7 @@
 package net.firesquared.hardcorenomad.tile;
 
+import java.util.ArrayList;
+
 import net.firesquared.hardcorenomad.block.BlockBackPack;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.helpers.Helper;
@@ -15,7 +17,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.Constants.NBT;
 
 //DO NOT MAKE ASSUMPTIONS about the size of any inventory or the value of any index
 //get the value from where it is defined.  Don't just put the current value in as an integer
@@ -37,16 +41,17 @@ public class BackpackInvWrapper implements IInventory
 		}
 		if(copy.componentInventory != null)
 		{
-			this.componentInventory = copy.componentInventory.clone();
-			for(int i = 0; i < componentInventory.length; i++)
-				componentInventory[i] = componentInventory[i].copy();
+			this.componentInventory = new ArrayList<ItemStack>(copy.componentInventory);
+			for(int i = 0; i < componentInventory.size(); i++)
+				componentInventory.set(i, componentInventory.get(i).copy());
 		}
 		if(copy.upgradeSlot != null)
 			upgradeSlot = copy.upgradeSlot.copy();
 		if(copy.armorSlot != null)
 			armorSlot = copy.armorSlot.copy();
 	}
-	public BackpackInvWrapper(BackPackType type, ItemStack[] storageInventory, ItemStack[] componentInventory, ItemStack upgradeSlot, ItemStack armorSlot)
+	public BackpackInvWrapper(BackPackType type, ItemStack[] storageInventory, 
+			ArrayList<ItemStack> componentInventory, ItemStack upgradeSlot, ItemStack armorSlot)
 	{
 		this.type = type;
 		this.storageInventory = storageInventory;
@@ -56,7 +61,7 @@ public class BackpackInvWrapper implements IInventory
 	}
 	public ItemStack[] storageInventory;
 	//slot for everything excluding the backpack upgrade
-	public ItemStack[] componentInventory = new ItemStack[ItemUpgrade.getCampComponentCount()];
+	public ArrayList<ItemStack> componentInventory = new ArrayList<ItemStack>();
 	public ItemStack upgradeSlot;
 	public ItemStack armorSlot;
 	
@@ -64,14 +69,40 @@ public class BackpackInvWrapper implements IInventory
 	public boolean isItemValidForSlot(int slot, ItemStack itemStack)
 	{
 		Item item = itemStack.getItem();
-		if (slot < storageInventory.length)
-			return !(Block.getBlockFromItem(itemStack.getItem()) instanceof BlockBackPack);
-		if (slot >= storageInventory.length && slot < storageInventory.length + componentInventory.length)
-			return Block.getBlockFromItem(item) instanceof BlockCampComponent;
-		if (slot == storageInventory.length + componentInventory.length)
-			return item instanceof ItemUpgrade || Block.getBlockFromItem(item) instanceof BlockCampComponent;
-		if (slot == storageInventory.length + componentInventory.length + 1 && type.hasArmorSlot)
-			return item instanceof ItemArmor && !(item instanceof ItemBackPack);
+		boolean isArmor = type.hasArmorSlot;
+		int[] indexes;
+		
+		if(isArmor)
+			indexes = new int[]{
+				0, storageInventory.length, 
+				storageInventory.length + 1, 
+				storageInventory.length + 2,
+				storageInventory.length + 2 + componentInventory.size()};
+		else
+			indexes = new int[]{
+					0, storageInventory.length, 
+					storageInventory.length + 1, 
+					storageInventory.length + 1 + componentInventory.size()};
+		
+		for(int i = 1; i < indexes.length; i++)
+		{
+			if (slot >= indexes[i-1] && slot < indexes[i])
+			{
+				switch(i)
+				{
+					case 1:
+						return !(Block.getBlockFromItem(itemStack.getItem()) instanceof BlockBackPack);
+					case 2:
+						return item instanceof ItemUpgrade || Block.getBlockFromItem(item) instanceof BlockCampComponent;
+					case 3:
+						if(isArmor)
+							return item instanceof ItemArmor && !(item instanceof ItemBackPack);
+						//$FALL-THROUGH$
+					case 4:
+						return Block.getBlockFromItem(item) instanceof BlockCampComponent;
+				}
+			}
+		}
 		return false;
 	}
 	
@@ -122,15 +153,37 @@ public class BackpackInvWrapper implements IInventory
 		//advanced can have any kind of un-enchanted, vanilla armor
 		//aromored has no restrictions, beyond that the item extend ItemArmor
 		boolean isArmor = type.hasArmorSlot;
-
-		if (slot < storageInventory.length)
-			return storageInventory[slot];
-		if (slot >= storageInventory.length && slot < storageInventory.length + componentInventory.length)
-			return componentInventory[slot - storageInventory.length];
-		if (slot == storageInventory.length + componentInventory.length)
-			return upgradeSlot;
-		if (slot == storageInventory.length + componentInventory.length + 1 && isArmor)
-			return armorSlot;
+		int[] indexes;
+		if(isArmor)
+			indexes = new int[]{
+				0, storageInventory.length, 
+				storageInventory.length + 1, 
+				storageInventory.length + 2,
+				storageInventory.length + 2 + componentInventory.size()};
+		else
+			indexes = new int[]{
+					0, storageInventory.length, 
+					storageInventory.length + 1, 
+					storageInventory.length + 1 + componentInventory.size()};
+		for(int i = 1; i < indexes.length; i++)
+		{
+			if (slot >= indexes[i-1] && slot < indexes[i])
+			{
+				switch(i)
+				{
+					case 1:
+						return storageInventory[slot];
+					case 2:
+						return upgradeSlot;
+					case 3:
+						if(isArmor)
+							return armorSlot;
+						return componentInventory.get(slot - indexes[2]);
+					case 4:
+						return componentInventory.get(slot - indexes[3]);
+				}
+			}
+		}
 		return null;
 	}
 
@@ -163,15 +216,42 @@ public class BackpackInvWrapper implements IInventory
 		boolean isArmor = type.hasArmorSlot;
 		if(itemStack != null)
 			itemStack = itemStack.copy();
-		
-		if (slot < storageInventory.length)
-			storageInventory[slot] = itemStack;
-		else if (slot >= storageInventory.length && slot < storageInventory.length + componentInventory.length)
-			componentInventory[slot - storageInventory.length] = itemStack;
-		else if (slot == storageInventory.length + componentInventory.length)
-			upgradeSlot = itemStack;
-		else if (slot == storageInventory.length + componentInventory.length + 1 && isArmor)
-			armorSlot = itemStack;
+		int[] indexes;
+		if(isArmor)
+			indexes = new int[]{
+				0, storageInventory.length, 
+				storageInventory.length + 1, 
+				storageInventory.length + 2,
+				storageInventory.length + 2 + componentInventory.size()};
+		else
+			indexes = new int[]{
+					0, storageInventory.length, 
+					storageInventory.length + 1, 
+					storageInventory.length + 1 + componentInventory.size()};
+		for(int i = 1; i < indexes.length; i++)
+		{
+			if (slot >= indexes[i-1] && slot < indexes[i])
+			{
+				switch(i)
+				{
+					case 1:
+						storageInventory[slot] = itemStack;
+						return;
+					case 2:
+						upgradeSlot = itemStack;
+						return;
+					case 3:
+						if(isArmor)
+							armorSlot = itemStack;
+						else
+							componentInventory.set(slot - indexes[2], itemStack);
+						return;
+					case 4:
+						componentInventory.set(slot - indexes[3], itemStack);
+						return;
+				}
+			}
+		}
 	}
 	@Override
 	public void markDirty()
@@ -182,14 +262,11 @@ public class BackpackInvWrapper implements IInventory
 	public static void readExtraNBT(NBTTagCompound tag, BackpackInvWrapper inv)
 	{
 		inv.type = BackPackType.fromLevel(tag.getByte(levelKey));
-		NBTTagCompound comInvTag = tag.getCompoundTag(NBTHelper.COMINV);
-		inv.componentInventory = new ItemStack[ItemUpgrade.getCampComponentCount()];
-		for (int i = 0; i < inv.componentInventory.length; i++)
-		{
-			if(comInvTag.hasKey(NBTHelper.SLOT.concat(""+i)))
-				inv.componentInventory[i] = 
-					ItemStack.loadItemStackFromNBT(comInvTag.getCompoundTag(NBTHelper.SLOT.concat(""+i)));
-		}
+		
+		NBTTagList comInvTag = tag.getTagList(NBTHelper.COMINV, NBT.TAG_COMPOUND);
+		inv.componentInventory.clear();
+		for (int i = 0; i < comInvTag.tagCount(); i++)
+			inv.componentInventory.add(ItemStack.loadItemStackFromNBT(comInvTag.getCompoundTagAt(i)));
 		
 		NBTTagCompound stgInvTag = tag.getCompoundTag(NBTHelper.STGINV);
 		inv.storageInventory = new ItemStack[inv.type.storageTotal];
@@ -210,13 +287,14 @@ public class BackpackInvWrapper implements IInventory
 			BackpackInvWrapper inv)
 	{
 		tag.setByte(levelKey, (byte) inv.type.ordinal());
-		NBTTagCompound comInvTag = new NBTTagCompound();
-		for (int i = 0; i < inv.componentInventory.length; i++)
+		NBTTagList comInvList = new NBTTagList();
+		for(ItemStack is : inv.componentInventory)
 		{
-			if(inv.componentInventory[i]!=null)
-				comInvTag.setTag(NBTHelper.SLOT.concat(""+i), inv.componentInventory[i].writeToNBT(new NBTTagCompound()));
+			NBTTagCompound temp = new NBTTagCompound();
+			is.writeToNBT(temp);
+			comInvList.appendTag(temp);
 		}
-		tag.setTag(NBTHelper.COMINV, comInvTag);
+		tag.setTag(NBTHelper.COMINV, comInvList);
 		
 		NBTTagCompound _stgInvTag = new NBTTagCompound();
 		int _stgInvSize = inv.storageInventory.length;
@@ -263,34 +341,67 @@ public class BackpackInvWrapper implements IInventory
 				}
 				return false;
 			}
-			int typeIndex = type.ordinal();
-			int	currentLvl = componentInventory[typeIndex] == null ? -1 : componentInventory[typeIndex].getItemDamage();
-			//if the user is upgrading one of their components and the upgrade levels match
-			if(currentLvl + 1 == lvl)
+			//check if an upgrade of this type exists already
+			int slotTgt = -1;
+			for(int i = 0; i < componentInventory.size(); i++)
 			{
-				if(componentInventory[typeIndex] == null)
-					componentInventory[typeIndex] = new ItemStack(uType.blockContainer);
-				componentInventory[typeIndex].setItemDamage(lvl);
-				if(componentInventory[typeIndex].stackTagCompound == null)
-					componentInventory[typeIndex].stackTagCompound = new NBTTagCompound();
+				ItemStack is = componentInventory.get(i);
+				if(is!=null && is.stackTagCompound != null)
+				{
+					if(Block.getBlockFromItem(is.getItem()) == (uType.blockContainer))
+					{
+						slotTgt = i;
+						break;
+					}
+				}
+			}
+			//if the upgrade type wasn't found and thus the upgrade could not be applied
+			if(lvl != 0 && slotTgt == -1)
+				return false;
+			//if the upgrade would create a duplicate of that type
+			if(lvl == 0 && slotTgt != -1)
+				return false;
+			
+			//in the event there is no compoentent of this type
+			if(slotTgt == -1)
+			{
+				for(ItemStack is : componentInventory)
+					if(Block.getBlockFromItem(is.getItem()) == uType.blockContainer)
+					{
+						Helper.getNomadLogger().info("Upgrade of type already present");
+						return false;
+					}
+				ItemStack is = new ItemStack(uType.blockContainer);
+				is.setItemDamage(lvl);
+				is.stackTagCompound = new NBTTagCompound();
+				componentInventory.add(is);
 				upgradeSlot = null;
 				return true;
 			}
-			return false;
+			//otherwise update the existing component if possible
+			ItemStack is = componentInventory.get(slotTgt);
+			if(lvl != is.getItemDamage() + 1)
+				return false;
+			is.setItemDamage(lvl);
+			if(is.stackTagCompound == null)
+				is.stackTagCompound = new NBTTagCompound();
+			componentInventory.set(slotTgt, is);
+			upgradeSlot = null;
+			return true;
 		}
 		else if(Block.getBlockFromItem(upgradeSlot.getItem()) instanceof BlockCampComponent)
 		{
 			BlockCampComponent block = (BlockCampComponent) Block.getBlockFromItem(upgradeSlot.getItem());
-			int index = block.getType().ordinal();
+			int index = block.getUpgradeType().ordinal();
 			if(upgradeSlot == null)
 			{
-				componentInventory[index] = upgradeSlot;
+				componentInventory.set(index, upgradeSlot);
 				Helper.getNomadLogger().info("Applied existing component to empty slot");
 				upgradeSlot = null;
 				return true;
 			}
-			ItemStack temp = componentInventory[index];
-			componentInventory[index] = upgradeSlot;
+			ItemStack temp = componentInventory.get(index);
+			componentInventory.set(index, upgradeSlot);
 			upgradeSlot = temp;
 			Helper.getNomadLogger().info("Swapped upgrade component with existing item in slot");
 			return true;

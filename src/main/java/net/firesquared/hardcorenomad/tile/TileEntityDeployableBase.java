@@ -33,7 +33,11 @@ public class TileEntityDeployableBase extends TileEntity
 		tag.setBoolean(NBTHelper.HAS_PARRENT_BACKPACK, pack != null);
 		if(pack != null)
 			NBTHelper.setXYZ(tag, NBTHelper.PARRENT_BACKPACK_LOCATION, pack.xCoord, pack.yCoord, pack.zCoord);
+		writeExtraNBT(tag);
 	}
+	
+	@SuppressWarnings("unused")
+	public void writeExtraNBT(NBTTagCompound tag){}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
@@ -51,7 +55,11 @@ public class TileEntityDeployableBase extends TileEntity
 			pack = Tiles.<TileEntityBackPack>getTileEntity(worldObj,
 					NBTHelper.getXYZ(tag, NBTHelper.PARRENT_BACKPACK_LOCATION));
 		}
+		readExtraNBT(tag);
 	}
+	
+	@SuppressWarnings("unused")
+	public void readExtraNBT(NBTTagCompound tag){}
 
 	public int getCurrentLevel()
 	{

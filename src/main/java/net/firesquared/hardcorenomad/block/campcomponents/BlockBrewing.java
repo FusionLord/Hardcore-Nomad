@@ -3,7 +3,6 @@ package net.firesquared.hardcorenomad.block.campcomponents;
 import net.firesquared.hardcorenomad.GUIHandler;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
-import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBrewingStand;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,11 +22,6 @@ public class BlockBrewing extends BlockCampComponent
 		return true;
 	}
 	
-	@Override
-	public UpgradeType getType()
-	{
-		return UpgradeType.BREWING_STAND;
-	}
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int hitX, float hitY, float hitZ, float unknown)
 	{

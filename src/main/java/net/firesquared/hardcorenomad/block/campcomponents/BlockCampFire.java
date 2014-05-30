@@ -9,15 +9,10 @@ import java.util.Random;
 import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
-import net.firesquared.hardcorenomad.helpers.Helper;
-import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
-import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -38,7 +33,7 @@ public class BlockCampFire extends BlockCampComponent
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta)
 	{
-		return new TileEntityCampFire(meta);
+		return new TileEntityCampFire();
 	}
 	
 	@Override
@@ -53,26 +48,6 @@ public class BlockCampFire extends BlockCampComponent
 		// }
 		
 		return true;
-	}
-	
-	@Deprecated
-	public ItemStack packIntoItemStack(World world, int x, int y, int z)
-	{
-		ItemStack itemStack;
-		itemStack = new ItemStack(Blocks.BLOCK_CAMPFIRE.block);
-		
-		TileEntityCampFire tileEntityCampFire = Tiles.<TileEntityCampFire> getTileEntity(world, x, y, z);
-		NBTTagCompound nbtTagCompound = new NBTTagCompound();
-		if(tileEntityCampFire == null)
-		{
-			Helper.getNomadLogger().debug("===>>>> Tile Entity is null check your X Y Z <<<<======");
-			return null;
-		}
-		tileEntityCampFire.writeToNBT(nbtTagCompound);
-		
-		itemStack.setTagCompound(nbtTagCompound);
-		
-		return itemStack;
 	}
 	
 	@Override
@@ -99,9 +74,5 @@ public class BlockCampFire extends BlockCampComponent
 		return true;
 	}
 	
-	@Override
-	public UpgradeType getType()
-	{
-		return UpgradeType.CAMPFIRE;
-	}
+	
 }

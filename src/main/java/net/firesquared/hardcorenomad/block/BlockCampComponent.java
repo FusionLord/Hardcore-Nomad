@@ -1,10 +1,13 @@
 package net.firesquared.hardcorenomad.block;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
+import net.firesquaredcore.helper.Vector3n;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -20,59 +23,72 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class BlockCampComponent extends BlockContainer
 {
+	private UpgradeType upgradeType = null;
 	protected BlockCampComponent(Material material)
 	{
 		super(material);
+	}
+	
+	@SuppressWarnings("unused")//actually used by some reflective code
+	private final void setUpgradeType(UpgradeType type)
+	{
+		upgradeType = type;
+	}
+	
+	public final UpgradeType getUpgradeType()
+	{
+		return upgradeType;
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta)
 	{
-		UpgradeType type = getType();
-		if(type.tileEntityClass != null)
+		if(upgradeType.tileEntityClass != null)
 			try
 			{
-				return type.tileEntityClass.newInstance();
+				return upgradeType.tileEntityClass.newInstance();
 			}
 			catch(Exception e){e.printStackTrace();}
-		return new TileEntityDeployableBase(type);
+		return new TileEntityDeployableBase(upgradeType);
 	}
 
 	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int meta)
+	public final void breakBlock(World world, int x, int y, int z, Block block, int meta)
 	{
-		TileEntityDeployableBase deployableBase;
+		TileEntityDeployableBase deployableBase = Tiles.<TileEntityDeployableBase>getTileEntity(world, x, y, z);
 		TileEntityBackPack backpack;
-		deployableBase = (TileEntityDeployableBase)world.getTileEntity(x, y, z);
 		
-		if(deployableBase.hasParrent())
+		if(deployableBase.isDuplicate)
+			return;
+		
+		backpack = deployableBase.getParrent();
+
+		if(backpack != null)
+			backpack.notifyBreak(new Vector3n(x, y, z));
+		ArrayList<ItemStack> list = new ArrayList<ItemStack>();
+		getDrops(deployableBase, meta, list);
+		for(ItemStack is : list)
 		{
-			backpack = deployableBase.getParrent();
-	
-			ItemStack itemStack = backpack.getComponentForDropping(deployableBase.getComponentType());
-	
-			if (itemStack == null)
-			{
-				itemStack = new ItemStack(deployableBase.getBlockType(), 1);
-				NBTTagCompound tag = new NBTTagCompound();
-				deployableBase.writeToNBT(tag);
-				itemStack.setTagCompound(tag);
-			}
-			
-			itemStack.setItemDamage(meta);
-	
-			dropBlockAsItem(world, x, y, z, itemStack);
+			dropBlockAsItem(world, x, y, z, is);
 		}
-		else
-		{
-			ItemStack itemstack = new ItemStack(this, 1, deployableBase.getBlockMetadata());
-			itemstack.stackTagCompound = new NBTTagCompound();
-			deployableBase.writeToNBT(itemstack.stackTagCompound);
-			if(deployableBase.isDuplicate)
-				return;
-			dropBlockAsItem(world, x, y, z, itemstack);
-		}
+		
 		super.breakBlock(world, x, y, z, block, meta);
+	}
+	
+	protected List<ItemStack> getDrops(TileEntityDeployableBase deployableBase, 
+			@SuppressWarnings("unused") int meta, List<ItemStack> list)
+	{
+		ItemStack is = new ItemStack(deployableBase.getComponentType().blockContainer);
+		is.stackTagCompound = new  NBTTagCompound();
+		deployableBase.writeExtraNBT(is.stackTagCompound);
+		list.add(is);
+		return list;
+	}
+	
+	@Override
+	public final ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
+	{
+		return new ArrayList<ItemStack>();
 	}
 
 	@Override
@@ -136,8 +152,6 @@ public abstract class BlockCampComponent extends BlockContainer
 	{
 		return !has3dRender() && super.renderAsNormalBlock();
 	}
-	
-	public abstract UpgradeType getType();
 	
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int hitX,

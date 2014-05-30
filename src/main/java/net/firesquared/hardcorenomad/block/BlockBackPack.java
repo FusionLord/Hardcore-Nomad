@@ -2,11 +2,10 @@ package net.firesquared.hardcorenomad.block;
 
 import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.HardcoreNomad;
-import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
-import net.firesquaredcore.helper.Vector3n;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,32 +29,35 @@ public class BlockBackPack extends BlockContainer
 		setHardness(1.0F);
 		setResistance(100.0F);
 		setStepSound(soundTypeCloth);
-		//setBlockTextureName(Helper.Strings.MOD_ID + ":" + getUnlocalizedName());
 		setBlockBounds(0.1f, 0f, 0.3f, .9f, .9f, .7f);
 	}
-
+	
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta)
+	{
+		if(world.isRemote)
+			return;
+		TileEntityBackPack backpack = Tiles.getTileEntity(world, x, y, z);
+		if(backpack == null)
+			return;
+		
+		ItemStack itemStack = new ItemStack(Items.ITEM_BACKPACK.item, 1, backpack.getCurrentLevel());
+		itemStack.stackTagCompound = new NBTTagCompound();
+		
+		backpack.writeExtraNBT(itemStack.stackTagCompound);
+		dropBlockAsItem(world, x, y, z, itemStack);
+	}
+	
 	@Override
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
 	{
-		ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
- 		TileEntityBackPack backpack = Tiles.<TileEntityBackPack>getTileEntity(world, x, y, z);
- 		if(backpack==null)
- 		{
- 			Helper.getNomadLogger().error("Missing tileentity when getting drops for backpack block at "
- 					.concat(new Vector3n(x, y, z).toString()));
- 			return drops;
- 		}
-		ItemStack itemStack = new ItemStack(Items.ITEM_BACKPACK.item, 1);
-		itemStack.stackTagCompound = new NBTTagCompound();
-		backpack.writeExtraNBT(itemStack.stackTagCompound);
-		drops.add(itemStack);
-		return drops;
+		return new ArrayList<ItemStack>();
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World var1, int metadata)
+	public TileEntity createNewTileEntity(World world, int metadata)
 	{
-		return null;
+		return new TileEntityBackPack(metadata);
 	}
 	
 	@Override

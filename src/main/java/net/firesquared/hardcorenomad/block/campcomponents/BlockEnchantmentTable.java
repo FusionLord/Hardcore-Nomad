@@ -3,14 +3,12 @@ package net.firesquared.hardcorenomad.block.campcomponents;
 import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
-import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityEnchantmentTable;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockEnchantmentTable extends BlockCampComponent
 {
@@ -45,43 +43,8 @@ public class BlockEnchantmentTable extends BlockCampComponent
 	}
 
 	@Override
-	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isNormalCube()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isOpaqueCube()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isBlockNormalCube()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
-	{
-		return false;
-	}
-
-	@Override
 	protected boolean has3dRender()
 	{
 		return true;
-	}
-	@Override
-	public UpgradeType getType()
-	{
-		return UpgradeType.ENCHANTING_TABLE;
 	}
 }

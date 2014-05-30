@@ -4,11 +4,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
-import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
+import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBedRoll;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentTranslation;
@@ -104,10 +105,11 @@ public class BlockBedRoll extends BlockCampComponent
 	{
 		return true;
 	}
-	
+
 	@Override
-	public UpgradeType getType()
+	protected List<ItemStack> getDrops(TileEntityDeployableBase deployableBase, int meta, List<ItemStack> list)
 	{
-		return UpgradeType.BEDROLL;
+		list.add(new ItemStack(this));
+		return list;
 	}
 }
