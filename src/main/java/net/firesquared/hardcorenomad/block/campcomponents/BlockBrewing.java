@@ -1,7 +1,5 @@
 package net.firesquared.hardcorenomad.block.campcomponents;
 
-import net.firesquared.hardcorenomad.GUIHandler;
-import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBrewingStand;
 import net.minecraft.block.material.Material;
@@ -25,13 +23,9 @@ public class BlockBrewing extends BlockCampComponent
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int hitX, float hitY, float hitZ, float unknown)
 	{
-        if (world.isRemote)
-            return true;
         TileEntityBrewingStand teBrewingStand = (TileEntityBrewingStand)world.getTileEntity(x, y, z);
-
         if (teBrewingStand != null)
-        	player.openGui(HardcoreNomad.instance, GUIHandler.GUIType.BREWING_STAND_BLOCK.ID, world, hitX, y, z);
-
-        return true;
+        	return super.onBlockActivated(world, x, y, z, player, hitX, hitY, hitZ, unknown);
+        return false;
 	}
 }

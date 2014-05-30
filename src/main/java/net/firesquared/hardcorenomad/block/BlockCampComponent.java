@@ -3,6 +3,7 @@ package net.firesquared.hardcorenomad.block;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
@@ -157,7 +158,13 @@ public abstract class BlockCampComponent extends BlockContainer
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int hitX,
 			float hitY, float hitZ, float unknown)
 	{
-		return super.onBlockActivated(world, x, y, z, player, hitX, hitY, hitZ, unknown);
+		if(getUpgradeType().guiType != null)
+		{
+			if(!world.isRemote)
+				player.openGui(HardcoreNomad.instance, getUpgradeType().guiType.ID, world, x, y, z);
+			return true;
+		}
+		return false;
 	}
 	
 	@Override

@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 //You may continue reading here
 import java.util.List;
 
+import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.client.render.RenderCampComp;
 import net.firesquared.hardcorenomad.client.render.backpack.RenderBackPack;
@@ -51,40 +52,43 @@ public class ItemUpgrade extends Item
 	{
 		//NOTE: Changing the index of an item in this enum WILL BREAK saves!
 		ANVIL((BlockCampComponent)Blocks.BLOCK_ANVIL.block, 
-				new RenderAnvil(), 1, Tiles.ANVIL.tileClass),
+				new RenderAnvil(), 1, Tiles.ANVIL.tileClass, GUIType.ANVIL_BLOCK),
 		BEDROLL((BlockCampComponent)Blocks.BLOCK_BEDROLL.block, 
-				new RenderBedRoll(), 4, Tiles.BEDROLL.tileClass),
+				new RenderBedRoll(), 4, Tiles.BEDROLL.tileClass, null),
 		BREWING_STAND((BlockCampComponent)Blocks.BLOCK_BREWING.block, 
-				new RenderBrewing(), 1, Tiles.BREWING_STAND.tileClass),
+				new RenderBrewing(), 1, Tiles.BREWING_STAND.tileClass, GUIType.BREWING_STAND_BLOCK),
 		CAMPFIRE((BlockCampComponent)Blocks.BLOCK_CAMPFIRE.block, 
-				new RenderCampfire(), 4, Tiles.CAMPFIRE.tileClass),
+				new RenderCampfire(), 4, Tiles.CAMPFIRE.tileClass, GUIType.CAMPFIRE_TILEENTITY),
 		COBBLE_GENERATOR((BlockCampComponent)Blocks.BLOCK_COBBLEGEN.block, 
-				new RenderCobbleGen(), 1, Tiles.COBBLEGEN.tileClass),
+				new RenderCobbleGen(), 1, Tiles.COBBLEGEN.tileClass, null),
 		CRAFTING_TABLE((BlockCampComponent)Blocks.BLOCK_CRAFTING.block, 
-				new RenderCrafting(), 1, Tiles.CRAFTING.tileClass),
+				new RenderCrafting(), 1, Tiles.CRAFTING.tileClass, GUIType.CRAFTINGTABLE_BLOCK),
 		ENCHANTING_TABLE((BlockCampComponent)Blocks.BLOCK_ENCHANTMENTTABLE.block, 
-				new RenderEnchanting(), 5, Tiles.ENCHANT_TABLE_COMPACT.tileClass),
-		STORAGE(null, null, null, 1),
+				new RenderEnchanting(), 5, Tiles.ENCHANT_TABLE_COMPACT.tileClass, GUIType.ENCHANTMENT_BLOCK),
+		STORAGE(null, null, null, 1, null),
 		
-		BACKPACK(null, new RenderBackPack(), TileEntityBackPack.class, 3);
+		BACKPACK(null, new RenderBackPack(), TileEntityBackPack.class, 3, null);
 		
 		public final boolean isEnabled;
 		public final BlockCampComponent blockContainer;
 		public final int levels;
 		public final RenderCampComp combinedRenderer;
 		public final Class<? extends TileEntityDeployableBase> tileEntityClass;
+		public final GUIType guiType;
 		@SuppressWarnings("unchecked")
-		private UpgradeType(BlockCampComponent block, RenderCampComp renderer, int levels, Class<? extends TileEntity> clazz)
+		private UpgradeType(BlockCampComponent block, RenderCampComp renderer, int levels, Class<? extends TileEntity> clazz, GUIType gui)
 		{
-			this(block, renderer, (Class<? extends TileEntityDeployableBase>)clazz, levels);
+			this(block, renderer, (Class<? extends TileEntityDeployableBase>)clazz, levels, gui);
 		}
-		private UpgradeType(BlockCampComponent block, RenderCampComp renderer, Class<? extends TileEntityDeployableBase> clazz, int levels)
+		private UpgradeType(BlockCampComponent block, RenderCampComp renderer, 
+				Class<? extends TileEntityDeployableBase> clazz, int levels, GUIType gui)
 		{
 			this.blockContainer = block;
 			this.levels = levels;
 			this.combinedRenderer = renderer;
 			this.tileEntityClass = clazz;
 			isEnabled = levels > 0 && (blockContainer != null || combinedRenderer != null || tileEntityClass != null);
+			guiType = gui;
 			
 			//Just pretend this isn't here.  There's a reason for it.
 			if(blockContainer != null)

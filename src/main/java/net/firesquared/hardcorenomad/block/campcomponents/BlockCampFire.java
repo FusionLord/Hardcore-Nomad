@@ -6,13 +6,10 @@ package net.firesquared.hardcorenomad.block.campcomponents;
 
 import java.util.Random;
 
-import net.firesquared.hardcorenomad.GUIHandler.GUIType;
-import net.firesquared.hardcorenomad.HardcoreNomad;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -34,20 +31,6 @@ public class BlockCampFire extends BlockCampComponent
 	public TileEntity createNewTileEntity(World world, int meta)
 	{
 		return new TileEntityCampFire();
-	}
-	
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int meta, float hitX, float hitY, float hitZ)
-	{
-		// TileEntityCampFire tileEntityCampFire =
-		// (TileEntityCampFire)world.getTileEntity(x, y, z);
-		
-		// if (tileEntityCampFire != null)
-		// {
-		player.openGui(HardcoreNomad.instance, GUIType.CAMPFIRE_TILEENTITY.ID, world, x, y, z);
-		// }
-		
-		return true;
 	}
 	
 	@Override
