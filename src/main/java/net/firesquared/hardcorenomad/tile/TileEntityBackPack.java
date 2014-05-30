@@ -7,12 +7,15 @@ import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.NBTHelper;
 import net.firesquared.hardcorenomad.helpers.enums.BackPackType;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
+import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquaredcore.helper.Vector3n;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.world.World;
 
 public class TileEntityBackPack extends TileEntityDeployableBase implements IInventory
@@ -26,12 +29,12 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	//CONSTRUCTORS
 	public TileEntityBackPack()
 	{
-		super(null);
+		super(UpgradeType.BACKPACK);
 	}
 
 	public TileEntityBackPack(@SuppressWarnings("unused") int metadata)
 	{
-		super(null);
+		super(UpgradeType.BACKPACK);
 	}
 
 	//NBT AND PERSISTENCE
@@ -107,31 +110,33 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	public void deployAll(EntityPlayer player)
 	{
 		NBTTagCompound tag;
+		boolean success = false;
 		for (ItemStack is : inv.componentInventory)
 			if(is != null)
 			{
 				tag = is.stackTagCompound;
 				if (tag == null) return;
 				if(!tag.hasKey(NBTHelper.IS_DEPLOYED) || !tag.getBoolean(NBTHelper.IS_DEPLOYED))
-				{
-					toggle(is, player);
-				}
+					success |= toggle(is, player);
 			}
+		if(success)
+			refreshBreakReisistance();
 	}
 
 	public void recoverAll(EntityPlayer player)
 	{
 		NBTTagCompound tag;
+		boolean success = false;
 		for (ItemStack is : inv.componentInventory)
 			if(is != null)
 			{
 				tag = is.stackTagCompound;
 				if (tag == null) return;
 				if(tag.hasKey(NBTHelper.IS_DEPLOYED) && tag.getBoolean(NBTHelper.IS_DEPLOYED))
-				{
-					toggle(is, player);
-				}
+					success |= toggle(is, player);
 			}
+		if(success)
+			refreshBreakReisistance();
 	}
 	
 	public boolean toggle(int index, EntityPlayer player)
@@ -140,7 +145,12 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			return false;
 		ItemStack is = inv.componentInventory.get(index);
 		if(is!=null)
-			return toggle(is, player);
+		{
+			boolean success = toggle(is, player);
+			if(success)
+				refreshBreakReisistance();
+			return success;
+		}
 		return false;
 	}
 
@@ -166,8 +176,8 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		if(is.stackTagCompound.hasKey(NBTHelper.IS_DEPLOYED) && is.stackTagCompound.getBoolean(NBTHelper.IS_DEPLOYED))
 		{
 			BlockCampComponent b = (BlockCampComponent) Block.getBlockFromItem(is.getItem());
-			
-			return TileEntityBackPack.<TileEntityDeployableBase>doBlockRecovery(worldObj, absolute, is, b);
+			boolean success = TileEntityBackPack.<TileEntityDeployableBase>doBlockRecovery(worldObj, absolute, is, b);
+			return success;
 		}
 		
 		offset.y = Helper.getValidHeight(worldObj, offset.x, offset.z, yCoord + 5, 12) - yCoord;
@@ -195,8 +205,37 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			Helper.getNomadLogger().error("Metadata is restricted to 4bits(0-15): "+meta);
 		boolean success = doBlockSetting(worldObj, absolute, is, meta);
 		if(success)
+		{
 			Tiles.<TileEntityDeployableBase>getTileEntity(worldObj, absolute).setParrent(this);
+		}
 		return success;
+	}
+	
+	private void refreshBreakReisistance()
+	{
+		boolean prev = resistBreaking;
+		for(ItemStack is : inv.componentInventory)
+		{
+			if(is != null && is.stackTagCompound != null)
+			{
+				NBTTagCompound tag = is.stackTagCompound;
+				if(tag.hasKey(NBTHelper.IS_DEPLOYED) && tag.getBoolean(NBTHelper.IS_DEPLOYED))
+				{
+					resistBreaking = true;
+					markDirty();
+					return;
+				}
+			}
+		}
+		resistBreaking = false;
+		markDirty();
+	}
+	
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+	{
+		super.onDataPacket(net, pkt);
+		refreshBreakReisistance();
 	}
 	
 	private boolean isPlacementValid(Vector3n location, EntityPlayer player, ItemStack is)
@@ -232,7 +271,8 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			Helper.getNomadLogger().error("Specified tile entity was not found at target location");
 			return false;
 		}
-		tile.writeToNBT(result.stackTagCompound);
+		result.stackTagCompound = new NBTTagCompound();
+		tile.writeExtraNBT(result.stackTagCompound);
 		tile.isDuplicate = true;
 		world.setBlockToAir(x, y, z);
 		result.stackTagCompound.setBoolean(NBTHelper.IS_DEPLOYED, false);
@@ -258,7 +298,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			{
 				if(is.stackTagCompound != null)
 				{
-					teComponent.readFromNBT(is.stackTagCompound);
+					teComponent.readExtraNBT(is.stackTagCompound);
 					is.stackTagCompound.setBoolean(NBTHelper.IS_DEPLOYED, true);
 					return true;
 				}
@@ -368,18 +408,6 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	{
 		return inv.isItemValidForSlot(slot, itemStack);
 	}
-	
-//	@Override
-//	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
-//	{
-//		super.onDataPacket(net, pkt);
-////		if(reopen)
-////		{
-////			Minecraft mc = Minecraft.getMinecraft();
-////			reopen(mc.thePlayer);
-////			reopen = false;
-////		}
-//	}
 
 	public void notifyBreak(Vector3n tgt)
 	{
@@ -392,12 +420,11 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 					return;
 				}
 	}
-		
-//	private void reopen(EntityPlayer player)
-//	{
-//		Helper.getNomadLogger().debug("called");
-//		player.closeScreen();
-//		player.openGui(HardcoreNomad.instance, GUIType.BACKPACK_TILEENTITY.ID, worldObj, xCoord, yCoord, zCoord);
-//	}
+
+	private boolean resistBreaking = false;
+	public boolean isBreakResistant()
+	{
+		return resistBreaking;
+	}
 
 }

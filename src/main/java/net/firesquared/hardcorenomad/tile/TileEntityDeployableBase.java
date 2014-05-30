@@ -27,7 +27,7 @@ public class TileEntityDeployableBase extends TileEntity
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		if(componentType != null)
+		if(componentType != UpgradeType.BACKPACK)
 			tag.setInteger(NBTHelper.COMPONENTTYPE, componentType.ordinal());
 		tag.setByte("tileentitymetadata", (byte) getBlockMetadata());
 		tag.setBoolean(NBTHelper.HAS_PARRENT_BACKPACK, pack != null);
@@ -47,7 +47,7 @@ public class TileEntityDeployableBase extends TileEntity
 		if(tag.hasKey(NBTHelper.COMPONENTTYPE))
 			componentType = UpgradeType.values()[tag.getInteger(NBTHelper.COMPONENTTYPE)];
 		else
-			componentType = null;
+			componentType = UpgradeType.BACKPACK;
 		level = tag.getByte("tileentitymetadata");
 		
 		if(tag.hasKey(NBTHelper.HAS_PARRENT_BACKPACK) && tag.getBoolean(NBTHelper.HAS_PARRENT_BACKPACK))
@@ -80,7 +80,7 @@ public class TileEntityDeployableBase extends TileEntity
 	@Override
 	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
 	{
-		Helper.getNomadLogger().info("Decoding description packet");
+		Helper.getNomadLogger().info("Decoding description packet "+ componentType.name());
 		readFromNBT(pkt.func_148857_g());
 	}
 

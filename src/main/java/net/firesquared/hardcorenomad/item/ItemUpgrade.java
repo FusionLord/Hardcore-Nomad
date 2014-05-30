@@ -52,7 +52,7 @@ public class ItemUpgrade extends Item
 	{
 		//NOTE: Changing the index of an item in this enum WILL BREAK saves!
 		ANVIL((BlockCampComponent)Blocks.BLOCK_ANVIL.block, 
-				new RenderAnvil(), 1, Tiles.ANVIL.tileClass, GUIType.ANVIL_BLOCK),
+				new RenderAnvil(), 1, Tiles.ANVIL.tileClass, null),
 		BEDROLL((BlockCampComponent)Blocks.BLOCK_BEDROLL.block, 
 				new RenderBedRoll(), 4, Tiles.BEDROLL.tileClass, null),
 		BREWING_STAND((BlockCampComponent)Blocks.BLOCK_BREWING.block, 
@@ -62,7 +62,7 @@ public class ItemUpgrade extends Item
 		COBBLE_GENERATOR((BlockCampComponent)Blocks.BLOCK_COBBLEGEN.block, 
 				new RenderCobbleGen(), 1, Tiles.COBBLEGEN.tileClass, null),
 		CRAFTING_TABLE((BlockCampComponent)Blocks.BLOCK_CRAFTING.block, 
-				new RenderCrafting(), 1, Tiles.CRAFTING.tileClass, GUIType.CRAFTINGTABLE_BLOCK),
+				new RenderCrafting(), 1, Tiles.CRAFTING.tileClass, null),
 		ENCHANTING_TABLE((BlockCampComponent)Blocks.BLOCK_ENCHANTMENTTABLE.block, 
 				new RenderEnchanting(), 5, Tiles.ENCHANT_TABLE_COMPACT.tileClass, GUIType.ENCHANTMENT_BLOCK),
 		STORAGE(null, null, null, 1, null),

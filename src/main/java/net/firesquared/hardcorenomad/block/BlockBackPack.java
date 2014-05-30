@@ -8,6 +8,7 @@ import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,6 +32,16 @@ public class BlockBackPack extends BlockContainer
 		setStepSound(soundTypeCloth);
 		setBlockBounds(0.1f, 0f, 0.3f, .9f, .9f, .7f);
 	}
+
+	@Override
+	public float getBlockHardness(World world, int x, int y, int z)
+	{
+		float hardness = super.getBlockHardness(world, x, y, z);
+		TileEntityBackPack backpack = Tiles.<TileEntityBackPack>getTileEntity(world, x, y, z);
+		if(backpack!=null && backpack.isBreakResistant())
+			hardness *= 1000;
+		return hardness;
+	}
 	
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int meta)
@@ -46,6 +57,16 @@ public class BlockBackPack extends BlockContainer
 		
 		backpack.writeExtraNBT(itemStack.stackTagCompound);
 		dropBlockAsItem(world, x, y, z, itemStack);
+		super.breakBlock(world, x, y, z, block, meta);
+	}
+	
+	@Override
+	public boolean canEntityDestroy(IBlockAccess world, int x, int y, int z, Entity entity)
+	{
+		TileEntityBackPack backpack = Tiles.<TileEntityBackPack>getTileEntity(world, x, y, z);
+		if(backpack!=null && backpack.isBreakResistant())
+			return false;
+		return true;
 	}
 	
 	@Override

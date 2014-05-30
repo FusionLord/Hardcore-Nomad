@@ -5,14 +5,11 @@ import net.firesquared.hardcorenomad.container.*;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
+import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBrewingStand;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.minecraft.client.gui.GuiEnchantment;
-import net.minecraft.client.gui.GuiRepair;
-import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerRepair;
-import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 
@@ -23,10 +20,8 @@ public class GUIHandler implements IGuiHandler
 		BACKPACK_TILEENTITY(0),
 		BACKPACK_ITEMFORM(10),
 		CAMPFIRE_TILEENTITY(20),
-		CRAFTINGTABLE_BLOCK(30),
-		ENCHANTMENT_BLOCK(40),
-		ANVIL_BLOCK(50),
-		BREWING_STAND_BLOCK(60);
+		ENCHANTMENT_BLOCK(30),
+		BREWING_STAND_BLOCK(40);
 		public final int ID;
 		private GUIType(int ID)
 		{
@@ -52,12 +47,13 @@ public class GUIHandler implements IGuiHandler
 				return new BackpackContainer(player.inventory, player.inventory.getCurrentItem());
 			case CAMPFIRE_TILEENTITY:
 				return new CampFireContainer(player.inventory, (TileEntityCampFire) world.getTileEntity(x, y, z));
-			case CRAFTINGTABLE_BLOCK:
-				return new ContainerWorkbench(player.inventory, world, x, y, z);
 			case ENCHANTMENT_BLOCK:
 				return new EnchantmentContainer(player.inventory, world, x, y, z);
-			case ANVIL_BLOCK:
-				return new ContainerRepair(player.inventory, world, x, y, z, player);
+			case BREWING_STAND_BLOCK:
+				TileEntityBrewingStand brewingStand = Tiles.<TileEntityBrewingStand>getTileEntity(world, x, y, z);
+				if(brewingStand==null)
+					return null;
+				return new BrewingContainer(player.inventory, brewingStand);
 			default:
 				return null;
 		}
@@ -74,12 +70,8 @@ public class GUIHandler implements IGuiHandler
 				return new BackpackGUI((BackpackContainer) getServerGuiElement(ID, player, world, x, y, z));
 			case CAMPFIRE_TILEENTITY:
 				return new CampFireGUI((Container) getServerGuiElement(ID, player, world, x, y, z));
-			case CRAFTINGTABLE_BLOCK:
-				return new GuiCrafting(player.inventory, world, x, y, z);
 			case ENCHANTMENT_BLOCK:
 				return new GuiEnchantment(player.inventory, world, x, y, z, null);
-			case ANVIL_BLOCK:
-				return new GuiRepair(player.inventory, world, x, y, z);
 			case BREWING_STAND_BLOCK:
 				return new BrewingStandGUI(player.inventory, (BrewingContainer)getServerGuiElement(ID, player, world, x, y, z));
 			default:
