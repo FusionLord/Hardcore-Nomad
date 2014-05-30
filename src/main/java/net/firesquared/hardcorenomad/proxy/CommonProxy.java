@@ -192,23 +192,23 @@ public abstract class CommonProxy implements IProxy
 	@Override
 	public void registerDungeonLoot()
 	{
-		for(Items item : Items.values())
-		{
-			ItemStack LootItem = new ItemStack(item.item);
-			int Max = item.getDungeonChestMax();
-			int Min = item.getDungeonChestMin();
-			int Weight = item.getWeight();
-
-			if (Min != 0 && Max != 0)
-			{
-				Helper.getNomadLogger().debug("Registering DungeonLoot: " + item.getInternalName());
-				ChestGenHooks.addItem("dungeonChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
-				ChestGenHooks.addItem("bonusChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
-				ChestGenHooks.addItem("villageBlacksmith", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
-				ChestGenHooks.addItem("pyramidJungleChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
-				ChestGenHooks.addItem("pyramidDesertyChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
-				ChestGenHooks.addItem("mineshaftCorridor", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
-			}
-		}
+//		for(Items item : Items.values())
+//		{
+//			ItemStack LootItem = new ItemStack(item.item);
+//			int Max = item.getDungeonChestMax();
+//			int Min = item.getDungeonChestMin();
+//			int Weight = item.getWeight();
+//
+//			if (Min != 0 && Max != 0)
+//			{
+//				Helper.getNomadLogger().debug("Registering DungeonLoot: " + item.getInternalName());
+//				ChestGenHooks.addItem("dungeonChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
+//				ChestGenHooks.addItem("bonusChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
+//				ChestGenHooks.addItem("villageBlacksmith", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
+//				ChestGenHooks.addItem("pyramidJungleChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
+//				ChestGenHooks.addItem("pyramidDesertyChest", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
+//				ChestGenHooks.addItem("mineshaftCorridor", new WeightedRandomChestContent(LootItem, Min, Max, Weight));
+//			}
+//		}
 	}
 }
