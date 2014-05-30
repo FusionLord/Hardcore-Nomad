@@ -244,10 +244,16 @@ public class BackpackInvWrapper implements IInventory
 						if(isArmor)
 							armorSlot = itemStack;
 						else
-							componentInventory.set(slot - indexes[2], itemStack);
+							if(itemStack == null)
+								componentInventory.remove(slot - indexes[3]);
+							else
+								componentInventory.set(slot - indexes[2], itemStack);
 						return;
 					case 4:
-						componentInventory.set(slot - indexes[3], itemStack);
+						if(itemStack == null)
+							componentInventory.remove(slot - indexes[3]);
+						else
+							componentInventory.set(slot - indexes[3], itemStack);
 						return;
 				}
 			}
