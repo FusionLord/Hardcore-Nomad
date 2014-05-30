@@ -295,8 +295,7 @@ public class BackpackInvWrapper implements IInventory
 			inv.armorSlot = ItemStack.loadItemStackFromNBT(tag.getCompoundTag(NBTHelper.ARMORSLOT));
 	}
 	
-	public static void writeExtraNBT(NBTTagCompound tag, 
-			BackpackInvWrapper inv)
+	public static void writeExtraNBT(NBTTagCompound tag, BackpackInvWrapper inv)
 	{
 		tag.setByte(levelKey, (byte) inv.type.ordinal());
 		NBTTagList comInvList = new NBTTagList();

@@ -21,6 +21,7 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 	//get the value from where it is defined.  Don't just put the current value in as an integer
 	protected BackpackInvWrapper inv;
 	private boolean reopen = false;
+	private static final int randomDisplacement = 6;
 
 	//CONSTRUCTORS
 	public TileEntityBackPack()
@@ -94,10 +95,10 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			{
 				reopen = true;
 				setBlockMeta(inv.type.ordinal());
-				markDirty();
 				player.closeScreen();
 				//player.openContainer = new BackpackContainer(player.inventory, this);
 			}
+			markDirty();
 			return true;
 		}
 		return false;
@@ -143,8 +144,10 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		return false;
 	}
 
+	@SuppressWarnings("static-access")
 	private boolean toggle(ItemStack is, EntityPlayer player)
 	{
+		Vector3n here = new Vector3n(xCoord, yCoord, zCoord);
 		if (is == null || is.stackTagCompound == null || !inv.componentInventory.contains(is))
 		{
 			Helper.getNomadLogger().error("Attempted to toggle component that " + (is == null ? "was null" : "had a missing tag"));
@@ -154,10 +157,12 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 		Vector3n offset = readOffset(is);
 		//if the thing doesn't have offset's, let's pull them from our nether regions
 		while(offset == null || (offset.x == 0 && offset.z == 0))
-			offset = new Vector3n(worldObj.rand.nextInt(19) - 9, 0, worldObj.rand.nextInt(19) - 9);
+			offset = new Vector3n(worldObj.rand.nextInt(2*randomDisplacement+1) - randomDisplacement, 0, 
+					worldObj.rand.nextInt(2*randomDisplacement+1) - randomDisplacement);
 		writeOffset(is, offset);
 			
-		Vector3n absolute = new Vector3n(offset.x + xCoord, offset.y + yCoord, offset.z + zCoord);
+		Vector3n absolute = new Vector3n();
+		Vector3n.add(offset, here, absolute);
 		if(is.stackTagCompound.hasKey(NBTHelper.IS_DEPLOYED) && is.stackTagCompound.getBoolean(NBTHelper.IS_DEPLOYED))
 		{
 			BlockCampComponent b = (BlockCampComponent) Block.getBlockFromItem(is.getItem());
@@ -165,13 +170,33 @@ public class TileEntityBackPack extends TileEntityDeployableBase implements IInv
 			return TileEntityBackPack.<TileEntityDeployableBase>doBlockRecovery(worldObj, absolute, is, b);
 		}
 		
-		offset.y = worldObj.getHeightValue(offset.x, offset.z) - yCoord;
+		offset.y = Helper.getValidHeight(worldObj, offset.x, offset.z, yCoord + 5, 12) - yCoord;
+		int breakout = 100;
+		while(breakout > 0 && ((offset.x == 0 && offset.z == 0) || offset.y < 0 || !isPlacementValid(absolute, player, is)))
+		{
+			offset = new Vector3n(worldObj.rand.nextInt(2*randomDisplacement+1) - randomDisplacement, 0, 
+					worldObj.rand.nextInt(2*randomDisplacement+1) - randomDisplacement);
+			offset.y = Helper.getValidHeight(worldObj, offset.x + xCoord, offset.z + zCoord, yCoord + 5, 12) - yCoord;
+			Vector3n.add(offset, here, absolute);
+			breakout--;
+		}
+		if(breakout <= 0)
+			Helper.getNomadLogger().warn("Failed to find valid placement after 100 attempts");
 		writeOffset(is, offset);
 		absolute = new Vector3n(offset.x + xCoord, offset.y + yCoord, offset.z + zCoord);
 		
 		if(!isPlacementValid(absolute, player, is))
+		{
+			Helper.getNomadLogger().info("Failed to place: invalid location");
 			return false;
-		return doBlockSetting(worldObj, absolute, is, is.getItemDamage());
+		}
+		int meta = is.getItemDamage();
+		if(meta >= 16)
+			Helper.getNomadLogger().error("Metadata is restricted to 4bits(0-15): "+meta);
+		boolean success = doBlockSetting(worldObj, absolute, is, meta);
+		if(success)
+			Tiles.<TileEntityDeployableBase>getTileEntity(worldObj, absolute).setParrent(this);
+		return success;
 	}
 	
 	private boolean isPlacementValid(Vector3n location, EntityPlayer player, ItemStack is)

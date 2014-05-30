@@ -3,6 +3,9 @@ package net.firesquaredcore.helper;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.world.World;
+
 import org.apache.logging.log4j.Level;
 
 public class Helper
@@ -160,4 +163,39 @@ public class Helper
 			return sum;
 		}
 	}
+    public static int getValidHeight(World world, int x, int z, int startY, double maxDelta)
+    {
+        int y = startY;// world.getHeightValue(x, z);
+        // System.out.format("starting search from y = %S with %S loops\n",
+        // Integer.toString(y), Double.toString(maxDelta));
+        if (y <= 0) 
+        	return -1;
+        Block block;
+        Block blockUnder;
+
+        while (y > 0 && maxDelta > 0)
+        {
+            block = world.getBlock(x, y, z);
+            blockUnder = world.getBlock(x, y - 1, z);
+            if (world.isAirBlock(x, y, z) || block.isReplaceable(world, x, y, z))
+            {
+                if (world.isAirBlock(x, y, z) || blockUnder.isReplaceable(world, x, y - 1, z))
+                {
+                    y--;
+                    maxDelta--;
+                    continue;
+                }
+				if (blockUnder.isOpaqueCube())
+					return y;
+				y--;
+				maxDelta--;
+				continue;
+            }
+			// System.out.println("Algorithm failed after starting on non-replaceable block");
+			return -1;
+        }
+        // System.out.format("Algorithm did not complete in number of loops specified, y=%S\n",
+        // y);
+        return -1;
+    }
 }
