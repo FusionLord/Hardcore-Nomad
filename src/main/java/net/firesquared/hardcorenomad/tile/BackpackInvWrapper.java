@@ -44,6 +44,8 @@ public class BackpackInvWrapper implements IInventory
 			this.componentInventory = new ArrayList<ItemStack>(copy.componentInventory);
 			for(int i = 0; i < componentInventory.size(); i++)
 				componentInventory.set(i, componentInventory.get(i).copy());
+			while(componentInventory.contains(null))
+				componentInventory.remove(null);
 		}
 		if(copy.upgradeSlot != null)
 			upgradeSlot = copy.upgradeSlot.copy();
@@ -245,7 +247,7 @@ public class BackpackInvWrapper implements IInventory
 							armorSlot = itemStack;
 						else
 							if(itemStack == null)
-								componentInventory.remove(slot - indexes[3]);
+								componentInventory.remove(slot - indexes[2]);
 							else
 								componentInventory.set(slot - indexes[2], itemStack);
 						return;
@@ -272,7 +274,11 @@ public class BackpackInvWrapper implements IInventory
 		NBTTagList comInvTag = tag.getTagList(NBTHelper.COMINV, NBT.TAG_COMPOUND);
 		inv.componentInventory.clear();
 		for (int i = 0; i < comInvTag.tagCount(); i++)
-			inv.componentInventory.add(ItemStack.loadItemStackFromNBT(comInvTag.getCompoundTagAt(i)));
+		{
+			ItemStack is = ItemStack.loadItemStackFromNBT(comInvTag.getCompoundTagAt(i));
+			if(is != null)
+				inv.componentInventory.add(is);
+		}
 		
 		NBTTagCompound stgInvTag = tag.getCompoundTag(NBTHelper.STGINV);
 		inv.storageInventory = new ItemStack[inv.type.storageTotal];
@@ -296,6 +302,8 @@ public class BackpackInvWrapper implements IInventory
 		NBTTagList comInvList = new NBTTagList();
 		for(ItemStack is : inv.componentInventory)
 		{
+			if(is == null)
+				continue;
 			NBTTagCompound temp = new NBTTagCompound();
 			is.writeToNBT(temp);
 			comInvList.appendTag(temp);
