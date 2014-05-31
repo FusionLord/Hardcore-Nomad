@@ -8,10 +8,13 @@ import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityBrewingStand;
 import net.firesquared.hardcorenomad.tile.campcomponents.TileEntityCampFire;
 import net.minecraft.client.gui.GuiEnchantment;
+import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
+import net.firesquared.hardcorenomad.block.campcomponents.BlockCrafting.*;
+import net.firesquared.hardcorenomad.block.campcomponents.BlockAnvil.*;
 
 public class GUIHandler implements IGuiHandler
 {
@@ -21,7 +24,9 @@ public class GUIHandler implements IGuiHandler
 		BACKPACK_ITEMFORM(10),
 		CAMPFIRE_TILEENTITY(20),
 		ENCHANTMENT_BLOCK(30),
-		BREWING_STAND_BLOCK(40);
+		BREWING_STAND_BLOCK(40),
+		CRAFTING(50),
+		REPAIR(60);
 		public final int ID;
 		private GUIType(int ID)
 		{
@@ -54,6 +59,10 @@ public class GUIHandler implements IGuiHandler
 				if(brewingStand==null)
 					return null;
 				return new BrewingContainer(player.inventory, brewingStand);
+			case CRAFTING:
+				return new ContainerCrafting(player.inventory, world, x, y, z);
+			case REPAIR:
+				return new ContainerAnvil(player.inventory, world, x, y, z);
 			default:
 				return null;
 		}
@@ -74,6 +83,10 @@ public class GUIHandler implements IGuiHandler
 				return new GuiEnchantment(player.inventory, world, x, y, z, null);
 			case BREWING_STAND_BLOCK:
 				return new BrewingStandGUI(player.inventory, (BrewingContainer)getServerGuiElement(ID, player, world, x, y, z));
+			case CRAFTING:
+				return new GuiCrafting(player.inventory, world, x, y, z);
+			case REPAIR:
+				return new GUIAnvil(player.inventory, world, x, y, z);
 			default:
 				return null;
 		}
