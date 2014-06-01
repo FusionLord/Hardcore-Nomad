@@ -52,22 +52,22 @@ public class ItemUpgrade extends Item
 	{
 		//NOTE: Changing the index of an item in this enum WILL BREAK saves!
 		ANVIL((BlockCampComponent)Blocks.BLOCK_ANVIL.block, 
-				new RenderAnvil(), 1, Tiles.ANVIL.tileClass, GUIType.REPAIR),
+				new RenderAnvil(), 1, Tiles.ANVIL.tileClass, GUIType.REPAIR, false),
 		BEDROLL((BlockCampComponent)Blocks.BLOCK_BEDROLL.block, 
-				new RenderBedRoll(), 4, Tiles.BEDROLL.tileClass, null),
+				new RenderBedRoll(), 4, Tiles.BEDROLL.tileClass, null, true),
 		BREWING_STAND((BlockCampComponent)Blocks.BLOCK_BREWING.block, 
-				new RenderBrewing(), 1, Tiles.BREWING_STAND.tileClass, GUIType.BREWING_STAND_BLOCK),
+				new RenderBrewing(), 1, Tiles.BREWING_STAND.tileClass, GUIType.BREWING_STAND_BLOCK, false),
 		CAMPFIRE((BlockCampComponent)Blocks.BLOCK_CAMPFIRE.block, 
-				new RenderCampfire(), 4, Tiles.CAMPFIRE.tileClass, GUIType.CAMPFIRE_TILEENTITY),
+				new RenderCampfire(), 4, Tiles.CAMPFIRE.tileClass, GUIType.CAMPFIRE_TILEENTITY, true),
 		COBBLE_GENERATOR((BlockCampComponent)Blocks.BLOCK_COBBLEGEN.block, 
-				new RenderCobbleGen(), 1, Tiles.COBBLEGEN.tileClass, null),
+				new RenderCobbleGen(), 1, Tiles.COBBLEGEN.tileClass, null, false),
 		CRAFTING_TABLE((BlockCampComponent)Blocks.BLOCK_CRAFTING.block, 
-				new RenderCrafting(), 1, Tiles.CRAFTING.tileClass, GUIType.CRAFTING),
+				new RenderCrafting(), 1, Tiles.CRAFTING.tileClass, GUIType.CRAFTING, false),
 		ENCHANTING_TABLE((BlockCampComponent)Blocks.BLOCK_ENCHANTMENTTABLE.block, 
-				new RenderEnchanting(), 5, Tiles.ENCHANT_TABLE_COMPACT.tileClass, GUIType.ENCHANTMENT_BLOCK),
-		STORAGE(null, null, null, 1, null),
+				new RenderEnchanting(), 5, Tiles.ENCHANT_TABLE_COMPACT.tileClass, GUIType.ENCHANTMENT_BLOCK, true),
+		STORAGE(null, null, null, 1, null, true),
 		
-		BACKPACK(null, new RenderBackPack(), TileEntityBackPack.class, 3, null);
+		BACKPACK(null, new RenderBackPack(), TileEntityBackPack.class, 3, null, true);
 		
 		public final boolean isEnabled;
 		public final BlockCampComponent blockContainer;
@@ -75,14 +75,17 @@ public class ItemUpgrade extends Item
 		public final RenderCampComp combinedRenderer;
 		public final Class<? extends TileEntityDeployableBase> tileEntityClass;
 		public final GUIType guiType;
+		public final boolean isUpgradeSequential;
 		@SuppressWarnings("unchecked")
-		private UpgradeType(BlockCampComponent block, RenderCampComp renderer, int levels, Class<? extends TileEntity> clazz, GUIType gui)
+		private UpgradeType(BlockCampComponent block, RenderCampComp renderer, int levels, 
+				Class<? extends TileEntity> clazz, GUIType gui, boolean isSequential)
 		{
-			this(block, renderer, (Class<? extends TileEntityDeployableBase>)clazz, levels, gui);
+			this(block, renderer, (Class<? extends TileEntityDeployableBase>)clazz, levels, gui, isSequential);
 		}
 		private UpgradeType(BlockCampComponent block, RenderCampComp renderer, 
-				Class<? extends TileEntityDeployableBase> clazz, int levels, GUIType gui)
+				Class<? extends TileEntityDeployableBase> clazz, int levels, GUIType gui, boolean isSequential)
 		{
+			this.isUpgradeSequential = isSequential;
 			this.blockContainer = block;
 			this.levels = levels;
 			this.combinedRenderer = renderer;

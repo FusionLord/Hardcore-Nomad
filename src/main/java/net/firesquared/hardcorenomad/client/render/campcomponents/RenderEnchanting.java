@@ -8,7 +8,6 @@ import net.firesquared.hardcorenomad.client.render.RenderCampComp;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquaredcore.helper.ModelRegistry;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.item.ItemStack;
 
 public class RenderEnchanting extends RenderCampComp
 {
@@ -27,9 +26,9 @@ public class RenderEnchanting extends RenderCampComp
 	}
 	
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item)
+	public void renderItem(ItemRenderType type, int lvl)
 	{
-		model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, item.getItemDamage());
+		model = ModelRegistry.getModel(Models.ENCHANTINGTABLE, lvl);
 		texture = ModelRegistry.getTexture(Models.ENCHANTINGTABLE);
 		ModelRegistry.bindTexture(texture);
 

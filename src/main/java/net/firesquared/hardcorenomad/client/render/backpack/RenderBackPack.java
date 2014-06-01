@@ -4,19 +4,16 @@ package net.firesquared.hardcorenomad.client.render.backpack;
 
 import net.firesquared.hardcorenomad.client.render.RenderCampComp;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
-import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.firesquaredcore.helper.ModelRegistry;
-import net.minecraft.item.ItemStack;
-
 import org.lwjgl.opengl.GL11;
 
 public class RenderBackPack extends RenderCampComp
 {
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item)
+	public void renderItem(ItemRenderType type, int lvl)
 	{
-		render(item.getItemDamage() + (item.getItem() instanceof ItemUpgrade ? 1 : 0));
+		render(lvl);
 	}
 
 	@Override

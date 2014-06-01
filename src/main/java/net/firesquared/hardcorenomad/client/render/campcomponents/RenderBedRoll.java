@@ -4,8 +4,6 @@ import net.firesquared.hardcorenomad.client.render.RenderCampComp;
 import net.firesquared.hardcorenomad.helpers.enums.Models;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.firesquaredcore.helper.ModelRegistry;
-import net.minecraft.item.ItemStack;
-
 import org.lwjgl.opengl.GL11;
 
 public class RenderBedRoll extends RenderCampComp
@@ -18,12 +16,12 @@ public class RenderBedRoll extends RenderCampComp
 	}
 
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item)
+	public void renderItem(ItemRenderType type, int dmg)
 	{
 		GL11.glRotatef(180, 0f, 1f, 0f);
 		GL11.glTranslatef(0f, -.25f, .09f);
 		GL11.glScalef(.8f, .8f, .8f);
-		render(item.getItemDamage());
+		render(dmg);
 	}
 
 	private void render(int damage)

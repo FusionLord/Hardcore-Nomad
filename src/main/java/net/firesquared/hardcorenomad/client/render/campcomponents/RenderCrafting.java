@@ -7,7 +7,6 @@ import net.firesquaredcore.helper.ModelRegistry;
 import net.firesquaredcore.helper.RenderingUtil;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 
 import org.lwjgl.opengl.GL11;
@@ -15,7 +14,7 @@ import org.lwjgl.opengl.GL11;
 public class RenderCrafting extends RenderCampComp
 {
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item)
+	public void renderItem(ItemRenderType type, int dmg)
 	{
 		GL11.glTranslatef(0f, -.5f, 0f);
 		render();

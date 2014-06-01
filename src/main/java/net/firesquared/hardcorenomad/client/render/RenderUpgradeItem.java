@@ -27,15 +27,11 @@ public class RenderUpgradeItem implements IItemRenderer
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data)
 	{
-		int upgradeLevel = ItemUpgrade.getLevelFromDamage(itemStack.getItemDamage());
 		UpgradeType ut = ItemUpgrade.getTypeFromDamage(itemStack.getItemDamage());
-
-		ItemStack copy = itemStack.copy();
-		copy.setItemDamage(upgradeLevel);
 
 		if(ut.combinedRenderer != null)
 		{
-			ut.combinedRenderer.renderItem(type, copy, data);
+			ut.combinedRenderer.renderItem(type, itemStack, data);
 			return;
 		}
 		switch (ut)
@@ -44,12 +40,13 @@ public class RenderUpgradeItem implements IItemRenderer
 			case STORAGE:
 				return;
 			default:
-				Helper.getNomadLogger().error("Attempting to render an upgrade(" + itemStack.getDisplayName() + ") with no render code in RenderUpgradeItem");
+				Helper.getNomadLogger().error("Attempting to render an upgrade(" + 
+						itemStack.getDisplayName() + ") with no render code in RenderUpgradeItem");
 				return;
 		}
 	}
 
-	public static void renderNumeral(int damage)
+	public static void renderNumeral(int damage, boolean isNonSequential)
 	{
 		GL11.glScalef(-.09f, -.09f, -.09f);
 		GL11.glRotatef(225, 0f, 1f, 0f);
@@ -57,7 +54,8 @@ public class RenderUpgradeItem implements IItemRenderer
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		GL11.glDisable(GL11.GL_BLEND);
-		Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(Numeral.ToRoman(damage + 1), -9, -20, 0xFFFF00);
+		Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(
+				Numeral.ToRoman(damage + 1).trim().concat(isNonSequential ? "*" : ""), -9, -20, 0xFFFF00);
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glColor3f(1f, 1f, 1f);

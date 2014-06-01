@@ -338,7 +338,6 @@ public class BackpackInvWrapper implements IInventory
 			return false;
 	
 		Block b;
-		BlockCampComponent block;
 		Item item = upgradeSlot.getItem();
 		if(item instanceof ItemUpgrade)
 		{
@@ -347,16 +346,8 @@ public class BackpackInvWrapper implements IInventory
 			UpgradeType uType = ItemUpgrade.getTypeFromDamage(dmg);
 			//if the user is upgrading their backpack in-place
 			if(uType == UpgradeType.BACKPACK)
-			{
-				if(type.ordinal() == lvl)
-				{
-					Helper.getNomadLogger().info("Applied upgrade "+upgradeSlot.getDisplayName());
-					upgradeSlot = null;
-					commonUpgrade();
-					return true;
-				}
-				return false;
-			}
+				return doBackpackUpgrade(lvl);
+			
 			//check if an upgrade of this type exists already
 			int slotTgt = -1;
 			for(int i = 0; i < componentInventory.size(); i++)
@@ -371,6 +362,10 @@ public class BackpackInvWrapper implements IInventory
 					}
 				}
 			}
+			
+			if(!uType.isUpgradeSequential)
+				return doNonSequentialUpgrade(slotTgt, lvl, uType);
+			
 			//if the upgrade type wasn't found and thus the upgrade could not be applied
 			if(lvl != 0 && slotTgt == -1)
 				return false;
@@ -381,12 +376,6 @@ public class BackpackInvWrapper implements IInventory
 			//in the event there is no compoentent of this type
 			if(slotTgt == -1)
 			{
-				for(ItemStack is : componentInventory)
-					if(Block.getBlockFromItem(is.getItem()) == uType.blockContainer)
-					{
-						Helper.getNomadLogger().info("Upgrade of type already present");
-						return false;
-					}
 				ItemStack is = new ItemStack(uType.blockContainer);
 				is.setItemDamage(lvl);
 				is.stackTagCompound = new NBTTagCompound();
@@ -406,35 +395,66 @@ public class BackpackInvWrapper implements IInventory
 			return true;
 		}
 		else if((b = Block.getBlockFromItem(item)) instanceof BlockCampComponent)
-		{
-			block = (BlockCampComponent) b;
-			int existingUpgrade = -1;
-			//Check if there's already an upgrade of this type
-			for(int i = 0; i < componentInventory.size(); i++)
-			{
-				ItemStack is = componentInventory.get(i);
-				if(is!=null && Block.getBlockFromItem(is.getItem()) == block)
-				{
-					existingUpgrade = i;
-					break;
-				}
-			}
-			
-			if(existingUpgrade == -1)
-			{
-				componentInventory.add(upgradeSlot.copy());
-				Helper.getNomadLogger().info("Applied existing component to empty slot");
-				upgradeSlot = null;
-				return true;
-			}
-			ItemStack temp = componentInventory.get(existingUpgrade);
-			componentInventory.set(existingUpgrade, upgradeSlot);
-			upgradeSlot = temp;
-			Helper.getNomadLogger().info("Swapped upgrade component with existing item in slot");
-			return true;
-			
-		}
+			return doUpgradeWithExisting((BlockCampComponent) b);
 		Helper.getNomadLogger().warn("Had an invalid upgrade in the upgrade slot of a backpack which should not be there.");
 		return false;
+	}
+	private boolean doBackpackUpgrade(int lvl)
+	{
+		if(type.ordinal() != lvl)
+			return false;
+		
+		Helper.getNomadLogger().info("Applied upgrade "+upgradeSlot.getDisplayName());
+		upgradeSlot = null;
+		commonUpgrade();
+		return true;
+	}
+	private boolean doUpgradeWithExisting(BlockCampComponent block)
+	{
+		int existingUpgrade = -1;
+		//Check if there's already an upgrade of this type
+		for(int i = 0; i < componentInventory.size(); i++)
+		{
+			ItemStack is = componentInventory.get(i);
+			if(is!=null && Block.getBlockFromItem(is.getItem()) == block)
+			{
+				existingUpgrade = i;
+				break;
+			}
+		}
+		
+		if(existingUpgrade == -1)
+		{
+			componentInventory.add(upgradeSlot.copy());
+			Helper.getNomadLogger().info("Applied existing component to empty slot");
+			upgradeSlot = null;
+			return true;
+		}
+		ItemStack temp = componentInventory.get(existingUpgrade);
+		componentInventory.set(existingUpgrade, upgradeSlot);
+		upgradeSlot = temp;
+		Helper.getNomadLogger().info("Swapped upgrade component with existing item in slot");
+		return true;
+	}
+	private boolean doNonSequentialUpgrade(int slotTgt, int lvl, UpgradeType uType)
+	{
+		ItemStack is = new ItemStack(uType.blockContainer);
+		is.setItemDamage(lvl);
+		is.stackTagCompound = new NBTTagCompound();
+		if(slotTgt == -1)
+		{
+			componentInventory.add(is);
+			upgradeSlot = null;
+			return true;
+		}
+		ItemStack is2 = componentInventory.get(slotTgt);
+		if(is2.getItemDamage() >= lvl)
+		{
+			Helper.getNomadLogger().info("Will not automatically replace a higher level component with lower level upgrade");
+			return false;
+		}
+		upgradeSlot = is2.copy();
+		componentInventory.set(slotTgt, is2);
+		return true;
 	}
 }

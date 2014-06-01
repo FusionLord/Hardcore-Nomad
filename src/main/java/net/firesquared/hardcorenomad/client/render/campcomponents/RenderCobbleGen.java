@@ -9,7 +9,6 @@ import net.firesquaredcore.helper.RenderingUtil;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.IModelCustom;
 import net.minecraftforge.client.model.obj.WavefrontObject;
 
@@ -68,7 +67,7 @@ public class RenderCobbleGen extends RenderCampComp
 	}
 
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item)
+	public void renderItem(ItemRenderType type, int damage)
 	{
 		GL11.glTranslatef(0f, -.5f, 0f);
 		model = ModelRegistry.getModel(Models.COBBLEGEN);

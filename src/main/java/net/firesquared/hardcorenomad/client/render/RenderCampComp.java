@@ -4,8 +4,11 @@ import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.item.ItemUpgrade;
 import net.firesquared.hardcorenomad.item.ItemUpgrade.UpgradeType;
 import net.firesquared.hardcorenomad.item.backpacks.ItemBackPack;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.Item;
+import net.firesquared.hardcorenomad.block.BlockCampComponent;
+
 import org.lwjgl.opengl.GL11;
 
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
@@ -49,22 +52,39 @@ public abstract class RenderCampComp extends TileEntitySpecialRenderer implement
 		GL11.glPopMatrix();
 	}
 
+	@SuppressWarnings("null")
 	@Override
-	public final void renderItem(ItemRenderType type, ItemStack item, Object... data)
+	public final void renderItem(ItemRenderType type, ItemStack is, Object... data)
 	{
+		int dmg = is.getItemDamage();
+		Item item = is.getItem();
+		UpgradeType ut = null;
+		Block block = Block.getBlockFromItem(item);
+		assert(item instanceof ItemUpgrade || item instanceof ItemBackPack || 
+				block instanceof BlockCampComponent);
+		
+		
+		if(item instanceof ItemUpgrade)
+		{
+			ut = ItemUpgrade.getTypeFromDamage(dmg);
+			dmg = ItemUpgrade.getLevelFromDamage(dmg);
+			if(ut == UpgradeType.BACKPACK)
+				dmg++;
+		}
+		else if(block instanceof BlockCampComponent)
+			ut = ((BlockCampComponent)block).getUpgradeType();
+		
 		GL11.glPushMatrix();
-		renderItem(type, item);
+		renderItem(type, dmg);
 		GL11.glPopMatrix();
-		if (item.getItem() instanceof ItemBackPack || item.getItem() == Item.getItemFromBlock(Blocks.BLOCK_BACKPACK.block))
+		
+		if(item instanceof ItemBackPack)
 			return;
-
-		UpgradeType ut = ItemUpgrade.getTypeFromDamage(item.getItemDamage());
-
 		if (type == ItemRenderType.INVENTORY)
-			RenderUpgradeItem.renderNumeral(item.getItemDamage() + (ut == UpgradeType.BACKPACK ? 2 : 0));
+			RenderUpgradeItem.renderNumeral(dmg, !ut.isUpgradeSequential);
 	}
 
-	public abstract void renderItem(ItemRenderType type, ItemStack item);
+	public abstract void renderItem(ItemRenderType type, int lvl);
 
 	protected abstract void renderTile(TileEntityDeployableBase tile, int lighting);
 	

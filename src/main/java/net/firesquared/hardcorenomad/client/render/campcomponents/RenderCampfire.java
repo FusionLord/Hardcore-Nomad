@@ -7,8 +7,6 @@ import net.firesquaredcore.helper.ModelRegistry;
 
 import org.lwjgl.opengl.GL11;
 
-import net.minecraft.item.ItemStack;
-
 public class RenderCampfire extends RenderCampComp
 {
 	@Override
@@ -29,9 +27,8 @@ public class RenderCampfire extends RenderCampComp
 	}
 
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item)
+	public void renderItem(ItemRenderType type, int damage)
 	{
-		int damage = item.getItemDamage();
 		if (damage == 2)
 			renderSpit();
 		setModelAndTexture(damage);

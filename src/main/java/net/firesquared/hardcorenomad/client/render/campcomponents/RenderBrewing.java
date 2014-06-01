@@ -11,7 +11,6 @@ import net.minecraft.block.BlockBrewingStand;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class RenderBrewing extends RenderCampComp
@@ -23,7 +22,7 @@ public class RenderBrewing extends RenderCampComp
 	}
 	
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item)
+	public void renderItem(ItemRenderType type, int dmg)
 	{
 		Tessellator.instance.startDrawingQuads();
 		map.get(null).renderBlockAsItem(Blocks.brewing_stand, 0, 1.0f);
