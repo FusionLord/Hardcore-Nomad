@@ -1,7 +1,5 @@
 package net.firesquared.hardcorenomad.item.misc;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.firesquared.hardcorenomad.entity.EntitySlingShotPebble;
 import net.firesquared.hardcorenomad.events.PebbleLooseEvent;
 import net.firesquared.hardcorenomad.events.PebbleNockEvent;
@@ -10,17 +8,17 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
 public class ItemSlingShot extends Item
 {
-	public static final String[] slingShotIconNameArray = new String[] {"pulling_0", "pulling_1", "pulling_2"};
-	@SideOnly(Side.CLIENT)
-	private IIcon[] iconArray;
+//	public static final String[] slingShotIconNameArray = new String[] {"pulling_0", "pulling_1", "pulling_2"};
+//	@SideOnly(Side.CLIENT)
+//	private IIcon[] iconArray;
 
 	public ItemSlingShot()
 	{
@@ -35,27 +33,23 @@ public class ItemSlingShot extends Item
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack)
+	public int getMaxItemUseDuration(ItemStack itemStack)
 	{
-		return 72000;
+		return 200;//let the player wind up for at most 10 seconds
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
 	{
-		PebbleNockEvent event = new PebbleNockEvent(par3EntityPlayer, par1ItemStack);
+		PebbleNockEvent event = new PebbleNockEvent(player, itemStack);
 		MinecraftForge.EVENT_BUS.post(event);
 		if (event.isCanceled())
-		{
 			return event.result;
-		}
 
-		if (par3EntityPlayer.capabilities.isCreativeMode || par3EntityPlayer.inventory.hasItem(Items.ITEM_MISC_PEBBLE.item))
-		{
-			par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
-		}
+		if (player.capabilities.isCreativeMode || player.inventory.hasItem(Items.ITEM_MISC_PEBBLE.item))
+			player.setItemInUse(itemStack, this.getMaxItemUseDuration(itemStack));
 
-		return par1ItemStack;
+		return itemStack;
 	}
 
 	@Override
@@ -63,89 +57,84 @@ public class ItemSlingShot extends Item
 	{
 		return 1;
 	}
-
-	@SideOnly(Side.CLIENT)
+	
 	@Override
 	public void registerIcons(IIconRegister par1IconRegister)
+	{	}
+	
+	@Override
+	public boolean isFull3D()
 	{
-		this.itemIcon = par1IconRegister.registerIcon(this.getIconString() + "_standby");
-		this.iconArray = new IIcon[slingShotIconNameArray.length];
-
-		for (int i = 0; i < this.iconArray.length; ++i)
-		{
-			this.iconArray[i] = par1IconRegister.registerIcon(this.getIconString() + "_" + slingShotIconNameArray[i]);
-		}
+		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
-	public IIcon getItemIconForUseDuration(int par1)
-	{
-		return this.iconArray[par1];
-	}
+//	@SideOnly(Side.CLIENT)
+//	@Override
+//	public void registerIcons(IIconRegister par1IconRegister)
+//	{
+//		this.itemIcon = par1IconRegister.registerIcon(this.getIconString() + "_standby");
+//		this.iconArray = new IIcon[slingShotIconNameArray.length];
+//
+//		for (int i = 0; i < this.iconArray.length; ++i)
+//		{
+//			this.iconArray[i] = par1IconRegister.registerIcon(this.getIconString() + "_" + slingShotIconNameArray[i]);
+//		}
+//	}
+
+//	@SideOnly(Side.CLIENT)
+//	public IIcon getItemIconForUseDuration(int par1)
+//	{
+//		return this.iconArray[par1];
+//	}
 
 	@Override
-	public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer entityPlayer, int par4)
+	public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int useDurration)
 	{
-		int j = this.getMaxItemUseDuration(itemStack) - par4;
+		int charge = this.getMaxItemUseDuration(itemStack) - useDurration;
 
-		PebbleLooseEvent event = new PebbleLooseEvent(entityPlayer, itemStack, j);
+		PebbleLooseEvent event = new PebbleLooseEvent(player, itemStack, charge);
 		MinecraftForge.EVENT_BUS.post(event);
 		if (event.isCanceled())
-		{
 			return;
-		}
-		j = event.charge;
+		charge = event.charge;
 
-		boolean flag = entityPlayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, itemStack) > 0;
+		boolean infiniteAmmo = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, itemStack) > 0;
 
-		if (flag || entityPlayer.inventory.hasItem(Items.ITEM_MISC_PEBBLE.item))
+		if (infiniteAmmo || player.inventory.hasItem(Items.ITEM_MISC_PEBBLE.item))
 		{
-			float f = j / 20.0F;
-			f = (f * f + f * 20.F) / 3.0F;
+			float shotPower = Math.min(charge * (charge + 4) / 12F, 1);
 
-			if (f < 0.1D)
-			{
+			if (shotPower < 0.1D)
 				return;
-			}
 
-			if (f > 1.0F)
-			{
-				f = 1.0F;
-			}
+			EntitySlingShotPebble projectile = new EntitySlingShotPebble(world, player, shotPower * 2.0F);
 
-			EntitySlingShotPebble entitySlingShotPebble = new EntitySlingShotPebble(world, entityPlayer, f * 2.0F);
+			//give the shot a 25% crit chance at full power
+			if (shotPower == 1.0F && world.rand.nextFloat() >= .75)
+				projectile.setIsCritical(true);
 
-			if (f == 1.0F)
-			{
-				entitySlingShotPebble.setIsCritical(true);
-			}
+			int powerEnchantLevel = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, itemStack);
+			if (powerEnchantLevel > 0)
+				projectile.setDamage(projectile.getDamage() + ++powerEnchantLevel * 0.5);
 
-			int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, itemStack);
+			int punchEnchantLevel = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, itemStack);
+			if (punchEnchantLevel > 0)
+				projectile.setKnockbackStrength(punchEnchantLevel);
 
-			if (k > 0)
-			{
-				entitySlingShotPebble.setDamage(entitySlingShotPebble.getDamage() + k * 0.5D + 0.5D);
-			}
+			itemStack.damageItem(1, player);
+			world.playSoundAtEntity(player, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + shotPower * 0.5F);
 
-			int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, itemStack);
-
-			if (l > 0)
-			{
-				entitySlingShotPebble.setKnockbackStrength(l);
-			}
-
-			itemStack.damageItem(1, entityPlayer);
-			world.playSoundAtEntity(entityPlayer, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-
-			if (!flag)
-			{
-				entityPlayer.inventory.consumeInventoryItem(Items.ITEM_MISC_PEBBLE.item);
-			}
+			if (!infiniteAmmo)
+				player.inventory.consumeInventoryItem(Items.ITEM_MISC_PEBBLE.item);
 
 			if (!world.isRemote)
-			{
-				world.spawnEntityInWorld(entitySlingShotPebble);
-			}
+				world.spawnEntityInWorld(projectile);
 		}
 	}
+	
+	@Override
+		public EnumAction getItemUseAction(ItemStack is)
+		{
+			return EnumAction.bow;
+		}
 }

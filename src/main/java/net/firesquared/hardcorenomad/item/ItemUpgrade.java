@@ -4,6 +4,7 @@ package net.firesquared.hardcorenomad.item;
 import java.lang.reflect.Method;
 //You may continue reading here
 import java.util.List;
+import java.util.Locale;
 
 import net.firesquared.hardcorenomad.GUIHandler.GUIType;
 import net.firesquared.hardcorenomad.block.BlockCampComponent;
@@ -16,11 +17,13 @@ import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCampfire
 import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCobbleGen;
 import net.firesquared.hardcorenomad.client.render.campcomponents.RenderCrafting;
 import net.firesquared.hardcorenomad.client.render.campcomponents.RenderEnchanting;
+import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.helpers.enums.Blocks;
 import net.firesquared.hardcorenomad.helpers.enums.Tiles;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.firesquared.hardcorenomad.tile.TileEntityDeployableBase;
 import net.firesquaredcore.helper.Helper.Numeral;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -76,6 +79,7 @@ public class ItemUpgrade extends Item
 		public final Class<? extends TileEntityDeployableBase> tileEntityClass;
 		public final GUIType guiType;
 		public final boolean isUpgradeSequential;
+		public final String unlocalizedPostfix;
 		@SuppressWarnings("unchecked")
 		private UpgradeType(BlockCampComponent block, RenderCampComp renderer, int levels, 
 				Class<? extends TileEntity> clazz, GUIType gui, boolean isSequential)
@@ -92,6 +96,7 @@ public class ItemUpgrade extends Item
 			this.tileEntityClass = clazz;
 			isEnabled = levels > 0 && (blockContainer != null || combinedRenderer != null || tileEntityClass != null);
 			guiType = gui;
+			this.unlocalizedPostfix = name().toLowerCase(Locale.ENGLISH).replaceAll("_", "") + Numeral.ToRoman(ordinal() + 1);
 			
 			//Just pretend this isn't here.  There's a reason for it.
 			if(blockContainer != null)
@@ -124,13 +129,15 @@ public class ItemUpgrade extends Item
 		instance = this;
 		setMaxStackSize(1);
 	}
+	private final String unlocalizedPrefix = "item."+Helper.Strings.MOD_ID + ".upgrade.";
 	
 	@Override
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
 		int dmg = itemStack.getItemDamage();
 		UpgradeType ut = getTypeFromDamage(dmg);
-		return ut.name().toLowerCase().replace('_', '.') + "." + Numeral.ToRoman(getLevelFromDamage(dmg) + 1) + ".Upgrade";
+		return  unlocalizedPrefix + ut.unlocalizedPostfix;
+
 	}
 
 	@Override
@@ -152,4 +159,8 @@ public class ItemUpgrade extends Item
 	{
 		return UpgradeType.values().length - 1;
 	}
+	
+	@Override
+	public void registerIcons(IIconRegister par1IconRegister)
+	{	}
 }

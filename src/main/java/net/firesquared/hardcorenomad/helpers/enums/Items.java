@@ -5,7 +5,6 @@ import net.firesquared.hardcorenomad.CreativeTab;
 import net.firesquared.hardcorenomad.helpers.Helper;
 import net.firesquared.hardcorenomad.item.*;
 import net.firesquared.hardcorenomad.item.backpacks.*;
-import net.firesquared.hardcorenomad.item.healing.*;
 import net.firesquared.hardcorenomad.item.misc.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -20,11 +19,9 @@ public enum Items
 
 	//ITEM_FIREBOW("item.firebow", new ItemFireBow(0.0F, null, null)),
 	//ITEM_FIREBUNDLE("campfire.bundle", new ItemFireBundle(), CreativeTab.HardCoreNomadTab),
-	//ITEM_HEALINGFIRSTAID("healing.firstaid", new ItemHealingFirstAid(), CreativeTab.HardCoreNomadTab),
 
-	ITEM_HEALINGHERB("healing.herb", new ItemHealingHerb(2, 1.0F, false), CreativeTab.HardCoreNomadTab),
-	//ITEM_HEALINGMAGICALAID("healing.magicalaid", new ItemHealingMagicalAid(), CreativeTab.HardCoreNomadTab),
-
+	ITEM_HEALING("healing", new ItemHealing(), CreativeTab.HardCoreNomadTab),
+	
 	ITEM_FLINTSHEARS("tools.flintshears", new ItemShears().setMaxDamage(42).setTextureName("hardcorenomad:flintshears"), CreativeTabs.tabTools),
 
 	ITEM_MISC_PEBBLE("misc.pebble", new ItemPebble(), CreativeTab.HardCoreNomadTab),
@@ -41,18 +38,15 @@ public enum Items
 	Items(String internalName, Item item, CreativeTabs creativeTabs)
 	{
 		this.internalName = internalName;
-		this.item = item;
+		this.item = item.setTextureName(Helper.Strings.MOD_ID + ":" + internalName);
 		item.setUnlocalizedName(Helper.Strings.MOD_ID + "." + internalName);
-		item.setTextureName(Helper.Strings.MOD_ID + ":textures.item."+internalName);
 		item.setCreativeTab(creativeTabs);
 	}
 	
 	private void register()
 	{
 		Helper.getNomadLogger().debug("Registering Item: " + internalName);
-		Item itemObject = item;
-		itemObject.setTextureName(Helper.Strings.MOD_ID + ":" + itemObject.getUnlocalizedName());
-		GameRegistry.registerItem(itemObject, internalName);
+		GameRegistry.registerItem(item, internalName);
 	}
 
 	public String getInternalName()

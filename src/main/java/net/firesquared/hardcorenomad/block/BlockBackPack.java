@@ -8,6 +8,7 @@ import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -143,4 +144,7 @@ public class BlockBackPack extends BlockContainer
 		return false;
 	}
 	
+	@Override
+	public void registerBlockIcons(IIconRegister iconRegister)
+	{	}
 }

@@ -1,5 +1,7 @@
 package net.firesquared.hardcorenomad.helpers.enums;
 
+import java.util.Locale;
+
 public enum BackPackType
 {
 	BACKPACK_BASIC(2,3, false), 
@@ -11,12 +13,15 @@ public enum BackPackType
 	public final int storageH;
 	public final int storageTotal;
 	public final boolean hasArmorSlot;
+	public final String unlocalizedPostfix;
+	
 	BackPackType(int width, int height, boolean allowsArmor)
 	{
 		storageH = height;
 		storageW = width;
 		storageTotal = height * width;
 		hasArmorSlot = allowsArmor;
+		this.unlocalizedPostfix = name().toLowerCase(Locale.ENGLISH).replaceAll("_", "");
 	}
 	
 	public static BackPackType fromLevel(int level)

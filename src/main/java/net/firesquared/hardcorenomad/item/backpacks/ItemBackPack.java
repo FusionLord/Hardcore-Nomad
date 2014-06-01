@@ -11,6 +11,7 @@ import net.firesquared.hardcorenomad.helpers.enums.Items;
 import net.firesquared.hardcorenomad.tile.TileEntityBackPack;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -95,7 +96,6 @@ public class ItemBackPack extends ItemArmor
 			FMLNetworkHandler.openGui(player, HardcoreNomad.instance, 1, world, 0, 0, 0);
 		}
 		return itemStack;
-		//return super.onItemRightClick(itemStack, world, player);
 	}
 
 	@Override
@@ -127,7 +127,6 @@ public class ItemBackPack extends ItemArmor
 		{
 			if (world.setBlock(x, y, z, bbp, is.getItemDamage(), 3))
 			{
-				//int meta = bbp.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, is.getItemDamage());
 				bbp.onBlockPlacedBy(world, x, y, z, player, is);
 				bbp.onPostBlockPlaced(world, x, y, z, is.getItemDamage());
 				world.playSoundEffect(x+.5f, y, z+.5f, bbp.stepSound.func_150496_b(), 
@@ -159,5 +158,16 @@ public class ItemBackPack extends ItemArmor
 		}
 	}
 	
+	private final String unlocalizedPrefix = "item."+Helper.Strings.MOD_ID + ".backpack.";
+	@Override
+	public String getUnlocalizedName(ItemStack is)
+	{
+		int dmg = is.getItemDamage();
+		BackPackType type = BackPackType.fromLevel(dmg);
+		return unlocalizedPrefix + type.unlocalizedPostfix;
+	}
 	
+	@Override
+	public void registerIcons(IIconRegister par1IconRegister)
+	{	}
 }

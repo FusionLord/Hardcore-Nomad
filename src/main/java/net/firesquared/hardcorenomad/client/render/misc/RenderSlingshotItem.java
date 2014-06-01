@@ -28,14 +28,14 @@ public class RenderSlingshotItem implements IItemRenderer
 	}
 
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
+	public void renderItem(ItemRenderType type, ItemStack itemStack, Object... data)
 	{
 		model = ModelRegistry.getModel(Models.SLINGSHOT);
 		texture = ModelRegistry.getTexture(Models.SLINGSHOT);
 		ModelRegistry.bindTexture(texture);
 
 		GL11.glPushMatrix();
-		GL11.glScalef(.3f, .3f, .3f);
+		GL11.glScalef(.25f, .25f, .25f);
 		GL11.glRotatef(180, 0f, 1f, 0f);
 		model.renderAll();
 		GL11.glPopMatrix();
