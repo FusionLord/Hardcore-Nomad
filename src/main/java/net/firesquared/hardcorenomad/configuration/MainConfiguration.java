@@ -11,6 +11,7 @@ public class MainConfiguration
 	public static boolean CONFIG_STONEBREAKDROPSPEBBLES = true;
 	public static boolean CONFIG_COBBLEBREAKDROPSPEBBLES = true;
 	public static boolean CONFIG_ALTRECIPEFORPEBBLES = false;
+    public static boolean CONFIG_GIVEBACKPACKONSTART = true;
 
 	public static final String CATNAME_HARDCORE = "hardcoresettings";
 
@@ -28,6 +29,7 @@ public class MainConfiguration
 		CONFIG_STONEBREAKDROPSPEBBLES = configuration.get(CATNAME_HARDCORE, "StoneBreakDropsPebbles", true, "Should pebbles drop on Stone Break").getBoolean(true);
 		CONFIG_COBBLEBREAKDROPSPEBBLES = configuration.get(CATNAME_HARDCORE, "CobbleBreakDropsPebbles", true, "Should pebbles drop on Cobblestone Break").getBoolean(true);
 		CONFIG_ALTRECIPEFORPEBBLES = configuration.get(CATNAME_HARDCORE, "AltRecipeForPebbles", false, "Can you craft 9 pebbles from 1 piece of cobblestone").getBoolean(false);
+        CONFIG_GIVEBACKPACKONSTART = configuration.get(CATNAME_HARDCORE, "GiveBackpackOnStart", true, "Give player basic backpack on join and death").getBoolean(true);
 
 		configuration.save();
 	}
