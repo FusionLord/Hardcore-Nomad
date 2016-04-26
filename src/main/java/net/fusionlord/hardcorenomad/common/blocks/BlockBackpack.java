@@ -1,6 +1,5 @@
 package net.fusionlord.hardcorenomad.common.blocks;
 
-import net.fusionlord.hardcorenomad.ModInfo;
 import net.fusionlord.hardcorenomad.common.blocks.properties.EnumUpgrade;
 import net.fusionlord.hardcorenomad.common.tileentity.TileEntityUpgradable;
 import net.minecraft.block.material.Material;
@@ -15,7 +14,7 @@ public class BlockBackpack extends BlockUpgradable
 	public BlockBackpack()
 	{
 		super(Material.cloth, EnumUpgrade.GOLD);
-		setRegistryName(ModInfo.ID, "backpack");
+		setRegistryName("backpack");
 		setUnlocalizedName("backpack");
 	}
 

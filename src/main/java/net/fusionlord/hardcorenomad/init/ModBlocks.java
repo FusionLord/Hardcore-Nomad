@@ -1,6 +1,5 @@
 package net.fusionlord.hardcorenomad.init;
 
-import net.fusionlord.hardcorenomad.ModInfo;
 import net.fusionlord.hardcorenomad.common.blocks.BlockAnvil;
 import net.fusionlord.hardcorenomad.common.blocks.BlockBackpack;
 import net.fusionlord.hardcorenomad.common.blocks.BlockUpgradable;
@@ -16,6 +15,8 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by FusionLord on 4/25/2016.
@@ -27,32 +28,29 @@ public class ModBlocks
 
 	public static void registerBlocks()
 	{
-		for (Field field : ModBlocks.class.getFields())
+		for (Block block : getBlocks())
 		{
-			try
+			if(block instanceof BlockUpgradable)
 			{
-				if (BlockUpgradable.class.isInstance(field.get(ModBlocks.class)))
-				{
-					BlockUpgradable block = (BlockUpgradable) field.get(ModBlocks.class);
-					register(block, new ItemBlockUpgradable(block));
-				}
+				BlockUpgradable blockUpgradable = (BlockUpgradable) block;
+				register(blockUpgradable, new ItemBlockUpgradable(blockUpgradable));
 			}
-			catch(IllegalAccessException e)
+			else
 			{
-				e.printStackTrace();
+				register(block);
 			}
 		}
 	}
 
 	private static void register(Block block)
 	{
-		register(block, new ItemBlock(block));
+		register(block, new ItemBlock(block).setRegistryName(block.getRegistryName()));
 	}
 
 	private static void register(Block block, Item itemBlock)
 	{
 		GameRegistry.register(block);
-		GameRegistry.register(itemBlock.setRegistryName(block.getRegistryName()));
+		GameRegistry.register(itemBlock);
 		if (block instanceof ITileEntityProvider)
 		{
 			GameRegistry.registerTileEntity(((ITileEntityProvider) block).createNewTileEntity(null, 0).getClass(), "tileentity." + block.getRegistryName());
@@ -62,23 +60,16 @@ public class ModBlocks
 
 	public static void registerRenders()
 	{
-		for (Field field : ModBlocks.class.getFields())
+		for(Block block : getBlocks())
 		{
-			try
+			if(block instanceof BlockUpgradable)
 			{
-				if (BlockUpgradable.class.isInstance(field.get(ModBlocks.class)))
+				BlockUpgradable blockUpgradable = (BlockUpgradable) block;
+				for(EnumUpgrade upgrade : blockUpgradable.getValidLevels())
 				{
-					BlockUpgradable block = (BlockUpgradable) field.get(ModBlocks.class);
-					for (EnumUpgrade upgrade : block.getValidLevels())
-					{
-						LogHelper.info("Registering inventory renderer: " + block.getRegistryName());
-						regRender(block, upgrade.ordinal(), "level=" + upgrade.getName());
-					}
+					LogHelper.info("Registering inventory renderer: " + block.getRegistryName() + "#level=" + upgrade.getName());
+					regRender(block, upgrade.ordinal(), "STUPIDVARIANT");
 				}
-			}
-			catch(IllegalAccessException e)
-			{
-				e.printStackTrace();
 			}
 		}
 	}
@@ -86,6 +77,29 @@ public class ModBlocks
 	private static void regRender(Block block, int meta, String variant)
 	{
 		Item item = Item.getItemFromBlock(block);
-		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), variant));
+		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation("hardcorenomad:anvil", variant));
+	}
+
+	private static void regRender(Block block, int meta)
+	{
+		regRender(block, meta, "inventory");
+	}
+
+	private static List<Block> getBlocks()
+	{
+		List<Block> blockList = new ArrayList<Block>();
+		for(Field field : ModBlocks.class.getFields())
+		{
+			try
+			{
+				if (Block.class.isInstance(field.get(ModBlocks.class)))
+					blockList.add((Block) field.get(ModBlocks.class));
+			}
+			catch(IllegalAccessException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return blockList;
 	}
 }

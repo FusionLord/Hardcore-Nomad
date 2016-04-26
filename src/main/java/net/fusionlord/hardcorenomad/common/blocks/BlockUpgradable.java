@@ -163,6 +163,7 @@ public abstract class BlockUpgradable extends BlockContainer
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
+		list.clear();
 		for (EnumUpgrade upgrade : validLevels)
 		{
 			list.add(new ItemStack(this, 1, upgrade.ordinal()));

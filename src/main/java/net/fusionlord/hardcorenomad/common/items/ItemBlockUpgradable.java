@@ -26,6 +26,7 @@ public class ItemBlockUpgradable extends ItemBlock
 		setHasSubtypes(true);
 		setMaxDamage(0);
 		setCreativeTab(ModCreativeTab.INSTANCE);
+		setRegistryName(block.getRegistryName());
 	}
 
 	@Override
@@ -40,9 +41,6 @@ public class ItemBlockUpgradable extends ItemBlock
 	@Override
 	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
 	{
-		for (EnumUpgrade upgrade : ((BlockUpgradable)block).getValidLevels())
-		{
-			subItems.add(new ItemStack(this, 1, upgrade.ordinal()));
-		}
+		block.getSubBlocks(itemIn, tab, subItems);
 	}
 }
