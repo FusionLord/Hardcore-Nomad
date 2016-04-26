@@ -72,7 +72,7 @@ public class ModBlocks
 					for (EnumUpgrade upgrade : block.getValidLevels())
 					{
 						LogHelper.info("Registering inventory renderer: " + block.getRegistryName());
-						ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), upgrade.ordinal(), new ModelResourceLocation(block.getRegistryName(), "level=" + upgrade.getName()));
+						regRender(block, upgrade.ordinal(), "level=" + upgrade.getName());
 					}
 				}
 			}
@@ -81,5 +81,11 @@ public class ModBlocks
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private static void regRender(Block block, int meta, String variant)
+	{
+		Item item = Item.getItemFromBlock(block);
+		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), variant));
 	}
 }
