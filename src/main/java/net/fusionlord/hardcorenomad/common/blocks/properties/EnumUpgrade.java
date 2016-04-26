@@ -3,6 +3,7 @@ package net.fusionlord.hardcorenomad.common.blocks.properties;
 import net.minecraft.util.IStringSerializable;
 
 import java.util.Arrays;
+import java.util.List;
 
 public enum EnumUpgrade implements IStringSerializable
 {
@@ -19,8 +20,8 @@ public enum EnumUpgrade implements IStringSerializable
 		return name().toLowerCase();
 	}
 
-	public static EnumUpgrade[] getLevelsThrough(int range)
+	public static List<EnumUpgrade> getLevelsThrough(int range)
 	{
-		return (EnumUpgrade[]) Arrays.asList(values()).subList(0, range).toArray();
+		return Arrays.asList(values()).subList(0, range + 1);
 	}
 }

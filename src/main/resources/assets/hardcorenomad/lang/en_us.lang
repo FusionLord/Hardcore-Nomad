@@ -1,4 +1,4 @@
-## Hardcore Nomad (Swedish) ##
+## Hardcore Nomad (English) ##
 ##Items##
 item.hardcorenomad.backpackbasic.name=Basic Backpack
 item.hardcorenomad.backpackimproved.name=Improved Backpack
@@ -9,3 +9,25 @@ item.hardcorenomad.firebundle.name=Campfire
 item.hardcorenomad.healingfirstaid.name=First Aid Kit
 item.hardcorenomad.healingherb.name=Healing Herb
 item.hardcorenomad.healingmagicalaid.name=Magic Healing Kit
+
+##Blocks##
+tile.hardcorenomad.anvil.name=Anvil
+tile.hardcorenomad.backpack.name=Backpack
+tile.hardcorenomad.bedroll.name=Bed
+tile.hardcorenomad.campfire.name=Camp Fire
+tile.hardcorenomad.cobblegen.name=Cobble Generator
+tile.hardcorenomad.crafter.name=Crafting Table
+tile.hardcorenomad.enchantingtable.name=Enchanting Table
+
+##ItemGroups##
+itemGroup.hardcorenomad.blocks=Hardcore Nomad: Blocks
+
+##Strings##
+string.tier=Tier
+
+##Tiers##
+tier.wood=1
+tier.stone=2
+tier.iron=3
+tier.gold=4
+tier.diamond=5

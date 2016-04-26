@@ -1,0 +1,26 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "anvil",
+    "textures": {
+      "particle": "blocks/anvil_base",
+      "body": "blocks/anvil_base",
+      "top": "blocks/anvil_top_damaged_0"
+    }
+  },
+  "variants": {
+    "inventory": [{
+      "transform": "forge:default-block"
+    }],
+    "level": {
+      "wood": {
+      }
+    },
+    "facing": {
+      "north": { "y": 270 },
+      "east": { "y": 0 },
+      "south": { "y": 90 },
+      "west": { "y": 180 }
+    }
+  }
+}
