@@ -1,25 +1,34 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "anvil",
-    "textures": {
-      "particle": "blocks/anvil_base",
-      "body": "blocks/anvil_base",
-      "top": "blocks/anvil_top_damaged_1"
-    },
+    "model": "hardcorenomad:backpack/backpack.obj",
     "transform": "forge:default-block"
   },
   "variants": {
     "inventory": [{}],
     "level": {
       "wood": {
+        "textures": { "#backpack": "hardcorenomad:blocks/backpack/backpack1" }
       },
       "stone": {
+        "textures": { "#backpack": "hardcorenomad:blocks/backpack/backpack2" }
       },
       "iron": {
+        "textures": { "#backpack": "hardcorenomad:blocks/backpack/backpack3" },
+        "submodel": {
+          "bedroll": {
+            "model": "hardcorenomad:backpack/backpack_bedroll.obj"
+          }
+        }
       },
       "gold": {
-      }
+        "textures": { "#backpack": "hardcorenomad:blocks/backpack/backpack4" },
+        "submodel": {
+          "bedroll": { "model": "hardcorenomad:backpack/backpack_bedroll.obj" },
+          "matting": { "model": "hardcorenomad:backpack/backpack_matting.obj" }
+        }
+      },
+      "diamond": {}
     },
     "facing": {
       "north": { "y": 270 },

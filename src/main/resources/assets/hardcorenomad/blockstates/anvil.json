@@ -12,6 +12,14 @@
   "variants": {
     "level": {
       "wood": {
+      },
+      "stone": {
+      },
+      "iron": {
+      },
+      "gold": {
+      },
+      "diamond": {
       }
     },
     "facing": {

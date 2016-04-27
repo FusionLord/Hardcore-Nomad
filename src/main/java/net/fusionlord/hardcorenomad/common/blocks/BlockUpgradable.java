@@ -27,11 +27,12 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class BlockUpgradable extends BlockContainer
 {
-	private static PropertyEnum<EnumUpgrade> LEVEL = PropertyEnum.create("level", EnumUpgrade.class);
-	private static PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+	public static PropertyEnum<EnumUpgrade> LEVEL = PropertyEnum.create("level", EnumUpgrade.class);
+	public static PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
 	private List<EnumUpgrade> validLevels;
 
@@ -99,7 +100,6 @@ public abstract class BlockUpgradable extends BlockContainer
 
 	abstract IBlockState getExtendedActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos);
 
-
 	@Override
 	public int damageDropped(IBlockState state)
 	{
@@ -114,14 +114,11 @@ public abstract class BlockUpgradable extends BlockContainer
 		if (tileEntity!= null)
 		{
 			EnumFacing f = placer.getHorizontalFacing().getOpposite();
+			EnumUpgrade l = EnumUpgrade.values()[stack.getMetadata()];
 			tileEntity.setFacing(f);
+			tileEntity.setUpgrade(l);
+			state = state.withProperty(LEVEL, l);
 		}
-	}
-
-	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-	{
-		return super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(LEVEL, EnumUpgrade.values()[meta]);
 	}
 
 	@Override
@@ -163,10 +160,8 @@ public abstract class BlockUpgradable extends BlockContainer
 	@Override
 	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list)
 	{
-		list.clear();
-		for (EnumUpgrade upgrade : validLevels)
-		{
-			list.add(new ItemStack(this, 1, upgrade.ordinal()));
-		}
+		list.addAll(validLevels.stream().map(upgrade -> new ItemStack(this, 1, upgrade.ordinal())).collect(Collectors.toList()));
 	}
+
+
 }
