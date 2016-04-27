@@ -2,6 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "model": "hardcorenomad:backpack/backpack.obj",
+    "custom": { "flip-v": true },
     "transform": "forge:default-block"
   },
   "variants": {

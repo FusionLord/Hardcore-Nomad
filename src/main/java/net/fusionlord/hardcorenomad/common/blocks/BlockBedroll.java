@@ -14,7 +14,7 @@ public class BlockBedroll extends BlockUpgradable
 {
 	public BlockBedroll()
 	{
-		super(Material.cloth, EnumUpgrade.IRON);
+		super(Material.cloth, EnumUpgrade.DIAMOND);
 		setRegistryName(ModInfo.ID, "bedroll");
 		setUnlocalizedName("bedroll");
 	}

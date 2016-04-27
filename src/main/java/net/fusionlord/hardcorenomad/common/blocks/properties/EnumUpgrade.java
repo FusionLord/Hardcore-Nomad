@@ -2,6 +2,7 @@ package net.fusionlord.hardcorenomad.common.blocks.properties;
 
 import net.minecraft.util.IStringSerializable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

@@ -32,7 +32,7 @@ public class ModBlocks
 {
 //	public final static BlockAnvil anvil = new BlockAnvil();
 	public final static BlockBackpack backpack = new BlockBackpack();
-//	public final static BlockBedroll bedroll = new BlockBedroll();
+	public final static BlockBedroll bedroll = new BlockBedroll();
 //	public final static BlockCampFire campfire = new BlockCampFire();
 //	public final static BlockCobbleGenerator cobbleGen = new BlockCobbleGenerator();
 //	public final static BlockCrafter crafter = new BlockCrafter();

@@ -1,6 +1,7 @@
 package net.fusionlord.hardcorenomad.common.tileentity;
 
 import net.fusionlord.hardcorenomad.common.blocks.properties.EnumUpgrade;
+import net.fusionlord.hardcorenomad.util.LogHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -10,8 +11,8 @@ import net.minecraft.util.EnumFacing;
 
 public abstract class TileEntityUpgradable extends TileEntity
 {
-	protected EnumUpgrade upgrade;
-	protected EnumFacing facing;
+	private EnumUpgrade upgrade;
+	private EnumFacing facing;
 
 	public TileEntityUpgradable(EnumFacing facing, EnumUpgrade upgrade)
 	{
@@ -48,14 +49,21 @@ public abstract class TileEntityUpgradable extends TileEntity
 	public final void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);
+		readData(compound);
+		markDirty();
 	}
 
-	public final void readData(NBTTagCompound compound)
+	private final void readData(NBTTagCompound compound)
 	{
 		if (compound.hasKey("facing"))
+		{
 			facing = EnumFacing.values()[compound.getInteger("facing")];
+		}
 		if (compound.hasKey("upgrade"))
+		{
 			upgrade = EnumUpgrade.values()[compound.getInteger("upgrade")];
+			LogHelper.info("Reading upgrade level: " + upgrade.getName());
+		}
 		readExtraData(compound);
 	}
 
@@ -68,12 +76,17 @@ public abstract class TileEntityUpgradable extends TileEntity
 		writeData(compound);
 	}
 
-	protected final void writeData(NBTTagCompound compound)
+	private final void writeData(NBTTagCompound compound)
 	{
 		if (facing != null)
+		{
 			compound.setInteger("facing", facing.ordinal());
+		}
 		if (upgrade != null)
+		{
 			compound.setInteger("upgrade", upgrade.ordinal());
+			LogHelper.info("Saving upgrade level: " + upgrade.getName());
+		}
 		writeExtraData(compound);
 	}
 

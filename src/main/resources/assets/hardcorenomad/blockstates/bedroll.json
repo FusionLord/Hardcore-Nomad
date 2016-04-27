@@ -1,0 +1,79 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "hardcorenomad:bedroll/bedroll.obj",
+    "textures": { "bedroll": "hardcorenomad:blocks/bedroll/bedroll" },
+    "custom": { "flip-v": true },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "inventory": [{}],
+    "level": {
+      "wood": {},
+      "stone": {
+        "submodel": {
+          "matting": {
+            "model": "hardcorenomad:bedroll/matting.obj",
+            "custom": { "flip-v": true }
+          }
+        }
+      },
+      "iron": {
+        "submodel": {
+          "matting": {
+            "model": "hardcorenomad:bedroll/matting.obj",
+            "custom": { "flip-v": true }
+          },
+          "pillow": {
+            "model": "hardcorenomad:bedroll/pillow.obj",
+            "custom": { "flip-v": true }
+          }
+        }
+      },
+      "gold": {
+        "submodel": {
+          "matting": {
+            "model": "hardcorenomad:bedroll/matting.obj",
+            "custom": { "flip-v": true }
+          },
+          "pillow": {
+            "model": "hardcorenomad:bedroll/pillow.obj",
+            "custom": { "flip-v": true }
+          },
+          "leanto": {
+            "model": "hardcorenomad:bedroll/leanto.obj",
+            "custom": { "flip-v": true }
+          }
+        }
+      },
+      "diamond": {
+        "submodel": {
+          "matting": {
+            "model": "hardcorenomad:bedroll/matting.obj",
+            "custom": {
+              "flip-v": true
+            }
+          },
+          "pillow": {
+            "model": "hardcorenomad:bedroll/pillow.obj",
+            "custom": {
+              "flip-v": true
+            }
+          },
+          "tent": {
+            "model": "hardcorenomad:bedroll/tent.obj",
+            "custom": {
+              "flip-v": true
+            }
+          }
+        }
+      }
+    },
+    "facing": {
+      "north": { "y": 270 },
+      "east": { "y": 0 },
+      "south": { "y": 90 },
+      "west": { "y": 180 }
+    }
+  }
+}

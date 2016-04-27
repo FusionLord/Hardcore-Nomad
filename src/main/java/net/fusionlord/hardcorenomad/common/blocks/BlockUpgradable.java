@@ -93,9 +93,7 @@ public abstract class BlockUpgradable extends BlockContainer
 
 		blockState = getExtendedActualState(state, worldIn, pos);
 		if (blockState == null) blockState = super.getActualState(state, worldIn, pos);
-		blockState = blockState.withProperty(LEVEL, tileEntityUpgradable.getUpgrade()).withProperty(FACING, tileEntityUpgradable.getFacing());
-		LogHelper.info(blockState);
-		return blockState;
+		return blockState.withProperty(LEVEL, tileEntityUpgradable.getUpgrade()).withProperty(FACING, tileEntityUpgradable.getFacing());
 	}
 
 	abstract IBlockState getExtendedActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos);
@@ -117,7 +115,8 @@ public abstract class BlockUpgradable extends BlockContainer
 			EnumUpgrade l = EnumUpgrade.values()[stack.getMetadata()];
 			tileEntity.setFacing(f);
 			tileEntity.setUpgrade(l);
-			state = state.withProperty(LEVEL, l);
+			tileEntity.markDirty();
+			LogHelper.info("TileEntityInfo set!");
 		}
 	}
 
