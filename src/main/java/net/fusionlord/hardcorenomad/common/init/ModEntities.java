@@ -1,4 +1,4 @@
-package net.fusionlord.hardcorenomad.init;
+package net.fusionlord.hardcorenomad.common.init;
 
 /**
  * Created by FusionLord on 4/26/2016.

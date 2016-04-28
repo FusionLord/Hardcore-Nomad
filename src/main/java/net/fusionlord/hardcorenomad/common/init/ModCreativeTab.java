@@ -1,4 +1,4 @@
-package net.fusionlord.hardcorenomad.init;
+package net.fusionlord.hardcorenomad.common.init;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;

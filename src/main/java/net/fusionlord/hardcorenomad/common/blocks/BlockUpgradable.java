@@ -6,7 +6,7 @@ import net.fusionlord.hardcorenomad.common.blocks.properties.EnumUpgrade;
 import net.fusionlord.hardcorenomad.common.tileentity.TileEntityUpgradable;
 import net.fusionlord.hardcorenomad.common.tileentity.TileEntityUpgradableGeneric;
 import net.fusionlord.hardcorenomad.common.tileentity.util.TileEntityUtils;
-import net.fusionlord.hardcorenomad.init.ModCreativeTab;
+import net.fusionlord.hardcorenomad.common.init.ModCreativeTab;
 import net.fusionlord.hardcorenomad.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -26,8 +26,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -173,6 +171,5 @@ public abstract class BlockUpgradable extends BlockContainer
 
 	public abstract Class getTileEntityClass();
 
-	@SideOnly(Side.CLIENT)
 	public abstract TESRWRMRL getRender();
 }

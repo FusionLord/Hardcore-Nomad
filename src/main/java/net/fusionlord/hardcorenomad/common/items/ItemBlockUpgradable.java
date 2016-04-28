@@ -1,9 +1,8 @@
 package net.fusionlord.hardcorenomad.common.items;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import net.fusionlord.hardcorenomad.common.blocks.BlockUpgradable;
 import net.fusionlord.hardcorenomad.common.blocks.properties.EnumUpgrade;
-import net.fusionlord.hardcorenomad.init.ModCreativeTab;
+import net.fusionlord.hardcorenomad.common.init.ModCreativeTab;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;

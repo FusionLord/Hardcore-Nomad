@@ -22,7 +22,6 @@ import java.util.Random;
 
 public class BlockEnchantingTable extends BlockUpgradable
 {
-	TESREnchantingTable renderer;
 	public BlockEnchantingTable()
 	{
 		super(Material.wood, EnumUpgrade.DIAMOND);
@@ -55,19 +54,12 @@ public class BlockEnchantingTable extends BlockUpgradable
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public TESRWRMRL getRender()
 	{
-		if (renderer == null)
-		{
-			renderer = new TESREnchantingTable();
-		}
-		return renderer;
+		return new TESREnchantingTable();
 	}
 
 
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings("incomplete-switch")
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand)
 	{
 		IBlockState blockState = state.getActualState(world, pos);

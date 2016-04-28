@@ -1,9 +1,10 @@
 package net.fusionlord.hardcorenomad.proxy;
 
 import net.fusionlord.hardcorenomad.ModInfo;
-import net.fusionlord.hardcorenomad.init.ModBlocks;
-import net.fusionlord.hardcorenomad.init.ModEntities;
-import net.fusionlord.hardcorenomad.init.ModItems;
+import net.fusionlord.hardcorenomad.client.init.ModBlocksRendering;
+import net.fusionlord.hardcorenomad.common.init.ModBlocks;
+import net.fusionlord.hardcorenomad.common.init.ModEntities;
+import net.fusionlord.hardcorenomad.common.init.ModItems;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -16,8 +17,8 @@ public class ClientProxy extends CommonProxy
 	{
 		super.preInit(event);
 		OBJLoader.INSTANCE.addDomain(ModInfo.ID);
-		ModBlocks.registerRenders();
-		ModBlocks.registerTESRS();
+		ModBlocksRendering.registerRenders();
+		ModBlocksRendering.registerTESRS();
 		ModItems.registerRenders();
 		ModEntities.registerRenders();
 	}

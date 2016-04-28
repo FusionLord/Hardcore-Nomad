@@ -48,7 +48,6 @@ public class BlockCrafter extends BlockUpgradable
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public TESRWRMRL getRender()
 	{
 		return null;

@@ -13,24 +13,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.client.model.obj.OBJModel;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 import java.util.function.Function;
 
-@SideOnly(Side.CLIENT)
 public class TESREnchantingTable extends TESRWRMRL<TileEntityEnchantingTable>
 {
 	private OBJModel.OBJBakedModel bookModel;
 	private OBJModel.OBJBakedModel ringModel;
 	private final ResourceLocation texture = new ResourceLocation(ModInfo.ID, "textures/blocks/enchanter/enchanter");
 	private final Function<ResourceLocation, TextureAtlasSprite> textureGetter = location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
-
-	public TESREnchantingTable()
-	{
-		super();
-
-	}
 
 	@Override
 	public void onResourceManagerReload(IResourceManager resourceManager)
@@ -63,12 +53,6 @@ public class TESREnchantingTable extends TESRWRMRL<TileEntityEnchantingTable>
 			renderRing(partialTicks);
 		}
 		GlStateManager.popMatrix();
-	}
-
-	@Override
-	public boolean isGlobalRenderer(TileEntityEnchantingTable p_188185_1_)
-	{
-		return true;
 	}
 
 	private void renderBook(TileEntityEnchantingTable table, float partialTicks)

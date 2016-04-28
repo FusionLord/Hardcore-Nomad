@@ -1,4 +1,4 @@
-package net.fusionlord.hardcorenomad.init;
+package net.fusionlord.hardcorenomad.common.init;
 
 public class ModItems
 {
