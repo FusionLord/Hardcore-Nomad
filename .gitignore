@@ -13,4 +13,5 @@
 !/build.sh
 !/gradle.properties
 !/webresources
+!/run/logs
 .DS_Store
