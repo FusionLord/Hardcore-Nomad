@@ -1,0 +1,205 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "hardcorenomad:enchanter/table.obj",
+    "custom": {
+      "flip-v": true
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "inventory": [
+      {}
+    ],
+    "level": {
+      "wood": {
+      },
+      "stone": {
+        "submodel": {
+          "books1": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.65, 0.48, 0.55 ] },
+            "custom": { "flip-v": true }
+          },
+          "books2": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.65, 0.11, 0.02 ] },
+            "custom": { "flip-v": true }
+          },
+          "books3": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.02, 0.11, 0.55 ] },
+            "custom": { "flip-v": true }
+          },
+          "books4": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.02, 0.48, 0.02 ] },
+            "custom": { "flip-v": true }
+          }
+        }
+      },
+      "iron": {
+        "submodel": {
+          "books1": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.65, 0.48, 0.55 ] },
+            "custom": { "flip-v": true }
+          },
+          "books2": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.65, 0.48, 0.02 ] },
+            "custom": { "flip-v": true }
+          },
+          "books3": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.02, 0.11, 0.55 ] },
+            "custom": { "flip-v": true }
+          },
+          "books4": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.02, 0.11, 0.02 ] },
+            "custom": { "flip-v": true }
+          },
+          "books5": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.65, 0.11, 0.55 ] },
+            "custom": { "flip-v": true }
+          },
+          "books6": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.65, 0.11, 0.02 ] },
+            "custom": { "flip-v": true }
+          },
+          "books7": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.02, 0.48, 0.55 ] },
+            "custom": { "flip-v": true }
+          },
+          "books8": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.02, 0.48, 0.02 ] },
+            "custom": { "flip-v": true }
+          }
+        }
+      },
+      "gold": {
+        "submodel": {
+          "books1": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.65, 0.48, 0.55 ] },
+            "custom": { "flip-v": true }
+          },
+          "books2": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.65, 0.48, 0.02 ] },
+            "custom": { "flip-v": true }
+          },
+          "books3": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.02, 0.11, 0.55 ] },
+            "custom": { "flip-v": true }
+          },
+          "books4": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.02, 0.11, 0.02 ] },
+            "custom": { "flip-v": true }
+          },
+          "books5": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.65, 0.11, 0.55 ] },
+            "custom": { "flip-v": true }
+          },
+          "books6": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.65, 0.11, 0.02 ] },
+            "custom": { "flip-v": true }
+          },
+          "books7": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.02, 0.48, 0.55 ] },
+            "custom": { "flip-v": true }
+          },
+          "books8": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.02, 0.48, 0.02 ] },
+            "custom": { "flip-v": true }
+          },
+          "ring": {
+            "model": "hardcorenomad:enchanter/ring.obj",
+            "transform": { "translation": [ 0.5, 1.01, 0.5 ] },
+            "custom": { "flip-v": true }
+          }
+        }
+      },
+      "diamond": {
+        "submodel": {
+          "books1": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.65, 0.48, 0.55 ] },
+            "custom": { "flip-v": true }
+          },
+          "books2": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.65, 0.48, 0.02 ] },
+            "custom": { "flip-v": true }
+          },
+          "books3": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.02, 0.11, 0.55 ] },
+            "custom": { "flip-v": true }
+          },
+          "books4": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.02, 0.11, 0.02 ] },
+            "custom": { "flip-v": true }
+          },
+          "books5": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.65, 0.11, 0.55 ] },
+            "custom": { "flip-v": true }
+          },
+          "books6": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.65, 0.11, 0.02 ] },
+            "custom": { "flip-v": true }
+          },
+          "books7": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.02, 0.48, 0.55 ] },
+            "custom": { "flip-v": true }
+          },
+          "books8": {
+            "model": "hardcorenomad:enchanter/books.obj",
+            "transform": { "translation": [ 0.02, 0.48, 0.02 ] },
+            "custom": { "flip-v": true }
+          },
+          "candle1": {
+            "model": "hardcorenomad:enchanter/candle.obj",
+            "transform": { "translation": [ 0.16, 1.01, 0.85 ] },
+            "custom": { "flip-v": true }
+          },
+          "candle2": {
+            "model": "hardcorenomad:enchanter/candle.obj",
+            "transform": { "translation": [ 0.24, 1.01, 0.16 ] },
+            "custom": { "flip-v": true }
+          }
+
+        }
+      }
+    },
+    "facing": {
+      "north": {
+        "y": 270
+      },
+      "east": {
+        "y": 0
+      },
+      "south": {
+        "y": 90
+      },
+      "west": {
+        "y": 180
+      }
+    }
+  }
+}

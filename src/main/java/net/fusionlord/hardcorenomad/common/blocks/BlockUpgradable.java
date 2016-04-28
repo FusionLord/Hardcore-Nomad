@@ -1,6 +1,7 @@
 package net.fusionlord.hardcorenomad.common.blocks;
 
 import net.fusionlord.hardcorenomad.ModInfo;
+import net.fusionlord.hardcorenomad.client.render.tileentity.TESRWRMRL;
 import net.fusionlord.hardcorenomad.common.blocks.properties.EnumUpgrade;
 import net.fusionlord.hardcorenomad.common.tileentity.TileEntityUpgradable;
 import net.fusionlord.hardcorenomad.common.tileentity.TileEntityUpgradableGeneric;
@@ -25,6 +26,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -145,6 +148,12 @@ public abstract class BlockUpgradable extends BlockContainer
 	}
 
 	@Override
+	public boolean isFullCube(IBlockState state)
+	{
+		return false;
+	}
+
+	@Override
 	public boolean isBlockNormalCube(IBlockState state)
 	{
 		return false;
@@ -162,5 +171,8 @@ public abstract class BlockUpgradable extends BlockContainer
 		list.addAll(validLevels.stream().map(upgrade -> new ItemStack(this, 1, upgrade.ordinal())).collect(Collectors.toList()));
 	}
 
+	public abstract Class getTileEntityClass();
 
+	@SideOnly(Side.CLIENT)
+	public abstract TESRWRMRL getRender();
 }
