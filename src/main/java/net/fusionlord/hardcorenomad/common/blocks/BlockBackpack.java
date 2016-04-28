@@ -29,12 +29,6 @@ public class BlockBackpack extends BlockUpgradable
 	}
 
 	@Override
-	TileEntityUpgradable createNewExtendedTileEntity(World worldIn, int meta)
-	{
-		return null;
-	}
-
-	@Override
 	IBlockState getExtendedActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
 		return null;

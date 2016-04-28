@@ -10,7 +10,7 @@ import java.util.Random;
 public class TileEntityEnchantingTable extends TileEntityUpgradable implements ITickable
 {
 	public int tickCount;
-	public int bookRotation, prevBookRotation;
+	public float bookRotation, prevBookRotation;
 	private Random rand = null;
 	private float angle = 0f;
 

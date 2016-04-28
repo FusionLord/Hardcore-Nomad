@@ -5,7 +5,6 @@ import net.fusionlord.hardcorenomad.client.render.tileentity.TESREnchantingTable
 import net.fusionlord.hardcorenomad.client.render.tileentity.TESRWRMRL;
 import net.fusionlord.hardcorenomad.common.blocks.properties.EnumUpgrade;
 import net.fusionlord.hardcorenomad.common.tileentity.TileEntityEnchantingTable;
-import net.fusionlord.hardcorenomad.common.tileentity.TileEntityUpgradable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -15,8 +14,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
@@ -31,12 +28,6 @@ public class BlockEnchantingTable extends BlockUpgradable
 
 	@Override
 	BlockStateContainer createExtendedBlockState()
-	{
-		return null;
-	}
-
-	@Override
-	TileEntityUpgradable createNewExtendedTileEntity(World worldIn, int meta)
 	{
 		return null;
 	}

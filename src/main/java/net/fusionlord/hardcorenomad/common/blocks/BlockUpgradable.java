@@ -74,15 +74,20 @@ public abstract class BlockUpgradable extends BlockContainer
 	@Override
 	public final TileEntity createNewTileEntity(World worldIn, int meta)
 	{
-		TileEntityUpgradable tileEntity = createNewExtendedTileEntity(worldIn, meta);
-		if (tileEntity == null)
+		try
 		{
-			tileEntity = new TileEntityUpgradableGeneric();
+			return (TileEntity) getTileEntityClass().newInstance();
 		}
-		return tileEntity;
+		catch(InstantiationException e)
+		{
+			e.printStackTrace();
+		}
+		catch(IllegalAccessException e)
+		{
+			e.printStackTrace();
+		}
+		return new TileEntityUpgradableGeneric();
 	}
-
-	abstract TileEntityUpgradable createNewExtendedTileEntity(World worldIn, int meta);
 
 	@Override
 	public final IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)

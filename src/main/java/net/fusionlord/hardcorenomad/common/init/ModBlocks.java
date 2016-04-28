@@ -19,6 +19,8 @@ import java.util.List;
  */
 public class ModBlocks
 {
+	private static List<Block> blockList;
+
 	public final static BlockAnvil anvil = new BlockAnvil();
 	public final static BlockBackpack backpack = new BlockBackpack();
 	public final static BlockBedroll bedroll = new BlockBedroll();
@@ -64,7 +66,8 @@ public class ModBlocks
 
 	public static List<Block> getBlocks()
 	{
-		List<Block> blockList = new ArrayList<>();
+		if (blockList != null) return blockList;
+		blockList = new ArrayList<>();
 		for(Field field : ModBlocks.class.getFields())
 		{
 			try
