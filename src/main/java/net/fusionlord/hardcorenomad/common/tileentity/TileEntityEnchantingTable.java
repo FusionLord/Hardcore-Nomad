@@ -15,13 +15,13 @@ public class TileEntityEnchantingTable extends TileEntityUpgradable implements I
 	private float angle = 0f;
 
 	@Override
-	void readExtraData(NBTTagCompound compound)
+	public void readExtraData(NBTTagCompound compound)
 	{
 
 	}
 
 	@Override
-	void writeExtraData(NBTTagCompound compound)
+	public void writeExtraData(NBTTagCompound compound)
 	{
 
 	}
@@ -64,12 +64,9 @@ public class TileEntityEnchantingTable extends TileEntityUpgradable implements I
 			angle += ((float)Math.PI * 2F);
 		}
 
-		float f2;
+		float f2 = angle - this.bookRotation;
 
-		for (f2 = angle - this.bookRotation; f2 >= (float)Math.PI; f2 -= ((float)Math.PI * 2F))
-		{
-			;
-		}
+		while(f2 >= (float)Math.PI) {f2 -= ((float) Math.PI * 2F);}
 
 		while (f2 < -(float)Math.PI)
 		{

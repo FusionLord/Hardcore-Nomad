@@ -2,6 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "model": "hardcorenomad:enchanter/table.obj",
+    "transform": { "scale": 0.005 },
     "custom": {
       "flip-v": true
     }

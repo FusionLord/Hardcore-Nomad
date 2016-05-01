@@ -62,12 +62,12 @@ public abstract class TileEntityUpgradable extends TileEntity
 		if (compound.hasKey("upgrade"))
 		{
 			upgrade = EnumUpgrade.values()[compound.getInteger("upgrade")];
-			LogHelper.info("Reading upgrade level: " + upgrade.getName());
+			LogHelper.debug("Reading upgrade level: " + upgrade.getName());
 		}
 		readExtraData(compound);
 	}
 
-	abstract void readExtraData(NBTTagCompound compound);
+	public abstract void readExtraData(NBTTagCompound compound);
 
 	@Override
 	public final void writeToNBT(NBTTagCompound compound)
@@ -85,12 +85,12 @@ public abstract class TileEntityUpgradable extends TileEntity
 		if (upgrade != null)
 		{
 			compound.setInteger("upgrade", upgrade.ordinal());
-			LogHelper.info("Saving upgrade level: " + upgrade.getName());
+			LogHelper.debug("Saving upgrade level: " + upgrade.getName());
 		}
 		writeExtraData(compound);
 	}
 
-	abstract void writeExtraData(NBTTagCompound compound);
+	public abstract void writeExtraData(NBTTagCompound compound);
 
 	@Override
 	public Packet<?> getDescriptionPacket()

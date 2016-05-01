@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "level": {
+      "wood": {
+      },
+      "stone": {
+      },
+      "iron": {
+      },
+      "gold": {
+      },
+      "diamond": {
+      }
+    },
+    "facing": {
+      "north": {},
+      "east": { "y": 90 },
+      "south": { "y": 180 },
+      "west": { "y": 270 }
+    }
+  }
+}

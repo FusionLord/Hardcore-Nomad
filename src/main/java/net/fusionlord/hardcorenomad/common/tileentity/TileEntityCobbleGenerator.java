@@ -5,13 +5,13 @@ import net.minecraft.nbt.NBTTagCompound;
 public class TileEntityCobbleGenerator extends TileEntityUpgradable
 {
 	@Override
-	void readExtraData(NBTTagCompound compound)
+	public void readExtraData(NBTTagCompound compound)
 	{
 
 	}
 
 	@Override
-	void writeExtraData(NBTTagCompound compound)
+	public void writeExtraData(NBTTagCompound compound)
 	{
 
 	}

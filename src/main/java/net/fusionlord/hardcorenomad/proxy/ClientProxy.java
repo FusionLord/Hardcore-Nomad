@@ -18,7 +18,6 @@ public class ClientProxy extends CommonProxy
 		super.preInit(event);
 		OBJLoader.INSTANCE.addDomain(ModInfo.ID);
 		ModBlocksRendering.registerRenders();
-		ModBlocksRendering.registerTESRS();
 		ModItems.registerRenders();
 		ModEntities.registerRenders();
 	}
@@ -27,6 +26,7 @@ public class ClientProxy extends CommonProxy
 	public void init(FMLInitializationEvent event)
 	{
 		super.init(event);
+		ModBlocksRendering.registerTESRS();
 	}
 
 	@Override

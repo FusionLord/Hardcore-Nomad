@@ -1,6 +1,7 @@
 package net.fusionlord.hardcorenomad.util;
 
 import net.fusionlord.hardcorenomad.ModInfo;
+import net.minecraftforge.classloading.FMLForgePlugin;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
@@ -13,8 +14,8 @@ public class LogHelper {
 		log(Level.ALL, object);
 	}
 
-	public static void debug(Object object) {
-		log(Level.DEBUG, object);
+	public static void info(Object object) {
+		log(Level.INFO, object);
 	}
 
 	public static void trace(Object object) {
@@ -33,8 +34,9 @@ public class LogHelper {
 		log(Level.WARN, object);
 	}
 
-	public static void info(Object object) {
-		log(Level.INFO, object);
+	public static void debug(Object object) {
+		if (FMLForgePlugin.RUNTIME_DEOBF)
+			log(Level.DEBUG, object);
 	}
 
 	public static void off(Object object) {

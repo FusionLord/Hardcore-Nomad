@@ -15,8 +15,8 @@ public class TileEntityUpgradableGeneric extends TileEntityUpgradable
 	}
 
 	@Override
-	void readExtraData(NBTTagCompound compound) {}
+	public void readExtraData(NBTTagCompound compound) {}
 
 	@Override
-	void writeExtraData(NBTTagCompound compound) {}
+	public void writeExtraData(NBTTagCompound compound) {}
 }

@@ -14,9 +14,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by FusionLord on 4/25/2016.
- */
 public class ModBlocks
 {
 	private static List<Block> blockList;
@@ -52,7 +49,7 @@ public class ModBlocks
 
 	private static void register(Block block, Item itemBlock)
 	{
-		LogHelper.info("Registering block object: " + block.getRegistryName());
+		LogHelper.debug("Registering block object: " + block.getRegistryName());
 		GameRegistry.register(block);
 		GameRegistry.register(itemBlock);
 		if (block instanceof ITileEntityProvider)
@@ -60,7 +57,7 @@ public class ModBlocks
 			BlockUpgradable blockUpgradable = (BlockUpgradable) block;
 			Class tileEntityClass = blockUpgradable.getTileEntityClass();
 			GameRegistry.registerTileEntity(tileEntityClass, "tileentity." + block.getRegistryName());
-			LogHelper.info("Registering TE object for: " + blockUpgradable + " as " + tileEntityClass.getName());
+			LogHelper.debug("Registering TE object for: " + blockUpgradable + " as " + tileEntityClass.getName());
 		}
 	}
 

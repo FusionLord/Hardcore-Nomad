@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.apache.commons.lang3.tuple.Pair;
@@ -20,9 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by FusionLord on 4/27/2016.
- */
 public class ModBlocksRendering
 {
 	public static void registerTESRS()
@@ -33,11 +31,11 @@ public class ModBlocksRendering
 			{
 				Class tileEntityClass = blockUpgradable.getTileEntityClass();
 				ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, blockUpgradable.getRender());
-				LogHelper.info("Registering TESR for: " + blockUpgradable + " as " + TileEntityRendererDispatcher.instance.getSpecialRendererByClass(tileEntityClass).getClass().getName());
+				LogHelper.debug("Registering TESR for: " + blockUpgradable + " as " + TileEntityRendererDispatcher.instance.getSpecialRendererByClass(tileEntityClass).getClass().getName());
 			}
 			else
 			{
-				LogHelper.info("Failed to register TESR for: " + blockUpgradable);
+				LogHelper.debug("Failed to register TESR for: " + blockUpgradable);
 			}
 		});
 	}
@@ -51,7 +49,11 @@ public class ModBlocksRendering
 				BlockUpgradable blockUpgradable = (BlockUpgradable) block;
 				for(EnumUpgrade upgrade : blockUpgradable.getValidLevels())
 				{
-					regRender(block, upgrade.ordinal(), blockstateToVariant(block.getDefaultState().withProperty(BlockUpgradable.LEVEL, upgrade).withProperty(BlockUpgradable.FACING, EnumFacing.SOUTH)));
+					IBlockState state = block.getDefaultState()
+							.withProperty(BlockUpgradable.LEVEL, upgrade)
+							.withProperty(BlockUpgradable.FACING, EnumFacing.SOUTH);
+					LogHelper.debug(">>>> Item Render state: " + state);
+					regRender(block, upgrade.ordinal(), block.getRegistryName().toString().replace(":", ":items/"), blockstateToVariant(state));
 				}
 			}
 			else
@@ -85,8 +87,23 @@ public class ModBlocksRendering
 
 	private static void regRender(Block block, int meta, String variant)
 	{
+		regRender(block, meta, block.getRegistryName(), variant);
+	}
+
+	private static void regRender(Block block, int meta, ResourceLocation file, String variant)
+	{
+		regRender(block, meta, file.toString(), variant);
+	}
+
+	private static void regRender(Block block, int meta, String file, String variant)
+	{
+		regRender(block, meta, new ModelResourceLocation(file, variant));
+	}
+
+	private static void regRender(Block block, int meta, ModelResourceLocation modelResourceLocation)
+	{
 		Item item = Item.getItemFromBlock(block);
-		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), variant));
+		ModelLoader.setCustomModelResourceLocation(item, meta, modelResourceLocation);
 	}
 
 	private static String blockstateToVariant(IBlockState state)
